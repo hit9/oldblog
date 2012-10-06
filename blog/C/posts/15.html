@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>C语言stat()</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<script type="text/javascript">
+function pagenum()
+{
+	return parseInt(pagename());
+}
+function pagename()
+{
+	var str=window.location.href;
+	 return str.slice(str.lastIndexOf('/')+1,str.lastIndexOf('.'));
+}
+function gotopre()
+{
+	var name=pagename();
+	if(name=='index')
+	{
+		alert('No Pre Page!');
+		return false;
+	}
+	var n=parseInt(name);
+	location.href=(n==2)?'index.html':n-1+'.html';
+}
+function gotonext()
+{
+	var name=pagename();
+	var link=(name=='index')?'2.html':parseInt(name)+1+'.html';
+	// Through ajax to know if link exists 
+	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==404)
+		{
+			alert('No Next Page!');
+			return false;
+		}
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			location.href=link;
+		}
+	}
+	xmlhttp.open("GET",link,true);
+	xmlhttp.send();
+}
+function path()
+{
+	var args = arguments,
+		result = []
+			;
+
+	for(var i = 0; i < args.length; i++)
+		result.push(args[i].replace('@', '%root_path%scripts/'));
+
+	return result
+};
+</script>
+</head>
+<body>
+<div id="top">
+<div id="top1">
+<a href="/index.html">Hit9</a>
+<a href="/blog/index.html">Blog</a>
+<a href="/wiki/index.html">Wiki</a>
+<a href="/project/index.html">Project</a>
+<a href="/links.html">Links</a>
+<a href="/About.html" rel="author">About</a>
+</div>
+<div id="top2">
+Page:
+<a href="index.html">First</a>
+<a href="../index.html">UP</a>
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+</div>
+</div>
+<h1>C语言stat()</h1>
+<p>Date:2012-09-20 </p>
+<div class="codehilite"><pre><span class="cp">#include &lt;sys/stat.h&gt;      </span>
+<span class="cp">#include &lt;sys/types.h&gt;          </span>
+<span class="cp">#include &lt;stdio.h&gt; </span>
+
+<span class="cp">#define  FILENAME &quot;/usr/&quot;      </span>
+
+<span class="kt">void</span> <span class="n">file_stat</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span> <span class="n">filename</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">file_stat</span><span class="p">(</span><span class="n">FILENAME</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">file_stat</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span> <span class="n">filename</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">struct</span> <span class="n">stat</span> <span class="n">stat_p</span><span class="p">;</span>      
+
+  <span class="n">stat</span> <span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">stat_p</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;This will print several tests on your file </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;The answer is in boolean </span><span class="se">\n</span><span class="s"> 0 - No </span><span class="se">\n</span><span class="s"> 1 - yes</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">Is it </span><span class="se">\n\t</span><span class="s">exsits ?</span><span class="se">\t\t</span><span class="s">%d </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">S_ISREG</span><span class="p">(</span><span class="n">stat_p</span><span class="p">.</span><span class="n">st_mode</span><span class="p">));</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">Directory ?     </span><span class="se">\t</span><span class="s">%d </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">S_ISDIR</span><span class="p">(</span><span class="n">stat_p</span><span class="p">.</span><span class="n">st_mode</span><span class="p">));</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">Charecter Device  </span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">S_ISCHR</span><span class="p">(</span><span class="n">stat_p</span><span class="p">.</span><span class="n">st_mode</span><span class="p">));</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">block device?   </span><span class="se">\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">S_ISBLK</span><span class="p">(</span><span class="n">stat_p</span><span class="p">.</span><span class="n">st_mode</span><span class="p">));</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">FIFO (named pipe)? </span><span class="se">\t</span><span class="s">%d </span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">S_ISFIFO</span><span class="p">(</span><span class="n">stat_p</span><span class="p">.</span><span class="n">st_mode</span><span class="p">));</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">socket?     </span><span class="se">\t\t</span><span class="s">%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">S_ISSOCK</span><span class="p">(</span><span class="n">stat_p</span><span class="p">.</span><span class="n">st_mode</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>判断一个路径的存在性可以:</p>
+<div class="codehilite"><pre><span class="n">S_ISREG</span><span class="p">(</span><span class="n">stat_p</span><span class="p">.</span><span class="n">st_mode</span><span class="p">)</span> <span class="o">||</span> <span class="n">S_ISDIR</span><span class="p">(</span><span class="n">stat_p</span><span class="p">.</span><span class="n">st_mode</span><span class="p">)</span>
+</pre></div>
+<div id="foot">
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="#">Top</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+</div>
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hit9github"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- Duoshuo Comment END -->
+<div style = "text-align:center; ">
+	<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+</div>
+</body>
+</html>

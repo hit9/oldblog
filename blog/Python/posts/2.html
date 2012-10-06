@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>用python把markdown中的代码高亮</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<script type="text/javascript">
+function pagenum()
+{
+	return parseInt(pagename());
+}
+function pagename()
+{
+	var str=window.location.href;
+	 return str.slice(str.lastIndexOf('/')+1,str.lastIndexOf('.'));
+}
+function gotopre()
+{
+	var name=pagename();
+	if(name=='index')
+	{
+		alert('No Pre Page!');
+		return false;
+	}
+	var n=parseInt(name);
+	location.href=(n==2)?'index.html':n-1+'.html';
+}
+function gotonext()
+{
+	var name=pagename();
+	var link=(name=='index')?'2.html':parseInt(name)+1+'.html';
+	// Through ajax to know if link exists 
+	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==404)
+		{
+			alert('No Next Page!');
+			return false;
+		}
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			location.href=link;
+		}
+	}
+	xmlhttp.open("GET",link,true);
+	xmlhttp.send();
+}
+function path()
+{
+	var args = arguments,
+		result = []
+			;
+
+	for(var i = 0; i < args.length; i++)
+		result.push(args[i].replace('@', '%root_path%scripts/'));
+
+	return result
+};
+</script>
+</head>
+<body>
+<div id="top">
+<div id="top1">
+<a href="/index.html">Hit9</a>
+<a href="/blog/index.html">Blog</a>
+<a href="/wiki/index.html">Wiki</a>
+<a href="/project/index.html">Project</a>
+<a href="/links.html">Links</a>
+<a href="/About.html" rel="author">About</a>
+</div>
+<div id="top2">
+Page:
+<a href="index.html">First</a>
+<a href="../index.html">UP</a>
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+</div>
+</div>
+<h1>用python把markdown中的代码高亮</h1>
+<p>Date:2012-09-02 </p>
+<p>用到的是Markdown模块的一个扩展,默认包含在了Markdown模块中.另外需要模块pygments. </p>
+<h2 id="1html">1.生成代码高亮块的html代码</h2>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">markdown</span>
+<span class="n">content</span><span class="o">=</span><span class="s">r&quot;&quot;&quot;    :::c</span>
+<span class="s">    #include &lt;stdio.h&gt;</span>
+<span class="s">    int main(int argc,char *argv[])</span>
+<span class="s">    {</span>
+<span class="s">        int n;</span>
+<span class="s">        scanf(&quot;</span><span class="si">%d</span><span class="s">&quot;,&amp;n);</span>
+<span class="s">        if ( n&gt;4 ) {</span>
+<span class="s">            printf(&quot;1\n&quot;);</span>
+<span class="s">        } else {</span>
+<span class="s">            printf(&quot;2\n&quot;);</span>
+<span class="s">        }</span>
+<span class="s">        return 0;</span>
+<span class="s">    }</span>
+<span class="s">&quot;&quot;&quot;</span>
+<span class="n">html</span><span class="o">=</span><span class="n">markdown</span><span class="o">.</span><span class="n">markdown</span><span class="p">(</span><span class="n">content</span><span class="p">,[</span><span class="s">&#39;codehilite&#39;</span><span class="p">])</span>
+<span class="k">print</span> <span class="n">html</span>
+</pre></div>
+
+
+<p>会看到生成了一堆html代码. </p>
+<h2 id="2markdown">2.Markdown中高亮代码的语法</h2>
+<p>:::'lang'和所有的code都缩进4个空格</p>
+<div class="codehilite"><pre><span class="o">:::</span><span class="n">c</span>
+<span class="cp">#code</span>
+</pre></div>
+
+
+<h2 id="3">3.怎么高亮</h2>
+<p>到pygments的官网里面看demo,找个相中的style,把样式文件扒下来,然后跟html放在一起即可. </p>
+<h2 id="4flask">4.用在flask中</h2>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">markdown</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">render_template</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Markup</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="n">content</span><span class="o">=</span><span class="s">r&quot;&quot;&quot;    :::c</span>
+<span class="s">    #include &lt;stdio.h&gt;</span>
+<span class="s">    int main(int argc,char *argv[])</span>
+<span class="s">    {</span>
+<span class="s">        int n;</span>
+<span class="s">        scanf(&quot;</span><span class="si">%d</span><span class="s">&quot;,&amp;n);</span>
+<span class="s">        if ( n&gt;4 ) {</span>
+<span class="s">            printf(&quot;HH&quot;);</span>
+<span class="s">        } else {</span>
+<span class="s">            printf(&quot;hello&quot;);</span>
+<span class="s">        }</span>
+<span class="s">        return 0;</span>
+<span class="s">    }</span>
+<span class="s">&quot;&quot;&quot;</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">Markup</span><span class="p">(</span><span class="n">markdown</span><span class="o">.</span><span class="n">markdown</span><span class="p">(</span><span class="n">content</span><span class="p">,[</span><span class="s">&#39;codehilite&#39;</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&#39;hello.html&#39;</span><span class="p">,</span><span class="o">**</span><span class="nb">locals</span><span class="p">())</span>
+<span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>相应的html模板:hello.html :</p>
+<div class="codehilite"><pre><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;content-type&quot;</span> <span class="na">content=</span><span class="s">&quot;text/html; charset=utf-8&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Hello<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">{{</span> <span class="na">url_for</span><span class="err">(&#39;</span><span class="na">static</span><span class="err">&#39;,</span><span class="na">filename=</span><span class="s">&#39;style.css&#39;</span><span class="err">)}}</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">media=</span><span class="s">&quot;screen&quot;</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    {{content}}
+<span class="nt">&lt;/body&gt;</span>
+</pre></div>
+<div id="foot">
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="#">Top</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+</div>
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hit9github"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- Duoshuo Comment END -->
+<div style = "text-align:center; ">
+	<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+</div>
+</body>
+</html>

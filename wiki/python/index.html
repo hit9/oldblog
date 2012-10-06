@@ -1,0 +1,1026 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>python学习笔记</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<script type="text/javascript">
+function pagenum()
+{
+	return parseInt(pagename());
+}
+function pagename()
+{
+	var str=window.location.href;
+	 return str.slice(str.lastIndexOf('/')+1,str.lastIndexOf('.'));
+}
+function gotopre()
+{
+	var name=pagename();
+	if(name=='index')
+	{
+		alert('No Pre Page!');
+		return false;
+	}
+	var n=parseInt(name);
+	location.href=(n==2)?'index.html':n-1+'.html';
+}
+function gotonext()
+{
+	var name=pagename();
+	var link=(name=='index')?'2.html':parseInt(name)+1+'.html';
+	// Through ajax to know if link exists 
+	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==404)
+		{
+			alert('No Next Page!');
+			return false;
+		}
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			location.href=link;
+		}
+	}
+	xmlhttp.open("GET",link,true);
+	xmlhttp.send();
+}
+function path()
+{
+	var args = arguments,
+		result = []
+			;
+
+	for(var i = 0; i < args.length; i++)
+		result.push(args[i].replace('@', '%root_path%scripts/'));
+
+	return result
+};
+</script>
+</head>
+<body>
+<div id="top">
+<div id="top1">
+<a href="/index.html">Hit9</a>
+<a href="/blog/index.html">Blog</a>
+<a href="/wiki/index.html">Wiki</a>
+<a href="/project/index.html">Project</a>
+<a href="/links.html">Links</a>
+<a href="/About.html" rel="author">About</a>
+</div>
+<div id="top2">
+Page:
+<a href="index.html">First</a>
+<a href="../index.html">UP</a>
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+</div>
+</div>
+<h1>python学习笔记</h1>
+<p>最后更新时间:2012-08-27 </p>
+<div class="toc">
+<ul>
+<li><a href="#1">1.程序注释</a></li>
+<li><a href="#2ifelifelse">2.if/elif/else</a></li>
+<li><a href="#3in">3.in</a></li>
+<li><a href="#4">4.元组 (只读的元素集合)</a></li>
+<li><a href="#5">5.布尔环境</a></li>
+<li><a href="#6is">6.is</a></li>
+<li><a href="#7del">7.del</a></li>
+<li><a href="#8while">8.while</a></li>
+<li><a href="#9breakcontinue">9.break,continue</a></li>
+<li><a href="#10for">10.for循环</a></li>
+<li><a href="#11">11.字符串</a></li>
+<li><a href="#12">12.链表(可写的元素序列)</a></li>
+<li><a href="#13">13.切片</a></li>
+<li><a href="#14">14.迭代器</a></li>
+<li><a href="#15">15.字典</a></li>
+<li><a href="#16set">16.set(无序不重复元素的集合)</a></li>
+<li><a href="#17">17.函数</a></li>
+<li><a href="#18lambda">18.lambda函数(无名函数)</a></li>
+<li><a href="#19">19.不定长函数参数</a></li>
+<li><a href="#20">20.装饰器</a></li>
+<li><a href="#21">21.生成器表达式</a></li>
+<li><a href="#22">22.常用函数</a><ul>
+<li><a href="#1_1">1.类型函数</a></li>
+<li><a href="#2typesomething">2.type(something)</a></li>
+<li><a href="#3lendictstrlisttuppleset">3.len(dict/str/list/tupple/set)</a></li>
+<li><a href="#4rangestartendstep">4.range([start,]end[,step])</a></li>
+<li><a href="#5xrangestartendstep">5.xrange([start,]end[,step])</a></li>
+<li><a href="#6sumtuplelistdict">6.sum(tuple/list/dict)</a></li>
+<li><a href="#7mapfunciterable">7.map(func,iterable)</a></li>
+<li><a href="#8filter">8.filter</a></li>
+<li><a href="#9reduce">9.reduce</a></li>
+<li><a href="#10zip">10.zip</a></li>
+<li><a href="#11hash">11.hash</a></li>
+<li><a href="#12raw_input">12.raw_input()</a></li>
+<li><a href="#13open">13.open()</a></li>
+<li><a href="#14reversed">14.reversed</a></li>
+<li><a href="#15sorted">15.sorted</a></li>
+<li><a href="#16enumerate">16.enumerate</a></li>
+<li><a href="#17isinstance">17.isinstance</a></li>
+</ul>
+</li>
+<li><a href="#23">23.获取外部参数</a></li>
+<li><a href="#24">24.模块</a><ul>
+<li><a href="#1_2">1.导入一个模块:</a></li>
+<li><a href="#2">2.包</a></li>
+<li><a href="#3name">3.name</a></li>
+<li><a href="#4dirmodule">4.dir(module)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="1">1.程序注释</h2>
+<p>python 只支持#的单行注释</p>
+<p>python源代码必须完全由ASCII集合组成</p>
+<p>如果直接在python中添加中文注释的时候,python执行时会引发异常,告知非ASCII字符语法错误</p>
+<p>使用中文注释顶行加上<code># -- coding: utf-8 --</code> 即可 </p>
+<h2 id="2ifelifelse">2.if/elif/else</h2>
+<div class="codehilite"><pre><span class="n">x</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">raw_input</span><span class="p">(</span><span class="s">&#39;input:&#39;</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+    <span class="k">print</span> <span class="mi">1</span>
+<span class="k">elif</span> <span class="n">x</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
+    <span class="k">print</span> <span class="mi">2</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Not 1 nor 2&#39;</span>
+</pre></div>
+
+
+<p>类似C中的?:条件判断:</p>
+<div class="codehilite"><pre><span class="k">print</span> <span class="s">&#39;Good&#39;</span> <span class="k">if</span> <span class="mi">1</span><span class="o">==</span><span class="mi">1</span> <span class="k">else</span> <span class="s">&#39;bad&#39;</span> <span class="c">#单行的if句必须有if和else</span>
+</pre></div>
+
+
+<h2 id="3in">3.in</h2>
+<p>a in b # 判断一个元素是否在一个字符串,链表,元组或字典的键中</p>
+<div class="codehilite"><pre><span class="k">print</span> <span class="s">&#39;hello&#39;</span> <span class="k">if</span> <span class="s">&#39;ab&#39;</span> <span class="ow">in</span> <span class="s">&#39;abcd&#39;</span> <span class="k">else</span> <span class="s">&#39;&#39;</span> <span class="c">#判断一个字符串是否在另一个字符串中</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="c">#判断是否在一个链表,元组,字典的键中</span>
+<span class="k">if</span> <span class="s">&#39;a&#39;</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">]:</span>
+    <span class="k">print</span> <span class="s">&#39;yes&#39;</span>
+<span class="k">if</span> <span class="s">&#39;a&#39;</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&#39;yes&#39;</span>
+<span class="k">if</span> <span class="s">&#39;a&#39;</span> <span class="ow">in</span> <span class="p">{</span><span class="s">&#39;a&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">}:</span>
+    <span class="k">print</span> <span class="s">&#39;yes&#39;</span>
+</pre></div>
+
+
+<p>空字符串'' 呢?</p>
+<div class="codehilite"><pre><span class="k">print</span> <span class="s">&#39;&#39;</span> <span class="ow">in</span> <span class="s">&#39;somestr&#39;</span> <span class="c">#True</span>
+</pre></div>
+
+
+<p>in 采用的是比较数据是否相等,而不是比较内存地址</p>
+<div class="codehilite"><pre><span class="n">print</span> 1 <span class="n">in</span> <span class="p">(</span><span class="n">False</span><span class="p">,</span><span class="n">True</span><span class="p">)</span> #<span class="n">True</span> 因为1<span class="o">==</span><span class="n">True</span><span class="p">,</span>但<span class="n">id</span><span class="p">(</span>1<span class="p">)</span>!<span class="p">=</span><span class="n">id</span><span class="p">(</span><span class="n">True</span><span class="p">):</span>
+</pre></div>
+
+
+<h2 id="4">4.元组 (只读的元素集合)</h2>
+<p>元组是一些元素的有序集合(但不是迭代器,它可以生成迭代器!),顾名思义,元组是一些对象组合起来的一个对象(python中一切皆对象)</p>
+<p>定义一个元组: </p>
+<div class="codehilite"><pre><span class="n">a</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">b</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="p">,</span><span class="n">b</span>
+<span class="k">print</span> <span class="n">c</span><span class="c">#c是一个元组</span>
+</pre></div>
+
+
+<p>元组的语法写法: </p>
+<div class="codehilite"><pre><span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;hello&#39;</span><span class="p">,</span><span class="s">&#39;hi&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">c</span> <span class="c">#c是一个元组</span>
+</pre></div>
+
+
+<p>元组甚至可以使用函数来组合起来:</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">func1</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s">&#39;func1&#39;</span>
+<span class="k">def</span> <span class="nf">func2</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s">&#39;func2&#39;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="n">func1</span><span class="p">,</span><span class="n">func2</span><span class="p">):</span>
+    <span class="n">i</span><span class="p">()</span>
+</pre></div>
+
+
+<p>当然,什么也能组合成一个元组: </p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&#39;A&#39;</span>
+<span class="k">class</span> <span class="nc">B</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&#39;B&#39;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">):</span>
+    <span class="n">i</span><span class="p">()</span><span class="o">.</span><span class="n">foo</span><span class="p">()</span>
+</pre></div>
+
+
+<p>使用元组来交换变量: </p>
+<div class="codehilite"><pre><span class="n">a</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">b</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="n">b</span><span class="p">,</span><span class="n">a</span>
+<span class="k">print</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span>
+</pre></div>
+
+
+<p>单个元素的元组: </p>
+<div class="codehilite"><pre><span class="n">c</span><span class="p">=</span><span class="s">&#39;hi&#39;</span><span class="p">,</span> #注意逗号<span class="p">,</span>没有逗号的话会被<span class="n">python</span>解释器认为成字符串
+</pre></div>
+
+
+<p>这个逗号很不爽? 其实每个元组定义的时候,在每个元素后面加个逗号(当然python允许最后没逗号也可以):</p>
+<div class="codehilite"><pre><span class="n">c</span><span class="o">=</span><span class="s">&#39;ab&#39;</span><span class="p">,</span><span class="s">&#39;cd&#39;</span><span class="p">,</span><span class="s">&#39;ef&#39;</span><span class="p">,</span> <span class="c">#这当然是允许的,而且我还认为这是应该的</span>
+</pre></div>
+
+
+<p>空元组呢?</p>
+<div class="codehilite"><pre><span class="n">c</span><span class="o">=</span><span class="p">()</span> <span class="c">#就这么定义,就像空字符串定义为&#39;&#39;</span>
+</pre></div>
+
+
+<p>但()!=None,就如''!=None一样但()在if语句测试中表现是假:</p>
+<div class="codehilite"><pre><span class="k">if</span> <span class="p">():</span>
+    <span class="k">print</span> <span class="s">&#39;yes&#39;</span>
+<span class="c">#这段代码执行并没有打印出yes</span>
+</pre></div>
+
+
+<p>元组初始化后就不能操作里面的元素了,遍历速度比遍历链表快.</p>
+<p>但并不是说一个元组不可以被赋值,因为只要是一个对象就是可以被赋值的.(就是说,元组只是内部元素不可操作而已)</p>
+<div class="codehilite"><pre><span class="n">c</span><span class="o">=</span><span class="s">&#39;hi&#39;</span><span class="p">,</span><span class="s">&#39;en&#39;</span><span class="p">,</span> <span class="c">#初始化也是一种赋值</span>
+<span class="n">c</span><span class="o">=</span><span class="s">&#39;ahi&#39;</span><span class="p">,</span><span class="s">&#39;aen&#39;</span> <span class="c">#它还可以被再次赋值</span>
+</pre></div>
+
+
+<p>还可以这样:</p>
+<div class="codehilite"><pre><span class="n">a</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">b</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="n">b</span>
+<span class="k">print</span> <span class="n">c</span> <span class="c">#(1,2,3,4)</span>
+</pre></div>
+
+
+<p>上面的code中把a的初始化换成a=(1,2,)试试,会发现结果还是(1,2,3,4),可见,最后一个元素后面加上一个逗号永远是python支持的</p>
+<p>获取元组的内部的元素:</p>
+<div class="codehilite"><pre><span class="n">print</span> <span class="p">(</span>1<span class="p">,</span>2<span class="p">)[</span>1<span class="p">]</span> #2
+</pre></div>
+
+
+<h2 id="5">5.布尔环境</h2>
+<p>测试语句有if 还有and 和or</p>
+<p>布尔环境中,False,None,0,'',(),[],{}都被认为成假的,其余为真, 空的就是假的 (函数bool(i)可以测试i是真的还是假的)</p>
+<p><strong>关于and和or的用法:(摘自<a href="http://arccos.github.com/blog/20110514-python-and-or-trick.html">晓月</a>):</strong></p>
+<ol>
+<li>
+<p>对于 and，从左到右运算：如果所有表达式都为真，则 and 返回最后一个表达式。否则，and 返回第一个假值。 </p>
+</li>
+<li>
+<p>对于 or，从左到右运算：如果有一个为真，则 or 立刻返回该值。否则，or 返回最后一个表达式。or 找到第一个真值后会忽略计算剩余的表达式。 </p>
+</li>
+</ol>
+<p>简单来说呢:<strong>and试图找到第一个假的表达,or试图找到第一个真的表达式,找到了它们就返回这个表达式.找不到就都返回最后一个表达式</strong></p>
+<p>布尔环境中,False逻辑上等价于0 , True逻辑上等价于0 </p>
+<div class="codehilite"><pre><span class="n">print</span> 0<span class="o">==</span><span class="n">False</span><span class="p">,</span>1<span class="o">==</span><span class="n">True</span> # <span class="n">True</span> <span class="n">True</span>
+</pre></div>
+
+
+<h2 id="6is">6.is</h2>
+<p>python的is语句很有意思, a is b 判断a和b的内存地址是否一样.等价于 id(a)==id(b)</p>
+<p>id()用来获取对象的地址</p>
+<p>对于整数和字符串,还有像0.1这种指明的(这个用词我也不知道是否恰当)浮点数,python会缓存它们的id :</p>
+<div class="codehilite"><pre><span class="c">#整数: id唯一</span>
+<span class="n">a</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">b</span><span class="o">=</span><span class="mi">1</span>
+<span class="k">print</span> <span class="nb">id</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="c">#字符串:id唯一</span>
+<span class="n">str1</span><span class="o">=</span><span class="s">&#39;hello&#39;</span>
+<span class="n">str2</span><span class="o">=</span><span class="s">&#39;hello&#39;</span>
+<span class="k">print</span> <span class="nb">id</span><span class="p">(</span><span class="s">&#39;hello&#39;</span><span class="p">),</span><span class="nb">id</span><span class="p">(</span><span class="n">str1</span><span class="p">),</span><span class="nb">id</span><span class="p">(</span><span class="n">str2</span><span class="p">)</span>
+<span class="c">#运算出来的整数 :id唯一</span>
+<span class="n">int1</span><span class="o">=</span><span class="mi">6</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">int2</span><span class="o">=</span><span class="mi">0</span><span class="o">+</span><span class="mi">3</span>
+<span class="k">print</span> <span class="nb">id</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span><span class="nb">id</span><span class="p">(</span><span class="n">int1</span><span class="p">),</span><span class="nb">id</span><span class="p">(</span><span class="n">int2</span><span class="p">)</span>
+<span class="c">#指明了的浮点数:id唯一</span>
+<span class="n">f1</span><span class="o">=</span><span class="mf">0.004</span>
+<span class="n">f2</span><span class="o">=</span><span class="mf">0.004</span>
+<span class="k">print</span> <span class="nb">id</span><span class="p">(</span><span class="mf">0.004</span><span class="p">),</span><span class="nb">id</span><span class="p">(</span><span class="n">f1</span><span class="p">),</span><span class="nb">id</span><span class="p">(</span><span class="n">f2</span><span class="p">)</span>
+<span class="c">#运算得到的无限循环浮点数:id均不同</span>
+<span class="n">f1</span><span class="o">=</span><span class="mf">10.0</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">f2</span><span class="o">=</span><span class="mf">10.0</span><span class="o">/</span><span class="mi">3</span>
+<span class="k">print</span> <span class="nb">id</span><span class="p">(</span><span class="mi">10</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span><span class="nb">id</span><span class="p">(</span><span class="n">f1</span><span class="p">),</span><span class="nb">id</span><span class="p">(</span><span class="n">f2</span><span class="p">)</span>
+<span class="c">#运算得到的不循环浮点数:id均不同</span>
+<span class="n">ff1</span><span class="o">=</span><span class="mf">10.0</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">ff2</span><span class="o">=</span><span class="mf">10.0</span><span class="o">/</span><span class="mi">2</span>
+<span class="k">print</span> <span class="nb">id</span><span class="p">(</span><span class="mf">10.0</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span><span class="nb">id</span><span class="p">(</span><span class="n">ff1</span><span class="p">),</span><span class="nb">id</span><span class="p">(</span><span class="n">ff2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>对于链表,元组,字典,函数等其他对象,它们的id是不同的.</p>
+<p>但是,a=b这种赋值的时候,id(a)==id(b) (a,b可以是任意的元素): </p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s">&#39;hello&#39;</span>
+<span class="n">foo2</span><span class="o">=</span><span class="n">foo</span>
+<span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">b</span><span class="o">=</span><span class="n">a</span>
+<span class="k">print</span> <span class="n">foo</span> <span class="ow">is</span> <span class="n">foo2</span><span class="p">,</span><span class="n">a</span> <span class="ow">is</span> <span class="n">b</span> <span class="c">#True True</span>
+</pre></div>
+
+
+<h2 id="7del">7.del</h2>
+<p>del用于删除一个元素</p>
+<div class="codehilite"><pre><span class="n">a</span><span class="o">=</span><span class="mi">2</span>
+<span class="k">del</span> <span class="n">a</span> <span class="c">#delete it</span>
+<span class="k">del</span> <span class="n">a</span> <span class="c">#NameError: name &#39;a&#39; is not defined</span>
+</pre></div>
+
+
+<h2 id="8while">8.while</h2>
+<div class="codehilite"><pre><span class="k">while</span> 1<span class="p">:</span>
+    <span class="n">pass</span> #<span class="n">do</span> <span class="n">nothing</span>
+</pre></div>
+
+
+<h2 id="9breakcontinue">9.break,continue</h2>
+<div class="codehilite"><pre><span class="k">for</span> <span class="n">x</span> <span class="n">in</span> <span class="n">range</span><span class="p">(</span>10<span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">==</span>0<span class="p">:</span><span class="k">continue</span> #跳过本次循环
+    <span class="k">if</span> <span class="n">x</span><span class="o">==</span>8<span class="p">:</span><span class="k">break</span> #结束整个循环
+    <span class="n">print</span> <span class="n">x</span>
+</pre></div>
+
+
+<h2 id="10for">10.for循环</h2>
+<p>for..in..是python的一个很棒的语法糖,用以迭代序列,或者可以迭代的对象</p>
+<p>序列指字符串,元组,链表这种一些元素的有序集合: </p>
+<div class="codehilite"><pre><span class="c">#coding: utf-8</span>
+<span class="c">#链表,元组,字符串</span>
+<span class="nb">list</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="nb">tuple</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;1&#39;</span><span class="p">,</span><span class="s">&#39;2&#39;</span><span class="p">,</span><span class="s">&#39;3&#39;</span><span class="p">)</span>
+<span class="nb">str</span><span class="o">=</span><span class="s">&#39;abcdef&#39;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">i</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">i</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+
+
+<p>迭代pack以后的序列(可以由zip()获得):</p>
+<div class="codehilite"><pre><span class="n">foo</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;ab&#39;</span><span class="p">,</span><span class="s">&#39;cd&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">foo</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span>
+</pre></div>
+
+
+<p>另一个例子: </p>
+<div class="codehilite"><pre><span class="n">foo</span><span class="o">=</span><span class="p">[(</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">),(</span><span class="s">&#39;c&#39;</span><span class="p">,</span><span class="s">&#39;d&#39;</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="n">foo</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span>
+</pre></div>
+
+
+<p>pack的序列的情形,for in会先去unpack这个被迭代的元素,然后再用iter()方法变成一个可以的迭代对象,然后用next()遍历</p>
+<p>对于字典:(有两个迭代方式:迭代一个迭代器或者迭代一个pack序列) </p>
+<div class="codehilite"><pre><span class="c">#coding:utf8</span>
+<span class="nb">dict</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;a&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">}</span>
+<span class="c">#遍历dict生成的迭代器</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="nb">dict</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+    <span class="k">print</span> <span class="n">i</span><span class="p">,</span><span class="n">k</span>
+<span class="c">#遍历dict生成的一个pack的序列</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="nb">dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">print</span> <span class="n">i</span><span class="p">,</span><span class="n">k</span>
+</pre></div>
+
+
+<p>下面的例子.两个for in都是可以执行的(iter()生成了一个可迭代的对象) </p>
+<div class="codehilite"><pre><span class="n">s</span><span class="o">=</span><span class="s">&#39;abcdef&#39;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">i</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+
+
+<p>下面的code,foo()生成了一个迭代器. </p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+    <span class="k">yield</span> <span class="mi">5</span>
+    <span class="k">yield</span> <span class="mi">6</span>
+    <span class="k">yield</span> <span class="mi">7</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">foo</span><span class="p">():</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+
+
+<p>对象的遍历: </p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">obj</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="s">&#39;hello&#39;</span>
+        <span class="k">yield</span> <span class="s">&#39;world&#39;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">():</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+
+
+<h2 id="11">11.字符串</h2>
+<p>字符串也是序列</p>
+<p>字符串内的单个字符是不允许赋值的,即字符串也是只读的 </p>
+<div class="codehilite"><pre><span class="n">s</span><span class="o">=</span><span class="s">&#39;hello&#39;</span>
+<span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="s">&#39;a&#39;</span>
+<span class="c">#会抛出type error</span>
+</pre></div>
+
+
+<p>字符串连接</p>
+<div class="codehilite"><pre><span class="n">str1</span><span class="p">=</span><span class="s">&#39;hello&#39;</span>
+<span class="n">str2</span><span class="p">=</span><span class="s">&#39;world&#39;</span>
+<span class="n">str3</span><span class="p">=</span><span class="n">str1</span><span class="o">+</span><span class="n">str2</span>
+</pre></div>
+
+
+<p>字符串查找</p>
+<div class="codehilite"><pre><span class="n">str</span><span class="p">=</span><span class="s">&#39;hello&#39;</span>
+<span class="n">print</span> <span class="n">str</span><span class="p">.</span><span class="n">index</span><span class="p">(</span><span class="s">&#39;l&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>字符串比较</p>
+<div class="codehilite"><pre><span class="n">str1</span><span class="p">=</span><span class="s">&#39;hello&#39;</span>
+<span class="n">str2</span><span class="p">=</span><span class="s">&#39;hello&#39;</span>
+<span class="n">str3</span><span class="p">=</span><span class="s">&#39;hi&#39;</span>
+<span class="n">print</span> <span class="n">cmp</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span><span class="n">str2</span><span class="p">),</span><span class="n">cmp</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span><span class="n">str3</span><span class="p">)</span> #0 <span class="o">-</span>1
+</pre></div>
+
+
+<p>字符串转大小写</p>
+<div class="codehilite"><pre><span class="n">str</span><span class="p">=</span><span class="s">&#39;hello&#39;</span>
+<span class="n">STR</span><span class="p">=</span><span class="s">&#39;HI&#39;</span>
+<span class="n">print</span> <span class="n">str</span><span class="p">.</span><span class="n">upper</span><span class="p">(),</span><span class="n">STR</span><span class="p">.</span><span class="n">lower</span><span class="p">(),</span><span class="n">str</span><span class="p">.</span><span class="n">capitalize</span><span class="p">()</span> #<span class="n">HELLO</span> <span class="n">hi</span> <span class="n">Hello</span>
+</pre></div>
+
+
+<p>字符串反转</p>
+<div class="codehilite"><pre><span class="s-Atom">str=&#39;hello&#39;</span>
+<span class="s-Atom">print</span> <span class="s-Atom">str</span><span class="p">[</span><span class="s-Atom">::-</span><span class="m">1</span><span class="p">]</span> <span class="s-Atom">#</span> <span class="s-Atom">注意:</span><span class="nf">字符串没有reverse</span><span class="p">(),</span><span class="s-Atom">因为reverse是修改对象本身</span><span class="p">,</span><span class="s-Atom">但字符串不可写</span><span class="p">.</span><span class="s-Atom">而切片是复制一份新的</span>
+</pre></div>
+
+
+<p>真正的字符串查找</p>
+<p>index()方法会在查找不到的时候报error,find()在查找不到的时候返回-1,否则返回字符串第一次出现的位置</p>
+<div class="codehilite"><pre><span class="n">str</span><span class="p">=</span><span class="s">&#39;hello&#39;</span>
+<span class="n">print</span> <span class="n">str</span><span class="p">.</span><span class="nb">find</span><span class="p">(</span><span class="s">&#39;l&#39;</span><span class="p">),</span><span class="n">str</span><span class="p">.</span><span class="nb">find</span><span class="p">(</span><span class="s">&#39;gg&#39;</span><span class="p">)</span>#2 <span class="o">-</span>1
+</pre></div>
+
+
+<p>统计字符在字符串中出现的次数</p>
+<div class="codehilite"><pre><span class="n">str</span><span class="p">=</span><span class="s">&#39;hello&#39;</span>
+<span class="n">print</span> <span class="n">str</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="s">&#39;h&#39;</span><span class="p">),</span><span class="n">str</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="s">&#39;l&#39;</span><span class="p">),</span><span class="n">str</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="s">&#39;ll&#39;</span><span class="p">),</span><span class="n">str</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="s">&#39;No&#39;</span><span class="p">)</span> #1<span class="p">,</span>2<span class="p">,</span>1<span class="p">,</span>0
+</pre></div>
+
+
+<p>看到了吧,index(),find(),count()都可以查找字符串</p>
+<p>字符串分割成链表</p>
+<div class="codehilite"><pre><span class="n">str</span><span class="p">=</span><span class="s">&#39;hj,sa,ss&#39;</span>
+<span class="n">print</span> <span class="n">str</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span> #<span class="p">[</span><span class="s">&#39;hj&#39;</span><span class="p">,</span><span class="s">&#39;sa&#39;</span><span class="p">,</span><span class="s">&#39;ss&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>去掉两端的字符</p>
+<div class="codehilite"><pre><span class="c">#coding=utf8</span>
+<span class="n">str1</span><span class="p">=</span><span class="s">&#39; abcd &#39;</span>
+<span class="n">str2</span><span class="p">=</span><span class="s">&#39;helloh&#39;</span>
+<span class="nb">print</span> <span class="n">str1</span><span class="p">.</span><span class="n">strip</span><span class="p">()</span> <span class="c"># 去掉两端的多余空格</span>
+<span class="nb">print</span> <span class="n">str2</span><span class="p">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39;h&#39;</span><span class="p">)</span> <span class="c"># &#39;ello&#39;</span>
+<span class="nb">print</span> <span class="n">str1</span><span class="p">,</span><span class="n">str2</span> <span class="c"># 再打印一下str1和str2,看来没变.字符串是只读的,说明strip()是做了一份复制再处理的</span>
+</pre></div>
+
+
+<h2 id="12">12.链表(可写的元素序列)</h2>
+<p>1.内置函数 </p>
+<div class="codehilite"><pre><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> 追加到链尾
+<span class="n">extend</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> 追加一个列表<span class="p">,</span>等价于<span class="o">+</span><span class="p">=</span>
+<span class="n">insert</span><span class="p">(</span><span class="nb">i</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> 在位置<span class="nb">i</span>插入<span class="n">x</span>
+<span class="n">remove</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> 删除第一个值为<span class="n">x</span>的元素<span class="p">,</span>如果不存在会抛出异常
+<span class="n">reverse</span><span class="p">()</span> 反转序列
+<span class="n">pop</span><span class="p">([</span><span class="nb">i</span><span class="p">])</span> 返回并删除位置为<span class="nb">i</span>的元素<span class="p">,</span><span class="nb">i</span>默认为最后一个元素<span class="p">(</span><span class="nb">i</span>两边的<span class="p">[]</span>表示<span class="nb">i</span>为可选的<span class="p">,</span>实际不用输入<span class="p">)</span>
+<span class="n">index</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> 返回第一个值为<span class="n">x</span>的元素<span class="p">,</span>不存在则抛出异常
+<span class="n">count</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> 返回<span class="n">x</span>出现的次数
+<span class="n">sort</span><span class="p">()</span> 排序
+</pre></div>
+
+
+<p>2.链表推导式直接使用for循环生成一个链表 </p>
+<div class="codehilite"><pre><span class="k">print</span> <span class="p">[</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+</pre></div>
+
+
+<p>3.我们可以给一个链表的元素赋值</p>
+<h2 id="13">13.切片</h2>
+<p>切片操作适合所有序列,如字符串,元组,链表.它不更改原来的序列,而是复制一份新的再操作,返回切好的序列 </p>
+<div class="codehilite"><pre><span class="nb">str</span><span class="o">=</span><span class="s">&#39;qwert&#39;</span>
+<span class="nb">list</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">,</span><span class="s">&#39;d&#39;</span><span class="p">]</span>
+<span class="nb">tuple</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="nb">str</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">],</span><span class="nb">list</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">],</span><span class="nb">tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="c"># &#39;q&#39; [&#39;a&#39;] (&#39;a&#39;,)</span>
+</pre></div>
+
+
+<p>切片的各项参数: <code>[start:end:[步长]] ([步长]是可选项,默认取1)</code></p>
+<p><img alt="切片" src="http://farm9.staticflickr.com/8460/8058618367_c9c5d06f6e_m.jpg" /></p>
+<p>如上图中,试着理解下面的切片: </p>
+<div class="codehilite"><pre><span class="s-Atom">str=&#39;hello&#39;</span>
+<span class="s-Atom">print</span> <span class="s-Atom">str</span><span class="p">[</span><span class="m">0</span><span class="s-Atom">:</span><span class="m">1</span><span class="p">],</span><span class="s-Atom">str</span><span class="p">[</span><span class="o">-</span><span class="m">3</span><span class="p">:-</span><span class="m">1</span><span class="p">]</span> <span class="s-Atom">#&#39;h&#39;</span> <span class="s-Atom">&#39;ll&#39;</span>
+</pre></div>
+
+
+<p>特别的, start和end取空的时候,意指取尽可能长 </p>
+<div class="codehilite"><pre><span class="c1">#coding=utf8</span>
+<span class="s-Atom">#打印这个字符串的一个拷贝</span><span class="p">,</span><span class="s-Atom">不要最后一个字符</span><span class="p">,</span><span class="s-Atom">不要第一个字符</span><span class="p">,</span><span class="s-Atom">反转字符串</span>
+<span class="s-Atom">str=&#39;hello&#39;</span>
+<span class="s-Atom">print</span> <span class="s-Atom">str</span><span class="p">[</span><span class="s-Atom">:</span><span class="p">],</span><span class="s-Atom">str</span><span class="p">[:-</span><span class="m">1</span><span class="p">],</span><span class="s-Atom">str</span><span class="p">[</span><span class="m">1</span><span class="s-Atom">:</span><span class="p">],</span><span class="s-Atom">str</span><span class="p">[</span><span class="s-Atom">::-</span><span class="m">1</span><span class="p">]</span> <span class="s-Atom">#&#39;hello&#39;</span><span class="p">,</span><span class="s-Atom">&#39;hell&#39;</span><span class="p">,</span><span class="s-Atom">&#39;ello&#39;</span><span class="p">,</span><span class="s-Atom">&#39;olleh&#39;</span>
+</pre></div>
+
+
+<h2 id="14">14.迭代器</h2>
+<p>迭代器对象要求支持迭代器协议，所谓支持迭代器协议就是对象包含<strong>iter</strong>()和next()方法。其中<strong>iter</strong>()方法返回迭代器对象自己；next()方法返回下一个前进到下一个结果，在结尾时引发StopIteration异常</p>
+<p>生成一个迭代器对象: </p>
+<div class="codehilite"><pre><span class="n">str</span><span class="p">=</span><span class="s">&#39;abc&#39;</span>
+<span class="n">obj</span><span class="p">=</span><span class="n">iter</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+<span class="n">print</span> <span class="n">obj</span><span class="p">.</span><span class="n">next</span><span class="p">()</span>#<span class="n">a</span>
+<span class="n">print</span> <span class="n">obj</span><span class="p">.</span><span class="n">next</span><span class="p">()</span>#<span class="n">b</span>
+<span class="n">print</span> <span class="n">obj</span><span class="p">.</span><span class="n">next</span><span class="p">()</span>#<span class="n">c</span>
+<span class="n">print</span> <span class="n">obj</span><span class="p">.</span><span class="n">next</span><span class="p">()</span>#<span class="n">StopIteration</span>
+</pre></div>
+
+
+<p>迭代器可以用在for in中: </p>
+<div class="codehilite"><pre><span class="nb">str</span><span class="o">=</span><span class="s">&#39;abc&#39;</span>
+<span class="n">obj</span><span class="o">=</span><span class="nb">iter</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+
+
+<p>字符串,链表,元组都具有可迭代的性质</p>
+<p>具有yield关键字的函数可以生成一个迭代器: </p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+    <span class="k">yield</span> <span class="mi">5</span>
+    <span class="k">yield</span> <span class="mi">6</span>
+    <span class="k">yield</span> <span class="mi">7</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">foo</span><span class="p">():</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+
+
+<h2 id="15">15.字典</h2>
+<p>字典是可写的,是随机的(无序的)</p>
+<p>字典的关键字必须是字符串,整数,元组等不可写的对象</p>
+<p>链表等不能作为字典的关键字 </p>
+<div class="codehilite"><pre><span class="n">dict1</span><span class="o">=</span><span class="p">{(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span><span class="mi">1</span><span class="p">}</span>
+<span class="n">dict2</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;a&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
+<span class="n">dict3</span><span class="o">=</span><span class="p">{</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">}</span>
+<span class="k">print</span> <span class="n">dict1</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)],</span><span class="n">dict2</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">],</span><span class="n">dict3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+
+<p>如果列表中存在关键字对,可以用dict()直接构造字典.而这样的列表对通常是由列表推导式生成的 </p>
+<div class="codehilite"><pre><span class="c">#coding=utf8</span>
+<span class="nb">list</span><span class="o">=</span><span class="p">[(</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">)]</span> <span class="c">#链表内嵌入二元的元组</span>
+<span class="n">list1</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;ab&#39;</span><span class="p">,</span><span class="s">&#39;cd&#39;</span><span class="p">]</span><span class="c">#只要是两元的,字符串也可以</span>
+<span class="n">list2</span><span class="o">=</span><span class="p">[</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="p">,[</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span><span class="c">#嵌套的链表</span>
+<span class="n">list3</span><span class="o">=</span><span class="p">[(</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="s">&#39;b2&#39;</span><span class="p">]</span> <span class="c">#这种混合型的也可以~</span>
+<span class="nb">tuple</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;ab&#39;</span><span class="p">,</span><span class="s">&#39;cd&#39;</span><span class="p">]</span><span class="c">#dict()也可以使用在元组上</span>
+<span class="k">print</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">list</span><span class="p">),</span><span class="nb">dict</span><span class="p">(</span><span class="n">list1</span><span class="p">),</span><span class="nb">dict</span><span class="p">(</span><span class="n">list2</span><span class="p">),</span><span class="nb">dict</span><span class="p">(</span><span class="n">list3</span><span class="p">),</span><span class="nb">dict</span><span class="p">(</span><span class="nb">tuple</span><span class="p">)</span>
+</pre></div>
+
+
+<p>内置函数: </p>
+<div class="codehilite"><pre><span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;somekey&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="c">#获取字典a中键为&quot;somekey&quot;的元素,如果没有找到,返回0</span>
+<span class="n">a</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="c">#复制一份键的副本,同理a.items()为值的副本,a.values()为值的副本,它们返回的均是链表</span>
+<span class="s">&#39;abc&#39;</span> <span class="ow">in</span> <span class="n">a</span> <span class="c">#看&#39;abc&#39;是否是a的键</span>
+<span class="n">a</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c">#复制一份a,返回一个新的字典.字典不能使用[:]来拷贝,它不支持切片操作</span>
+<span class="n">a</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;abc&#39;</span><span class="p">)</span> <span class="c">#删除键为&#39;abc&#39; 的一项</span>
+<span class="n">a</span><span class="o">.</span><span class="n">popitem</span><span class="p">()</span> <span class="c">#随机弹出一项,因为字典是随机的</span>
+<span class="n">a</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()</span> <span class="c">#返回一个可以迭代的对象.相应的还有iterkeys(),itervalues(). 可以这么使用 for k,v in a.iteritems()</span>
+<span class="p">{}</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span><span class="mi">0</span><span class="p">)</span> <span class="c">#从序列生成并返回一个字典,其值为第二个参数(默认为None),不改变当前字典</span>
+<span class="n">a</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span> <span class="c">#清空字典</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="c">#获取字典长度,len可以用于字符串,元组,字典,链表</span>
+</pre></div>
+
+
+<p>setdefault(key[,default]):key存在,返回那个值,不存在的话插入一项key:default,并返回default</p>
+<div class="codehilite"><pre><span class="nb">dict</span><span class="o">=</span><span class="p">{</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">:</span><span class="mi">3</span><span class="p">}</span>
+<span class="k">print</span> <span class="nb">dict</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span><span class="nb">dict</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="n">has_key</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="c">#判断字典中是否有键key</span>
+<span class="n">a</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="c">#将字典b中的元素追加到a中,key重复时,b覆盖a中的值</span>
+<span class="n">viewitems</span><span class="p">()</span><span class="c">#返回一个view对象,(key, value)pair的列表,类似于视图,优点是,如果字典发生变化,view会同步发生变化,还有viewkeys()</span>
+</pre></div>
+
+
+<p>for in 遍历一个字典:(大家都说后者好~) :</p>
+<div class="codehilite"><pre><span class="c">#coding=utf8</span>
+<span class="nb">dict</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;a&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">}</span>
+<span class="c">#items()是一个链表(pack的)</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">print</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span>
+<span class="c">#iteriterms()是一个可以迭代的对象</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">dict</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+    <span class="k">print</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span>
+</pre></div>
+
+
+<h2 id="16set">16.set(无序不重复元素的集合)</h2>
+<p>链表,字符串,元组都可以生成一个集合(字典生成的话,取它的键的链表来生成):</p>
+<div class="codehilite"><pre><span class="n">alist</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">]</span>
+<span class="n">atuple</span><span class="o">=</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span>
+<span class="n">astr</span><span class="o">=</span><span class="s">&#39;abc&#39;</span>
+<span class="n">adict</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;a&#39;</span><span class="p">:</span><span class="s">&#39;a_var&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">:</span><span class="s">&#39;b_var&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">:</span><span class="s">&#39;c_var&#39;</span><span class="p">}</span>
+<span class="k">print</span> <span class="nb">set</span><span class="p">(</span><span class="n">alist</span><span class="p">),</span><span class="nb">set</span><span class="p">(</span><span class="n">atuple</span><span class="p">),</span><span class="nb">set</span><span class="p">(</span><span class="n">astr</span><span class="p">),</span><span class="nb">set</span><span class="p">(</span><span class="n">adict</span><span class="p">)</span>
+</pre></div>
+
+
+<p>判断一个元素是否在集合里面:</p>
+<div class="codehilite"><pre><span class="n">alist</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">]</span>
+<span class="k">print</span> <span class="s">&#39;a&#39;</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">alist</span><span class="p">),</span><span class="mi">1</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">alist</span><span class="p">)</span><span class="c">#True False</span>
+</pre></div>
+
+
+<p>集合的操作: </p>
+<div class="codehilite"><pre><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="c">#差</span>
+<span class="n">a</span><span class="o">|</span><span class="n">b</span><span class="c">#并</span>
+<span class="n">a</span><span class="o">&amp;</span><span class="n">b</span><span class="c">#交</span>
+<span class="n">a</span><span class="o">^</span><span class="n">b</span><span class="c">#(并-交)</span>
+</pre></div>
+
+
+<h2 id="17">17.函数</h2>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span>
+<span class="n">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>多个参数的时候,快速赋值:</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span>
+<span class="n">foo</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+
+<h2 id="18lambda">18.lambda函数(无名函数)</h2>
+<p>这是一种无名函数的速写法:</p>
+<div class="codehilite"><pre><span class="k">print</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="c">#0,1,4,9,...,81</span>
+</pre></div>
+
+
+<p><code>lambda x,y:x+y</code>中x,y是参数,x+y是返回值. lambda快速定义了一个函数,返回一个函数对象 </p>
+<h2 id="19">19.不定长函数参数</h2>
+<div class="codehilite"><pre><span class="c">#coding=utf8</span>
+<span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="o">*</span><span class="n">para1</span><span class="p">,</span> <span class="o">**</span><span class="n">para2</span><span class="p">):</span><span class="c">#*para1 接收一个链表, **para2接收一个字典</span>
+    <span class="k">print</span> <span class="n">para1</span><span class="p">,</span><span class="n">para2</span>
+<span class="n">foo</span><span class="p">(</span><span class="s">&#39;hi&#39;</span><span class="p">,</span><span class="s">&#39;hello&#39;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;jack&#39;</span><span class="p">)</span> <span class="c">#[&#39;hi&#39;,&#39;hello&#39;] {&#39;name&#39;:&#39;jack&#39;}</span>
+</pre></div>
+
+
+<h2 id="20">20.装饰器</h2>
+<p>下面的例子中,deco()是foo()的装饰器: </p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">deco</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
+        <span class="k">print</span> <span class="s">&#39;hello&#39;</span>
+        <span class="n">func</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">wrapper</span>
+<span class="nd">@deco</span>
+<span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s">&#39;Jack&#39;</span>
+<span class="n">foo</span><span class="p">()</span>
+</pre></div>
+
+
+<p>装饰器函数内部会生成一个函数对象,这个函数对象对foo()是对进行改造的,然后返回这个函数对象</p>
+<p>Note:装饰器其实也就是一个函数,一个用来包装函数的函数,装饰器在函数申明完成的时候被调用,调用之后申明的函数被换成一个被装饰器装饰过后的函数</p>
+<p>下面的不是个装饰器,因为装饰器函数没有改造被修饰的函数: </p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">deco</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&#39;hello&#39;</span>
+    <span class="n">func</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">func</span>
+<span class="nd">@deco</span>
+<span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s">&#39;jack&#39;</span>
+</pre></div>
+
+
+<p>执行这个code,会发现会输出'hello' 'jack'.这是因为<strong> 装饰器函数在被装饰函数定义的时候被调用</strong></p>
+<p>继续执行几次foo()试试: </p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">deco</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&#39;hello&#39;</span>
+    <span class="n">func</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">func</span>
+<span class="nd">@deco</span>  <span class="c"># &#39;hello&#39;</span>
+<span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s">&#39;jack&#39;</span>
+<span class="n">foo</span><span class="p">()</span><span class="c">#&#39;jack&#39;</span>
+<span class="n">foo</span><span class="p">()</span><span class="c">#&#39;jack&#39;</span>
+<span class="n">foo</span><span class="p">()</span><span class="c">#&#39;jack&#39;</span>
+</pre></div>
+
+
+<p>会发现foo(),并没有被修饰.因为: <strong>deco只是在foo()定义的时候执行,并返回一个函数对象赋给foo</strong>,上例子中deco()并没有对func进行改造而是直接返回了这个函数对象,所以,只在foo()定义的时候deco()执行输出了'hello',之后foo()还是只输出'jack'的那个函数</p>
+<p>让我们继续看看,装饰器函数的执行过程中是不是把返回的对象赋给了被装饰函数:</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">myfunc</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s">&#39;hi&#39;</span>
+<span class="k">def</span> <span class="nf">deco</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">myfunc</span>
+<span class="nd">@deco</span>
+<span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+    <span class="k">pass</span>
+<span class="k">print</span> <span class="n">myfunc</span> <span class="ow">is</span> <span class="n">foo</span><span class="c">#True</span>
+</pre></div>
+
+
+<p>上面的code中deco装饰器把myfunc赋给了foo,这时它们都是一个内存地址的!使用foo()就相当使用myfunc()</p>
+<h2 id="21">21.生成器表达式</h2>
+<p>生成器表达式:类似于没有中括号的列表推导式,可用在参数中</p>
+<p>首先看下下面的code: </p>
+<div class="codehilite"><pre><span class="n">t</span><span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="k">print</span> <span class="n">t</span><span class="o">.</span><span class="n">next</span><span class="p">()</span><span class="c">#0</span>
+<span class="k">print</span> <span class="n">t</span><span class="o">.</span><span class="n">next</span><span class="p">()</span><span class="c">#1</span>
+<span class="k">print</span> <span class="n">t</span><span class="o">.</span><span class="n">next</span><span class="p">()</span><span class="c">#2</span>
+</pre></div>
+
+
+<p>说明,生成器表达式可以生成一个可以迭代的对象</p>
+<div class="codehilite"><pre><span class="k">print</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">101</span><span class="p">))</span><span class="c">#5050</span>
+</pre></div>
+
+
+<h2 id="22">22.常用函数</h2>
+<h3 id="1_1">1.类型函数</h3>
+<p>它们有str(),tuple(),int(),bool(),list(),dict(),object(),set()</p>
+<p>Python中一个对象怎么实例化? Obj()是吧,所以说dict(),list()..它们是函数,倒不如说它们是一个对象.</p>
+<p>这反映了python中万物都是对象(函数也是对象)</p>
+<p>类型函数用作强制类型转换函数来生成这个类型的一个对象:</p>
+<div class="codehilite"><pre><span class="c">#coding=utf8</span>
+<span class="k">print</span> <span class="nb">dict</span><span class="p">([</span><span class="s">&#39;ab&#39;</span><span class="p">,</span><span class="s">&#39;cd&#39;</span><span class="p">,</span><span class="s">&#39;ef&#39;</span><span class="p">])</span><span class="c">#{&#39;a&#39;:&#39;b&#39;,&#39;c&#39;:&#39;d&#39;,&#39;e&#39;:&#39;f&#39;},dictt()接收成对的序列</span>
+<span class="k">print</span> <span class="nb">list</span><span class="p">(</span><span class="s">&#39;abcd&#39;</span><span class="p">)</span><span class="c">#[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;]#list接收字符串,元组,链表这种序列,也接收字典(按照键生成)</span>
+<span class="k">print</span> <span class="nb">str</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">,</span><span class="s">&#39;d&#39;</span><span class="p">])</span><span class="c">#&quot;[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;]&quot;str()接收几乎所有类型,只是在参数链表加上了&quot;</span>
+<span class="k">print</span> <span class="nb">int</span><span class="p">(</span><span class="s">&#39;1&#39;</span><span class="p">)</span><span class="c">#1   int()接收的参数必须是一个 string或者number.&#39;a&#39;这种也不行,&#39;123&#39;这种可以</span>
+<span class="k">print</span> <span class="nb">tuple</span><span class="p">(</span><span class="s">&#39;abcd&#39;</span><span class="p">)</span><span class="c">#(&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;),接收序列和字典(同list()).字典情形:按照键生成元组</span>
+<span class="k">print</span> <span class="nb">bool</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="nb">bool</span><span class="p">({})</span><span class="c">#False False,接收所有类型</span>
+<span class="k">print</span> <span class="nb">object</span><span class="p">()</span> <span class="c">#不需要参数,python中什么都是对象!</span>
+</pre></div>
+
+
+<h3 id="2typesomething">2.type(something)</h3>
+<p>type()用来判断类型 </p>
+<div class="codehilite"><pre><span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="c">#&lt;type &#39;int&#39;&gt;</span>
+<span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span> <span class="c">#&lt;type &#39;str&#39;&gt;</span>
+<span class="k">print</span> <span class="nb">type</span><span class="p">({})</span><span class="c">#&lt;type &#39;dict&#39;&gt;</span>
+<span class="k">print</span> <span class="nb">type</span><span class="p">(())</span><span class="c">#&lt;type &#39;tuple&#39;&gt;</span>
+<span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span><span class="c">#&lt;type &#39;bool&#39;&gt;</span>
+<span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="mf">1.1</span><span class="p">)</span><span class="c">#&lt;type &#39;float&#39;&gt;</span>
+<span class="k">print</span> <span class="nb">type</span><span class="p">(</span><span class="k">lambda</span> <span class="p">:</span><span class="mi">1</span><span class="p">)</span><span class="c">#&lt;type &#39;function&#39;&gt;</span>
+</pre></div>
+
+
+<h3 id="3lendictstrlisttuppleset">3.len(dict/str/list/tupple/set)</h3>
+<p>len()的参数是序列或者字典,集合.返回参数的长度(元素个数). </p>
+<h3 id="4rangestartendstep">4.range([start,]end[,step])</h3>
+<p>range()返回一个从start到end步长为step的整数链表: </p>
+<div class="codehilite"><pre><span class="k">print</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c">#[0,2,4,6,8]</span>
+</pre></div>
+
+
+<h3 id="5xrangestartendstep">5.xrange([start,]end[,step])</h3>
+<p>xrange()返回一个生成器.效果和用法跟range()一样,但是返回的不是列表而是个生成器.</p>
+<div class="codehilite"><pre><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">x</span><span class="p">,</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">x</span><span class="p">,</span>
+</pre></div>
+
+
+<p>xrange()比range()快,但不回返回一个链表
+xrange()返回的对象有 <code>__iter__()</code>方法 </p>
+<div class="codehilite"><pre><span class="n">i</span><span class="o">=</span><span class="nb">xrange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">i</span><span class="o">.</span><span class="n">__iter__</span><span class="p">()</span><span class="o">.</span><span class="n">next</span><span class="p">()</span><span class="c">#0</span>
+</pre></div>
+
+
+<h3 id="6sumtuplelistdict">6.sum(tuple/list/dict)</h3>
+<p>求序列或字典的键的和.接收的参数是一个可以迭代的元素 </p>
+<div class="codehilite"><pre><span class="n">alist</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">atuple</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">alist</span><span class="p">)</span>
+<span class="n">adict</span><span class="o">=</span><span class="p">{}</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">alist</span><span class="p">)</span>
+<span class="k">print</span> <span class="nb">sum</span><span class="p">(</span><span class="n">alist</span><span class="p">),</span><span class="nb">sum</span><span class="p">(</span><span class="n">atuple</span><span class="p">),</span><span class="nb">sum</span><span class="p">(</span><span class="n">adict</span><span class="p">)</span><span class="c">#45 45 45</span>
+</pre></div>
+
+
+<h3 id="7mapfunciterable">7.map(func,iterable)</h3>
+<p>函数接收两个参数:函数对象和可以迭代的数据(字符串,元组,字典(处理它的键),链表,xrange()等等可以迭代的)</p>
+<p>迭代iterable作为func函数的参数返回结果的序列(链表) </p>
+<div class="codehilite"><pre><span class="k">print</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="nb">xrange</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="c">#[0,1,...,81]</span>
+<span class="k">print</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="nb">ord</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="s">&#39;abcd&#39;</span><span class="p">)</span> <span class="c">#[97,98,99,100]</span>
+<span class="k">print</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">,</span><span class="nb">xrange</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span><span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">))</span><span class="c">#可以传入多个序列,但是函数必须有相应个数的参数</span>
+</pre></div>
+
+
+<p>当然这样调用也是未尝不可: </p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="n">i</span>
+<span class="k">print</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">foo</span><span class="p">())</span>
+</pre></div>
+
+
+<h3 id="8filter">8.filter</h3>
+<p>filter(func,sequence)返回一个序列,为原序列中使func函数为真的值</p>
+<div class="codehilite"><pre><span class="k">print</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">%</span><span class="mi">2</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="c">#[0,2,4,6,8]</span>
+</pre></div>
+
+
+<h3 id="9reduce">9.reduce</h3>
+<p>reduce(function,sequence,[init])</p>
+<p>返回一个单值为,计算步骤为 :</p>
+<p>第1个结果=function(sequence[0],sequence[1])</p>
+<p>第2个结果=function(第1个结果,sequence[2])</p>
+<p>返回最后一个计算得值</p>
+<p>如果有init,则先调用function(init,sequence[0])</p>
+<p>sequence只有一个元素时,返回该元素,为空时抛出异常. </p>
+<p>下面是计算0+1+...+9:</p>
+<div class="codehilite"><pre><span class="k">print</span> <span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="c">#45</span>
+</pre></div>
+
+
+<h3 id="10zip">10.zip</h3>
+<p>zip用于多个sequence的循环 </p>
+<div class="codehilite"><pre><span class="c">#coding=utf8</span>
+<span class="k">print</span> <span class="nb">zip</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="k">print</span> <span class="nb">zip</span><span class="p">((</span><span class="s">&#39;a&#39;</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">,</span><span class="s">&#39;c&#39;</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="k">print</span> <span class="nb">zip</span><span class="p">(</span><span class="s">&#39;abc&#39;</span><span class="p">,</span><span class="s">&#39;123&#39;</span><span class="p">)</span>
+<span class="c">#以上三个的结果都是[(&#39;a&#39;,1),(&#39;b&#39;,2),(&#39;c&#39;,3)]</span>
+</pre></div>
+
+
+<p>zip接收多个序列,返回一个以元组为元素的链表 </p>
+<div class="codehilite"><pre><span class="k">print</span> <span class="nb">zip</span><span class="p">(</span><span class="s">&#39;abcd&#39;</span><span class="p">,</span><span class="s">&#39;abcd&#39;</span><span class="p">,</span><span class="s">&#39;abcd&#39;</span><span class="p">)</span><span class="c"># [(&#39;a&#39;,&#39;a&#39;,&#39;a&#39;),(&#39;b&#39;,&#39;b&#39;,&#39;b&#39;),(&#39;c&#39;,&#39;c&#39;,&#39;c&#39;),(&#39;d&#39;,&#39;d&#39;,&#39;d&#39;)]</span>
+</pre></div>
+
+
+<h3 id="11hash">11.hash</h3>
+<p>hash(object),返回一个数字哈希值 </p>
+<h3 id="12raw_input">12.raw_input()</h3>
+<div class="codehilite"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="n">x</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">raw_input</span><span class="p">(</span><span class="s">&#39;Input a int:&#39;</span><span class="p">))</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Not a int!&#39;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Your intput is:&#39;</span><span class="p">,</span><span class="n">x</span>
+</pre></div>
+
+
+<h3 id="13open">13.open()</h3>
+<p>open(somefile) 读取一个文件,返回一个迭代器 </p>
+<div class="codehilite"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;somefile&#39;</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">i</span><span class="p">,</span>
+</pre></div>
+
+
+<h3 id="14reversed">14.reversed</h3>
+<p>反向循环,返回一个反向的迭代器.iter()生成一个正向的迭代器,reversed()生成一个反向的迭代器</p>
+<div class="codehilite"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)):</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+
+
+<h3 id="15sorted">15.sorted</h3>
+<p>返回一个有序的新序列(链表) </p>
+<div class="codehilite"><pre><span class="k">print</span> <span class="nb">sorted</span><span class="p">(</span><span class="s">&#39;dcba&#39;</span><span class="p">),</span><span class="nb">sorted</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]),</span><span class="nb">sorted</span><span class="p">({</span><span class="s">&#39;b&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s">&#39;a&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">})</span><span class="c">#[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;] [1,2,3,4] [&#39;a&#39;,&#39;b&#39;]</span>
+</pre></div>
+
+
+<h3 id="16enumerate">16.enumerate</h3>
+<p>返回索引位置和对应的值,enumerate(sequence)返回一个迭代器对象 </p>
+<div class="codehilite"><pre><span class="n">a</span><span class="o">=</span><span class="nb">enumerate</span><span class="p">(</span><span class="s">&#39;hello&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">a</span> <span class="c">#enumerate object</span>
+<span class="n">alist</span><span class="o">=</span><span class="p">[(</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
+<span class="k">print</span> <span class="n">alist</span>
+</pre></div>
+
+
+<h3 id="17isinstance">17.isinstance</h3>
+<p>判断一个对象是否是一个类的实例</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="k">class</span> <span class="nc">B</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="n">a</span><span class="o">=</span><span class="n">A</span><span class="p">()</span>
+<span class="k">print</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">A</span><span class="p">),</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">B</span><span class="p">)</span><span class="c">#True False</span>
+</pre></div>
+
+
+<p>还可以用来判断类型,因为一切都是对象: </p>
+<div class="codehilite"><pre><span class="k">print</span> <span class="nb">isinstance</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="nb">basestring</span><span class="p">),</span><span class="nb">isinstance</span><span class="p">({},</span><span class="nb">dict</span><span class="p">),</span><span class="nb">isinstance</span><span class="p">([],</span><span class="nb">list</span><span class="p">),</span><span class="nb">isinstance</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">int</span><span class="p">),</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">True</span><span class="p">,</span><span class="nb">bool</span><span class="p">)</span>
+</pre></div>
+
+
+<h2 id="23">23.获取外部参数</h2>
+<p>就像我们使用Git的时候,git clone 让git接收一个参数为:clone</p>
+<p>我们想要让foo.py接收python foo.py args 的args参数.</p>
+<div class="codehilite"><pre><span class="c">#!/usr/bin/python</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">i</span><span class="p">,</span>
+</pre></div>
+
+
+<h2 id="24">24.模块</h2>
+<p>模块的查找路径</p>
+<ol>
+<li>当前的目录</li>
+<li>环境变量PYTHONPATH所指的目录列表</li>
+<li>python解释器的安装目录</li>
+</ol>
+<h3 id="1_2">1.导入一个模块:</h3>
+<p>我们新建一个模块module.py: </p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">some_method</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s">&#39;hello&#39;</span>
+</pre></div>
+
+
+<p>然后新建一个py文件来包含这个模块:</p>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">module</span>
+<span class="n">module</span><span class="o">.</span><span class="n">some_method</span><span class="p">()</span>
+</pre></div>
+
+
+<p>模块在导入的时候被执行.</p>
+<p>以上的导入也可以这么写: </p>
+<div class="codehilite"><pre><span class="kn">from</span> <span class="nn">module</span> <span class="kn">import</span> <span class="n">some_method</span>
+<span class="n">some_method</span><span class="p">()</span>
+</pre></div>
+
+
+<h3 id="2">2.包</h3>
+<p>多个模块文件可以放在一个文件夹下组成一个包.</p>
+<p>只有当该文件夹下存在<code>__init__.py</code>时<code>python</code>才认为这个文件夹是个包.</p>
+<p>语法:<code>from 包 import 模块</code></p>
+<p><code>__init__.py</code>可以为空文件,一般在<code>__init__.py</code>中定义<code>__all__</code>列表:</p>
+<div class="codehilite"><pre><span class="n">_all__</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;module1&#39;</span><span class="p">,</span><span class="s">&#39;module2&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>一个包的例子</p>
+<div class="codehilite"><pre><span class="n">python</span><span class="o">/</span>
+├── <span class="n">pak</span><span class="o">/</span>
+│   ├── <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
+│   ├── <span class="n">module1</span><span class="p">.</span><span class="n">py</span>
+│   ├── <span class="n">module2</span><span class="p">.</span><span class="n">py</span>
+│   ├── <span class="n">module3</span><span class="p">.</span><span class="n">py</span>
+├── <span class="n">test</span><span class="p">.</span><span class="n">py</span>
+</pre></div>
+
+
+<p>在test.py中可以这么来包含包pak的所有模块</p>
+<div class="codehilite"><pre><span class="n">from</span> <span class="n">pak</span> <span class="n">import</span> <span class="o">*</span>
+</pre></div>
+
+
+<h3 id="3name">3.<strong>name</strong></h3>
+<p><strong>name</strong>可以显示模块的名称 </p>
+<div class="codehilite"><pre><span class="c">#--coding:utf-8--</span>
+<span class="kn">import</span> <span class="nn">module</span>
+<span class="k">print</span> <span class="n">module</span><span class="o">.</span><span class="n">__name__</span><span class="c">#输出module</span>
+<span class="k">print</span> <span class="n">__name__</span><span class="c">#输出 __main__</span>
+</pre></div>
+
+
+<h3 id="4dirmodule">4.dir(module)</h3>
+<p>dir()函数返回一个列表,列出模块定义的标识符.标识符有函数,类和变量 </p>
+<div id="foot">
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="#">Top</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+</div>
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hit9github"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- Duoshuo Comment END -->
+<div style = "text-align:center; ">
+	<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>C语言文件操作</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<script type="text/javascript">
+function pagenum()
+{
+	return parseInt(pagename());
+}
+function pagename()
+{
+	var str=window.location.href;
+	 return str.slice(str.lastIndexOf('/')+1,str.lastIndexOf('.'));
+}
+function gotopre()
+{
+	var name=pagename();
+	if(name=='index')
+	{
+		alert('No Pre Page!');
+		return false;
+	}
+	var n=parseInt(name);
+	location.href=(n==2)?'index.html':n-1+'.html';
+}
+function gotonext()
+{
+	var name=pagename();
+	var link=(name=='index')?'2.html':parseInt(name)+1+'.html';
+	// Through ajax to know if link exists 
+	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==404)
+		{
+			alert('No Next Page!');
+			return false;
+		}
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			location.href=link;
+		}
+	}
+	xmlhttp.open("GET",link,true);
+	xmlhttp.send();
+}
+function path()
+{
+	var args = arguments,
+		result = []
+			;
+
+	for(var i = 0; i < args.length; i++)
+		result.push(args[i].replace('@', '%root_path%scripts/'));
+
+	return result
+};
+</script>
+</head>
+<body>
+<div id="top">
+<div id="top1">
+<a href="/index.html">Hit9</a>
+<a href="/blog/index.html">Blog</a>
+<a href="/wiki/index.html">Wiki</a>
+<a href="/project/index.html">Project</a>
+<a href="/links.html">Links</a>
+<a href="/About.html" rel="author">About</a>
+</div>
+<div id="top2">
+Page:
+<a href="index.html">First</a>
+<a href="../index.html">UP</a>
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+</div>
+</div>
+<h1>C语言文件操作</h1>
+<p>Date:2012-08-11 </p>
+<div class="toc">
+<ul>
+<li><a href="#1fopen">1.fopen()</a></li>
+<li><a href="#2fclose">2.fclose()</a></li>
+<li><a href="#3fread">3.fread()</a></li>
+<li><a href="#4fwirte">4.fwirte()</a></li>
+<li><a href="#5fgetcfputc">5.字符读写fgetc(),fputc()</a></li>
+<li><a href="#6fputsfgets">6.字符串读写fputs,fgets</a></li>
+<li><a href="#7feof">7.feof()</a></li>
+</ul>
+</div>
+<h2 id="1fopen">1.fopen()</h2>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="kt">FILE</span> <span class="o">*</span><span class="n">fopen</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">,</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">mode</span><span class="p">)</span>
+</pre></div>
+
+
+<p>测试:</p>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">NULL</span><span class="o">==</span><span class="n">fopen</span><span class="p">(</span><span class="s">&quot;testfile&quot;</span><span class="p">,</span><span class="s">&quot;r&quot;</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;file open failed!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;file open success!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>关于mode(very important) :</p>
+<div class="codehilite"><pre><span class="nl">r:</span><span class="err">只读方式，文件必须存在</span>
+<span class="nl">w:</span><span class="err">只写方式，若文件存在，则原有内容会被清除；若文件不存在，则会建立文件</span>
+<span class="nl">a:</span><span class="err">追加方式打开只写文件，只允许进行写操作，若文件存在，则添加的内容放在文件末尾；若不存在，则建立文件</span>
+<span class="o">+:</span><span class="err">可读可写</span>
+<span class="nl">b:</span><span class="err">以二进制方式打开文件</span>
+<span class="nl">t:</span><span class="err">以文本方式打开文件</span><span class="p">(</span><span class="err">默认方式下以文本方式打开文件</span><span class="p">)</span>
+</pre></div>
+
+
+<h2 id="2fclose">2.fclose()</h2>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="kt">int</span> <span class="n">fclose</span><span class="p">(</span><span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">)</span> 
+</pre></div>
+
+
+<p>正确返回0,否则返回EOF </p>
+<h2 id="3fread">3.fread()</h2>
+<p>从一个流中读数据 </p>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="kt">size_t</span> <span class="n">fread</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">nmemb</span><span class="p">,</span> <span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+</pre></div>
+
+
+<ul>
+<li>ptr:用于接收数据的指针.</li>
+<li>size :读的数据的单位元素的字节大小.</li>
+<li>nmemb :读取的元素的个数(份数).</li>
+<li>stream :提供数据的文件指针(可以是stdin)</li>
+<li>返回成功读取的元素个数</li>
+</ul>
+<p>以下代码从一个文件中读取5个char类型数据并打印出来: </p>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="cm">/*</span>
+<span class="cm">     * fp:file pointer</span>
+<span class="cm">     * nmemb:number to read from file</span>
+<span class="cm">     * numread:number successfully read from file</span>
+<span class="cm">     */</span>
+    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">nmemb</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">numread</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">list</span><span class="p">[</span><span class="n">nmemb</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+    <span class="cm">/*</span>
+<span class="cm">     * open the file</span>
+<span class="cm">     */</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">fp</span><span class="o">=</span><span class="n">fopen</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span><span class="s">&quot;rb&quot;</span><span class="p">))</span><span class="o">==</span><span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;failed open file</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="cm">/*</span>
+<span class="cm">     * read file and close file</span>
+<span class="cm">     */</span>
+    <span class="n">numread</span><span class="o">=</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">fread</span><span class="p">(</span><span class="n">list</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">),</span><span class="n">nmemb</span><span class="p">,</span><span class="n">fp</span><span class="p">);</span>
+    <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+    <span class="cm">/*</span>
+<span class="cm">     * if numread bigger than nmemb,make list[numread]=&#39;\0&#39;,so we can safely printf the string</span>
+<span class="cm">     */</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">numread</span><span class="o">&lt;=</span><span class="n">nmemb</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">list</span><span class="p">[</span><span class="n">numread</span><span class="p">]</span><span class="o">=</span><span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">list</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="4fwirte">4.fwirte()</h2>
+<p>函数格式:</p>
+<div class="codehilite"><pre><span class="kt">size_t</span> <span class="n">fwrite</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">nmemb</span><span class="p">,</span><span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+</pre></div>
+
+
+<p>实例:</p>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">fp</span><span class="o">=</span><span class="n">fopen</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span><span class="s">&quot;a&quot;</span><span class="p">))</span><span class="o">==</span><span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;failed open file</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="n">fwrite</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">),</span><span class="mi">5</span><span class="p">,</span><span class="n">fp</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="5fgetcfputc">5.字符读写fgetc(),fputc()</h2>
+<p>函数原型: </p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">fgetc</span><span class="p">(</span><span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">fputc</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">,</span> <span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+</pre></div>
+
+
+<p>返回值:</p>
+<p>fgetc(fputc)若成功读取(写入)则返回读取(写入)的字符.否则返回EOF</p>
+<p>下面的程序把你输入的字符写入文件text,然后把文件text的内容输出显示到控制台(EOF即ctrl+d结束输入) </p>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">c</span><span class="p">;</span>
+    <span class="cm">/*</span>
+<span class="cm">     * open file.mode:w+.(read and write)</span>
+<span class="cm">     */</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">fp</span><span class="o">=</span><span class="n">fopen</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span><span class="s">&quot;w+&quot;</span><span class="p">))</span><span class="o">==</span><span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;failed open file</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="cm">/*</span>
+<span class="cm">     * read data from stdin</span>
+<span class="cm">     */</span>
+    <span class="k">while</span> <span class="p">(</span> <span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="n">getchar</span><span class="p">())</span><span class="o">!=</span><span class="n">EOF</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">fputc</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">fp</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="cm">/*</span>
+<span class="cm">     * rewind file pointer to 0</span>
+<span class="cm">     */</span>
+    <span class="n">rewind</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+    <span class="cm">/*</span>
+<span class="cm">     * read data from file to stdin</span>
+<span class="cm">     */</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Press some key to read the file&quot;</span><span class="p">);</span>
+    <span class="n">getchar</span><span class="p">();</span>
+    <span class="k">while</span> <span class="p">((</span><span class="n">c</span><span class="o">=</span><span class="n">fgetc</span><span class="p">(</span><span class="n">fp</span><span class="p">))</span><span class="o">!=</span><span class="n">EOF</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">putchar</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="6fputsfgets">6.字符串读写fputs,fgets</h2>
+<p>函数原型: </p>
+<div class="codehilite"><pre><span class="kt">char</span> <span class="o">*</span><span class="n">fgets</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+<span class="kt">int</span> <span class="n">fputs</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+</pre></div>
+
+
+<p>返回值: </p>
+<div class="codehilite"><pre><span class="nl">fputs:</span><span class="err">成功时返回一个非负值</span><span class="p">,</span><span class="err">失败时返回</span><span class="n">EOF</span>
+<span class="nl">fgets:</span><span class="err">成功返回指针</span><span class="n">s</span><span class="p">,</span><span class="err">失败返回</span><span class="nb">NULL</span>
+</pre></div>
+
+
+<p>注意的是,fgets从文件流中读取最多size-1个字符而不是size个到字符串s中</p>
+<p>fputs例子: </p>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">fp</span><span class="o">=</span><span class="n">fopen</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span><span class="s">&quot;w+&quot;</span><span class="p">))</span><span class="o">==</span><span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;failed open file</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+            <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">fputs</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="n">fp</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">){</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;error.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;success</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>fgets示例: </p>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#define SIZE 8</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="n">SIZE</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">fp</span><span class="o">=</span><span class="n">fopen</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span><span class="s">&quot;r&quot;</span><span class="p">))</span><span class="o">==</span><span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;failed open file</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">SIZE</span><span class="p">,</span><span class="n">fp</span><span class="p">)</span><span class="o">==</span><span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;fgets failed</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span><span class="n">s</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="7feof">7.feof()</h2>
+<p>feof()用来判断文件流的结束.</p>
+<p>函数原型: </p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">feof</span><span class="p">(</span><span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+</pre></div>
+
+
+<p>return value: 读取到文件结束的时候返回0,否则非零</p>
+<p>注意,当文件指针指向EOF的时候,feof()并不认为读取结束了,直到读到EOF的下一个字符才返回1,这时才认为是文件结束.</p>
+<p>程序示例: </p>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">c</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">fp</span><span class="o">=</span><span class="n">fopen</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span><span class="s">&quot;r&quot;</span><span class="p">))</span><span class="o">==</span><span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;failed open file</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+            <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="n">c</span><span class="o">=</span><span class="n">fgetc</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">c</span><span class="o">!=</span><span class="n">EOF</span><span class="p">)</span><span class="cm">/*when fp point  to EOF,feof still is 0.but not 0 when read the next char*/</span>
+            <span class="n">putchar</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">feof</span><span class="p">(</span><span class="n">fp</span><span class="p">));</span>
+    <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><strong>关于EOF和feof的区别</strong>
+feof只判断文件流是否结束.EOF即-1,表示函数的返回值.比如fgetc()在IO错误而并未达到文件末尾的时候也返回EOF,但此时feof==0</p>
+<div id="foot">
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="#">Top</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+</div>
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hit9github"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- Duoshuo Comment END -->
+<div style = "text-align:center; ">
+	<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+</div>
+</body>
+</html>

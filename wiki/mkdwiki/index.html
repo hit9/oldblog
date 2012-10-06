@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>mkdiwiki-用markdown来组织wiki</title>
+		<link rel="stylesheet" href="./static/style.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="./static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+	</head>
+	<body>
+		<div class="toc">
+<ul>
+<li><a href="#mkdiwiki-markdownwiki">mkdiwiki-用markdown来组织wiki</a><ul>
+<li><a href="#_1">简介</a></li>
+<li><a href="#_2">支持与限制</a></li>
+<li><a href="#_3">安装</a></li>
+<li><a href="#_4">使用</a></li>
+<li><a href="#_5">语法</a></li>
+<li><a href="#_6">模板支持</a></li>
+<li><a href="#_7">代码高亮</a></li>
+<li><a href="#_8">评论</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="mkdiwiki-markdownwiki">mkdiwiki-用markdown来组织wiki</h1>
+<p>Github:<a href="https://github.com/hit9">@hit9</a></p>
+<p>Email:<a href="mailto:nz2324@126.com">nz2324#126.com</a></p>
+<p>view this <a href="https://raw.github.com/hit9/mkdwiki/master/wiki/src/index.mkd">source</a></p>
+<h2 id="_1">简介</h2>
+<p>mkdwiki是一个python语言编写的基于目录的用来组织wiki的小工具.</p>
+<p>简明地来说:</p>
+<div class="codehilite"><pre><span class="n">markdown</span> <span class="n">source</span> <span class="n">files</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">html</span> <span class="n">files</span>
+</pre></div>
+
+
+<h2 id="_2">支持与限制</h2>
+<ol>
+<li>wiki源文件编写只支持markdown语法</li>
+<li>有边界隔离的代码块,以及代码块的高亮 </li>
+<li>只支持utf8编码的源文件输入</li>
+<li>模板支持.</li>
+<li>缓存支持,程序每次只转换修改过的源文件到html</li>
+<li>支持生成各个标题的目录</li>
+<li>最好使用*nix环境</li>
+</ol>
+<h2 id="_3">安装</h2>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">hit9</span><span class="o">/</span><span class="n">mkdwiki</span>
+<span class="n">cd</span> <span class="n">mkdwiki</span>
+#如果你的<span class="n">python</span>被调用的时候是<span class="n">python2</span><span class="p">,</span>请修改<span class="n">src</span><span class="o">/</span><span class="n">mkdiwiki</span><span class="p">.</span><span class="n">py</span>的<span class="n">shebang</span>为<span class="p">:</span>#!<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">env</span> <span class="n">python2</span>
+<span class="n">sudo</span> <span class="n">python</span> <span class="n">setup</span><span class="p">.</span><span class="n">py</span>
+#测试<span class="p">(</span><span class="n">make</span> <span class="n">a</span> <span class="n">test</span><span class="p">)</span>
+<span class="n">cd</span> <span class="n">tests</span><span class="o">/</span><span class="n">mkd_src</span>
+<span class="n">mkdwiki</span> <span class="p">.</span> <span class="o">-</span><span class="n">o</span> <span class="p">.</span><span class="o">./</span><span class="n">html_output</span>
+</pre></div>
+
+
+<h2 id="_4">使用</h2>
+<div class="codehilite"><pre><span class="n">mkdwiki</span> <span class="o">&lt;</span><span class="n">src</span><span class="o">-</span><span class="n">path</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">out</span><span class="o">-</span><span class="n">path</span><span class="o">&gt;</span>
+<span class="n">src</span><span class="o">-</span><span class="n">path</span><span class="p">:</span>单个的文件或目录
+<span class="n">out</span><span class="o">-</span><span class="n">path</span><span class="p">:</span>单个的目录
+</pre></div>
+
+
+<h2 id="_5">语法</h2>
+<ol>
+<li>
+<p>总的来概括是,支持所有的<a href="https://github.com">Github</a>风格的markdown语法(在github任一页面按下m键即可看到)</p>
+</li>
+<li>
+<p>另外支持的语法:</p>
+<p>在源文件中使用<code>%title mytitle</code>来指明文件标题</p>
+<p>生成标题目录的语法: <code>[TOC]</code></p>
+</li>
+</ol>
+<h2 id="_6">模板支持</h2>
+<p>mkdwiki 会把wiki源文件目录下的tpl.html文件作为模板.(即路径<code>input-path/tpl.html</code>)</p>
+<p>如果没有找到tpl.html, mkdwiki会直接转换源文件到html</p>
+<p>一个样例模板文件:</p>
+<div class="codehilite"><pre><span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Content-Type&quot;</span> <span class="na">content=</span><span class="s">&quot;text/html; charset=UTF-8&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;title&gt;</span>%title%<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;%html_root%style.css&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">media=</span><span class="s">&quot;screen&quot;</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;%html_root%code-style.css&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">media=</span><span class="s">&quot;screen&quot;</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        %content%
+    <span class="nt">&lt;/body&gt;</span>
+</pre></div>
+
+
+<p>其中<code>%html_root%</code>代表生成的html的根目录地址.(就是<code>out-path</code>目录下<code>input-path</code>目录的路径)</p>
+<p><code>%content%</code>是你的markdown源文件转换为的html</p>
+<h2 id="_7">代码高亮</h2>
+<p>十分建议使用Github风格的fenced_code写法.(三个`号为界)</p>
+<p>mkdwiki的代码高亮使用的pygments.</p>
+<p>一些代码高亮的样式:</p>
+<p><a href="github-style/github_style.html">github style</a></p>
+<p><a href="solarizeddark-style/solarizeddark_style.html">solarizeddark style</a></p>
+<p><a href="solarizedlight-style/solarizedlight_style.html">solarizedlight style</a></p>
+<p>这里还有很多:https://github.com/richleland/pygments-css ,不过需要自己调调字体样式什么的</p>
+<h2 id="_8">评论</h2>
+<p>我们可以在模板中添加第三方评论系统(比如<a href="http://duoshuo.com">多说</a>)的代码来实现wiki页面的评论</p>
+<hr />
+		<!-- Duoshuo Comment BEGIN -->
+		<div class="ds-thread" data-thread-key="" 
+			data-title="" data-author-key="" data-url=""></div>
+		<script type="text/javascript">
+			var duoshuoQuery = {short_name:"hit9github"};
+			(function() {
+				var ds = document.createElement('script');
+				ds.type = 'text/javascript';ds.async = true;
+				ds.src = 'http://static.duoshuo.com/embed.js';
+				ds.charset = 'UTF-8';
+				(document.getElementsByTagName('head')[0] 
+				|| document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+		</script>
+		<!-- Duoshuo Comment END -->
+	</body>
+</html>

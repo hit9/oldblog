@@ -1,0 +1,300 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>PHP Coding Tips</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<script type="text/javascript">
+function pagenum()
+{
+	return parseInt(pagename());
+}
+function pagename()
+{
+	var str=window.location.href;
+	 return str.slice(str.lastIndexOf('/')+1,str.lastIndexOf('.'));
+}
+function gotopre()
+{
+	var name=pagename();
+	if(name=='index')
+	{
+		alert('No Pre Page!');
+		return false;
+	}
+	var n=parseInt(name);
+	location.href=(n==2)?'index.html':n-1+'.html';
+}
+function gotonext()
+{
+	var name=pagename();
+	var link=(name=='index')?'2.html':parseInt(name)+1+'.html';
+	// Through ajax to know if link exists 
+	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==404)
+		{
+			alert('No Next Page!');
+			return false;
+		}
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			location.href=link;
+		}
+	}
+	xmlhttp.open("GET",link,true);
+	xmlhttp.send();
+}
+function path()
+{
+	var args = arguments,
+		result = []
+			;
+
+	for(var i = 0; i < args.length; i++)
+		result.push(args[i].replace('@', '%root_path%scripts/'));
+
+	return result
+};
+</script>
+</head>
+<body>
+<div id="top">
+<div id="top1">
+<a href="/index.html">Hit9</a>
+<a href="/blog/index.html">Blog</a>
+<a href="/wiki/index.html">Wiki</a>
+<a href="/project/index.html">Project</a>
+<a href="/links.html">Links</a>
+<a href="/About.html" rel="author">About</a>
+</div>
+<div id="top2">
+Page:
+<a href="index.html">First</a>
+<a href="../index.html">UP</a>
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+</div>
+</div>
+<h1>PHP Coding Tips</h1>
+<p><em>说明:所有技巧来自互联网,本人只做了整理,不保证正确性.你可以理解为这是我的学习笔记而已.欢迎分享您的技巧</em></p>
+<div class="toc">
+<ul>
+<li><a href="#1for">1.避免在for循环条件中做运算:</a></li>
+<li><a href="#2echo">2.使用echo来输出</a></li>
+<li><a href="#3echo">3.echo输出字符串的时候使用逗号代替字符串连接符</a></li>
+<li><a href="#4">4.对字符串使用单引号</a></li>
+<li><a href="#5">5.使用===比较符</a></li>
+<li><a href="#6php">6.一个PHP的试题:字符串用在了数字环境下</a></li>
+<li><a href="#7">7.大括号可以像数组使用[]一样被字符串使用</a></li>
+<li><a href="#8in_array">8.in_array()函数默认采用的是松比较</a></li>
+<li><a href="#9">9.交换变量的值的另一种思路</a></li>
+</ul>
+</div>
+<h3 id="1for">1.避免在for循环条件中做运算:</h3>
+<p>以下代码会导致每次循环执行strlen函数 </p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$str</span><span class="o">=</span><span class="s1">&#39;hello&#39;</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nb">strlen</span><span class="p">(</span><span class="nv">$str</span><span class="p">);</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+     <span class="c1">// code...</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>优化的代码是:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$str</span><span class="o">=</span><span class="s1">&#39;hello&#39;</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="nv">$j</span> <span class="o">=</span> <span class="nb">strlen</span><span class="p">(</span><span class="nv">$str</span><span class="p">);</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="nv">$j</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+     <span class="c1">// code...</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<h3 id="2echo">2.使用echo来输出</h3>
+<p>BAD:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;hello!&#39;</span><span class="p">);</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>GOOD:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">echo</span> <span class="s1">&#39;hello!&#39;</span><span class="p">;</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<h3 id="3echo">3.echo输出字符串的时候使用逗号代替字符串连接符</h3>
+<p>BAD:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$str</span><span class="o">=</span><span class="s1">&#39;love&#39;</span><span class="p">;</span>
+<span class="c1">//php会先把它们连接起来再输出</span>
+<span class="k">echo</span> <span class="s1">&#39;I &#39;</span><span class="o">.</span><span class="nv">$str</span><span class="o">.</span><span class="s1">&#39; PHP&#39;</span><span class="p">;</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>GOOD:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$str</span><span class="o">=</span><span class="s1">&#39;love&#39;</span><span class="p">;</span>
+<span class="c1">//php会直接按照顺序输出它们</span>
+<span class="k">echo</span> <span class="s1">&#39;I &#39;</span><span class="p">,</span><span class="nv">$str</span><span class="p">,</span><span class="s1">&#39; PHP&#39;</span><span class="p">;</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<h3 id="4">4.对字符串使用单引号</h3>
+<h3 id="5">5.使用===比较符</h3>
+<p>试试下面的代码就知道为何使用===更好了. ==只比较两个变量的值;===会比较类型和值,更严格 . 详细说明见http://php.net/manual/zh/language.operators.comparison.php </p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="mi">0</span><span class="o">==</span><span class="s1">&#39;&#39;</span><span class="p">);</span><span class="c1">//true</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="mi">0</span><span class="o">==</span><span class="s1">&#39;a&#39;</span><span class="p">);</span><span class="c1">//true</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="mi">1</span><span class="o">==</span><span class="s1">&#39;1abc0&#39;</span><span class="p">);</span><span class="c1">//true</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="o">==</span><span class="s1">&#39;1abc0&#39;</span><span class="p">);</span><span class="c1">//false</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="k">NULL</span><span class="o">==</span><span class="s1">&#39;&#39;</span><span class="p">);</span><span class="c1">//true</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="k">true</span><span class="o">==</span><span class="s1">&#39;&#39;</span><span class="p">);</span><span class="c1">//false</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="mi">0</span><span class="o">===</span><span class="s1">&#39;&#39;</span><span class="p">);</span><span class="c1">//false</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="k">false</span><span class="o">&lt;</span><span class="k">true</span><span class="p">);</span><span class="c1">//true</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<h3 id="6php">6.一个PHP的试题:字符串用在了数字环境下</h3>
+<p>它的结果就跟false&lt;true一样诡异.</p>
+<p>详细信息见 PHP官方文档http://www.php.net/manual/zh/language.types.string.php#language.types.string.conversion </p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">echo</span> <span class="s1">&#39;10abc&#39;</span><span class="o">+</span><span class="mi">30</span><span class="p">;</span><span class="c1">//display:40</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>这点理解了,就会知道:如果比较一个整数和字符串，则字符串会被转换为整数.</p>
+<p>再次知道使用==符号做比较是不安全的,eg:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="s1">&#39;001&#39;</span><span class="o">==</span><span class="mi">1</span><span class="p">);</span><span class="c1">//true</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="s1">&#39;12a&#39;</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">);</span><span class="c1">//true</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="s1">&#39;01&#39;</span><span class="o">==</span><span class="s1">&#39;1&#39;</span><span class="p">);</span><span class="c1">//true</span>
+</pre></div>
+
+
+<h3 id="7">7.大括号可以像数组使用[]一样被字符串使用</h3>
+<p>这是相当有趣的一个事情:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$str</span><span class="o">=</span><span class="s1">&#39;abcdef&#39;</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$str</span><span class="p">{</span><span class="mi">2</span><span class="p">};</span><span class="c1">//display:c</span>
+</pre></div>
+
+
+<p>利用这一点判断字符串的长度比使用strlen函数更快</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="c1">//比如我们可以使用这个性质对输入字符串进行长度检查</span>
+<span class="nv">$str</span><span class="o">=</span><span class="s1">&#39;abcdef&#39;</span><span class="p">;</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$str</span><span class="p">{</span><span class="mi">6</span><span class="p">}))</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;len &lt; 6&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="8in_array">8.in_array()函数默认采用的是松比较</h3>
+<p>看下面的代码: </p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$arr</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;001&#39;</span><span class="p">,</span><span class="s1">&#39;hello&#39;</span><span class="p">);</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="nb">in_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nv">$arr</span><span class="p">));</span><span class="c1">// true</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="nb">in_array</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="nv">$arr</span><span class="p">));</span><span class="c1">// true</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="nb">in_array</span><span class="p">(</span><span class="k">true</span><span class="p">,</span><span class="nv">$arr</span><span class="p">));</span><span class="c1">// true</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>我们原本不想得到这种结果的:不是数组中的元素却被PHP认为成了是这个数组的元素</p>
+<p>所谓松比较,就是仅比较值,不比较类型.</p>
+<p>in_array()提供了第三个布尔型参数来开启类型检查,设置为true即可: </p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$arr</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;001&#39;</span><span class="p">,</span><span class="s1">&#39;hello&#39;</span><span class="p">);</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="nb">in_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nv">$arr</span><span class="p">,</span><span class="k">true</span><span class="p">));</span><span class="c1">// false</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="nb">in_array</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="nv">$arr</span><span class="p">,</span><span class="k">true</span><span class="p">));</span><span class="c1">// false</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="nb">in_array</span><span class="p">(</span><span class="k">true</span><span class="p">,</span><span class="nv">$arr</span><span class="p">,</span><span class="k">true</span><span class="p">));</span><span class="c1">// false</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<h3 id="9">9.交换变量的值的另一种思路</h3>
+<p>由于受C语言的影响,很多人都会这样写: </p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$a</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="nv">$b</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="c1">//我们要交换$a和$b的值</span>
+<span class="nv">$t</span><span class="o">=</span><span class="nv">$a</span><span class="p">;</span>
+<span class="nv">$a</span><span class="o">=</span><span class="nv">$b</span><span class="p">;</span>
+<span class="nv">$b</span><span class="o">=</span><span class="nv">$t</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$a</span><span class="p">,</span><span class="nv">$b</span><span class="p">;</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>在laruence那里看到了这样的写法: </p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$a</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="nv">$b</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="c1">//我们要交换$a和$b的值</span>
+<span class="k">list</span><span class="p">(</span><span class="nv">$b</span><span class="p">,</span><span class="nv">$a</span><span class="p">)</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span><span class="nv">$b</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$a</span><span class="p">,</span><span class="nv">$b</span><span class="p">;</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>虽然也产生了临时变量,但写起来很清晰.</p>
+<p>同样来自laruence那里,如果两个变量都是整数,可以有一种不生成临时变量的交换方法: </p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$a</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="nv">$b</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="c1">//我们要交换$a和$b的值</span>
+<span class="nv">$a</span><span class="o">=</span><span class="nv">$a</span><span class="o">+</span><span class="nv">$b</span><span class="p">;</span>
+<span class="nv">$b</span><span class="o">=</span><span class="nv">$a</span><span class="o">-</span><span class="nv">$b</span><span class="p">;</span>
+<span class="nv">$a</span><span class="o">=</span><span class="nv">$a</span><span class="o">-</span><span class="nv">$b</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$a</span><span class="p">,</span><span class="nv">$b</span><span class="p">;</span>
+</pre></div>
+
+
+<p>其实,还可以构造出来不生成临时变量的两个字符串交换值的方法: </p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$a</span><span class="o">=</span><span class="s1">&#39;hello&#39;</span><span class="p">;</span>
+<span class="nv">$b</span><span class="o">=</span><span class="s1">&#39;world&#39;</span><span class="p">;</span>
+<span class="nv">$a</span><span class="o">=</span><span class="nv">$a</span><span class="o">.</span><span class="nv">$b</span><span class="p">;</span>
+<span class="nv">$b</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="nv">$b</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="nv">$a</span><span class="p">);</span>
+<span class="nv">$a</span><span class="o">=</span><span class="nb">str_replace</span><span class="p">(</span><span class="nv">$b</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="nv">$a</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$a</span><span class="p">,</span><span class="nv">$b</span><span class="p">;</span>
+</pre></div>
+
+
+<p>但我觉得还是使用list的那个好. </p>
+<div id="foot">
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="#">Top</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+</div>
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hit9github"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- Duoshuo Comment END -->
+<div style = "text-align:center; ">
+	<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+</div>
+</body>
+</html>

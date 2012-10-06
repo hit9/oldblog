@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>PHP Coding Tips</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<script type="text/javascript">
+function pagenum()
+{
+	return parseInt(pagename());
+}
+function pagename()
+{
+	var str=window.location.href;
+	 return str.slice(str.lastIndexOf('/')+1,str.lastIndexOf('.'));
+}
+function gotopre()
+{
+	var name=pagename();
+	if(name=='index')
+	{
+		alert('No Pre Page!');
+		return false;
+	}
+	var n=parseInt(name);
+	location.href=(n==2)?'index.html':n-1+'.html';
+}
+function gotonext()
+{
+	var name=pagename();
+	var link=(name=='index')?'2.html':parseInt(name)+1+'.html';
+	// Through ajax to know if link exists 
+	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==404)
+		{
+			alert('No Next Page!');
+			return false;
+		}
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			location.href=link;
+		}
+	}
+	xmlhttp.open("GET",link,true);
+	xmlhttp.send();
+}
+function path()
+{
+	var args = arguments,
+		result = []
+			;
+
+	for(var i = 0; i < args.length; i++)
+		result.push(args[i].replace('@', '%root_path%scripts/'));
+
+	return result
+};
+</script>
+</head>
+<body>
+<div id="top">
+<div id="top1">
+<a href="/index.html">Hit9</a>
+<a href="/blog/index.html">Blog</a>
+<a href="/wiki/index.html">Wiki</a>
+<a href="/project/index.html">Project</a>
+<a href="/links.html">Links</a>
+<a href="/About.html" rel="author">About</a>
+</div>
+<div id="top2">
+Page:
+<a href="index.html">First</a>
+<a href="../index.html">UP</a>
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+</div>
+</div>
+<h1>PHP Coding Tips</h1>
+<div class="toc">
+<ul>
+<li><a href="#16false-null">16.用FALSE表示错误, 用NULL表示不存在</a></li>
+<li><a href="#17">17.以变量的值命名一个变量</a></li>
+<li><a href="#18phpn">18.PHP生成n位随机字符串的简单方法</a></li>
+<li><a href="#19">19.尽量少的使用@抑制符</a></li>
+<li><a href="#20loopsql">20.不要在loop里面执行SQL,代价昂贵</a></li>
+<li><a href="#21filter">21.尽量使用filter来验证输入而不是使用正则</a></li>
+<li><a href="#21extract">21.extract函数的巧用</a></li>
+<li><a href="#23">23.= 和 ||的优先级问题</a></li>
+</ul>
+</div>
+<h3 id="16false-null">16.用FALSE表示错误, 用NULL表示不存在</h3>
+<p>这一条同样来自鸟哥博客;</p>
+<p>对于操作类的函数, 失败返回FALSE, 表示”操作失败了”, 而对于查询类的函数, 如果找不到想要的值, 则应该返回NULL, 表示”找不到”. </p>
+<h3 id="17">17.以变量的值命名一个变量</h3>
+<p>看下边的代码: </p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$var_1</span><span class="o">=</span><span class="s1">&#39;var_2&#39;</span><span class="p">;</span>
+<span class="nv">$$var_1</span><span class="o">=</span><span class="s1">&#39;Hello!&#39;</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$var_2</span><span class="p">;</span><span class="c1">//display:Hello!</span>
+</pre></div>
+
+
+<p>但我们不建议这么写.第一可读性差,第二,PHP会去查找两次才会得到$var_2的值 </p>
+<h3 id="18phpn">18.PHP生成n位随机字符串的简单方法</h3>
+<p>如果你去google一下'PHP 生成n位随机字符串',会得到很多复杂的答案.看下面的这个: </p>
+<div class="codehilite"><pre><span class="x">//str_shuffle会把一个字符串随机打乱</span>
+<span class="x">substr(str_shuffle(&#39;abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;), 0, $ni);</span>
+</pre></div>
+
+
+<h3 id="19">19.尽量少的使用@抑制符</h3>
+<p>不仅很低性能,而且在调试错误的时候会带来麻烦,还可能会引起莫名其妙的BUG.</p>
+<p>根据鸟哥的文章:http://www.laruence.com/2009/07/27/1020.html</p>
+<p>错误抑制符其实是分三步进行:保存当前error_reporting的值,设置error_reporting(0)来关闭输出,运行被抑制错误输出的代码,恢复error_reporting的值;</p>
+<p>鸟哥博客说的很详细,推荐阅读! </p>
+<h3 id="20loopsql">20.不要在loop里面执行SQL,代价昂贵</h3>
+<p>如果需要查询多个,那把他们放到一个SQL语句里面去查询一次 </p>
+<h3 id="21filter">21.尽量使用filter来验证输入而不是使用正则</h3>
+<p>比如验证输入的email </p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">if</span><span class="p">(</span><span class="nb">filter_input</span><span class="p">(</span><span class="nx">INPUT_GET</span><span class="p">,</span><span class="s1">&#39;email&#39;</span><span class="p">,</span><span class="nx">FILTER_VALIDATE_EMAIL</span><span class="p">)){</span>
+    <span class="k">echo</span> <span class="s1">&#39;ok&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>好过正则:</p>
+<div class="codehilite"><pre><span class="x">is_string($str)&amp;&amp;preg_match(&#39;/^[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,4}$/&#39;,$str);</span>
+</pre></div>
+
+
+<p>另外checkdnsrr()可以验证某个域名是否存在,可以用来验证email的一部分 </p>
+<h3 id="21extract">21.extract函数的巧用</h3>
+<p>首先通过下面的例子代码了解什么是extract(): </p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$arr</span><span class="o">=</span><span class="k">Array</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="o">=&gt;</span><span class="s1">&#39;C&#39;</span><span class="p">);</span>
+<span class="nb">extract</span><span class="p">(</span><span class="nv">$arr</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$a</span><span class="p">,</span><span class="nv">$b</span><span class="p">,</span><span class="nv">$c</span><span class="p">;</span><span class="c1">//display:ABC</span>
+</pre></div>
+
+
+<p>还不知道extract能做什么?去Google吧~</p>
+<p>现在我们处理一个表单提交的动作:</p>
+<p>HTML表单代码: </p>
+<div class="codehilite"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;get_post.php&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span> <span class="na">accept-charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;username&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;passwd&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;Submit&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+
+
+<p>接收post请求的get_post.php文件: </p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nb">extract</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">);</span><span class="c1">//此处未验证$_POST的存在性,建议每次接收请求都验证是否有请求存在</span>
+<span class="k">echo</span> <span class="nv">$username</span><span class="p">,</span><span class="nv">$passwd</span><span class="p">;</span>
+</pre></div>
+
+
+<p>这样是不是很方便?</p>
+<p>不过注意:用户输入的东西是不确定的,有一定安全风险 </p>
+<h3 id="23">23.= 和 ||的优先级问题</h3>
+<p>看下面的code:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$a</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="nv">$b</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
+<span class="k">if</span><span class="p">(</span><span class="nv">$a</span><span class="o">=</span><span class="mi">5</span> <span class="o">||</span> <span class="nv">$b</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>再看下面的code:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">if</span><span class="p">(</span><span class="nv">$a</span><span class="o">=</span><span class="mi">2</span><span class="o">||</span> <span class="k">false</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>结果是$a=1 </p>
+<div id="foot">
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="#">Top</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+</div>
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hit9github"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- Duoshuo Comment END -->
+<div style = "text-align:center; ">
+	<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+</div>
+</body>
+</html>

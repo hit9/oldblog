@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>python正则表达式</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<script type="text/javascript">
+function pagenum()
+{
+	return parseInt(pagename());
+}
+function pagename()
+{
+	var str=window.location.href;
+	 return str.slice(str.lastIndexOf('/')+1,str.lastIndexOf('.'));
+}
+function gotopre()
+{
+	var name=pagename();
+	if(name=='index')
+	{
+		alert('No Pre Page!');
+		return false;
+	}
+	var n=parseInt(name);
+	location.href=(n==2)?'index.html':n-1+'.html';
+}
+function gotonext()
+{
+	var name=pagename();
+	var link=(name=='index')?'2.html':parseInt(name)+1+'.html';
+	// Through ajax to know if link exists 
+	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==404)
+		{
+			alert('No Next Page!');
+			return false;
+		}
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			location.href=link;
+		}
+	}
+	xmlhttp.open("GET",link,true);
+	xmlhttp.send();
+}
+function path()
+{
+	var args = arguments,
+		result = []
+			;
+
+	for(var i = 0; i < args.length; i++)
+		result.push(args[i].replace('@', '%root_path%scripts/'));
+
+	return result
+};
+</script>
+</head>
+<body>
+<div id="top">
+<div id="top1">
+<a href="/index.html">Hit9</a>
+<a href="/blog/index.html">Blog</a>
+<a href="/wiki/index.html">Wiki</a>
+<a href="/project/index.html">Project</a>
+<a href="/links.html">Links</a>
+<a href="/About.html" rel="author">About</a>
+</div>
+<div id="top2">
+Page:
+<a href="index.html">First</a>
+<a href="../index.html">UP</a>
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+</div>
+</div>
+<h1>python正则表达式</h1>
+<p>最后更新时间:2012-08-28</p>
+<p><em>注:本wiki不涉及正则知识</em></p>
+<div class="toc">
+<ul>
+<li><a href="#1">1.编译正则表达式</a></li>
+<li><a href="#2">2.匹配字符串</a><ul>
+<li><a href="#1match">1.match(从字符串首开始匹配)</a></li>
+<li><a href="#2search">2.search(扫描整个字符串查找第一个匹配的)</a></li>
+<li><a href="#3findall">3.findall(查找所有子串并返回匹配的结果列表)</a></li>
+<li><a href="#4finditer">4.finditer(匹配所有子串,并把它们作为一个迭代器返回)</a></li>
+<li><a href="#5matchobject">5.MatchObject的方法</a></li>
+</ul>
+</li>
+<li><a href="#3">3.字符串替换</a></li>
+</ul>
+</div>
+<h2 id="1">1.编译正则表达式</h2>
+<p>正则表达式被编译成 RegexObject 实例,可以为不同的操作提供方法 </p>
+<div class="codehilite"><pre><span class="nb">compile</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<p>编译正则表达式,返回一个RegexObject.</p>
+<p>其中:flags是编译时用的匹配模式.</p>
+<p>code sample:</p>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">re</span>
+<span class="k">print</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;^hello&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<h2 id="2">2.匹配字符串</h2>
+<h3 id="1match">1.match(从字符串首开始匹配)</h3>
+<p>从字符串首开始进行匹配,匹配成功则返回一个match对象(MatchObject),否则返回None </p>
+<div class="codehilite"><pre><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<p>使用编译了的pattern object: </p>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">re</span>
+<span class="n">p</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;^hello&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">&#39;hello world&#39;</span><span class="p">):</span>
+    <span class="k">print</span> <span class="mi">1</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p>还可以这样:(python会把pattern编译成pattern对象再进行匹配,实质与上一种code一样) </p>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">re</span>
+<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">&#39;^hello&#39;</span><span class="p">,</span><span class="s">&#39;hello world&#39;</span><span class="p">):</span>
+    <span class="k">print</span> <span class="mi">1</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="mi">0</span>
+</pre></div>
+
+
+<h3 id="2search">2.search(扫描整个字符串查找第一个匹配的)</h3>
+<div class="codehilite"><pre><span class="n">search</span><span class="p">(</span><span class="n">string</span><span class="p">[,</span> <span class="n">pos</span><span class="p">[,</span> <span class="n">endpos</span><span class="p">]])</span> <span class="o">|</span> <span class="n">re</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">[,</span> <span class="n">flags</span><span class="p">]):</span>
+</pre></div>
+
+
+<p>search() 将扫描整个字符串,并报告它找到的第一个匹配(返回MatchObject).找不到则返回None</p>
+<p>code sample: </p>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">re</span>
+<span class="n">p</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">&#39;abc&#39;</span><span class="p">,</span><span class="s">&#39;abcedfabcef&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">p</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">p</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="mi">0</span>
+</pre></div>
+
+
+<h3 id="3findall">3.findall(查找所有子串并返回匹配的结果列表)</h3>
+<p>原型:</p>
+<div class="codehilite"><pre><span class="n">findall</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">flags</span><span class="p">=</span>0<span class="p">)</span>
+</pre></div>
+
+
+<p>sample code:</p>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">re</span>
+<span class="k">print</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">&#39;\d&#39;</span><span class="p">,</span><span class="s">&#39;abcd1240sa&#39;</span><span class="p">)</span><span class="c">#[&#39;1&#39;,&#39;2&#39;,&#39;4&#39;,&#39;0&#39;]</span>
+</pre></div>
+
+
+<h3 id="4finditer">4.finditer(匹配所有子串,并把它们作为一个迭代器返回)</h3>
+<p>原型:</p>
+<div class="codehilite"><pre><span class="n">finditer</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">string</span><span class="p">,</span> <span class="n">flags</span><span class="p">=</span>0<span class="p">)</span>
+</pre></div>
+
+
+<p>返回一个match对象 </p>
+<p>sample code:</p>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">re</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="s">&#39;\d+&#39;</span><span class="p">,</span><span class="s">&#39;12hello23world45&#39;</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">i</span><span class="o">.</span><span class="n">span</span><span class="p">()</span>
+</pre></div>
+
+
+<h3 id="5matchobject">5.MatchObject的方法</h3>
+<ol>
+<li>group(),返回匹配的字符串</li>
+<li>start(),返回开始匹配的位置</li>
+<li>end(),返回匹配结束的位置</li>
+<li>span(),返回(开始,结束)即(start,end)元组 </li>
+</ol>
+<h2 id="3">3.字符串替换</h2>
+<p>假如我们不用正则: </p>
+<div class="codehilite"><pre><span class="k">print</span> <span class="s">&quot;hello&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;l&#39;</span><span class="p">,</span><span class="s">&#39;+&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>如果我们使用正则做替换,比如下面的:</p>
+<div class="codehilite"><pre><span class="c">#--coding:utf-8--</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="n">p</span><span class="o">=</span><span class="s">r&#39;_(.+?)_&#39;</span>
+<span class="n">pc</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">pc</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r&#39;&lt;em&gt;\1&lt;/em&gt;&#39;</span><span class="p">,</span><span class="s">&quot;_hello_enas_world_&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>用到了sub函数:</p>
+<div class="codehilite"><pre><span class="n">sub</span><span class="p">(</span><span class="n">replacement</span><span class="p">,</span> <span class="n">string</span><span class="p">[,</span> <span class="n">count</span> <span class="p">=</span> 0<span class="p">])</span>
+</pre></div>
+
+
+<p>找到所有模式匹配的字符串并用不同的字符串来替换它们.找到了返回替换后结果,否则返回原结果</p>
+<p>注,这里使用的是原始字符串(去掉了反斜线转义机制) </p>
+<div id="foot">
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="#">Top</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+</div>
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hit9github"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- Duoshuo Comment END -->
+<div style = "text-align:center; ">
+	<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+</div>
+</body>
+</html>

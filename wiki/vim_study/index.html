@@ -1,0 +1,363 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>VIM - 高效强悍的编辑器</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<script type="text/javascript">
+function pagenum()
+{
+	return parseInt(pagename());
+}
+function pagename()
+{
+	var str=window.location.href;
+	 return str.slice(str.lastIndexOf('/')+1,str.lastIndexOf('.'));
+}
+function gotopre()
+{
+	var name=pagename();
+	if(name=='index')
+	{
+		alert('No Pre Page!');
+		return false;
+	}
+	var n=parseInt(name);
+	location.href=(n==2)?'index.html':n-1+'.html';
+}
+function gotonext()
+{
+	var name=pagename();
+	var link=(name=='index')?'2.html':parseInt(name)+1+'.html';
+	// Through ajax to know if link exists 
+	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==404)
+		{
+			alert('No Next Page!');
+			return false;
+		}
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			location.href=link;
+		}
+	}
+	xmlhttp.open("GET",link,true);
+	xmlhttp.send();
+}
+function path()
+{
+	var args = arguments,
+		result = []
+			;
+
+	for(var i = 0; i < args.length; i++)
+		result.push(args[i].replace('@', '%root_path%scripts/'));
+
+	return result
+};
+</script>
+</head>
+<body>
+<div id="top">
+<div id="top1">
+<a href="/index.html">Hit9</a>
+<a href="/blog/index.html">Blog</a>
+<a href="/wiki/index.html">Wiki</a>
+<a href="/project/index.html">Project</a>
+<a href="/links.html">Links</a>
+<a href="/About.html" rel="author">About</a>
+</div>
+<div id="top2">
+Page:
+<a href="index.html">First</a>
+<a href="../index.html">UP</a>
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+</div>
+</div>
+<h1>VIM - 高效强悍的编辑器</h1>
+<p><img alt="vim-logo" src="http://farm9.staticflickr.com/8319/8058781267_bfe4f65ce6_m.jpg" />
+<img alt="vim-hit9" src="http://farm9.staticflickr.com/8032/8058828833_8b95a52a3a_z.jpg" /></p>
+<p>现在我是一名大二的学生,在使用<a href="http://www.vim.org/">VIM</a>. 前两天有同学在人人上求教Vim, 其实,我也刚入门.</p>
+<p>hit9很喜欢vim, 包括这篇文章也是用<a href="http://code.google.com/p/vimwiki/">vimwiki</a>写的.(注:初始版本用的vimwiki写的,现在使用的mkdwiki)</p>
+<p>我希望当代走在编程之路上的年轻人应该了解vim和<a href="http://www.gnu.org/software/emacs/">emacs</a>,了解linux,git,ssh,python,ruby这些非常cool的东西.</p>
+<div class="toc">
+<ul>
+<li><a href="#1vim">1.所谓Vim</a></li>
+<li><a href="#2ide">2.为何不是IDE</a></li>
+<li><a href="#3">3.开始编辑</a><ul>
+<li><a href="#1">1.简单编辑</a></li>
+<li><a href="#2">2.移动光标</a></li>
+<li><a href="#3_1">3.撤销操作</a></li>
+<li><a href="#4">4.更快的定位光标:</a></li>
+<li><a href="#5">5.更快的编辑:</a></li>
+</ul>
+</li>
+<li><a href="#4vimcool">4.让VIM更cool一点</a></li>
+<li><a href="#5vim">5.VIM强大丰富的插件</a></li>
+<li><a href="#6">6.一些不错的教程</a></li>
+<li><a href="#7vimvimlike">7.让自己更VIM些,使用vimlike的浏览器</a></li>
+</ul>
+</div>
+<h2 id="1vim">1.所谓Vim</h2>
+<p>程序员们说:编辑器有三种,vim,emacs和其他编辑器.(还记得社交网络里面,扎克伯格用的就是emacs)</p>
+<p>hit9无意挑起编辑器之战,客观来说,的确很多人爱vim.</p>
+<p>所谓vim即VI Improved,只是个编辑器而已.</p>
+<p>希望你在linux下使用vim.vim可以让你编程序得时候摆脱鼠标(我们为何摆脱鼠标?这是热衷IDE的人无法理解的!).跟Linux万能的终端配合起来妙极了.</p>
+<p>如果你离不开windows,那不如去使用<a href="http://www.sublimetext.com/">SublimeText2</a>或者<a href="http://notepad-plus-plus.org/">Notepad++</a></p>
+<p>另外澄清:gvim != vim </p>
+<h2 id="2ide">2.为何不是IDE</h2>
+<p>vim 是个编辑器,而绝非IDE(Integrated development environment). 编辑器只负责编辑code,不负责项目管理(当然vim也有这种插件),不负责编译和运行.</p>
+<p>著名的IDE有eclipse,netbeans,codeblock,vs等,但我强烈建议你丢掉这些东西!</p>
+<p>hit9只陈列几个自己不喜欢IDE而喜欢编辑器的理由:</p>
+<ol>
+<li>编辑器轻巧(快速而短小)</li>
+<li>编辑器随心所欲,可配制性高.</li>
+<li>尤其对于C\C++编译型语言,手工编译大有脾益</li>
+<li>不喜欢用鼠标点来点去的UI交互方式和我的code打交道,更喜欢用命令行. </li>
+</ol>
+<p>觉得VIM很装X? 谁用谁知道. </p>
+<h2 id="3">3.开始编辑</h2>
+<h3 id="1">1.简单编辑</h3>
+<p>下载vim后(其实大部分linux发行版会自带vim),终端输入vim,进入后会发现你输不进去东西</p>
+<p>按下i或者a,会进入插入模式(-- INSERT --),这时就可以输入东西了.</p>
+<p>怎么保存并退出呢?</p>
+<p>按下ESC键,进入正常模式.(无论什么时候按下ESC都会进入正常模式)</p>
+<p>按下:后,会看到vim最下方会有个输入条,这是命令模式,输入w意指保存,输入q意指退出.更快些,输入wq是保存并退出.</p>
+<p>如果未保存直接退出,vim会提醒你:加上!强行退出即<code>:q!</code></p>
+<h3 id="2">2.移动光标</h3>
+<p>当然可以尝试用方向键来移动了.更vimic得方式是:hjkl</p>
+<p>h和l :向左和向右 ; j和k:向下和向上 (既然你能熟悉射击游戏中的wasd,为何不能习惯hjkl呢!) </p>
+<h3 id="3_1">3.撤销操作</h3>
+<p>ESC进入普通模式下按下u可撤销操作.</p>
+<p>命令模式下:u 或者:undo也是撤销 </p>
+<h3 id="4">4.更快的定位光标:</h3>
+<p>有没有在coding的时候不停的按左右键定位到你想要的位置的经历</p>
+<p><strong>普通模式下</strong>:</p>
+<ol>
+<li>w -从当前光标当前位置跳到单字/单词末尾，包括空格(接连着摁w会更快得找到要编辑的单词!)</li>
+<li>$ – 从当前光标当前位置跳到当前行末(当然你也可以使用end键)</li>
+<li>^ - 从当前光标当前位置跳到行首 </li>
+</ol>
+<p><strong>命令模式下</strong>:</p>
+<ol>
+<li>:n - 跳到第n行</li>
+<li>:$ - 跳到最后一行</li>
+<li>:1 - 跳到第一行(跟:n一个道理) </li>
+</ol>
+<h3 id="5">5.更快的编辑:</h3>
+<p><strong>普通模式下</strong>:</p>
+<ol>
+<li>dd - 快速删除一行</li>
+<li>yy - 快速复制一行</li>
+<li>p - 粘贴</li>
+<li>r - 单个字符替换(replace) </li>
+</ol>
+<p><strong>命令模式下</strong>:</p>
+<ol>
+<li>m,nd - 快速删除第m到第n行 (delete)</li>
+<li>m,ny - 复制第m到第n行 (yank)</li>
+<li>m,nmt - 第m行到第n行剪切到第t行(move)</li>
+<li>m,ncot -第m行到第n行复制到第t行 </li>
+</ol>
+<p><strong>搜索单词</strong>:</p>
+<p>向下搜索字符串: 普通模式下按下/ 会看到左下角有个以/开头的输入条,输入你想查找的单词回车即可 </p>
+<p>向上搜索字符串: 普通模式下按下? </p>
+<p>对齐: 你得代码看上去很乱? 在普通模式下,连按两次=键使当前行对齐.按gg=G对齐整个正在编辑的文档</p>
+<h2 id="4vimcool">4.让VIM更cool一点</h2>
+<p>比如,我们coding时喜欢显示行号:命令模式下<code>:set nu</code>或者 <code>:set number</code></p>
+<p>比如,我们想换个皮肤(比如desert):命令模式下<code>:colorscheme desert</code></p>
+<p>vim有一个配置文件(~/.vimrc),我们可以把配置写进配置文件中,这样vim就会在启动后记住你得配置.否则你在命令模式下所有得配置都是瞬时的.</p>
+<p>建议vim得配置放在.vimrc中,gvim的配置放在.gvimrc中(比如配色,字体)</p>
+<p>一个配置文件: </p>
+<div class="codehilite"><pre><span class="s">&quot; Vim会自动检测到你的文件类型并为之载入相应的语法高亮.</span>
+<span class="n">syntax</span> <span class="n">enable</span>
+<span class="s">&quot; 开启语法识别</span>
+<span class="n">syntax</span> <span class="n">on</span>
+<span class="s">&quot;开启256分辨率,终端更好看</span>
+<span class="nb">set</span> <span class="n">t_Co</span><span class="o">=</span><span class="mi">256</span>
+<span class="s">&quot;配色方案,solarized很好看,可以google一下</span>
+<span class="n">colorscheme</span> <span class="n">solarized</span>
+<span class="s">&quot;如果你更喜欢不同语法下显示不同皮肤,比如我更喜欢写python时使用清爽的peachpuff</span>
+<span class="n">autocmd</span> <span class="n">Syntax</span> <span class="n">python</span> <span class="n">colorscheme</span> <span class="n">peachpuff</span>
+<span class="s">&quot;配色背景dark,另一个选择是set background=light</span>
+<span class="nb">set</span> <span class="n">background</span><span class="o">=</span><span class="n">dark</span>
+<span class="s">&quot;此项不会解释..但它会让vim在终端保持透明</span>
+<span class="n">hi</span> <span class="n">Normal</span> <span class="n">ctermbg</span><span class="o">=</span><span class="n">NONE</span>
+<span class="s">&quot;设置gui下的字体Inconsolata-g, 字体大小12号,还可以这么写set guifont=Inconsolata-g\ 12</span>
+<span class="nb">set</span> <span class="n">guifont</span><span class="o">=</span><span class="n">Inconsolata</span><span class="o">-</span><span class="n">g</span><span class="p">:</span><span class="n">h12</span>
+<span class="s">&quot;在Vim窗口的右下角显示一个完整的命令已经完成的部分</span>
+<span class="nb">set</span> <span class="n">showcmd</span>
+<span class="s">&quot;编码,建议强制使用utf8</span>
+<span class="nb">set</span> <span class="n">encoding</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span>
+<span class="s">&quot;告诉 vim，打开一个文件时,尝试 utf8,gbk..这几种编码</span>
+<span class="nb">set</span> <span class="n">fencs</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span><span class="n">ucs</span><span class="o">-</span><span class="n">bom</span><span class="p">,</span><span class="n">shift</span><span class="o">-</span><span class="n">jis</span><span class="p">,</span><span class="n">gb18030</span><span class="p">,</span><span class="n">gbkgb2312</span><span class="p">,</span><span class="n">cp936</span>
+<span class="s">&quot;终端编码</span>
+<span class="nb">set</span> <span class="n">termencoding</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span>
+<span class="s">&quot;用utf8编码打开文件</span>
+<span class="nb">set</span> <span class="n">fileencoding</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">8</span>
+<span class="s">&quot;关闭错误的时候发出声音</span>
+<span class="nb">set</span> <span class="n">noeb</span>
+<span class="s">&quot;自动缩进</span>
+<span class="nb">set</span> <span class="n">autoindent</span>
+<span class="s">&quot;按照C语言的语法，自动地调整缩进的长度</span>
+<span class="nb">set</span> <span class="n">cindent</span>
+<span class="s">&quot;智能缩进:每一行都和前一行有相同的缩进量,</span>
+<span class="s">&quot;同时这种缩进形式能正确的识别出花括号,当遇到右花括号（}）,</span>
+<span class="s">&quot;则取消缩进形式。此外还增加了识别C语言关键字的功能。</span>
+<span class="s">&quot;如果一行是以#开头的(比如宏)，那么这种格式将会被特殊对待而不采用缩进格式</span>
+<span class="nb">set</span> <span class="n">smartindent</span>
+<span class="s">&quot;文件中一个 &lt;Tab&gt; 占据的空格数</span>
+<span class="nb">set</span> <span class="n">tabstop</span><span class="o">=</span><span class="mi">4</span>
+<span class="s">&quot;一开始,插入的就是4个空格,此时一旦你再按下一次tab,这次的四个空格就会和上次的四个空格组合起来变成一个制表符</span>
+<span class="nb">set</span> <span class="n">softtabstop</span><span class="o">=</span><span class="mi">4</span>
+<span class="s">&quot;每一级自动缩进的空格数</span>
+<span class="nb">set</span> <span class="n">shiftwidth</span><span class="o">=</span><span class="mi">4</span>
+<span class="s">&quot;显示行号,关闭行号显示是set nonu</span>
+<span class="nb">set</span> <span class="n">number</span>
+<span class="s">&quot;启用鼠标的使用</span>
+<span class="nb">set</span> <span class="n">mouse</span><span class="o">=</span><span class="n">a</span>
+<span class="s">&quot;可以在buffer的任何地方使用鼠标（类似office中在工作区双击鼠标定位）</span>
+<span class="nb">set</span> <span class="n">selection</span><span class="o">=</span><span class="n">exclusive</span>
+<span class="nb">set</span> <span class="n">selectmode</span><span class="o">=</span><span class="n">mouse</span><span class="p">,</span><span class="n">key</span>
+<span class="s">&quot;代码折叠</span>
+<span class="nb">set</span> <span class="n">foldenable</span>
+<span class="s">&quot;手动折叠</span>
+<span class="nb">set</span> <span class="n">foldmethod</span><span class="o">=</span><span class="n">manual</span>
+<span class="nb">set</span> <span class="n">foldlevel</span><span class="o">=</span><span class="mi">3</span>
+<span class="s">&quot;高亮显示匹配的括号</span>
+<span class="nb">set</span> <span class="n">showmatch</span>
+<span class="s">&quot;匹配括号高亮的时间（单位是十分之一秒）</span>
+<span class="nb">set</span> <span class="n">matchtime</span><span class="o">=</span><span class="mi">1</span>
+<span class="s">&quot;代码补全</span>
+<span class="nb">set</span> <span class="n">completeopt</span><span class="o">=</span><span class="n">preview</span><span class="p">,</span><span class="n">menu</span>
+<span class="nb">set</span> <span class="n">autoread</span>
+<span class="nb">set</span> <span class="n">cpt</span><span class="o">=.</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">b</span>
+<span class="nb">set</span> <span class="n">guioptions</span><span class="o">-=</span><span class="n">T</span>           <span class="s">&quot; gvim隐藏工具栏</span>
+<span class="nb">set</span> <span class="n">guioptions</span><span class="o">-=</span><span class="n">m</span>           <span class="s">&quot; gvim隐藏菜单栏</span>
+<span class="n">filetype</span> <span class="n">indent</span> <span class="n">on</span>           <span class="s">&quot; 针对不同的文件类型采用不同的缩进格式</span>
+<span class="n">filetype</span> <span class="n">plugin</span> <span class="n">on</span>           <span class="s">&quot; 针对不同的文件类型加载对应的插件</span>
+<span class="n">filetype</span> <span class="n">plugin</span> <span class="n">indent</span> <span class="n">on</span>    <span class="s">&quot; 启用自动补全</span>
+<span class="p">:</span><span class="n">command</span> <span class="o">-</span><span class="nb">range</span><span class="o">=%</span> <span class="n">R</span> <span class="p">:</span><span class="n">call</span> <span class="n">Runit</span><span class="p">()</span> <span class="s">&quot;自定义命令:R,运行:R命令会执行函数Runit()</span>
+<span class="p">:</span><span class="n">command</span> <span class="o">-</span><span class="nb">range</span><span class="o">=%</span> <span class="n">RP</span> <span class="p">:</span> <span class="n">call</span> <span class="n">RunProject</span><span class="p">()</span> <span class="s">&quot;自定义命令:RP,编译C project(多个源文件)</span>
+<span class="n">func</span><span class="err">!</span> <span class="n">RunProject</span><span class="p">()</span>  <span class="s">&quot;C多个源文件编译函数</span>
+    <span class="k">exec</span> <span class="s">&quot;w&quot;</span> 
+    <span class="k">if</span> <span class="o">&amp;</span><span class="n">filetype</span> <span class="o">==</span> <span class="s">&#39;c&#39;</span>
+        <span class="k">exec</span> <span class="s">&quot;!gcc *.c -o %&lt;&quot;</span>
+        <span class="k">exec</span> <span class="s">&quot;! ./%&lt;&quot;</span>
+    <span class="n">endif</span>
+<span class="n">endfunc</span>
+<span class="n">func</span><span class="err">!</span> <span class="n">Runit</span><span class="p">()</span>    <span class="s">&quot;函数,根据不同的语言类型保存,编译,执行当前编辑文件</span>
+     <span class="k">exec</span> <span class="s">&quot;w&quot;</span>
+     <span class="k">if</span> <span class="o">&amp;</span><span class="n">filetype</span> <span class="o">==</span> <span class="s">&#39;c&#39;</span>
+        <span class="k">exec</span> <span class="s">&quot;!gcc  </span><span class="si">% -o</span><span class="s"> %&lt;&quot;</span>
+        <span class="k">exec</span> <span class="s">&quot;! ./%&lt;&quot;</span>
+    <span class="n">elseif</span> <span class="o">&amp;</span><span class="n">filetype</span> <span class="o">==</span> <span class="s">&#39;cpp&#39;</span>
+        <span class="k">exec</span> <span class="s">&quot;!g++ </span><span class="si">% -o</span><span class="s"> %&lt;&quot;</span>  
+        <span class="k">exec</span> <span class="s">&quot;! ./%&lt;&quot;</span>
+    <span class="n">elseif</span> <span class="o">&amp;</span><span class="n">filetype</span> <span class="o">==</span> <span class="s">&#39;java&#39;</span>
+        <span class="k">exec</span> <span class="s">&quot;!javac %&quot;</span>
+        <span class="k">exec</span> <span class="s">&quot;!java %&lt;&quot;</span>
+    <span class="n">elseif</span> <span class="o">&amp;</span><span class="n">filetype</span> <span class="o">==</span> <span class="s">&#39;sql&#39;</span>
+        <span class="k">exec</span> <span class="s">&quot;w !mysql -uroot -ppasswd wc_test -t&quot;</span>
+        <span class="p">:</span><span class="o">%</span><span class="n">s</span><span class="o">/^/--</span>
+    <span class="n">elseif</span> <span class="o">&amp;</span><span class="n">filetype</span> <span class="o">==</span> <span class="s">&#39;php&#39;</span>
+        <span class="k">exec</span> <span class="s">&quot;!php %&quot;</span>
+    <span class="n">elseif</span> <span class="o">&amp;</span><span class="n">filetype</span> <span class="o">==</span><span class="s">&#39;python&#39;</span>
+        <span class="k">exec</span> <span class="s">&quot;!python2 %&quot;</span>
+    <span class="n">elseif</span> <span class="o">&amp;</span><span class="n">filetype</span><span class="o">==</span><span class="s">&#39;ruby&#39;</span>
+        <span class="k">exec</span> <span class="s">&quot;!ruby %&quot;</span>
+    <span class="n">elseif</span> <span class="o">&amp;</span><span class="n">filetype</span><span class="o">==</span><span class="s">&#39;javascript&#39;</span>
+        <span class="k">exec</span> <span class="s">&quot;!js %&quot;</span>
+    <span class="n">elseif</span> <span class="o">&amp;</span><span class="n">filetype</span><span class="o">==</span><span class="s">&#39;vimwiki&#39;</span>
+        <span class="k">exec</span> <span class="s">&quot;Vimwiki2HTML&quot;</span>
+    <span class="n">elseif</span> <span class="o">&amp;</span><span class="n">filetype</span><span class="o">==</span><span class="s">&#39;sh&#39;</span>
+        <span class="k">exec</span> <span class="s">&quot;!sh %&quot;</span>
+    <span class="n">endif</span>
+<span class="n">endfunc</span>
+<span class="s">&quot;映射ctrl+c和ctrl+v键为copy到系统剪贴板和从系统剪切板粘贴</span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">c</span><span class="o">&gt;</span> <span class="s">&quot;+y </span>
+<span class="nb">map</span> <span class="o">&lt;</span><span class="n">C</span><span class="o">-</span><span class="n">v</span><span class="o">&gt;</span> <span class="s">&quot;+p</span>
+<span class="n">autocmd</span> <span class="n">Syntax</span> <span class="n">python</span> <span class="nb">set</span> <span class="nb">list</span>  <span class="s">&quot;由于python中缩进很关键,所以对于python显示缩进</span>
+<span class="n">autocmd</span> <span class="n">Syntax</span> <span class="n">python</span> <span class="nb">set</span> <span class="n">listchars</span><span class="o">=</span><span class="n">tab</span><span class="p">:</span>\<span class="o">-</span>\<span class="o">-</span>    <span class="s">&quot;缩进符</span>
+<span class="p">:</span><span class="n">command</span> <span class="o">-</span><span class="nb">range</span><span class="o">=%</span> <span class="n">C</span> <span class="p">:</span> <span class="n">call</span> <span class="n">Tinyc</span><span class="p">()</span>   <span class="s">&quot;C编程的时候使用tcc编译器快速测试</span>
+<span class="n">func</span><span class="err">!</span> <span class="n">Tinyc</span><span class="p">()</span>
+    <span class="k">exec</span> <span class="s">&quot;w&quot;</span>
+    <span class="k">if</span> <span class="o">&amp;</span><span class="n">filetype</span> <span class="o">==</span> <span class="s">&#39;c&#39;</span>
+        <span class="k">exec</span> <span class="s">&quot;!tcc -run %&quot;</span>
+    <span class="n">endif</span>
+<span class="n">endfunc</span>
+<span class="s">&quot;告诉vim使用vim的键盘而不是vi的</span>
+<span class="nb">set</span> <span class="n">nocompatible</span>
+<span class="s">&quot;关闭启动时的救助贫困儿童的提示消息</span>
+<span class="nb">set</span> <span class="n">shortmess</span><span class="o">=</span><span class="n">atI</span>
+</pre></div>
+
+
+<p>配置好你的vimrc后是不是觉得舒服多了,VIM也瞬间Cool了起来!</p>
+<p>最基本的呢</p>
+<ol>
+<li>选一个你喜欢的字体,比如Inconsolata-g,monospace ...</li>
+<li>选一个你喜欢的colorscheme . 比如这里http://vimcolorschemetest.googlecode.com/svn/html/index-c.html , 而且极力推荐一个配色:solarized</li>
+<li>显示行号 <code>set nu</code> ,开启缩进 <code>set autoindent ,set cindent, set smartindent</code></li>
+</ol>
+<h2 id="5vim">5.VIM强大丰富的插件</h2>
+<p>编辑器的强大之处不止在于它是高可配的,还在于它强大的扩展功能.就像wordpress一样,就像firefox一样,vim的插件解放了很多coder,不必再自己去写脚本配置vim了,而是可以取它山之石.</p>
+<p>这里推荐几个插件: </p>
+<ol>
+<li>推荐的第一个插件是<a href="https://github.com/gmarik/vundle">Vundle</a> ,一个vim管理插件,它帮你管理你的vim插件,这样就会快速的安装和卸载你的vim插件了.而不至于使你的vim变得很臃肿. <a href="http://adam8157.info/blog/2011/12/use-vundle-to-manage-vim-plugins">Vundle的wiki</a></li>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=2540">snipmate</a> 超级棒的代码片段补全插件.有了它你写代码会很快 <a href="http://www.hit9.net/archives/4596">介绍</a></li>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=2620">neocomplcache</a> 速度很快的自动完成插件.速度还是很不错的,最起码没觉得卡.<a href="http://www.cnblogs.com/likeyu/archive/2012/03/24/2415070.html">wiki</a></li>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=1488">ScrollColors</a> 一个遍历你的配色方案的插件.我们就可以快速的给vim换身衣服了!</li>
+<li><a href="http://code.google.com/p/vimwiki/">vimwiki</a> 不得不提的插件,我觉得使用它写html不比markdown慢.一个vim wiki插件.<a href="http://wiki.ktmud.com/tips/vim/vimwiki-guide.html">相关wiki</a></li>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=1849">autoclose</a> 一个自动关闭括号的插件.你是否喜欢这样coding的感觉:写C的时候,写一个(,编辑器会自动把括号合上,并把光标置中.{ 也会自动关闭并把光标置中(还会换行呢).比较头疼的是怎么区别对待ruby和html中的大括号(解决方案是使用<code>autocmd Syntax ruby,html,wiki,python inoremap { {}&lt;ESC&gt;i</code>)</li>
+<li><a href="http://www.vim.org/scripts/script.php?script_id=1658">NERD tree</a> 可以随时把你所在文件的目录列表给你打开-一个文件浏览插件 <a href="http://www.clovery.org/tree-explorer-plugin-nerdtree-for-vim.html">wiki </a></li>
+</ol>
+<p>vim 拥有众多的各式各样的插件,甚至有让vim发weibo的,用vim写博客的,用vim做音乐播放器,用vim Google搜索的...</p>
+<p>其实,hit9蛮关心有没有一个实现minimap的插件(SublimeText2中极具特色的功能)</p>
+<p>插件不在多,选几个自己喜欢的和适合自己的 </p>
+<h2 id="6">6.一些不错的教程</h2>
+<ol>
+<li><a href="http://www.ibm.com/developerworks/cn/linux/l-tip-vim1/index.html">VIM实用技术</a></li>
+<li><a href="http://www.ibm.com/developerworks/cn/linux/l-tip-prompt/tip15/">神奇的VIM</a></li>
+<li><a href="http://xbeta.info/tag/gvim">善用佳软-vim</a></li>
+<li><a href="http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html">Graphical vi-vim Cheat Sheet and Tutorial</a></li>
+<li><a href="http://xbeta.info/my-gvim.htm">我这样使用vim</a></li>
+</ol>
+<h2 id="7vimvimlike">7.让自己更VIM些,使用vimlike的浏览器</h2>
+<ol>
+<li>
+<p>Firefox中有<a href="https://addons.mozilla.org/en-US/firefox/addon/vimperator/">vimperator</a>和<a href="http://xbeta.info/vimperator.htm">Pentadacty</a></p>
+</li>
+<li>
+<p>chrome(chromium)中有<a href="https://chrome.google.com/webstore/detail/godjoomfiimiddapohpmfklhgmbfffjj">Vrome</a>和<a href="https://chrome.google.com/webstore/detail/dbepggeogbaibhgnhhndojpepiihcmeb?utm_source=chrome-ntp-icon">Vimium</a> </p>
+</li>
+</ol>
+<p><strong>最后祝愿你在VIM之旅上如鱼得水!</strong></p>
+<div id="foot">
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="#">Top</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+</div>
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hit9github"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- Duoshuo Comment END -->
+<div style = "text-align:center; ">
+	<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+</div>
+</body>
+</html>

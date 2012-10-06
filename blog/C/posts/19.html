@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>C语言匹配字符串中所有小括号</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<script type="text/javascript">
+function pagenum()
+{
+	return parseInt(pagename());
+}
+function pagename()
+{
+	var str=window.location.href;
+	 return str.slice(str.lastIndexOf('/')+1,str.lastIndexOf('.'));
+}
+function gotopre()
+{
+	var name=pagename();
+	if(name=='index')
+	{
+		alert('No Pre Page!');
+		return false;
+	}
+	var n=parseInt(name);
+	location.href=(n==2)?'index.html':n-1+'.html';
+}
+function gotonext()
+{
+	var name=pagename();
+	var link=(name=='index')?'2.html':parseInt(name)+1+'.html';
+	// Through ajax to know if link exists 
+	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==404)
+		{
+			alert('No Next Page!');
+			return false;
+		}
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			location.href=link;
+		}
+	}
+	xmlhttp.open("GET",link,true);
+	xmlhttp.send();
+}
+function path()
+{
+	var args = arguments,
+		result = []
+			;
+
+	for(var i = 0; i < args.length; i++)
+		result.push(args[i].replace('@', '%root_path%scripts/'));
+
+	return result
+};
+</script>
+</head>
+<body>
+<div id="top">
+<div id="top1">
+<a href="/index.html">Hit9</a>
+<a href="/blog/index.html">Blog</a>
+<a href="/wiki/index.html">Wiki</a>
+<a href="/project/index.html">Project</a>
+<a href="/links.html">Links</a>
+<a href="/About.html" rel="author">About</a>
+</div>
+<div id="top2">
+Page:
+<a href="index.html">First</a>
+<a href="../index.html">UP</a>
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+</div>
+</div>
+<h1>C语言匹配字符串中所有小括号</h1>
+<p>Date:2012-10-06</p>
+<p>我们要实现的效果是,C语言分析一个给定的字符串,把里面匹配的括号找出来.</p>
+<p><a href="http://stackoverflow.com/questions/1651487/python-parsing-bracketed-blocks">stackoverflow</a>上面有一个比较好的算法描述: </p>
+<div class="codehilite"><pre><span class="n">For</span> <span class="n">each</span> <span class="n">string</span> <span class="n">in</span> <span class="n">the</span> <span class="n">array</span><span class="p">:</span>
+    <span class="n">Find</span> <span class="n">the</span> <span class="n">first</span> <span class="s">&#39;{&#39;</span><span class="p">.</span> <span class="n">If</span> <span class="n">there</span> <span class="n">is</span> <span class="n">none</span><span class="p">,</span> <span class="n">leave</span> <span class="n">that</span> <span class="n">string</span> <span class="n">alone</span><span class="p">.</span>
+    <span class="n">Init</span> <span class="n">a</span> <span class="n">counter</span> <span class="n">to</span> 0<span class="p">.</span>
+    <span class="n">For</span> <span class="n">each</span> <span class="n">character</span> <span class="n">in</span> <span class="n">the</span> <span class="n">string</span><span class="p">:</span> 
+        <span class="n">If</span> <span class="n">you</span> <span class="n">see</span> <span class="n">a</span> <span class="s">&#39;{&#39;</span><span class="p">,</span> <span class="n">increment</span> <span class="n">the</span> <span class="n">counter</span><span class="p">.</span>
+        <span class="n">If</span> <span class="n">you</span> <span class="n">see</span> <span class="n">a</span> <span class="s">&#39;}&#39;</span><span class="p">,</span> <span class="n">decrement</span> <span class="n">the</span> <span class="n">counter</span><span class="p">.</span>
+        <span class="n">If</span> <span class="n">the</span> <span class="n">counter</span> <span class="n">reaches</span> 0<span class="p">,</span> <span class="k">break</span><span class="p">.</span>
+    <span class="n">Here</span><span class="p">,</span> <span class="k">if</span> <span class="n">your</span> <span class="n">counter</span> <span class="n">is</span> <span class="n">not</span> 0<span class="p">,</span> <span class="n">you</span> <span class="n">have</span> <span class="n">invalid</span> <span class="n">input</span> <span class="p">(</span><span class="n">unbalanced</span> <span class="n">brackets</span><span class="p">)</span>
+    <span class="n">If</span> <span class="n">it</span> <span class="n">is</span><span class="p">,</span> <span class="n">then</span> <span class="n">take</span> <span class="n">the</span> <span class="n">string</span> <span class="n">from</span> <span class="n">the</span> <span class="n">first</span> <span class="s">&#39;{&#39;</span> <span class="n">up</span> <span class="n">to</span> <span class="n">the</span> <span class="s">&#39;}&#39;</span> <span class="n">that</span> <span class="n">put</span> <span class="n">the</span>
+     <span class="n">counter</span> <span class="n">at</span> 0<span class="p">,</span> <span class="n">and</span> <span class="n">that</span> <span class="n">is</span> <span class="n">a</span> <span class="n">new</span> <span class="n">element</span> <span class="n">in</span> <span class="n">your</span> <span class="n">array</span><span class="p">.</span>
+</pre></div>
+
+
+<p>我的思路大致相仿:</p>
+<div class="codehilite"><pre>对于单个的一个字符串来说<span class="p">,</span>从左边向右扫描<span class="p">.</span>对于扫描到的每个<span class="s">&#39;(&#39;</span><span class="p">(</span>记录为<span class="n">p</span><span class="p">):</span>
+    初始化计数器为0<span class="p">.</span>
+    对于从<span class="n">p</span>之后的字符进行扫描<span class="p">:</span>
+        如果遇到<span class="s">&#39;(&#39;</span><span class="p">,</span>计数器加一<span class="p">.</span>
+        如果遇到<span class="s">&#39;)&#39;</span><span class="p">,</span>计数器减一<span class="p">.</span>
+        如果计数器达到0<span class="p">,</span>退出循环<span class="p">(</span>记录这个字符为<span class="n">q</span><span class="p">).</span>
+    如果循环结束都没有使计数器达到0<span class="p">,</span>则小括号匹配不成对<span class="p">,</span>退出程序<span class="p">.</span>
+    从<span class="n">p</span>到<span class="n">q</span>即一段合适的字符串<span class="p">,</span>打印后进入下一个循环<span class="p">.(</span>继续向右扫<span class="s">&#39;(&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>程序代码:</p>
+<div class="codehilite"><pre><span class="cm">/*</span>
+<span class="cm"> * author:@hit9</span>
+<span class="cm"> * github:@hit9</span>
+<span class="cm"> * what-is:find all brackets, and print their postions</span>
+<span class="cm"> */</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;a(bc)(de(fg)h(jk)s)&quot;</span><span class="p">;</span> <span class="c1">//input string</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">str</span><span class="p">,</span> <span class="o">*</span><span class="n">q</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">*</span><span class="n">t</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>  <span class="c1">//pointer p scan the str</span>
+
+    <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(;</span> <span class="o">*</span><span class="n">p</span> <span class="o">!=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span> <span class="n">p</span><span class="o">++</span><span class="p">){</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">p</span>  <span class="o">!=</span> <span class="sc">&#39;(&#39;</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+        <span class="c1">//for each &#39;(&#39; :</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">q</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span> <span class="o">*</span><span class="n">q</span> <span class="o">!=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span> <span class="n">q</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">q</span> <span class="o">==</span> <span class="sc">&#39;(&#39;</span><span class="p">)</span> <span class="n">count</span><span class="o">++</span><span class="p">;</span> <span class="c1">//if see &#39;(&#39;, increment count</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">q</span> <span class="o">==</span> <span class="sc">&#39;)&#39;</span><span class="p">)</span> <span class="n">count</span><span class="o">--</span><span class="p">;</span> <span class="c1">//if see &#39;)&#39; decrement count</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span><span class="c1">//unbalanced brackets input</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">&quot;unbalanced brackets at : %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">t</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span> <span class="n">t</span> <span class="o">!=</span> <span class="n">q</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">t</span><span class="o">++</span><span class="p">));</span><span class="c1">//print characters from &#39;(&#39; to &#39;)&#39;</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<div id="foot">
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="#">Top</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+</div>
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hit9github"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- Duoshuo Comment END -->
+<div style = "text-align:center; ">
+	<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+</div>
+</body>
+</html>
