@@ -19,3 +19,4 @@ set t_Co=256
 Bundle 'vim-powerline'
 set laststatus=2
 ```
+很漂亮的!~
