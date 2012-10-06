@@ -9,4 +9,3 @@ git:
 	git add *
 	git commit -m 'st' 
 	git push
-	
