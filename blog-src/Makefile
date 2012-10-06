@@ -1,4 +1,5 @@
-all:
+
+/all:
 	mkdwiki . -o ../
 	
 clean:
@@ -6,6 +7,6 @@ clean:
 
 git:
 	cd ../
-	git add *
+	git add * 
 	git commit -m 'st' 
 	git push
