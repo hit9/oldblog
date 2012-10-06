@@ -21,3 +21,4 @@ set laststatus=2
 ```
 很漂亮的!~
 
+!(sample)(http://farm9.staticflickr.com/8169/8059351386_f566006992_b.jpg)
