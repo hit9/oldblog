@@ -1,4 +1,4 @@
-/all:
+all:
 	mkdwiki . -o ../
 	
 clean:
