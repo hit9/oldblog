@@ -1,0 +1,16 @@
+%title Python合并两个字典
+Date:2012-09-20 
+```python
+a = {1:1, 2:2}
+b = {1:2, 3:3}
+ 
+#way 1
+print dict(a.items()+b.items())
+#way 2
+#fail (producing a TypeError) in Python 3.2, and in current versions of Jython, PyPy and IronPython: for those versions of Python, when passing a dict with the ** notation, all the keys of that dict should be strings.
+print dict(a, **b) 
+#way 3
+c = a.copy()
+c.update(b)
+print c
+```

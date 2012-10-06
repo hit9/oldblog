@@ -1,0 +1,148 @@
+%title cmake学习笔记
+
+[TOC]
+
+## 1.Hello World
+
+首先来看看一个Hello World.
+建立一个目录hello: 
+```shell
+mkdir hello
+touch hello.c
+```
+hello.c:
+```c
+#include <stdio.h>
+int main(int argc, const char *argv[])
+{
+    printf( "Hello World\n" );
+    return 0;
+}
+```
+在同一个目录下新建文件CMakeLists.txt: 
+```
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6) #限制cmake版本
+PROJECT(hello)#定义项目名称
+AUX_SOURCE_DIRECTORY(. DIR_SRCS)#将当前目录中的源文件名称赋值给变量 DIR_SRCS
+ADD_EXECUTABLE(hello ${DIR_SRCS})#变量 DIR_SRCS 中的源文件需要编译 成一个名称为hello的可执行文件
+```
+hello目录下执行cmake:
+```
+cmake .
+```
+ls一下:
+
+CMakeCache.txt CMakeFiles cmake_install.cmake CMakeLists.txt hello.c Makefile
+
+我们可以make了! 
+```
+make 
+```
+可以执行下可执行文件hello:
+```
+./hello
+```
+关于CMakeLists.txt:
+
+project(hello)定义了两个变量:hello_BINARY_DIR 和 hello_SOURCE_DIR,或者叫做PROJECT_BINARY_DIR 和 PROJECT_SOURCE_DIR(等价的)
+
+set 命令用来设置变量
+
+add_exectuable 告诉工程生成一个可执行文件
+
+add_library 则告诉生成一个库文件。
+
+命令不区分大小写,参数和变量名区分大小写 
+
+##2.分离各个目录bin,src和build
+
+现在我们把生成的可执行文件,源文件,编译中间物的三个目录分开:
+
+```
+hello/
+├── bin/
+├── build/
+├── CMakeLists.txt
+└── src/
+    ├── CMakeLists.txt
+    └── hello.c
+ 
+3 directories, 4 files
+```
+bin/目录存放编译好的可执行文件,src/目录存放工程源文件,build存放编译的中间产物
+
+其中hello/CMakeLists.txt为 
+```
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+PROJECT(hello)
+ADD_SUBDIRECTORY(src)#添加一个子目录
+```
+因为每个子目录下都需要在主目录下的CMakeLists.txt中声明下,再在子目录下建立一个新的CMakeLists.txt(当然,这里指有源文件的子目录)
+
+src/目录下的CMakeLists.txt:
+
+```
+SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/../bin)    #bin生成目录.我们要在build/下cmake,所以此处是../bin
+AUX_SOURCE_DIRECTORY(. DIR_SRCS)    #添加当前目录(src/)下所有的文件
+ADD_EXECUTABLE(hello ${DIR_SRCS})   
+```
+进入build目录 
+```
+cmake ..
+```
+然后make: 
+```
+make 
+```
+现在去hello/bin下可以看到生成了hello可执行文件.
+
+这样,如果我们需要重新cmake,就可以删掉build重来了. 
+
+##3.把头文件也分离到一个目录中去
+
+源文件全部在src中,现在我们在src中新加一个目录include用于存放头文件
+
+只需要在src/CMakeLists.txt中加入: 
+```
+INCLUDE_DIRECTORIES(include)
+```
+这个命令用于指明头文件的目录.现在的目录结构是:
+```
+hello/
+├── bin/
+├── build/
+└── src/
+    └── include/
+```
+##4.链接库
+
+比如下面的这个程序: 
+```c
+#include <stdio.h>
+#include <math.h>
+int main(int argc, const char *argv[])
+{
+    printf("%f\n",sqrt(atoi(argv[1])));
+    return 0;
+}
+```
+
+工程的目录结构是:
+```
+myapp/
+├── bin/
+├── build/
+├── CMakeLists.txt
+└── src/
+    ├── CMakeLists.t
+```
+对应的src/下的CMakeLists.txt需要增加一句: 
+```
+LINK_LIBRARIES('m')
+```
+相当于编译中的-lm参数.
+
+编译这个C文件:
+```shell
+gcc -o myapp myapp.c -lm
+```

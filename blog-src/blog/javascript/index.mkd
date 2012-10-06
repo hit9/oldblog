@@ -1,0 +1,2 @@
+1. [document.ready与window.onload](posts/index.html)
+%title javascript

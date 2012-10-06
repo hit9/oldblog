@@ -1,0 +1,12 @@
+%title Links
+1. [PHPWTF](http://www.phpwtf.org/) (About PHP's quirks)
+* [Beej's Guide to C Programming](http://xiaobin.net/wp-content/uploads/2009/bgc/)
+* [GotGitHub](http://www.worldhello.net/gotgithub/)
+* [LeGit](http://www.git-legit.org/)
+* [正则表达式30分钟入门](http://deerchao.net/tutorials/regex/regex.htm)
+* [Python How Tos](http://www.amk.ca/python/howto/)
+* [PHP之道](http://wulijun.github.com/php-the-right-way/)
+* [PHP安全指南](http://hhacker.com/files/200709/1/index.html)
+* [深入分析Linux内核源码](http://oss.org.cn/kernel-book/)
+* [Python入门教程](http://wiki.woodpecker.org.cn/moin/PyAbsolutelyZipManual)
+* [C语言常见问题集锦](http://c-faq-chn.sourceforge.net/)

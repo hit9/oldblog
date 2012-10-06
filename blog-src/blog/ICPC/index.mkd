@@ -1,0 +1,2 @@
+1. [Sum of Cubes](posts/index.html)
+%title ICPC

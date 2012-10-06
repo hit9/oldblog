@@ -1,0 +1,15 @@
+%title github(或gitcafe)添加ssh密钥后显示无权限登录ssh
+Date:2012-09-28
+
+这种情况多出现在建立多个sshkey的时候,新加的ssh key无法被认出.
+
+这时候尝试:
+```
+ssh-add
+```
+再次添加一下新的密钥.
+
+测试新的密钥是否被接受:
+```
+ssh -T git@gitcafe.com -i ~/.ssh/id_rsa
+```

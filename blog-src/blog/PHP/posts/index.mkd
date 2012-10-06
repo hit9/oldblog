@@ -1,0 +1,16 @@
+%title PHP5.4的-S内置服务器
+Date:2012-08-07 
+
+终于离开PHP5.3了,比较头疼的是PHP并非向下兼容的.
+
+到想要作为web根目录的目录去执行这个命令
+```
+sudo php -S localhost:80
+```
+这个服务器支持php脚本.这个做测试用还是不错的.有谁愿意抛弃nginx呢?
+
+很类似python的:
+
+```
+python -m SimpleHTTPServer
+```

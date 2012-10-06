@@ -1,0 +1,81 @@
+%title 用python把markdown中的代码高亮
+Date:2012-09-02 
+
+用到的是Markdown模块的一个扩展,默认包含在了Markdown模块中.另外需要模块pygments. 
+
+## 1.生成代码高亮块的html代码
+```python
+import markdown
+content=r"""    :::c
+    #include <stdio.h>
+    int main(int argc,char *argv[])
+    {
+        int n;
+        scanf("%d",&n);
+        if ( n>4 ) {
+            printf("1\n");
+        } else {
+            printf("2\n");
+        }
+        return 0;
+    }
+"""
+html=markdown.markdown(content,['codehilite'])
+print html
+```
+会看到生成了一堆html代码. 
+
+## 2.Markdown中高亮代码的语法
+
+:::'lang'和所有的code都缩进4个空格
+```c
+:::c
+#code
+```
+
+##3.怎么高亮
+
+到pygments的官网里面看demo,找个相中的style,把样式文件扒下来,然后跟html放在一起即可. 
+
+##4.用在flask中
+```python
+import markdown
+from flask import Flask
+from flask import render_template
+from flask import Markup
+ 
+app = Flask(__name__)
+@app.route('/')
+ 
+def index():
+    content=r"""    :::c
+    #include <stdio.h>
+    int main(int argc,char *argv[])
+    {
+        int n;
+        scanf("%d",&n);
+        if ( n>4 ) {
+            printf("HH");
+        } else {
+            printf("hello");
+        }
+        return 0;
+    }
+"""
+    content = Markup(markdown.markdown(content,['codehilite']))
+    return render_template('hello.html',**locals())
+app.run(debug=True)
+```
+相应的html模板:hello.html :
+```html
+<!DOCTYPE HTML>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Hello</title>
+    <link rel="stylesheet" href={{ url_for('static',filename='style.css')}} type="text/css" media="screen" charset="utf-8">
+</head>
+<body>
+    {{content}}
+</body>
+```
+

@@ -1,0 +1,63 @@
+%title C语言匹配字符串中所有小括号
+Date:2012-10-06
+
+我们要实现的效果是,C语言分析一个给定的字符串,把里面匹配的括号找出来.
+
+[stackoverflow](http://stackoverflow.com/questions/1651487/python-parsing-bracketed-blocks)上面有一个比较好的算法描述: 
+```
+For each string in the array:
+    Find the first '{'. If there is none, leave that string alone.
+    Init a counter to 0.
+    For each character in the string: 
+        If you see a '{', increment the counter.
+        If you see a '}', decrement the counter.
+        If the counter reaches 0, break.
+    Here, if your counter is not 0, you have invalid input (unbalanced brackets)
+    If it is, then take the string from the first '{' up to the '}' that put the
+     counter at 0, and that is a new element in your array.
+```
+我的思路大致相仿:
+```
+对于单个的一个字符串来说,从左边向右扫描.对于扫描到的每个'('(记录为p):
+    初始化计数器为0.
+    对于从p之后的字符进行扫描:
+        如果遇到'(',计数器加一.
+        如果遇到')',计数器减一.
+        如果计数器达到0,退出循环(记录这个字符为q).
+    如果循环结束都没有使计数器达到0,则小括号匹配不成对,退出程序.
+    从p到q即一段合适的字符串,打印后进入下一个循环.(继续向右扫'(')
+```
+程序代码:
+```c
+/*
+ * author:@hit9
+ * github:@hit9
+ * what-is:find all brackets, and print their postions
+ */
+#include <stdio.h>
+ 
+int main(int argc, const char *argv[])
+{
+    char str[100] = "a(bc)(de(fg)h(jk)s)"; //input string
+    char *p = str, *q = NULL, *t = NULL;  //pointer p scan the str
+ 
+    int count = 0;
+ 
+    for (; *p != '\0'; p++){
+        if (*p  != '(') continue;
+        //for each '(' :
+        for (q = p; *q != '\0'; q++){
+            if (*q == '(') count++; //if see '(', increment count
+            if (*q == ')') count--; //if see ')' decrement count
+            if (count == 0) break;
+        }
+        if (count != 0){//unbalanced brackets input
+            printf("unbalanced brackets at : %s\n", p);
+            return 0;
+        }
+        for (t = p; t != q+1; printf("%c", *t++));//print characters from '(' to ')'
+        printf("\n");
+    }
+    return 0;
+}
+```

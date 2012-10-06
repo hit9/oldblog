@@ -1,0 +1,102 @@
+%title C语言中何时函数参数设计为指针,何时不必为指针
+Date:2012-08-03 
+
+先上代码.比如我们需要一个函数:交换两个变量. 
+
+这是很熟悉的一个函数,我们起名swap吧.下面的代码是可行的: 
+
+```c
+#include <stdio.h>
+void swap(int *x,int *y)
+{
+    int t=*x;
+    *x=*y;
+    *y=t;
+}
+int main(int argc, const char *argv[])
+{
+    int a=1,b=2;
+    swap(&a,&b);
+    printf( "%d %d", a,b );
+    return 0;
+}
+```
+而,如果我们这么写就不会达到想要的结果: 
+```c
+#include <stdio.h>
+void swap(int x,int y)
+{
+    int t=x;
+    x=y;
+    y=t;
+}
+int main(int argc, const char *argv[])
+{
+    int a=1,b=2;
+    swap(a,b);
+    printf( "%d %d", a,b );
+    return 0;
+}
+```
+原因在于:函数中的变量生存周期.函数中的变量是临时的,并不是main中的变量.虽然第一个code中的指针也是临时变量,但是它却指向了一个main中的变量. 
+
+函数中的变量结束时销毁(结束生命): 
+```c
+#include <stdio.h>
+void test(int a)
+{
+    a+=1;
+}
+int main(int argc, const char *argv[])
+{
+    int a=1;
+    test(a);
+    printf( "%d", a );
+    return 0;
+}
+```
+如以上的code不会使a+=1的.那个等于2的同名的变量a在函数执行完毕的时候已经销毁了.此a非彼a 
+
+而指针的呢,指针作为一个参数传入的时候: 
+```c
+#include <stdio.h>
+void test(int *x)
+{
+    *x+=1;
+}
+int main(int argc, const char *argv[])
+{
+    int a=1;
+    test(&a);
+    printf( "%d", a );
+    return 0;
+}
+```
+此时会改变a的值,因为test()执行的时候,创建了一个局部变量x,值为&a.然后*x+=1.*x是x指向的变量,这个变量可不是个短命的局部变量!它是main中的变量a. 
+
+那下面的code呢: 
+```c
+#include <stdio.h>
+void test(int *x)
+{
+    x+=1;
+}
+int main(int argc, const char *argv[])
+{
+    int a=1;
+    printf( "%d",&a );
+    test(&a);
+    printf( "%d",&a );
+    return 0;
+}
+```
+明面上是指针做,参数指针也是个整数,函数并没有改变什么.
+
+如果我们需要一个计算x+y的值的函数呢,我们写一个以指针为参数的还是直接这样呢:
+```c
+int foo(int x,int y)
+{
+    return x+y;
+}
+```
+当然是后者了. 

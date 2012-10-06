@@ -1,0 +1,60 @@
+%title vim编辑器中快速输入目录树
+
+Date:2012-08-05
+
+我想要的效果是这样的 
+```
+../blog
+├── ArchLinux
+│   ├── index.wiki
+│   └── posts
+│       └── index.wiki
+├── C
+│   ├── index.wiki
+│   └── posts
+│       ├── 2.wiki
+│       ├── 3.wiki
+│       └── index.wiki
+├── index.wiki
+├── PHP
+│   ├── index.wiki
+│   └── posts
+├── Programing
+│   ├── index.wiki
+│   └── posts
+├── Python
+│   ├── index.wiki
+│   └── posts
+└── vim
+    ├── index.wiki
+    └── posts
+        └── index.wiki
+ 
+12 directories, 12 files
+```
+首先安装tree :
+
+`sudo pacman -S tree`
+
+在vim中
+
+`:r !tree dir_path`
+
+另外tree的-d选项用来只显示目录 
+```
+blog
+├── ArchLinux
+│   └── posts
+├── C
+│   └── posts
+├── PHP
+│   └── posts
+├── Programing
+│   └── posts
+├── Python
+│   └── posts
+└── vim
+    └── posts
+ 
+12 directories
+```

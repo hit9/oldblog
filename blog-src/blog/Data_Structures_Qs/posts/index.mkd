@@ -1,0 +1,106 @@
+%title 基本概念
+
+Date:2012-08-29 
+
+1.给定多项式
+
+    A(x)=anxn+an-1xn-1+...+a1x1+a0x0
+    求多项式在x0处的值,可利用Horner规则:
+    A(x0)=(...((anx0+an-1)x0+...+a1)x0+a0
+    Horner规则使多项式求值所需乘法次数最少.写出用Horner规则求值的C程序.
+解:code: 
+```
+float horner(float *a,int m,float x)
+{  
+    return m?(*a+x*horner(a+1,m-1,x)):0;
+}
+```
+测试:
+```
+#include <stdio.h>
+float horner(float *a,int m,float x)
+{  
+    return m?(*a+x*horner(a+1,m-1,x)):0;
+}
+int main(int argc, const char *argv[])
+{
+    float a[3]={1,1,1};
+    printf("%f\n",horner(a,3,4));
+    return 0;
+}
+```
+2.给定n个布尔变量,打印出它们的所有的真值组合.比如2的时候有四种可能: (true,false),(false,true),(true,true),(false,flase)
+
+解:两个大致相同的函数都可以: 
+```c
+void foo(int *arr,int n,int m)
+{
+    if (n==0) {
+        int i=0;
+        for (i = 0; i < m; i++) {
+            printf("%d\t",arr[i]);
+        }
+        printf("\n");
+    }else{
+        arr[n-1]=1;
+        foo(arr,n-1,m);
+        arr[n-1]=0;
+        foo(arr,n-1,m);
+    }
+}
+```
+
+```c
+void foo(int *arr,int n,int i)
+{
+    if (i==n) {
+        for (i = 0; i < n; i++) {
+            printf("%d\t",arr[i]);
+        }
+        printf("\n");
+    }else{
+        arr[i]=1;
+        foo(arr,n,i+1);
+        arr[i]=0;
+        foo(arr,n,i+1);
+    }
+}
+```
+ test:
+```c
+int main(int argc, const char *argv[])
+{
+    int n=3;
+    int arr[n],i;
+    for (i = 0; i < n; i++) {
+        arr[i]=0;
+    }
+    foo(arr,n,0);
+    return 0;
+}
+```
+
+3.给定正整数n,判断n是否等于其所有因子(不包括n,包括1)的总和.
+
+解:
+```c
+int foo(int m)
+{
+    int i,sum=0;
+    for (i = 1; i < m; i++) {
+        if(m%i==0)
+            sum+=i;
+    }
+    return (sum==m)?1:0;
+}
+```
+test:
+```c
+int main(int argc, const char *argv[])
+{
+    int n;
+    scanf("%d",&n);
+    printf("%d\n",foo(n));
+    return 0;
+}
+```

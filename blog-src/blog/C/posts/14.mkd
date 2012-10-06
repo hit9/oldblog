@@ -1,0 +1,13 @@
+%title C判断回文数
+Date:2012-09-15 
+```c
+int ishw(int n)
+{
+    int m=0,s=n;
+    while(n) {
+        m=n%10+m*10;
+        n/=10;
+    }
+    return (m==s)?1:0;
+}
+```

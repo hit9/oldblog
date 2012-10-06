@@ -1,0 +1,15 @@
+%title C语言数组游标与数组名称可以互换
+Date:2012-08-03 
+```
+#include <stdio.h>
+int main(int argc, const char *argv[])
+{
+    int list[4]={1,2,3,4};
+    printf( "%d %d %d", list[2],2[list],*(list+2));
+    return 0;
+}
+```
+
+上面的code会打印出三个3
+
+是因为编译器会把list[offset]看作*(list+offset) 

@@ -1,0 +1,20 @@
+%title C语言练习1:用指针打印字符串每个字符
+Date:2012-08-11 
+
+当然可以直接这样把整个字符串打印出来: 
+```c
+char *c="hello";
+printf("%s\n",c);
+```
+我想要的效果是逐个打印字符: 
+```c
+#include <stdio.h>
+int main(int argc, const char *argv[])
+{
+    char *c="hello";
+    while ( *c!='\0' ) {
+        printf("%c\n",*c++);
+    }
+    return 0;
+}
+```

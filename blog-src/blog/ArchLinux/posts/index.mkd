@@ -1,0 +1,17 @@
+%title ArchLinux下拨号上网
+Date:2012-08-03
+```
+#安装
+pacman -S rp-pppoe
+#设置
+sudo pppoe-setup
+#拨号
+sudo pppoe-start
+#断开连接
+sudo pppoe-stop
+#查看连接状态
+sudo pppoe-status
+#设置DNS
+sudo vim /etc/ppp/resolv.conf
+nameserver 8.8.8.8
+```

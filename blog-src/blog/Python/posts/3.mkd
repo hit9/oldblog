@@ -1,0 +1,51 @@
+%title Python-Markdown模块的fenced_code_hilite模块:有边界代码块高亮
+Date:2012-09-15
+
+这个扩展使用有边界的代码块语法,对代码高亮
+
+其实是改装的markdown模块的fenced_code模块
+
+代码块语法:
+(三个'\`'号后加上语言名称,再以三个'\`'做结尾:)
+<pre>
+\```lang
+codes here..
+\```
+</pre>
+
+扩展安装:
+
+首先使用python找到你的markdown模块的路径: 
+```
+Python 2.7.2 (default, Jan 31 2012, 13:26:35)
+[GCC 4.6.2 20120120 (prerelease)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import markdown
+>>> markdown.__path__
+>>> ['/usr/lib/python2.7/site-packages/Markdown-2.2.0-py2.7.egg/markdown']
+>>> 
+```
+然后把下面的文件cp到这个目录下的extensions下
+
+文件[fenced_code_hilite](https://github.com/hit9/mkdwiki/blob/master/src/fenced_code_hilite.py)
+
+扩展使用: 
+```
+usage:
+	markdown(content,['fenced_code_hilite'])
+options:
+	pygments:if use pygments to hilite code(1 for yes,0 for no)
+	markdown(content,['fenced_code_hilite(pygments=0)'])
+require:pygments,codehilite
+```
+关于options:
+
+如果使用pygments模块来高亮代码,需要css样式来渲染(https://github.com/richleland/pygments-css)
+
+如果不使用pygments模块来高亮代码.会把代码块输出成: 
+```html
+<pre class="brush:lang"
+codes here..
+</pre>
+```
+这个适合SyntaxHighlighter代码高亮插件的语法(http://alexgorbatchev.com/SyntaxHighlighter/) 

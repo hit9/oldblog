@@ -1,0 +1,29 @@
+%title C语言练习2:不用string库实现字符串复制
+Date:2012-08-11 
+
+我们把这个函数写成一个头文件:strcpy.h 
+```c
+#ifndef STRCPY_H
+#define STRCPY_H 1
+void strcpy(char *a,const char *b)
+{
+    while(*b!='\0')
+    {
+        *a++=*b++;
+    }
+}
+#endif
+```
+测试这个函数: 
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include "strcpy.h"
+int main(int argc, const char *argv[])
+{
+    char *p=(char *)malloc(6*sizeof(char));
+    strcpy(p,"hello");
+    printf("%s\n",p);
+    return 0;
+}
+```

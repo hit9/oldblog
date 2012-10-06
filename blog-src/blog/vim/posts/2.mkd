@@ -1,0 +1,26 @@
+%title vimwiki中修改斜体语法
+Date:2012-08-27
+
+起因是我在写wiki的时候，遇到python中的`__name__`等这种，vimwiki会认为成斜体，造成麻烦。
+
+目的:把斜体语法由`_italic_`改为`##italic##`
+
+修改插件vimwiki目录下的syntax/vimwiki_default.vim中的 
+
+```
+let g:vimwiki_rxItalic = '\%(^\|\s\|[[:punct:]]\)\@<='.
+\'_'.
+\'\%([^_`[:space:]][^_`]*[^_`[:space:]]\|[^_`[:space:]]\)'.
+\'_'.
+\'\%([[:punct:]]\|\s\|$\)\@='
+let g:vimwiki_char_italic = '_'
+```
+修改为:
+```
+let g:vimwiki_rxItalic = '\%(^\|\s\|[[:punct:]]\)\@<='.
+\'##'.
+\'\%([^_`[:space:]][^_`]*[^_`[:space:]]\|[^_`[:space:]]\)'.
+\'##'.
+\'\%([[:punct:]]\|\s\|$\)\@='
+let g:vimwiki_char_italic = '##'
+```

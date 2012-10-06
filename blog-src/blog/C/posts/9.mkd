@@ -1,0 +1,250 @@
+%title C语言文件操作
+Date:2012-08-11 
+
+[TOC]
+
+##1.fopen()
+
+```c
+#include <stdio.h>
+FILE *fopen(const char *path,const char *mode)
+```
+测试:
+```c
+#include <stdio.h>
+int main(int argc, const char *argv[])
+{
+    if (NULL==fopen("testfile","r")) {
+        printf("file open failed!\n");
+    }else{
+        printf("file open success!\n");
+    }
+    return 0;
+}
+```
+关于mode(very important) :
+```c
+r:只读方式，文件必须存在
+w:只写方式，若文件存在，则原有内容会被清除；若文件不存在，则会建立文件
+a:追加方式打开只写文件，只允许进行写操作，若文件存在，则添加的内容放在文件末尾；若不存在，则建立文件
++:可读可写
+b:以二进制方式打开文件
+t:以文本方式打开文件(默认方式下以文本方式打开文件)
+```
+
+##2.fclose()
+
+```c
+#include <stdio.h>
+int fclose(FILE *fp) 
+```
+正确返回0,否则返回EOF 
+
+##3.fread()
+
+从一个流中读数据 
+```c
+#include <stdio.h>
+size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
+```
+* ptr:用于接收数据的指针.
+* size :读的数据的单位元素的字节大小.
+* nmemb :读取的元素的个数(份数).
+* stream :提供数据的文件指针(可以是stdin)
+* 返回成功读取的元素个数
+
+以下代码从一个文件中读取5个char类型数据并打印出来: 
+```c
+#include <stdio.h>
+int main(int argc, const char *argv[])
+{
+    /*
+     * fp:file pointer
+     * nmemb:number to read from file
+     * numread:number successfully read from file
+     */
+    FILE *fp;
+    int nmemb=5,numread;
+    char list[nmemb+1];
+    /*
+     * open the file
+     */
+    if ((fp=fopen("text","rb"))==NULL) {
+        printf("failed open file\n");
+        exit(1);
+    }
+    /*
+     * read file and close file
+     */
+    numread=(int)fread(list,sizeof(char),nmemb,fp);
+    fclose(fp);
+    /*
+     * if numread bigger than nmemb,make list[numread]='\0',so we can safely printf the string
+     */
+    if(numread<=nmemb)
+    {
+        list[numread]='\0';
+    }
+    printf("%s\n",list);
+    return 0;
+}
+```
+
+##4.fwirte()
+函数格式:
+```c
+size_t fwrite(const void *ptr, size_t size, size_t nmemb,FILE *stream);
+```
+实例:
+```c
+#include <stdio.h>
+int main(int argc, const char *argv[])
+{
+    FILE *fp;
+    if ((fp=fopen("text","a"))==NULL) {
+        printf("failed open file\n");
+        exit(1);
+    }
+    fwrite("hello",sizeof(char),5,fp);
+    return 0;
+}
+```
+
+##5.字符读写fgetc(),fputc()
+
+函数原型: 
+```c
+int fgetc(FILE *stream);
+int fputc(int c, FILE *stream);
+```
+返回值:
+
+fgetc(fputc)若成功读取(写入)则返回读取(写入)的字符.否则返回EOF
+
+下面的程序把你输入的字符写入文件text,然后把文件text的内容输出显示到控制台(EOF即ctrl+d结束输入) 
+```c
+#include <stdio.h>
+int main(int argc, const char *argv[])
+{
+    FILE *fp;
+    int c;
+    /*
+     * open file.mode:w+.(read and write)
+     */
+    if ((fp=fopen("text","w+"))==NULL) {
+        printf("failed open file\n");
+        exit(1);
+    }
+    /*
+     * read data from stdin
+     */
+    while ( (c=getchar())!=EOF) {
+        fputc(c,fp);
+    }
+    /*
+     * rewind file pointer to 0
+     */
+    rewind(fp);
+    /*
+     * read data from file to stdin
+     */
+    printf("Press some key to read the file");
+    getchar();
+    while ((c=fgetc(fp))!=EOF) {
+        putchar(c);
+    }
+    return 0;
+}
+```
+
+##6.字符串读写fputs,fgets
+
+函数原型: 
+```c
+char *fgets(char *s, int size, FILE *stream);
+int fputs(const char *s, FILE *stream);
+```
+返回值: 
+```c
+fputs:成功时返回一个非负值,失败时返回EOF
+fgets:成功返回指针s,失败返回NULL
+```
+注意的是,fgets从文件流中读取最多size-1个字符而不是size个到字符串s中
+
+fputs例子: 
+
+```c
+#include <stdio.h>
+int main(int argc, const char *argv[])
+{
+    FILE *fp;
+    if ((fp=fopen("text","w+"))==NULL) {
+            printf("failed open file\n");
+            exit(1);
+    }
+    if(fputs("hello",fp)<0){
+        printf("error.\n");
+    }else{
+        printf("success\n");
+    }
+    return 0;
+}
+```
+
+fgets示例: 
+
+```c
+#include <stdio.h>
+#define SIZE 8
+int main(int argc, const char *argv[])
+{
+    FILE *fp;
+    char s[SIZE];
+    if ((fp=fopen("text","r"))==NULL) {
+        printf("failed open file\n");
+        exit(1);
+    }
+    if (fgets(s,SIZE,fp)==NULL) {
+        printf("fgets failed\n");
+    }else{
+        printf("%s",s);
+    }
+    return 0;
+}
+```
+
+##7.feof()
+
+feof()用来判断文件流的结束.
+
+函数原型: 
+```c
+int feof(FILE *stream);
+```
+return value: 读取到文件结束的时候返回0,否则非零
+
+注意,当文件指针指向EOF的时候,feof()并不认为读取结束了,直到读到EOF的下一个字符才返回1,这时才认为是文件结束.
+
+程序示例: 
+```c
+#include <stdio.h>
+int main(int argc, const char *argv[])
+{
+    FILE *fp;
+    int c;
+    if ((fp=fopen("text","r"))==NULL) {
+            printf("failed open file\n");
+            exit(1);
+    }
+    do {
+        c=fgetc(fp);
+        if(c!=EOF)/*when fp point  to EOF,feof still is 0.but not 0 when read the next char*/
+            putchar(c);
+    } while (!feof(fp));
+    fclose(fp);
+    return 0;
+}
+```
+
+**关于EOF和feof的区别**
+feof只判断文件流是否结束.EOF即-1,表示函数的返回值.比如fgetc()在IO错误而并未达到文件末尾的时候也返回EOF,但此时feof==0

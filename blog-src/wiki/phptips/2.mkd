@@ -1,0 +1,124 @@
+%title PHP Coding Tips
+[TOC]
+###10.养成检查提交请求的习惯
+
+这是老生常谈的了 
+```php
+<?php
+echo 'What you have input is:'.$_GET['input'];
+?>
+```
+
+优化上面的代码为:
+```php
+<?php
+if(isset($_GET['input']))
+{
+    echo 'What you have input is:'.htmlspecialchars($_GET['input'],ENT_QUOTES);
+}else{
+    echo "No input";
+}
+?>
+```
+
+###11.使用list获取explode后的特定段值
+同样是来自laruence的博客.
+
+list()跟array()一样不是函数,而是语言结构 
+```php
+<?php
+$str='a,b,c,d';
+list(,,$re)=explode(',',$str);
+echo $re;//display:c
+?>
+```
+
+###12.尽量不写PHP闭合标签
+BAD:
+```php
+<?php
+echo 'hello';
+?>
+```
+GOOD:
+```
+<?php
+echo 'hello';
+```
+可是为什么呢,CI文档中说明了原因并讲了一个建议:http://codeigniter.org.cn/user_guide/general/styleguide.html#php_closing_tag
+
+为了防止在闭合标签外有空格或多余字符 
+
+###13.多个变量可以在一行内赋值
+
+像下面的例子,PHP并不报错
+```php
+<?php
+$a=$b=$c=1;
+```
+###14.数学运算和字符串追加,数组PUSH
+
+当我们整型变量加上一个值,字符串追加一个串,把一个变量压入数组
+
+比如下面的代码: 
+```php
+<?php
+$i=4;
+$str='hello';
+$arr=array('a','b');
+$i=$i+1;
+$str=$str.' world';
+$arr=array_push($arr,'c');//或者你可能使用$arr[2]='c'
+```
+还可以这样写,而且建议这么写 
+```php
+<?php
+$i=4;
+$str='hello';
+$arr=array('a','b');
+$i+=1;
+$str.=' world';
+$arr[]='c';
+```
+关于最后那个$arr[]=$var;的写法,PHP官方文档建议这么写,见http://www.php.net/manual/zh/function.array-push.php
+
+### 15.使用array_map快速处理数组
+我在OSC上看到的
+
+下面的代码是想把数组中各个元素的首尾空白去掉: 
+```php
+<?php
+$arr=array(' a','b ',' c ');
+print_r($arr);
+foreach ($arr as $key => $var)
+{
+    $arr[$key]=trim($var);
+}
+print_r($arr);
+```
+使用array_map函数会更简洁: 
+```php
+<?php
+$arr=array(' a','b ',' c ');
+print_r($arr);
+$arr=array_map('trim',$arr);
+print_r($arr);
+```
+array_map函数很有趣,几个数组的对应位置的元素作为函数参数并返回函数返回值的数组.
+
+看下面的例子(来自w3cschool):当把函数名写成null
+
+```php
+<?php
+$arr1=array('a','b','c');
+$arr2=array('e','f','g');
+print_r(array_map(null,$arr1,$arr2));
+```
+结果是输出了一个二维数组: 
+```php
+Array (
+[0] => Array ( [0] => a [1] => e )
+[1] => Array ( [0] => b [1] => f )
+[2] => Array ( [0] => c [1] => g )
+)
+```

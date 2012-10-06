@@ -1,0 +1,61 @@
+%title PCRE正则表达式API
+Date:2012-08-09 
+
+PCRE是一个著名的正则库.
+
+ArchLinux在core有.
+
+使用man查看说明和api: 
+```shell
+man pcre
+man pcreapi
+```
+写了一个匹配的函数regx,放在头文件regx.h中: 
+```c
+#ifndef regx_h
+#define regx_h 1
+int regx(const char *pattern,const char *text)
+{
+    pcre *re;
+    const char *error;
+    int erroroffset;
+    int rc;
+    re=pcre_compile(pattern,0,&error,&erroroffset,NULL);
+    if(re==NULL)
+    {
+        printf( "PCRE compile failed at offset %d,error:%s", erroroffset,error );
+        pcre_free(re);
+        return -1;
+    }
+    rc=pcre_exec(re,NULL,text, strlen(text), 0, 0,NULL,0);
+    pcre_free(re);
+    return (rc<0)?-1:1;
+}
+#endif
+```
+然后我们来测试下: 
+```c
+#include <stdio.h>
+#include <string.h>
+#include <pcre.h>
+#include "regx.h"
+int main(int argc, const char *argv[])
+{
+    if (argc!=3) {
+        printf("Need 2 args:pattern,text\n");
+        return -1;
+    }
+    printf("%d",regx(argv[1],argv[2]));
+    return 0;
+}
+```
+注意链接的时候的参数-lpcre :
+```c
+gcc -o regx regx.c -lpcre
+```
+API:
+```c
+pcre *pcre_compile(const char *pattern, int options, const char **errptr, int *erroffset, const unsigned char *tableptr);
+int pcre_exec(const pcre *code, const pcre_extra *extra, const char *subject, int length, int startoffset, int options, int *ovector, int ovecsize); 
+
+```

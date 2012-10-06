@@ -1,0 +1,26 @@
+%title getchar返回值类型
+Date:2012-08-12 
+
+man getchar会看到: 
+
+```c
+int getchar(void);
+```
+
+getchar返回的是int.char也是一种int.
+
+如下代码: 
+
+```c
+#include <stdio.h>
+int main(int argc, const char *argv[])
+{
+    int c;
+    while ( (c=getchar())!=EOF ) {
+        putchar(c);
+    }
+    return 0;
+}
+```
+
+在终端下运行时,按下CTRL+D(即声明EOF)会结束输入 

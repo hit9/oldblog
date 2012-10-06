@@ -1,0 +1,109 @@
+%title PHP Coding Tips
+[TOC]
+### 16.用FALSE表示错误, 用NULL表示不存在
+
+这一条同样来自鸟哥博客;
+
+对于操作类的函数, 失败返回FALSE, 表示”操作失败了”, 而对于查询类的函数, 如果找不到想要的值, 则应该返回NULL, 表示”找不到”. 
+
+### 17.以变量的值命名一个变量
+
+看下边的代码: 
+```php
+<?php
+$var_1='var_2';
+$$var_1='Hello!';
+echo $var_2;//display:Hello!
+```
+但我们不建议这么写.第一可读性差,第二,PHP会去查找两次才会得到$var_2的值 
+
+###18.PHP生成n位随机字符串的简单方法
+
+如果你去google一下'PHP 生成n位随机字符串',会得到很多复杂的答案.看下面的这个: 
+
+```php
+//str_shuffle会把一个字符串随机打乱
+substr(str_shuffle('abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, $ni);
+```
+### 19.尽量少的使用@抑制符
+
+不仅很低性能,而且在调试错误的时候会带来麻烦,还可能会引起莫名其妙的BUG.
+
+根据鸟哥的文章:http://www.laruence.com/2009/07/27/1020.html
+
+错误抑制符其实是分三步进行:保存当前error_reporting的值,设置error_reporting(0)来关闭输出,运行被抑制错误输出的代码,恢复error_reporting的值;
+
+鸟哥博客说的很详细,推荐阅读! 
+
+### 20.不要在loop里面执行SQL,代价昂贵
+
+如果需要查询多个,那把他们放到一个SQL语句里面去查询一次 
+
+###21.尽量使用filter来验证输入而不是使用正则
+
+比如验证输入的email 
+```php
+<?php
+if(filter_input(INPUT_GET,'email',FILTER_VALIDATE_EMAIL)){
+    echo 'ok';
+}
+```
+好过正则:
+```php
+is_string($str)&&preg_match('/^[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,4}$/',$str);
+```
+另外checkdnsrr()可以验证某个域名是否存在,可以用来验证email的一部分 
+
+### 21.extract函数的巧用
+
+首先通过下面的例子代码了解什么是extract(): 
+
+```php
+<?php
+$arr=Array('a'=>'A','b'=>'B','c'=>'C');
+extract($arr);
+echo $a,$b,$c;//display:ABC
+```
+还不知道extract能做什么?去Google吧~
+
+现在我们处理一个表单提交的动作:
+
+HTML表单代码: 
+```html
+<form action="get_post.php" method="post" accept-charset="utf-8">
+    <input type="text" name="username">
+    <input type="text" name="passwd">
+<input type="submit" value="Submit">
+</form>
+```
+接收post请求的get_post.php文件: 
+```php
+<?php
+extract($_POST);//此处未验证$_POST的存在性,建议每次接收请求都验证是否有请求存在
+echo $username,$passwd;
+```
+这样是不是很方便?
+
+不过注意:用户输入的东西是不确定的,有一定安全风险 
+
+### 23.= 和 ||的优先级问题
+
+看下面的code:
+```php
+<?php
+$a=2;
+$b=2;
+if($a=5 || $b=5)
+{
+    var_dump($a);
+}
+```
+再看下面的code:
+```php
+<?php
+if($a=2|| false)
+{
+    echo $a;
+}
+```
+结果是$a=1 

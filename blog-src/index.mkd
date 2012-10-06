@@ -1,0 +1,15 @@
+%title Hit9 - Follow my heart
+```c
+#include <love.h>
+
+#define FOREVER 1
+
+int main()
+{
+	do{
+		I love You - Ying;
+	}while(FOREVER);
+	
+	return 0.
+}
+```

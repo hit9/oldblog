@@ -1,0 +1,118 @@
+%title C程序内存泄漏检测
+Date:2012-09-28 
+
+记录两个C程序内存泄漏检测工具.这两个都很简单易用.
+
+两个工具:[mtrace](http://www.gnu.org/software/libc/manual/html_node/Tracing-malloc.html#Tracing-malloc) 和 [memwatch](http://www.linkdata.se/sourcecode/memwatch/) 
+
+## 1.mtrace
+
+mtrace 来自GNU.(分配内存必须使用glibc的内存分配函数)
+
+比如我们要检测这个程序(test.c): 
+```c
+#include <stdio.h>
+#include <stblib.h>
+int main(int argc, const char *argv[])
+{
+    int *a = (int *)malloc(10);
+    return 0;
+}
+```
+显然这个程序在结束前没有释放指针a指向的内存.
+
+首先在test.c中包含进头文件 mcheck.h
+
+然后使用这个库的函数 mtrace(),muntrace()
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <mcheck.h>
+int main(int argc, const char *argv[])
+{
+    mtrace(); //检测起点
+    int *a = (int *)malloc(10);
+    muntrace(); //检测终点,检测到程序末尾时可以省略不写这个
+    return 0;
+}
+```
+然后在环境变量中添加环境变量MALLOC_TRACE指明log文件位置: 
+```
+$ export MALLOC_TRACE=test.log 
+```
+然后调试模式下编译test.c 
+```
+$ gcc test.c -o test -g
+```
+执行程序,会写入日志文件:
+```
+$ ./test
+```
+然后mtrace 分析log文件,并输出到stdout
+```
+$ mtrace test test.log
+```
+原理: 编译好的程序test会寻找环境变量MALLOC_TRACE并把内存泄漏检测情况输出到里面.mtrace(perl写的)只是一个分析日志文件的工具
+输出是这样的:
+```
+Memory not freed:
+-----------------
+   Address     Size     Caller
+0x08a99378      0xa  at /home/hit9/c/test.c:7
+```
+其实我们可以写个Makefile来简化这个操作:
+```
+all:
+	gcc test.c -o test -g
+    env MALLOC_TRACE=test.log ./test
+    mtrace test test.log
+```
+
+##2.memwatch
+
+memwatch的使用比mtrace还简单.不过memwatch需要单独下载去,并不是GNU的库.
+
+还是上面的那个程序,只须引入头文件memwatch.h
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include "memwatch.h"
+int main(int argc, const char *argv[])
+{
+    int *a = (int *)malloc(10);
+    return 0;
+}
+```
+然后编译程序即可!
+```
+$ gcc -DMEMWATCH -DMW_STDIO test.c memwatch.c -o test
+```
+执行程序.会生成日志文件memwatch.log:
+```
+$ ./test
+```
+查看日志文件即可 !
+```
+cat memwatch.log
+```
+输出如下: 
+```
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+ 
+Started at Fri Sep 28 05:15:02 2012
+ 
+Modes: __STDC__ 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+ 
+ 
+Stopped at Fri Sep 28 05:15:02 2012
+ 
+unfreed: <1> 3.c(6), 10 bytes at 0x9ce31f8    {FE FE FE FE FE FE FE FE FE FE .. .. .. .. .. .. ..........}
+ 
+Memory usage statistics (global):
+ N)umber of allocations made: 1
+ L)argest memory usage      : 10
+ T)otal of all alloc() calls: 10
+ U)nfreed bytes totals      : 10
+```

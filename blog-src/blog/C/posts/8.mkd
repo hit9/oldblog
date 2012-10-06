@@ -1,0 +1,49 @@
+%title C语言练习4:不用string库实现计算字符串长度
+Date:2012-08-11 
+
+其中一个解决方式是这个头文件strlen.h.比较好理解: 
+```c
+#ifndef STRLEN_H
+#define STRLEN_H 1
+int strlen(char *p)
+{
+    int i=0;
+    while(*p++!='\0')
+    {
+        i++;
+    }
+    return i;
+}
+#endif
+```
+
+这里需要注意的是,*的优先级比后++强.但是指针p还是自增了"字符串长度+1"次.
+
+这个头文件还可以这么写: 
+
+```c
+#ifndef STRLEN_H
+#define STRLEN_H 1
+int strlen(char *p)
+{
+    char *q=p;
+    while ( *p++!='\0' );
+    return p-q-1;
+}
+#endif
+```
+
+最后返回p-q-1是因为指针p自增的次数是"长度+1",因为while条件被判断了"长度+1"次:从第1个字符到\0
+
+测试这个函数 :
+
+```c
+#include <stdio.h>
+#include "strlen.h"
+int main(int argc, const char *argv[])
+{
+    char *p="hello";
+    printf( "%d\n", strlen(p) );
+    return 0;
+}
+```

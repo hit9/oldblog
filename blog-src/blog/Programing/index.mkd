@@ -1,0 +1,3 @@
+1. [linux终端彩色输出](posts/2.html)
+1. [PHP,Python,C,Shell接收外部参数](posts/index.html)
+%title Programing

@@ -1,0 +1,31 @@
+%title 如何在Google搜索结果中呈现你(网站作者)的头像
+Date:2012-08-28
+
+我想实现的效果是:Google中搜到你的网站的时候,搜索列表内会显示你的头像(Google头像): 
+
+![](http://farm9.staticflickr.com/8454/8058437050_84a156cb77.jpg)
+
+如果你还没有注册Google+,可以去这里修改https://profiles.google.com/me .注册了Google+的话,直接在Google+编辑个人资料.
+
+找到"以下网站的撰稿者",并添加你的网站.
+
+注:大陆ip访问Google+或者Google profie显示404是正常现象,要么你改hosts为国外,要么你挂代理. 
+两个方式:
+
+1.在你的网站的一个页面加入你的Google profile或者Google Plus的链接(rel设置为"author"):
+```
+<a href="https://plus.google.com/u/0/100665822151034083512" rel="author">about</a>
+```
+但是这样的话,只有加入这个链接的页面在Google搜索结果中那样显示.
+
+2.第二种方式可以让整个网站的页面都这样显示.
+
+如果你的网站有About页面(或者About me啦),在里面加入你的Google profile或者Google+链接:(rel设置为"me")
+```
+<a href="https://plus.google.com/100665822151034083512?rel=author" rel="me">Google</a>
+```
+然后在你的每个页面如果都有一个指向About页面的链接(比如侧边栏或者导航栏内一般会有吧),把这个链接的rel设置为"author" 
+
+测试 .做好了之后不会立刻在搜索页面看到结果.但可以到这里测试:http://www.google.com/webmasters/tools/richsnippets
+
+另外,Google的指南:http://support.google.com/webmasters/bin/answer.py?hl=zh-Hans&answer=1408986 

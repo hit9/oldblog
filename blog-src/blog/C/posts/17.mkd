@@ -1,0 +1,56 @@
+%title gdb使用入门
+Date:2012-09-25
+
+gdb是C语言开发之调试必备利器!
+
+比如我们调试如下程序: 
+```c
+#include <stdio.h>
+int main(int argc, const char *argv[])
+{
+    char a[] = "hello world";
+    return 0;
+}
+```
+首先我们编译时加上参数-g :
+```c
+gcc test.c -o test -g
+```
+然后用gdb调试
+```
+gdb test
+```
+进入后:
+```c
+GNU gdb (GDB) 7.5
+Copyright (C) 2012 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "i686-pc-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+Reading symbols from /home/hit9/c/test...done.
+(gdb) l                                           # 显示源文件 即list
+1   #include <stdio.h>
+2   int main(int argc, const char *argv[])
+3   {
+4       char a[] = "hello world";
+5       return 0;
+6   }
+(gdb) b 5     # 设置第5行断点 即breakpoint 5                      
+Breakpoint 1 at 0x80483cf: file test.c, line 5.
+(gdb) b 6   # 设置第6行断点
+(gdb) d 2 # 删除第2号断点(即第6行的断点)
+(gdb) r  # 开始运行程序,即run
+Starting program: /home/hit9/c/test
+Breakpoint 1, main (argc=1, argv=0xbffff7a4) at test.c:5
+5       return 0;
+(gdb) p a #即print
+$1 = "hello world"
+(gdb) c #即continue
+Continuing.
+[Inferior 1 (process 13623) exited normally]
+(gdb) q   # 即quit
+```

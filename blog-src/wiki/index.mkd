@@ -1,0 +1,7 @@
+%title wiki - Hit9
+1. [PHP coding tips](./phptips/index.html)
+* [Python学习笔记](./python/index.html)
+* [cmake学习笔记](./cmake/index.html)
+* [python正则表达式](./python_re/index.html)
+* [vim-高效强悍的编辑器](./vim_study/index.html)
+* [mkdwiki-用markdown写wiki](./mkdwiki/index.html)

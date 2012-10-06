@@ -1,0 +1,21 @@
+%title 终端输出信息输入到vim
+Date:2012-09-15
+
+我想要的效果是: 
+```
+gcc: fatal error: no input files
+compilation terminated.
+```
+还有这种: 
+```
+Python 2.7.2 (default, Jan 31 2012, 13:26:35)
+[GCC 4.6.2 20120120 (prerelease)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+```
+vim中的命令:
+```
+r ! gcc
+#或者:
+r ! python
+```

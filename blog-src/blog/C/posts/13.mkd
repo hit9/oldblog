@@ -1,0 +1,41 @@
+%title C语言字符串替换
+Date:2012-09-06
+
+C语言本身并没有提供字符串替换的接口.
+
+于是就自己写了一个
+
+function: 
+```c
+void *strrp(char *src,char *sub,char *rp,char *p)
+{
+    int sub_len=strlen(sub);
+    char *po=NULL,*q=src;
+    while((po=strstr(q,sub))!=NULL)
+    {
+        strncat(p,q,po-q);
+        strcat(p,rp);
+        q+=po-q+sub_len;
+    }
+    strcat(p,q);
+}
+```
+required:
+```c
+#include <string.h>
+```
+sample usage:
+```c
+int main(int argc, const char *argv[])
+{
+    char *src="345343";
+    char *sub="3";
+    char *rp="p3";
+    char s[100];
+    memset(s,0,100);
+    strrp(src,sub,rp,s);
+    printf("%s\n",src);
+    printf("%s\n",s);
+    return 0;
+}
+```

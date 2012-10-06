@@ -1,0 +1,12 @@
+%title Blog - Hit9
+1. [C](C/index.html)
+1. [ArchLinux](ArchLinux/index.html)
+1. [PHP](PHP/index.html)
+1. [Python](Python/index.html)
+1. [Programing](Programing/index.html)
+1. [vim](vim/index.html)
+1. [Git](Git/index.html)
+1. [javascript](javascript/index.html)
+1. [Google](Google/index.html)
+1. [Data_Structures_Qs](Data_Structures_Qs/index.html)
+1. [ICPC](ICPC/index.html)

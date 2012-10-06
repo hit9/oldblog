@@ -1,0 +1,19 @@
+%title format VS %
+Date:2012-09-01 
+
+格式化输出一个字符串可以
+```python
+name='hello'
+print "%s"%name
+```
+还可以:
+```python
+name='hello'
+print '{}'.format(name)
+```
+两者有一点区别,当name=(1,2,3)的时候,第一种必须这样打印才可以: 
+```python
+name=(1,2,3)
+print "%s"%(name,)
+```
+而第二种没问题 

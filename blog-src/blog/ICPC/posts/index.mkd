@@ -1,0 +1,51 @@
+%title Sum of Cubes
+Date:2012-09-04
+
+注意的是x可能是负数.y一定是非负数.
+
+当x,y均非负的时候,x,y一定不超过100
+
+当x负数(设为-a)的时候,`0<x*x*x+y*y*y<1000000即0<y*y*y-a*a*a<1000000`.(y,a非负).当两个不同的正整数相差一的时候,其立方差才最小.
+
+所以针对第二个情况.首先根据下面的程序跑出a的临界点: 
+```c
+int i=0;
+for (i = 0;i*i*i-(i-1)*(i-1)*(i-1)<=1000000; i++);
+printf("%d\n",i);
+```
+得到的是578.(即y)
+	
+所以当x<0时,x最小不过-578,y最大不过579
+
+所以-578<x<100,0<=y<579 
+```c
+#include "stdio.h"
+int main(int argc, char const *argv[])
+{
+    int flag=0,n,a,b,m;
+    while(scanf("%d",&n)==1)
+    {
+        if(n==0 || n>1000000) break;
+        m=n<100?n:100;
+        for (a=-600;a<=m;a++)
+        {
+            b=a<0?0:a;
+            for (;b<600;b++)
+            {
+                if(a*a*a+b*b*b==n)
+                {
+                    flag=1;
+                    break;
+                }
+            }
+            if (flag) break;
+        }
+        if (flag)
+            printf("%d %d\n",a,b);
+        else
+            printf("impossible\n");
+        flag=0;
+    }
+    return 0;
+}
+```

@@ -1,0 +1,5 @@
+1. [Python合并两个字典](posts/4.html)
+1. [Python-Markdown模块的fenced_code_hilite模块:有边界代码块高亮](posts/3.html)
+1. [用python把markdown中的代码高亮](posts/2.html)
+1. [format VS %](posts/index.html)
+%title Python

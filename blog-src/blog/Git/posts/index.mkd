@@ -1,0 +1,17 @@
+%title git push询问用户名和密码变成使用ssh认证
+Date:2012-08-27
+
+编辑repo目录下的.git/config文件
+
+比如我这个,找到: 
+```
+[remote "origin"]
+    url =https://github.com/hit9/hit9.github.com.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+```
+那个url为ssh类型的地址: 
+```
+[remote "origin"]
+    url =git@github.com:hit9/hit9.github.com.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+```

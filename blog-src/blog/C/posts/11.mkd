@@ -1,0 +1,59 @@
+%title getchar详细探究
+Date:2012-08-15 
+
+getchar()有一个特点,用户输入一个字符后会回显(不像getch那样).
+
+getchar()是标准库中的函数,返回一个int类型数据.
+
+上一博文中有一个代码如此: 
+
+```c
+#include <stdio.h>
+int main(int argc, const char *argv[])
+{
+    int c;
+    while ( (c=getchar())!=EOF ) {
+        putchar(c);
+    }
+    return 0;
+}
+```
+但是我一直没闹明白,getchar是怎么工作的.
+
+先看这一段简单的代码: 
+```c
+#include <stdio.h>
+int main(int argc, const char *argv[])
+{
+    int a,b;
+    a=getchar();
+    b=getchar();
+    printf("%c%c",a,b);
+}
+```
+hit9个人总结如此:
+
+**调用getchar()时它会去读取数据,如果缓冲区有数据,从缓冲区读入而不等待用户输入.否则会等待用户输入再读取数据**
+
+按照上面的原则分析上一个程序.a=getchar()处,调用了getchar(),缓冲区没有字符,等待用户输入,这时如果你输入了'a'再回车('\n'),这时'\n'被放入缓冲区,程序走到b=getchar()处发现缓冲区不空,不再等待用户输入,直接把'\n'拿来赋值给b.所以最后的打印是一个'a'和一个空行('\n')
+
+如果你输入了'a'和'b'再回车,这时,缓冲区放入了'b'和'\n'两个字符.('a'被拿去赋值给a).第二次b=getchar()取数据的时候会把'b'取走(先入先出),打印的结果就是'a'和'b'但并没有空行.
+
+但是,插一句,为何getchar()第一次请求的时候,我们回车后换行了呢?因为'\n'被回显了.(参考本文第一句)
+
+再看下面的程序也不难解释: 
+```c
+#include <stdio.h>
+#define SIZE 5
+int main(int argc, const char *argv[])
+{
+    int list[SIZE],i;
+    for (i = 0; i < SIZE; i++) {
+        list[i]=getchar();
+        putchar(list[i]);
+    }
+}
+```
+第一个程序呢?即使while循环,也不难解释.
+
+需要注意的是,'\n'也是字符,EOF不同于'\n' 

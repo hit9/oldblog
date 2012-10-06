@@ -1,0 +1,37 @@
+%title C语言stat()
+Date:2012-09-20 
+```c
+#include <sys/stat.h>      
+#include <sys/types.h>          
+#include <stdio.h> 
+  
+#define  FILENAME "/usr/"      
+  
+void file_stat(char * filename);
+void main()
+{
+  file_stat(FILENAME);
+}
+  
+  
+  
+void file_stat(char * filename)
+{
+  struct stat stat_p;      
+    
+  stat (filename, &stat_p);
+  printf("This will print several tests on your file \n");
+  printf("The answer is in boolean \n 0 - No \n 1 - yes\n");
+              
+  printf("\tIs it \n\texsits ?\t\t%d \n",S_ISREG(stat_p.st_mode));
+  printf("\tDirectory ?     \t%d \n",S_ISDIR(stat_p.st_mode));
+  printf("\tCharecter Device  \t%d\n",S_ISCHR(stat_p.st_mode));
+  printf("\tblock device?   \t%d\n",S_ISBLK(stat_p.st_mode));
+  printf("\tFIFO (named pipe)? \t%d \n",S_ISFIFO(stat_p.st_mode));
+  printf("\tsocket?     \t\t%d\n",S_ISSOCK(stat_p.st_mode));
+}
+```
+判断一个路径的存在性可以:
+```c
+S_ISREG(stat_p.st_mode) || S_ISDIR(stat_p.st_mode)
+```

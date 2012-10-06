@@ -1,0 +1,882 @@
+%title python学习笔记
+
+最后更新时间:2012-08-27 
+
+[TOC]
+
+## 1.程序注释
+
+python 只支持#的单行注释
+
+python源代码必须完全由ASCII集合组成
+
+如果直接在python中添加中文注释的时候,python执行时会引发异常,告知非ASCII字符语法错误
+
+使用中文注释顶行加上`# -- coding: utf-8 -- ` 即可 
+## 2.if/elif/else
+```python
+x=int(raw_input('input:'))
+if x==1:
+    print 1
+elif x==2:
+    print 2
+else:
+    print 'Not 1 nor 2'
+```
+类似C中的?:条件判断:
+```python
+print 'Good' if 1==1 else 'bad' #单行的if句必须有if和else
+```
+
+##3.in
+
+a in b # 判断一个元素是否在一个字符串,链表,元组或字典的键中
+
+```python
+print 'hello' if 'ab' in 'abcd' else '' #判断一个字符串是否在另一个字符串中
+```
+
+
+```python
+#判断是否在一个链表,元组,字典的键中
+if 'a' in ['a','b','c']:
+    print 'yes'
+if 'a' in ('a','b','c'):
+    print 'yes'
+if 'a' in {'a':1,'b':2}:
+    print 'yes'
+```
+空字符串'' 呢?
+```python
+print '' in 'somestr' #True
+```
+in 采用的是比较数据是否相等,而不是比较内存地址
+```
+print 1 in (False,True) #True 因为1==True,但id(1)!=id(True):
+```
+## 4.元组 (只读的元素集合)
+
+元组是一些元素的有序集合(但不是迭代器,它可以生成迭代器!),顾名思义,元组是一些对象组合起来的一个对象(python中一切皆对象)
+
+定义一个元组: 
+```python
+a=1
+b=2
+c=a,b
+print c#c是一个元组
+```
+元组的语法写法: 
+```python
+c=('hello','hi')
+print c #c是一个元组
+```
+元组甚至可以使用函数来组合起来:
+```python
+def func1():
+    print 'func1'
+def func2():
+    print 'func2'
+for i in (func1,func2):
+    i()
+```
+当然,什么也能组合成一个元组: 
+```python
+class A:
+    def foo(self):
+        print 'A'
+class B:
+    def foo(self):
+        print 'B'
+for i in (A,B):
+    i().foo()
+```
+使用元组来交换变量: 
+```python
+a=1
+b=2
+a,b=b,a
+print a,b
+```
+单个元素的元组: 
+```
+c='hi', #注意逗号,没有逗号的话会被python解释器认为成字符串
+```
+
+这个逗号很不爽? 其实每个元组定义的时候,在每个元素后面加个逗号(当然python允许最后没逗号也可以):
+```python
+c='ab','cd','ef', #这当然是允许的,而且我还认为这是应该的
+```
+空元组呢?
+```python
+c=() #就这么定义,就像空字符串定义为''
+```
+但()!=None,就如''!=None一样但()在if语句测试中表现是假:
+```python
+if ():
+    print 'yes'
+#这段代码执行并没有打印出yes
+```
+元组初始化后就不能操作里面的元素了,遍历速度比遍历链表快.
+
+但并不是说一个元组不可以被赋值,因为只要是一个对象就是可以被赋值的.(就是说,元组只是内部元素不可操作而已)
+```python
+c='hi','en', #初始化也是一种赋值
+c='ahi','aen' #它还可以被再次赋值
+```
+还可以这样:
+```python
+a=(1,2)
+b=(3,4)
+c=a+b
+print c #(1,2,3,4)
+```
+上面的code中把a的初始化换成a=(1,2,)试试,会发现结果还是(1,2,3,4),可见,最后一个元素后面加上一个逗号永远是python支持的
+
+获取元组的内部的元素:
+```
+print (1,2)[1] #2
+```
+## 5.布尔环境
+
+测试语句有if 还有and 和or
+
+布尔环境中,False,None,0,'',(),[],{}都被认为成假的,其余为真, 空的就是假的 (函数bool(i)可以测试i是真的还是假的)
+
+**关于and和or的用法:(摘自[晓月](http://arccos.github.com/blog/20110514-python-and-or-trick.html)):**
+
+1. 对于 and，从左到右运算：如果所有表达式都为真，则 and 返回最后一个表达式。否则，and 返回第一个假值。 
+
+2. 对于 or，从左到右运算：如果有一个为真，则 or 立刻返回该值。否则，or 返回最后一个表达式。or 找到第一个真值后会忽略计算剩余的表达式。 
+
+简单来说呢:**and试图找到第一个假的表达,or试图找到第一个真的表达式,找到了它们就返回这个表达式.找不到就都返回最后一个表达式**
+
+布尔环境中,False逻辑上等价于0 , True逻辑上等价于0 
+
+```
+print 0==False,1==True # True True
+```
+
+##6.is
+
+python的is语句很有意思, a is b 判断a和b的内存地址是否一样.等价于 id(a)==id(b)
+
+id()用来获取对象的地址
+
+对于整数和字符串,还有像0.1这种指明的(这个用词我也不知道是否恰当)浮点数,python会缓存它们的id :
+```python
+#整数: id唯一
+a=1
+b=1
+print id(1),id(a),id(b)
+#字符串:id唯一
+str1='hello'
+str2='hello'
+print id('hello'),id(str1),id(str2)
+#运算出来的整数 :id唯一
+int1=6/2
+int2=0+3
+print id(3),id(int1),id(int2)
+#指明了的浮点数:id唯一
+f1=0.004
+f2=0.004
+print id(0.004),id(f1),id(f2)
+#运算得到的无限循环浮点数:id均不同
+f1=10.0/3
+f2=10.0/3
+print id(10/3),id(f1),id(f2)
+#运算得到的不循环浮点数:id均不同
+ff1=10.0/2
+ff2=10.0/2
+print id(10.0/2),id(ff1),id(ff2)
+```
+对于链表,元组,字典,函数等其他对象,它们的id是不同的.
+
+但是,a=b这种赋值的时候,id(a)==id(b) (a,b可以是任意的元素): 
+```python
+def foo():
+    print 'hello'
+foo2=foo
+a=[1,2]
+b=a
+print foo is foo2,a is b #True True
+```
+
+##7.del
+
+del用于删除一个元素
+```python
+a=2
+del a #delete it
+del a #NameError: name 'a' is not defined
+```
+
+## 8.while
+```
+while 1:
+    pass #do nothing
+```
+
+## 9.break,continue
+```
+for x in range(10):
+    if x==0:continue #跳过本次循环
+    if x==8:break #结束整个循环
+    print x
+```
+##10.for循环
+for..in..是python的一个很棒的语法糖,用以迭代序列,或者可以迭代的对象
+
+序列指字符串,元组,链表这种一些元素的有序集合: 
+```python
+#coding: utf-8
+#链表,元组,字符串
+list=[1,2,3,4]
+tuple=('1','2','3')
+str='abcdef'
+for i in list:
+    print i
+for i in tuple:
+    print i
+for i in str:
+    print i
+```
+
+迭代pack以后的序列(可以由zip()获得):
+```python
+foo=('ab','cd')
+for i,j in foo:
+    print i,j
+```
+另一个例子: 
+```python
+foo=[('a','b'),('c','d')]
+for i,j in foo:
+    print i,j
+```
+pack的序列的情形,for in会先去unpack这个被迭代的元素,然后再用iter()方法变成一个可以的迭代对象,然后用next()遍历
+
+对于字典:(有两个迭代方式:迭代一个迭代器或者迭代一个pack序列) 
+```python
+#coding:utf8
+dict={'a':1,'b':2}
+#遍历dict生成的迭代器
+for i,k in dict.iteritems():
+    print i,k
+#遍历dict生成的一个pack的序列
+for i,k in dict.items():
+    print i,k
+```
+下面的例子.两个for in都是可以执行的(iter()生成了一个可迭代的对象) 
+```python
+s='abcdef'
+for i in s:
+    print i
+for i in iter(s):
+    print i
+```
+下面的code,foo()生成了一个迭代器. 
+```python
+def foo():
+    yield 5
+    yield 6
+    yield 7
+for i in foo():
+    print i
+```
+对象的遍历: 
+```python
+class obj:
+    def __iter__(self):
+        yield 'hello'
+        yield 'world'
+for i in obj():
+    print i
+```
+## 11.字符串
+
+字符串也是序列
+
+字符串内的单个字符是不允许赋值的,即字符串也是只读的 
+```python
+s='hello'
+s[1]='a'
+#会抛出type error
+```
+字符串连接
+```
+str1='hello'
+str2='world'
+str3=str1+str2
+```
+字符串查找
+```
+str='hello'
+print str.index('l')
+```
+字符串比较
+```
+str1='hello'
+str2='hello'
+str3='hi'
+print cmp(str1,str2),cmp(str1,str3) #0 -1
+```
+字符串转大小写
+```
+str='hello'
+STR='HI'
+print str.upper(),STR.lower(),str.capitalize() #HELLO hi Hello
+```
+字符串反转
+```
+str='hello'
+print str[::-1] # 注意:字符串没有reverse(),因为reverse是修改对象本身,但字符串不可写.而切片是复制一份新的
+```
+真正的字符串查找
+
+index()方法会在查找不到的时候报error,find()在查找不到的时候返回-1,否则返回字符串第一次出现的位置
+```
+str='hello'
+print str.find('l'),str.find('gg')#2 -1
+```
+统计字符在字符串中出现的次数
+```
+str='hello'
+print str.count('h'),str.count('l'),str.count('ll'),str.count('No') #1,2,1,0
+```
+看到了吧,index(),find(),count()都可以查找字符串
+
+字符串分割成链表
+```
+str='hj,sa,ss'
+print str.split(',') #['hj','sa','ss']
+```
+去掉两端的字符
+```
+#coding=utf8
+str1=' abcd '
+str2='helloh'
+print str1.strip() # 去掉两端的多余空格
+print str2.strip('h') # 'ello'
+print str1,str2 # 再打印一下str1和str2,看来没变.字符串是只读的,说明strip()是做了一份复制再处理的
+```
+##12.链表(可写的元素序列)
+
+1.内置函数 
+```
+append(x) 追加到链尾
+extend(L) 追加一个列表,等价于+=
+insert(i,x) 在位置i插入x
+remove(x) 删除第一个值为x的元素,如果不存在会抛出异常
+reverse() 反转序列
+pop([i]) 返回并删除位置为i的元素,i默认为最后一个元素(i两边的[]表示i为可选的,实际不用输入)
+index(x) 返回第一个值为x的元素,不存在则抛出异常
+count(x) 返回x出现的次数
+sort() 排序
+```
+2.链表推导式直接使用for循环生成一个链表 
+
+```python
+print [x**2 for x in range(10)]
+```
+3.我们可以给一个链表的元素赋值
+##13.切片
+
+切片操作适合所有序列,如字符串,元组,链表.它不更改原来的序列,而是复制一份新的再操作,返回切好的序列 
+```python
+str='qwert'
+list=['a','b','c','d']
+tuple=('a','b','c')
+print str[0:1],list[0:1],tuple[0:1] # 'q' ['a'] ('a',)
+```
+切片的各项参数: `[start:end:[步长]] ([步长]是可选项,默认取1)`
+
+![切片](http://farm9.staticflickr.com/8460/8058618367_c9c5d06f6e_m.jpg)
+
+如上图中,试着理解下面的切片: 
+```
+str='hello'
+print str[0:1],str[-3:-1] #'h' 'll'
+```
+特别的, start和end取空的时候,意指取尽可能长 
+```
+#coding=utf8
+#打印这个字符串的一个拷贝,不要最后一个字符,不要第一个字符,反转字符串
+str='hello'
+print str[:],str[:-1],str[1:],str[::-1] #'hello','hell','ello','olleh'
+```
+##14.迭代器
+
+迭代器对象要求支持迭代器协议，所谓支持迭代器协议就是对象包含__iter__()和next()方法。其中__iter__()方法返回迭代器对象自己；next()方法返回下一个前进到下一个结果，在结尾时引发StopIteration异常
+
+生成一个迭代器对象: 
+
+```
+str='abc'
+obj=iter(str)
+print obj.next()#a
+print obj.next()#b
+print obj.next()#c
+print obj.next()#StopIteration
+```
+迭代器可以用在for in中: 
+```python
+str='abc'
+obj=iter(str)
+for i in obj:
+    print i
+```
+字符串,链表,元组都具有可迭代的性质
+
+具有yield关键字的函数可以生成一个迭代器: 
+
+```python
+def foo():
+    yield 5
+    yield 6
+    yield 7
+for i in foo():
+    print i
+```
+## 15.字典
+
+字典是可写的,是随机的(无序的)
+
+字典的关键字必须是字符串,整数,元组等不可写的对象
+
+链表等不能作为字典的关键字 
+```python
+dict1={(1,2):1}
+dict2={'a':1}
+dict3={1:1}
+print dict1[(1,2)],dict2['a'],dict3[1]
+```
+如果列表中存在关键字对,可以用dict()直接构造字典.而这样的列表对通常是由列表推导式生成的 
+```python
+#coding=utf8
+list=[('a',1),('b',2)] #链表内嵌入二元的元组
+list1=['ab','cd']#只要是两元的,字符串也可以
+list2=[ ['a',1] ,['b',2]]#嵌套的链表
+list3=[('a',1),'b2'] #这种混合型的也可以~
+tuple=['ab','cd']#dict()也可以使用在元组上
+print dict(list),dict(list1),dict(list2),dict(list3),dict(tuple)
+```
+内置函数: 
+```python
+a.get("somekey",0) #获取字典a中键为"somekey"的元素,如果没有找到,返回0
+a.keys() #复制一份键的副本,同理a.items()为值的副本,a.values()为值的副本,它们返回的均是链表
+'abc' in a #看'abc'是否是a的键
+a.copy() #复制一份a,返回一个新的字典.字典不能使用[:]来拷贝,它不支持切片操作
+a.pop('abc') #删除键为'abc' 的一项
+a.popitem() #随机弹出一项,因为字典是随机的
+a.iteritems() #返回一个可以迭代的对象.相应的还有iterkeys(),itervalues(). 可以这么使用 for k,v in a.iteritems()
+{}.fromkeys([1,2],0) #从序列生成并返回一个字典,其值为第二个参数(默认为None),不改变当前字典
+a.clear() #清空字典
+len(a) #获取字典长度,len可以用于字符串,元组,字典,链表
+```
+setdefault(key[,default]):key存在,返回那个值,不存在的话插入一项key:default,并返回default
+```python
+dict={1:1,2:2,3:3}
+print dict.setdefault(1,2),dict.setdefault(4,4)
+```
+```python
+has_key(key)#判断字典中是否有键key
+a.update(b)#将字典b中的元素追加到a中,key重复时,b覆盖a中的值
+viewitems()#返回一个view对象,(key, value)pair的列表,类似于视图,优点是,如果字典发生变化,view会同步发生变化,还有viewkeys()
+```
+for in 遍历一个字典:(大家都说后者好~) :
+```python
+#coding=utf8
+dict={'a':1,'b':2}
+#items()是一个链表(pack的)
+for k,v in dict.items():
+    print k,v
+#iteriterms()是一个可以迭代的对象
+for k,v in dict.iteritems():
+    print k,v
+```
+
+## 16.set(无序不重复元素的集合)
+
+链表,字符串,元组都可以生成一个集合(字典生成的话,取它的键的链表来生成):
+
+```python
+alist=['a','b','c']
+atuple='a','b','c'
+astr='abc'
+adict={'a':'a_var','b':'b_var','c':'c_var'}
+print set(alist),set(atuple),set(astr),set(adict)
+```
+
+判断一个元素是否在集合里面:
+
+```python
+alist=['a','b','c']
+print 'a' in set(alist),1 in set(alist)#True False
+```
+集合的操作: 
+```python
+a-b#差
+a|b#并
+a&b#交
+a^b#(并-交)
+```
+
+##17.函数
+```python
+def foo(a,b):
+    print a,b
+foo(1,2)
+```
+多个参数的时候,快速赋值:
+```python
+def foo(a=1,b=2):
+    print a,b
+foo(b=3)
+```
+##18.lambda函数(无名函数)
+
+这是一种无名函数的速写法:
+```python
+print map(lambda x:x**2,range(10))#0,1,4,9,...,81
+```
+`lambda x,y:x+y`中x,y是参数,x+y是返回值. lambda快速定义了一个函数,返回一个函数对象 
+
+##19.不定长函数参数
+```python
+#coding=utf8
+def foo(*para1, **para2):#*para1 接收一个链表, **para2接收一个字典
+    print para1,para2
+foo('hi','hello',name='jack') #['hi','hello'] {'name':'jack'}
+```
+##20.装饰器
+
+下面的例子中,deco()是foo()的装饰器: 
+```python
+def deco(func):
+    def wrapper():
+        print 'hello'
+        func()
+    return wrapper
+@deco
+def foo():
+    print 'Jack'
+foo()
+```
+装饰器函数内部会生成一个函数对象,这个函数对象对foo()是对进行改造的,然后返回这个函数对象
+
+Note:装饰器其实也就是一个函数,一个用来包装函数的函数,装饰器在函数申明完成的时候被调用,调用之后申明的函数被换成一个被装饰器装饰过后的函数
+
+下面的不是个装饰器,因为装饰器函数没有改造被修饰的函数: 
+```python
+def deco(func):
+    print 'hello'
+    func()
+    return func
+@deco
+def foo():
+    print 'jack'
+```
+执行这个code,会发现会输出'hello' 'jack'.这是因为** 装饰器函数在被装饰函数定义的时候被调用**
+
+继续执行几次foo()试试: 
+```python
+def deco(func):
+    print 'hello'
+    func()
+    return func
+@deco  # 'hello'
+def foo():
+    print 'jack'
+foo()#'jack'
+foo()#'jack'
+foo()#'jack'
+```
+
+会发现foo(),并没有被修饰.因为: **deco只是在foo()定义的时候执行,并返回一个函数对象赋给foo**,上例子中deco()并没有对func进行改造而是直接返回了这个函数对象,所以,只在foo()定义的时候deco()执行输出了'hello',之后foo()还是只输出'jack'的那个函数
+
+让我们继续看看,装饰器函数的执行过程中是不是把返回的对象赋给了被装饰函数:
+```python
+def myfunc():
+    print 'hi'
+def deco(func):
+    return myfunc
+@deco
+def foo():
+    pass
+print myfunc is foo#True
+```
+上面的code中deco装饰器把myfunc赋给了foo,这时它们都是一个内存地址的!使用foo()就相当使用myfunc()
+##21.生成器表达式
+
+生成器表达式:类似于没有中括号的列表推导式,可用在参数中
+
+首先看下下面的code: 
+```python
+t= (x for x in range(10))
+print t.next()#0
+print t.next()#1
+print t.next()#2
+```
+说明,生成器表达式可以生成一个可以迭代的对象
+```python
+print sum(x for x in range(1,101))#5050
+```
+
+##22.常用函数
+
+###1.类型函数
+
+它们有str(),tuple(),int(),bool(),list(),dict(),object(),set()
+
+Python中一个对象怎么实例化? Obj()是吧,所以说dict(),list()..它们是函数,倒不如说它们是一个对象.
+
+这反映了python中万物都是对象(函数也是对象)
+
+类型函数用作强制类型转换函数来生成这个类型的一个对象:
+```python
+#coding=utf8
+print dict(['ab','cd','ef'])#{'a':'b','c':'d','e':'f'},dictt()接收成对的序列
+print list('abcd')#['a','b','c','d']#list接收字符串,元组,链表这种序列,也接收字典(按照键生成)
+print str(['a','b','c','d'])#"['a','b','c','d']"str()接收几乎所有类型,只是在参数链表加上了"
+print int('1')#1   int()接收的参数必须是一个 string或者number.'a'这种也不行,'123'这种可以
+print tuple('abcd')#('a','b','c','d'),接收序列和字典(同list()).字典情形:按照键生成元组
+print bool(0),bool({})#False False,接收所有类型
+print object() #不需要参数,python中什么都是对象!
+```
+###2.type(something)
+
+type()用来判断类型 
+```python
+print type(1)#<type 'int'>
+print type('') #<type 'str'>
+print type({})#<type 'dict'>
+print type(())#<type 'tuple'>
+print type(False)#<type 'bool'>
+print type(1.1)#<type 'float'>
+print type(lambda :1)#<type 'function'>
+```
+###3.len(dict/str/list/tupple/set)
+len()的参数是序列或者字典,集合.返回参数的长度(元素个数). 
+
+###4.range([start,]end[,step])
+
+range()返回一个从start到end步长为step的整数链表: 
+```python
+print range(0,10,2) #[0,2,4,6,8]
+```
+
+###5.xrange([start,]end[,step])
+
+xrange()返回一个生成器.效果和用法跟range()一样,但是返回的不是列表而是个生成器.
+```python
+for x in range(10):
+    print x,
+for x in xrange(10):
+    print x,
+```
+xrange()比range()快,但不回返回一个链表
+xrange()返回的对象有 `__iter__()`方法 
+```python
+i=xrange(10)
+print i.__iter__().next()#0
+```
+###6.sum(tuple/list/dict)
+
+求序列或字典的键的和.接收的参数是一个可以迭代的元素 
+```python
+alist=range(10)
+atuple=tuple(alist)
+adict={}.fromkeys(alist)
+print sum(alist),sum(atuple),sum(adict)#45 45 45
+```
+###7.map(func,iterable)
+
+函数接收两个参数:函数对象和可以迭代的数据(字符串,元组,字典(处理它的键),链表,xrange()等等可以迭代的)
+
+迭代iterable作为func函数的参数返回结果的序列(链表) 
+```python
+print map(lambda x:x**2,xrange(10))#[0,1,...,81]
+print map(lambda x:ord(x),'abcd') #[97,98,99,100]
+print map(lambda x,y:x+y,xrange(10),xrange(1,11))#可以传入多个序列,但是函数必须有相应个数的参数
+```
+当然这样调用也是未尝不可: 
+```python
+def foo():
+    for i in range(10):
+        yield i
+print map(lambda x:x+1,foo())
+```
+###8.filter
+
+filter(func,sequence)返回一个序列,为原序列中使func函数为真的值
+```python
+print filter(lambda x:x%2-1,range(10)) #[0,2,4,6,8]
+```
+###9.reduce
+
+reduce(function,sequence,[init])
+
+返回一个单值为,计算步骤为 :
+
+第1个结果=function(sequence[0],sequence[1])
+
+第2个结果=function(第1个结果,sequence[2])
+
+返回最后一个计算得值
+
+如果有init,则先调用function(init,sequence[0])
+
+sequence只有一个元素时,返回该元素,为空时抛出异常. 
+
+下面是计算0+1+...+9:
+```python
+print reduce(lambda x,y:x+y,range(10))#45
+```
+###10.zip
+
+zip用于多个sequence的循环 
+```python
+#coding=utf8
+print zip(['a','b','c'],[1,2,3])
+print zip(('a','b','c'),(1,2,3))
+print zip('abc','123')
+#以上三个的结果都是[('a',1),('b',2),('c',3)]
+```
+zip接收多个序列,返回一个以元组为元素的链表 
+```python
+print zip('abcd','abcd','abcd')# [('a','a','a'),('b','b','b'),('c','c','c'),('d','d','d')]
+```
+### 11.hash
+
+hash(object),返回一个数字哈希值 
+
+###12.raw_input()
+```python
+try:
+    x=int(raw_input('Input a int:'))
+except:
+    print 'Not a int!'
+else:
+    print 'Your intput is:',x
+```
+###13.open()
+
+open(somefile) 读取一个文件,返回一个迭代器 
+```python
+for i in open('somefile'):
+    print i,
+```
+###14.reversed
+
+反向循环,返回一个反向的迭代器.iter()生成一个正向的迭代器,reversed()生成一个反向的迭代器
+```python
+for i in reversed(range(10)):
+    print i
+```
+### 15.sorted
+
+返回一个有序的新序列(链表) 
+```python
+print sorted('dcba'),sorted([3,4,1,2]),sorted({'b':1,'a':2})#['a','b','c','d'] [1,2,3,4] ['a','b']
+```
+### 16.enumerate
+
+返回索引位置和对应的值,enumerate(sequence)返回一个迭代器对象 
+```python
+a=enumerate('hello')
+print a #enumerate object
+alist=[(i,k) for i,k in a]
+print alist
+```
+
+### 17.isinstance
+
+判断一个对象是否是一个类的实例
+```python
+class A:
+    pass
+class B:
+    pass
+a=A()
+print isinstance(a,A),isinstance(a,B)#True False
+```
+还可以用来判断类型,因为一切都是对象: 
+```python
+print isinstance('',basestring),isinstance({},dict),isinstance([],list),isinstance(1,int),isinstance(True,bool)
+```
+
+## 23.获取外部参数
+
+就像我们使用Git的时候,git clone 让git接收一个参数为:clone
+
+我们想要让foo.py接收python foo.py args 的args参数.
+```python
+#!/usr/bin/python
+import sys
+for i in sys.argv:
+    print i,
+```
+## 24.模块
+模块的查找路径
+
+1. 当前的目录
+2. 环境变量PYTHONPATH所指的目录列表
+3. python解释器的安装目录
+
+###1.导入一个模块:
+
+我们新建一个模块module.py: 
+```python
+def some_method():
+    print 'hello'
+```
+然后新建一个py文件来包含这个模块:
+```python
+import module
+module.some_method()
+```
+模块在导入的时候被执行.
+
+以上的导入也可以这么写: 
+```python
+from module import some_method
+some_method()
+```
+### 2.包
+
+多个模块文件可以放在一个文件夹下组成一个包.
+
+只有当该文件夹下存在`__init__.py`时`python`才认为这个文件夹是个包.
+
+语法:` from 包 import 模块`
+
+`__init__.py`可以为空文件,一般在`__init__.py`中定义`__all__`列表:
+```python
+_all__=['module1','module2']
+```
+一个包的例子
+```
+python/
+├── pak/
+│   ├── __init__.py
+│   ├── module1.py
+│   ├── module2.py
+│   ├── module3.py
+├── test.py
+```
+在test.py中可以这么来包含包pak的所有模块
+```
+from pak import *
+```
+###3.__name__
+
+__name__可以显示模块的名称 
+```python
+#--coding:utf-8--
+import module
+print module.__name__#输出module
+print __name__#输出 __main__
+```
+### 4.dir(module)
+
+dir()函数返回一个列表,列出模块定义的标识符.标识符有函数,类和变量 

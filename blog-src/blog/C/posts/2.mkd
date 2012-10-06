@@ -1,0 +1,28 @@
+%title C语言数组赋值:不能一下子赋值,必须循环挨个赋值
+Date:2012-08-03 
+```c
+#include <stdio.h>
+int main(int argc, const char *argv[])
+{
+    int a[10]={1,1},i;
+    for (i = 0; i < 10; i++) {
+        printf("%d",a[i]);
+    }
+    return 0;
+}
+```
+可以看到打印出了1100000000,大家也就可以看出是怎么赋值的了.
+
+下面的代码并不能赋值所有数组元素为1:(而只会把第一个赋值1) 
+
+```c
+#include <stdio.h>
+int main(int argc, const char *argv[])
+{
+    int a[10]={1},i;
+    for (i = 0; i < 10; i++) {
+        printf("%d",a[i]);
+    }
+    return 0;
+}
+```

@@ -1,0 +1,186 @@
+%title PHP Coding Tips
+*说明:所有技巧来自互联网,本人只做了整理,不保证正确性.你可以理解为这是我的学习笔记而已.欢迎分享您的技巧*
+
+[TOC]
+
+### 1.避免在for循环条件中做运算:
+
+以下代码会导致每次循环执行strlen函数 
+
+```php
+<?php
+$str='hello';
+for ($i = 0; $i < strlen($str); $i++) {
+     // code...
+}
+?>
+```
+优化的代码是:
+```php
+<?php
+$str='hello';
+for ($i = 0,$j = strlen($str); $i < $j; $i++) {
+     // code...
+}
+?>
+```
+
+### 2.使用echo来输出
+
+BAD:
+```php
+<?php
+print('hello!');
+?>
+```
+GOOD:
+```php
+<?php
+echo 'hello!';
+?>
+```
+### 3.echo输出字符串的时候使用逗号代替字符串连接符
+
+BAD:
+```php
+<?php
+$str='love';
+//php会先把它们连接起来再输出
+echo 'I '.$str.' PHP';
+?>
+```
+GOOD:
+```php
+<?php
+$str='love';
+//php会直接按照顺序输出它们
+echo 'I ',$str,' PHP';
+?>
+```
+
+### 4.对字符串使用单引号
+
+### 5.使用===比较符
+
+试试下面的代码就知道为何使用===更好了. ==只比较两个变量的值;===会比较类型和值,更严格 . 详细说明见http://php.net/manual/zh/language.operators.comparison.php 
+```php
+<?php
+var_dump(0=='');//true
+var_dump(0=='a');//true
+var_dump(1=='1abc0');//true
+var_dump('1'=='1abc0');//false
+var_dump(NULL=='');//true
+var_dump(true=='');//false
+var_dump(0==='');//false
+var_dump(false<true);//true
+?>
+```
+### 6.一个PHP的试题:字符串用在了数字环境下
+
+它的结果就跟false<true一样诡异.
+
+详细信息见 PHP官方文档http://www.php.net/manual/zh/language.types.string.php#language.types.string.conversion 
+```php
+<?php
+echo '10abc'+30;//display:40
+?>
+```
+
+这点理解了,就会知道:如果比较一个整数和字符串，则字符串会被转换为整数.
+
+再次知道使用==符号做比较是不安全的,eg:
+```php
+<?php
+var_dump('001'==1);//true
+var_dump('12a'>1);//true
+var_dump('01'=='1');//true
+```
+### 7.大括号可以像数组使用[]一样被字符串使用
+
+这是相当有趣的一个事情:
+```php
+<?php
+$str='abcdef';
+echo $str{2};//display:c
+```
+利用这一点判断字符串的长度比使用strlen函数更快
+```php
+<?php
+//比如我们可以使用这个性质对输入字符串进行长度检查
+$str='abcdef';
+if(!isset($str{6}))
+{
+	echo 'len < 6';
+}
+```
+### 8.in_array()函数默认采用的是松比较
+
+看下面的代码: 
+```php
+<?php
+$arr=array('001','hello');
+var_dump(in_array(1,$arr));// true
+var_dump(in_array('1',$arr));// true
+var_dump(in_array(true,$arr));// true
+?>
+```
+我们原本不想得到这种结果的:不是数组中的元素却被PHP认为成了是这个数组的元素
+
+所谓松比较,就是仅比较值,不比较类型.
+
+in_array()提供了第三个布尔型参数来开启类型检查,设置为true即可: 
+```php
+<?php
+$arr=array('001','hello');
+var_dump(in_array(1,$arr,true));// false
+var_dump(in_array('1',$arr,true));// false
+var_dump(in_array(true,$arr,true));// false
+?>
+```
+### 9.交换变量的值的另一种思路
+由于受C语言的影响,很多人都会这样写: 
+```php
+<?php
+$a=1;
+$b=2;
+//我们要交换$a和$b的值
+$t=$a;
+$a=$b;
+$b=$t;
+echo $a,$b;
+?>
+```
+在laruence那里看到了这样的写法: 
+```php
+<?php
+$a=1;
+$b=2;
+//我们要交换$a和$b的值
+list($b,$a)=array($a,$b);
+echo $a,$b;
+?>
+```
+虽然也产生了临时变量,但写起来很清晰.
+
+同样来自laruence那里,如果两个变量都是整数,可以有一种不生成临时变量的交换方法: 
+```php
+<?php
+$a=1;
+$b=2;
+//我们要交换$a和$b的值
+$a=$a+$b;
+$b=$a-$b;
+$a=$a-$b;
+echo $a,$b;
+```
+其实,还可以构造出来不生成临时变量的两个字符串交换值的方法: 
+```php
+<?php
+$a='hello';
+$b='world';
+$a=$a.$b;
+$b=str_replace($b,'',$a);
+$a=str_replace($b,'',$a);
+echo $a,$b;
+```
+但我觉得还是使用list的那个好. 
