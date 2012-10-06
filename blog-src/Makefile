@@ -4,7 +4,7 @@ all:
 clean:
 	rm .mkdwiki.cache~
 
-git:
+push:all
 	git add ../* 
 	git commit -m 'st' 
 	git push
