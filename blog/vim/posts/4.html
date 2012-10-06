@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>vim</title>
+<title>使用vim-powerline</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
-<link rel="stylesheet" href="../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
 <script type="text/javascript">
 function pagenum()
 {
@@ -79,13 +79,23 @@ Page:
 <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
 </div>
 </div>
-<h1>vim</h1>
-<ol>
-<li><a href="posts/4.html">使用vim-powerline</a></li>
-<li><a href="posts/3.html">终端输出信息输入到vim</a></li>
-<li><a href="posts/2.html">vimwiki中修改斜体语法</a></li>
-<li><a href="posts/index.html">vim编辑器中快速输入目录树</a></li>
-</ol>
+<h1>使用vim-powerline</h1>
+<p>Date:2012-10-07</p>
+<p>vim-powerline是一个vim状态栏的增强插件.</p>
+<p>vim-powerline的github地址:https://github.com/Lokaltog/vim-powerline/!</p>
+<p>我们使用vundle来管理这个插件:</p>
+<div class="codehilite"><pre><span class="n">cd</span> <span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">bundle</span><span class="o">/</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">Lokaltog</span><span class="o">/</span><span class="n">vim</span><span class="o">-</span><span class="n">powerline</span>
+<span class="n">vim</span> <span class="o">~/</span><span class="p">.</span><span class="n">vimrc</span>
+</pre></div>
+
+
+<p>在vimrc中加上这些:</p>
+<div class="codehilite"><pre><span class="n">set</span> <span class="n">nocompatible</span> 
+<span class="n">set</span> <span class="n">t_Co</span><span class="p">=</span>256
+<span class="n">Bundle</span> <span class="s">&#39;vim-powerline&#39;</span>
+<span class="n">set</span> <span class="n">laststatus</span><span class="p">=</span>2
+</pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>
