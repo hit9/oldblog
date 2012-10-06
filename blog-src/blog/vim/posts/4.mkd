@@ -1,0 +1,21 @@
+%title 使用vim-powerline
+Date:2012-10-07
+
+vim-powerline是一个vim状态栏的增强插件.
+
+vim-powerline的github地址:https://github.com/Lokaltog/vim-powerline/!
+
+我们使用vundle来管理这个插件:
+```
+cd .vim/bundle/
+git clone https://github.com/Lokaltog/vim-powerline
+vim ~/.vimrc
+```
+在vimrc中加上这些:
+
+```
+set nocompatible 
+set t_Co=256
+Bundle 'vim-powerline'
+set laststatus=2
+```
