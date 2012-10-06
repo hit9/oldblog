@@ -20,3 +20,4 @@ Bundle 'vim-powerline'
 set laststatus=2
 ```
 很漂亮的!~
+
