@@ -3,7 +3,7 @@ Date:2012-10-07
 
 vim-powerline是一个vim状态栏的增强插件.
 
-vim-powerline的github地址:https://github.com/Lokaltog/vim-powerline/!
+vim-powerline的github地址:https://github.com/Lokaltog/vim-powerline/
 
 我们使用vundle来管理这个插件:
 ```
