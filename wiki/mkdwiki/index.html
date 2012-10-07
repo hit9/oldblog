@@ -18,6 +18,9 @@
 <li><a href="#_6">模板支持</a></li>
 <li><a href="#_7">代码高亮</a></li>
 <li><a href="#_8">评论</a></li>
+<li><a href="#_9">缓存清除</a></li>
+<li><a href="#_10">忽略的文件</a></li>
+<li><a href="#mkdwikiignoremkdmkdwiki">另外,如果你在那个输入目录下建立一个叫做.mkdwikiignore的文件,每行记录一个忽略文件(或一类文件比如*.mkd),mkdwiki也会忽略它</a></li>
 </ul>
 </li>
 </ul>
@@ -101,7 +104,14 @@
 <p>这里还有很多:https://github.com/richleland/pygments-css ,不过需要自己调调字体样式什么的</p>
 <h2 id="_8">评论</h2>
 <p>我们可以在模板中添加第三方评论系统(比如<a href="http://duoshuo.com">多说</a>)的代码来实现wiki页面的评论</p>
-<hr />
+<h2 id="_9">缓存清除</h2>
+<div class="codehilite"><pre><span class="n">rm</span> <span class="o">&lt;</span><span class="n">input</span><span class="o">-</span><span class="n">path</span><span class="o">&gt;/</span><span class="p">.</span><span class="n">mkdwiki</span><span class="p">.</span><span class="n">cache</span><span class="o">~</span>
+</pre></div>
+
+
+<h2 id="_10">忽略的文件</h2>
+<p>mkdwiki会忽略输入目录下的.mkdwikicache~(即记录缓存的文件),还会忽略输入目录下的模板文件tpl.html</p>
+<h2 id="mkdwikiignoremkdmkdwiki">另外,如果你在那个输入目录下建立一个叫做.mkdwikiignore的文件,每行记录一个忽略文件(或一类文件比如*.mkd),mkdwiki也会忽略它</h2>
 		<!-- Duoshuo Comment BEGIN -->
 		<div class="ds-thread" data-thread-key="" 
 			data-title="" data-author-key="" data-url=""></div>
