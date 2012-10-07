@@ -88,6 +88,15 @@ Page:
 </ol>
 <p>即static关键字修饰的变量或函数是隐藏的和静态的.</p>
 <p><strong>static修饰了被限制在本地范围内使用的静态存储变量</strong></p>
+<div class="toc">
+<ul>
+<li><a href="#1">1.静态</a></li>
+<li><a href="#2">2.本地可见性</a></li>
+<li><a href="#3">3.全局静态变量与全局变量</a></li>
+<li><a href="#40const">4.静态变量默认初始化为0(必须初始化为一个const常量)</a></li>
+<li><a href="#5static">5.用static关键字做迭代器</a></li>
+</ul>
+</div>
 <h3 id="1">1.静态</h3>
 <p>如下的代码中, 依次打印的是0, 1, 2</p>
 <div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
