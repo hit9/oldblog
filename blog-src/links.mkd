@@ -10,3 +10,4 @@
 * [深入分析Linux内核源码](http://oss.org.cn/kernel-book/)
 * [Python入门教程](http://wiki.woodpecker.org.cn/moin/PyAbsolutelyZipManual)
 * [C语言常见问题集锦](http://c-faq-chn.sourceforge.net/)
+* [NCURSES Programming HOWTO](http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/)
