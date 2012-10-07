@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>C语言关键字static</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<script type="text/javascript">
+function pagenum()
+{
+	return parseInt(pagename());
+}
+function pagename()
+{
+	var str=window.location.href;
+	 return str.slice(str.lastIndexOf('/')+1,str.lastIndexOf('.'));
+}
+function gotopre()
+{
+	var name=pagename();
+	if(name=='index')
+	{
+		alert('No Pre Page!');
+		return false;
+	}
+	var n=parseInt(name);
+	location.href=(n==2)?'index.html':n-1+'.html';
+}
+function gotonext()
+{
+	var name=pagename();
+	var link=(name=='index')?'2.html':parseInt(name)+1+'.html';
+	// Through ajax to know if link exists 
+	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==404)
+		{
+			alert('No Next Page!');
+			return false;
+		}
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			location.href=link;
+		}
+	}
+	xmlhttp.open("GET",link,true);
+	xmlhttp.send();
+}
+function path()
+{
+	var args = arguments,
+		result = []
+			;
+
+	for(var i = 0; i < args.length; i++)
+		result.push(args[i].replace('@', '%root_path%scripts/'));
+
+	return result
+};
+</script>
+</head>
+<body>
+<div id="top">
+<div id="top1">
+<a href="/index.html">Hit9</a>
+<a href="/blog/index.html">Blog</a>
+<a href="/wiki/index.html">Wiki</a>
+<a href="/project/index.html">Project</a>
+<a href="/links.html">Links</a>
+<a href="/About.html" rel="author">About</a>
+</div>
+<div id="top2">
+Page:
+<a href="index.html">First</a>
+<a href="../index.html">UP</a>
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+</div>
+</div>
+<h1>C语言关键字static</h1>
+<p>Date:2012-10-07</p>
+<p>C语言中static关键字有两个作用 :</p>
+<ol>
+<li>存储在全局存储区,下一次调用时保持原来的值</li>
+<li>仅对自己变量作用域可见.</li>
+</ol>
+<p>即static关键字修饰的变量或函数是隐藏的和静态的.</p>
+<p><strong>static修饰了被限制在本地范围内使用的静态存储变量</strong></p>
+<h3 id="1">1.静态</h3>
+<p>如下的代码中, 依次打印的是0, 1, 2</p>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="kt">void</span> <span class="nf">test</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">++</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">test</span><span class="p">();</span> 
+    <span class="n">test</span><span class="p">();</span> 
+    <span class="n">test</span><span class="p">();</span> 
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>static 关键字修饰的变量i是全局存储的, 下一次被调用仍然保持上一次的值.</p>
+<h3 id="2">2.本地可见性</h3>
+<p>一个源文件内的static修饰的变量或函数只在本文件中可见.其他文件不可见.</p>
+<p>这样我们可以把一些非API的函数(不希望被用户使用的)加上static关键字来隐藏.</p>
+<p>我们做个测试 :
+同一目录下新建两个文件main.c和lib.c:</p>
+<div class="codehilite"><pre><span class="cm">/* File:main.c */</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="k">extern</span> <span class="kt">void</span> <span class="n">hello</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span> 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">hello</span><span class="p">();</span> 
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="cm">/* File:lib.c */</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="kt">void</span>  <span class="nf">hello</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;ok</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>我们编译它:<code>gcc *.c -o main</code> , 顺利编译.</p>
+<p>如果我们把lib.c中的hello函数加上static关键字:</p>
+<div class="codehilite"><pre><span class="cm">/* File:lib.c */</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="k">static</span> <span class="kt">void</span>  <span class="nf">hello</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;ok</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>这次再<code>gcc *.c</code>会报错, 显示没有找到函数hello()</p>
+<h3 id="3">3.全局静态变量与全局变量</h3>
+<p>二者都是使用静态存储方式.全局静态变量限制了变量的使用范围:仅被定义的模块内可见.</p>
+<h3 id="40const">4.静态变量默认初始化为0(必须初始化为一个const常量)</h3>
+<h3 id="5static">5.用static关键字做迭代器</h3>
+<p>我们可以利用static关键字来给链表或者字典等数据结构做迭代器.</p>
+<p>static可以为我们的数据结构创造一个迭代器, 而不需要用户了解数据结构的内部实现.</p>
+<p>比如我们迭代一个字符数组"hello".我们当然可以这么迭代:</p>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">a</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;hello&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span> 
+    <span class="k">while</span><span class="p">(</span><span class="o">*</span><span class="n">p</span> <span class="o">!=</span> <span class="sc">&#39;\0&#39;</span><span class="p">){</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">p</span><span class="o">++</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>我们之所以这么实现, 是因为我们知道字符数组内的元素是地址连续存储的.</p>
+<p>我们封装一个迭代器的话:</p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">iter</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">y</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="kt">char</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span> 
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span> <span class="n">p</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span> 
+    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">p</span> <span class="o">==</span> <span class="sc">&#39;\0&#39;</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> 
+    <span class="o">*</span><span class="n">y</span> <span class="o">=</span> <span class="o">*</span><span class="n">p</span><span class="o">++</span><span class="p">;</span> 
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>用户不用关心字符数组的存储方式, 就可以使用它:</p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">test</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;hello&quot;</span><span class="p">,</span><span class="n">m</span><span class="p">;</span> 
+    <span class="k">while</span><span class="p">(</span><span class="n">iter</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">)){</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c&quot;</span><span class="p">,</span> <span class="n">m</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+<div id="foot">
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="#">Top</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+</div>
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread"></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hit9github"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- Duoshuo Comment END -->
+<div style = "text-align:center; ">
+	<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+</div>
+</body>
+</html>

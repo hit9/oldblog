@@ -1,0 +1,128 @@
+%title C语言关键字static
+Date:2012-10-07
+
+C语言中static关键字有两个作用 :
+
+1. 存储在全局存储区,下一次调用时保持原来的值
+2. 仅对自己变量作用域可见.
+
+即static关键字修饰的变量或函数是隐藏的和静态的.
+
+**static修饰了被限制在本地范围内使用的静态存储变量**
+
+### 1.静态
+
+如下的代码中, 依次打印的是0, 1, 2
+```c
+#include <stdio.h>
+void test()
+{
+	static int i = 0; 
+	printf("%d\n", i++);
+}
+
+int main(int argc, const char *argv[])
+{
+	test(); 
+	test(); 
+	test(); 
+	return 0;
+}
+```
+
+static 关键字修饰的变量i是全局存储的, 下一次被调用仍然保持上一次的值.
+
+### 2.本地可见性
+
+一个源文件内的static修饰的变量或函数只在本文件中可见.其他文件不可见.
+
+这样我们可以把一些非API的函数(不希望被用户使用的)加上static关键字来隐藏.
+
+我们做个测试 :
+同一目录下新建两个文件main.c和lib.c:
+
+```c
+/* File:main.c */
+#include <stdio.h>
+extern void hello(void); 
+int main(int argc, const char *argv[])
+{
+	hello(); 
+	return 0;
+}
+```
+```c
+/* File:lib.c */
+#include <stdio.h>
+void  hello(void)
+{
+	printf("ok\n");
+}
+```
+
+我们编译它:`gcc *.c -o main` , 顺利编译.
+
+如果我们把lib.c中的hello函数加上static关键字:
+
+```c
+/* File:lib.c */
+#include <stdio.h>
+static void  hello(void)
+{
+	printf("ok\n");
+}
+```
+
+这次再`gcc *.c`会报错, 显示没有找到函数hello()
+
+### 3.全局静态变量与全局变量
+
+二者都是使用静态存储方式.全局静态变量限制了变量的使用范围:仅被定义的模块内可见.
+
+### 4.静态变量默认初始化为0(必须初始化为一个const常量)
+
+### 5.用static关键字做迭代器
+
+我们可以利用static关键字来给链表或者字典等数据结构做迭代器.
+
+static可以为我们的数据结构创造一个迭代器, 而不需要用户了解数据结构的内部实现.
+
+比如我们迭代一个字符数组"hello".我们当然可以这么迭代:
+
+```c
+#include <stdio.h>
+int main(int argc, const char *argv[])
+{
+	char a[10] = "hello", *p = a; 
+	while(*p != '\0'){
+		printf("%c", *p++);
+	}
+	return 0;
+}
+```
+我们之所以这么实现, 是因为我们知道字符数组内的元素是地址连续存储的.
+
+我们封装一个迭代器的话:
+
+```c
+int iter(char *x, char *y)
+{
+	static char *p = NULL; 
+	if (!p) p = x; 
+	if (*p == '\0') return 0; 
+	*y = *p++; 
+	return 1; 
+}
+```
+
+用户不用关心字符数组的存储方式, 就可以使用它:
+
+```c
+int main(int argc, const char *argv[])
+{
+	char test[10] = "hello",m; 
+	while(iter(test, &m)){
+		printf("%c", m);
+	}
+	return 0;
+```
