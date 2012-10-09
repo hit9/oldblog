@@ -173,3 +173,26 @@ struct foo2{
 };  
 ```
 再编译执行下会发现结果不变, 大小还是8.这说明对齐确实存在.再追加一个c4,foo2大小还是为8
+
+## 8.function(void)与function()的区别
+
+看下面代码的编译结果
+```c
+void foo1(){}
+void foo2(void){}
+main()
+{
+	foo1(1); 
+	foo2(1); 
+}
+```
+编译:
+```
+1.c: In function ‘main’:
+1.c:6:2: error: too many arguments to function ‘foo2’
+1.c:2:6: note: declared here
+```
+function(void)是严格的表示它没有参数
+
+function()是指参数类型未知
+
