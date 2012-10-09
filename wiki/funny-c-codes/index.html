@@ -87,6 +87,7 @@ Page:
 <li><a href="#2c">2.C不生成临时变量交换变量的值</a></li>
 <li><a href="#3">3.数组名和数组下标可以互换</a></li>
 <li><a href="#4">4.这段代码怎么通过编译的</a></li>
+<li><a href="#sizeof">sizeof不是一个函数</a></li>
 </ul>
 </div>
 <h2 id="1">1.数组名不可以左值操作,但是..</h2>
@@ -149,6 +150,7 @@ Page:
 </pre></div>
 
 
+<p>因为a[b]被认为成*(a+b).所以2[arr]也是可以的.但是对于可读性没有好处</p>
 <h2 id="4">4.这段代码怎么通过编译的</h2>
 <div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
@@ -159,6 +161,11 @@ Page:
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
+
+
+<p>解释如下: </p>
+<p>双斜杠之后是注释掉的.前面http:相当于一个goto的标签</p>
+<h2 id="sizeof">sizeof不是一个函数</h2>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

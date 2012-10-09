@@ -71,6 +71,7 @@ int main(int argc, const char *argv[])
 	return 0;
 }
 ```
+因为a[b]被认为成*(a+b).所以2[arr]也是可以的.但是对于可读性没有好处
 
 ## 4.这段代码怎么通过编译的
 
@@ -84,3 +85,11 @@ int main()
     return 0;
 }
 ```
+
+解释如下: 
+
+双斜杠之后是注释掉的.前面http:相当于一个goto的标签
+
+## sizeof不是一个函数
+
+

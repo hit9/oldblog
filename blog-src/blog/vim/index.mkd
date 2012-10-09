@@ -1,3 +1,4 @@
+1. [vim+conque装扮vim](posts/5.html)
 1. [使用vim-powerline](posts/4.html)
 1. [终端输出信息输入到vim](posts/3.html)
 1. [vimwiki中修改斜体语法](posts/2.html)

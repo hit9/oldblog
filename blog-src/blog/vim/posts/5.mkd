@@ -1,0 +1,39 @@
+%title vim+conque装扮vim
+Date:2012-10-09
+
+![vim-tmux-shell](http://farm9.staticflickr.com/8040/8069932306_e881ab570d_z.jpg)
+
+[tmux](http://hit9.github.com/blog/ArchLinux/posts/2.html) 是一个优秀的多个shell会话管理的终端软件.
+
+[Conque](http://linuxtoy.org/archives/conque.html)是一个vim插件,能让我们在vim 中执行shell或者打开一个shell窗口
+
+所以如果我们在vim中打开一个tmux呢?
+
+我更多的是在gvim中打开tmux来执行终端.简直舒服极了!
+
+**搭建过程**
+
+1. Install tmux.并配置.(其实没什么好配置的,自带的默认键就不错)
+
+2. 安装Conque.
+
+```
+cd .vim/bundle
+git clone https://github.com/vim-scripts/Conque-Shell conque
+```
+
+并在你的vimrc中加入`Bundle conque`
+
+接下来我们设置快捷的命令在vimrc中.
+```
+:command -range=% CC :ConqueTermVSpli tmux
+```
+我们输入命令:CC既可以打开一个纵向的窗口,并运行tmux.
+
+另外,在窗口之间切换可以:
+
+命令`:wincmd w `或者 `:winc w`
+
+快捷键 `Ctrl-w w`
+
+退出tmux窗口,直接按照vim 的方式:normal模式下:q

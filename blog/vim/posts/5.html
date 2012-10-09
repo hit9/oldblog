@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>vim</title>
+<title>vim+conque装扮vim</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
-<link rel="stylesheet" href="../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
 <script type="text/javascript">
 function pagenum()
 {
@@ -79,14 +79,38 @@ Page:
 <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
 </div>
 </div>
-<h1>vim</h1>
+<h1>vim+conque装扮vim</h1>
+<p>Date:2012-10-09</p>
+<p><img alt="vim-tmux-shell" src="http://farm9.staticflickr.com/8040/8069932306_e881ab570d_z.jpg" /></p>
+<p><a href="http://hit9.github.com/blog/ArchLinux/posts/2.html">tmux</a> 是一个优秀的多个shell会话管理的终端软件.</p>
+<p><a href="http://linuxtoy.org/archives/conque.html">Conque</a>是一个vim插件,能让我们在vim 中执行shell或者打开一个shell窗口</p>
+<p>所以如果我们在vim中打开一个tmux呢?</p>
+<p>我更多的是在gvim中打开tmux来执行终端.简直舒服极了!</p>
+<p><strong>搭建过程</strong></p>
 <ol>
-<li><a href="posts/5.html">vim+conque装扮vim</a></li>
-<li><a href="posts/4.html">使用vim-powerline</a></li>
-<li><a href="posts/3.html">终端输出信息输入到vim</a></li>
-<li><a href="posts/2.html">vimwiki中修改斜体语法</a></li>
-<li><a href="posts/index.html">vim编辑器中快速输入目录树</a></li>
+<li>
+<p>Install tmux.并配置.(其实没什么好配置的,自带的默认键就不错)</p>
+</li>
+<li>
+<p>安装Conque.</p>
+</li>
 </ol>
+<div class="codehilite"><pre><span class="n">cd</span> <span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">bundle</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">vim</span><span class="o">-</span><span class="n">scripts</span><span class="o">/</span><span class="n">Conque</span><span class="o">-</span><span class="n">Shell</span> <span class="n">conque</span>
+</pre></div>
+
+
+<p>并在你的vimrc中加入<code>Bundle conque</code></p>
+<p>接下来我们设置快捷的命令在vimrc中.</p>
+<div class="codehilite"><pre><span class="p">:</span><span class="n">command</span> <span class="o">-</span><span class="n">range</span><span class="p">=</span><span class="c">% CC :ConqueTermVSpli tmux</span>
+</pre></div>
+
+
+<p>我们输入命令:CC既可以打开一个纵向的窗口,并运行tmux.</p>
+<p>另外,在窗口之间切换可以:</p>
+<p>命令<code>:wincmd w</code>或者 <code>:winc w</code></p>
+<p>快捷键 <code>Ctrl-w w</code></p>
+<p>退出tmux窗口,直接按照vim 的方式:normal模式下:q</p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>
