@@ -17,3 +17,5 @@ bind C-a send-prefix # 监听到C-a时发送prefix
 bind r source-file ~/.tmux.conf \; display "Reloaded!" # C-a后(控制台模式下 )按下r键更新tmux配置
 
 ```
+
+另外 , 控制台模式下,按下数字即切换到第几号窗口.
