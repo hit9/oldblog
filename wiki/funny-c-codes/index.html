@@ -89,6 +89,7 @@ Page:
 <li><a href="#4">4.这段代码怎么通过编译的</a></li>
 <li><a href="#5sizeof">5.sizeof不是一个函数</a></li>
 <li><a href="#6">6.试着理解下面的代码</a></li>
+<li><a href="#7">7.结构体对齐问题</a></li>
 </ul>
 </div>
 <h2 id="1">1.数组名不可以左值操作,但是..</h2>
@@ -191,6 +192,57 @@ Page:
 
 
 <p>把{1,2,3,4}强转成int[]形,再取数组{1,2,3,4}的下标为1的数</p>
+<h2 id="7">7.结构体对齐问题</h2>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;  </span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>  
+<span class="p">{</span>  
+    <span class="k">struct</span> <span class="n">foo1</span><span class="p">{</span>  
+        <span class="kt">char</span> <span class="n">c1</span><span class="p">;</span>  
+        <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>  
+        <span class="kt">char</span> <span class="n">c2</span><span class="p">;</span>  
+    <span class="p">};</span>  
+    <span class="k">struct</span> <span class="n">foo2</span><span class="p">{</span>  
+        <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>  
+        <span class="kt">char</span> <span class="n">c1</span><span class="p">;</span>  
+        <span class="kt">char</span> <span class="n">c2</span><span class="p">;</span>  
+    <span class="p">};</span>  
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">foo1</span><span class="p">),</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">foo2</span><span class="p">));</span>  
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>  
+<span class="p">}</span>  
+</pre></div>
+
+
+<p>执行结果是12 8</p>
+<p>因为C中采用对齐的方式存储结构体.</p>
+<div class="codehilite"><pre><span class="n">foo1</span>中是这么存储的<span class="p">:</span>
+
+<span class="n">c1</span> <span class="p">(</span>跟<span class="n">int</span> <span class="nb">i</span>对齐<span class="p">,</span>由1扩展为4<span class="p">)</span>
+
+<span class="nb">i</span> <span class="n">sizeof</span>取值得4
+
+<span class="n">c2</span> <span class="p">(</span>跟<span class="n">int</span> <span class="nb">i</span>对齐<span class="p">,</span>由1扩展为4<span class="p">)</span>
+
+<span class="o">---------------------------------------------------------------</span>
+
+<span class="n">foo2</span>中是这么存储的<span class="p">:</span>
+
+<span class="nb">i</span> <span class="n">sizeof</span>取值得4
+
+<span class="n">c1</span><span class="p">,</span><span class="n">c2</span>连续存储<span class="p">,</span>并由2扩展为4<span class="p">,</span>跟<span class="n">int</span> <span class="nb">i</span>对齐
+</pre></div>
+
+
+<p>你可以给foo2这么写:</p>
+<div class="codehilite"><pre><span class="k">struct</span> <span class="n">foo2</span><span class="p">{</span>  
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>  
+    <span class="kt">char</span> <span class="n">c1</span><span class="p">;</span>  
+    <span class="kt">char</span> <span class="n">c2</span><span class="p">;</span>  
+    <span class="kt">char</span> <span class="n">c3</span><span class="p">;</span> 
+<span class="p">};</span>  
+</pre></div>
+
+
+<p>再编译执行下会发现结果不变, 大小还是8.这说明对齐确实存在.再追加一个c4,foo2大小还是为8</p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

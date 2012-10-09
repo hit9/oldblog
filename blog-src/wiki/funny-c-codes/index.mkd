@@ -119,3 +119,57 @@ int main(int argc, const char *argv[])
 ```
 
 把{1,2,3,4}强转成int[]形,再取数组{1,2,3,4}的下标为1的数
+
+## 7.结构体对齐问题
+
+```c
+#include <stdio.h>  
+int main(int argc, const char *argv[])  
+{  
+	struct foo1{  
+		char c1;  
+		int i;  
+		char c2;  
+	};  
+	struct foo2{  
+		int i;  
+		char c1;  
+		char c2;  
+	};  
+	printf("%d %d\n",sizeof(struct foo1),sizeof(struct foo2));  
+	return 0;  
+}  
+```
+
+执行结果是12 8
+
+因为C中采用对齐的方式存储结构体.
+
+```
+foo1中是这么存储的:
+
+c1 (跟int i对齐,由1扩展为4)
+
+i sizeof取值得4
+
+c2 (跟int i对齐,由1扩展为4)
+
+---------------------------------------------------------------
+
+foo2中是这么存储的:
+
+i sizeof取值得4
+
+c1,c2连续存储,并由2扩展为4,跟int i对齐
+```
+
+你可以给foo2这么写:
+```c
+struct foo2{  
+	int i;  
+	char c1;  
+	char c2;  
+	char c3; 
+};  
+```
+再编译执行下会发现结果不变, 大小还是8.这说明对齐确实存在.再追加一个c4,foo2大小还是为8
