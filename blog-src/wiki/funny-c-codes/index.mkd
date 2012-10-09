@@ -195,4 +195,3 @@ main()
 function(void)是严格的表示它没有参数
 
 function()是指参数类型未知
-
