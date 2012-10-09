@@ -1,0 +1,19 @@
+%title 使用tmux管理多个shell会话
+Date:2012-10-09
+
+tmux是个好东西,就是觉得,没有vim反应迅速,没有vim灵活.tmux是GNU screen的替代品
+
+默认`C-b`是命令前缀键.
+
+我的配置:
+
+```
+set -g prefix C-a  #把C-a换成命令前缀快捷键,符合screen习惯
+
+unbind C-b # 不再监听C-b
+
+bind C-a send-prefix # 监听到C-a时发送prefix
+
+bind r source-file ~/.tmux.conf \; display "Reloaded!" # C-a后(控制台模式下 )按下r键更新tmux配置
+
+```
