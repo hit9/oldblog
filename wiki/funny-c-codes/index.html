@@ -87,7 +87,8 @@ Page:
 <li><a href="#2c">2.C不生成临时变量交换变量的值</a></li>
 <li><a href="#3">3.数组名和数组下标可以互换</a></li>
 <li><a href="#4">4.这段代码怎么通过编译的</a></li>
-<li><a href="#sizeof">sizeof不是一个函数</a></li>
+<li><a href="#5sizeof">5.sizeof不是一个函数</a></li>
+<li><a href="#6">6.试着理解下面的代码</a></li>
 </ul>
 </div>
 <h2 id="1">1.数组名不可以左值操作,但是..</h2>
@@ -165,7 +166,31 @@ Page:
 
 <p>解释如下: </p>
 <p>双斜杠之后是注释掉的.前面http:相当于一个goto的标签</p>
-<h2 id="sizeof">sizeof不是一个函数</h2>
+<h2 id="5sizeof">5.sizeof不是一个函数</h2>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
+    <span class="k">sizeof</span><span class="p">(</span><span class="n">i</span><span class="o">++</span><span class="p">);</span> 
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>这里打印结果是0.i并没有自增.这说明sizeof不是个函数.</p>
+<p>sizeof不是一个函数,而是一个操作符,求i++的类型的size，这是一件可以在程序运行前（编译时）就确定的事情，所以，sizeof(i++)直接就被4给取代了，在运行时也就不会有了i++这个表达式</p>
+<h2 id="6">6.试着理解下面的代码</h2>
+<div class="codehilite"><pre><span class="c">#include &lt;stdio.h&gt;  </span>
+<span class="n">int</span> <span class="n">main</span><span class="p">(</span><span class="n">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">const</span> <span class="nb">char</span> <span class="o">*</span><span class="nb">argv</span><span class="p">[])</span>  
+<span class="p">{</span>  
+    <span class="nb">printf</span><span class="p">(</span> <span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="p">((</span><span class="n">int</span><span class="p">[]){</span>1<span class="p">,</span>2<span class="p">,</span>3<span class="p">,</span>4<span class="p">})[</span>1<span class="p">]</span> <span class="p">);</span>  
+    <span class="k">return</span> 0<span class="p">;</span>  
+<span class="p">}</span>   
+</pre></div>
+
+
+<p>把{1,2,3,4}强转成int[]形,再取数组{1,2,3,4}的下标为1的数</p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

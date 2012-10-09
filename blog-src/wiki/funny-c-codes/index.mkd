@@ -90,6 +90,32 @@ int main()
 
 双斜杠之后是注释掉的.前面http:相当于一个goto的标签
 
-## sizeof不是一个函数
+## 5.sizeof不是一个函数
 
+```c
+#include <stdio.h>
 
+main()
+{
+	int i = 0; 
+	sizeof(i++); 
+	printf("%d\n", i);
+}
+```
+
+这里打印结果是0.i并没有自增.这说明sizeof不是个函数.
+
+sizeof不是一个函数,而是一个操作符,求i++的类型的size，这是一件可以在程序运行前（编译时）就确定的事情，所以，sizeof(i++)直接就被4给取代了，在运行时也就不会有了i++这个表达式
+
+## 6.试着理解下面的代码
+
+```
+#include <stdio.h>  
+int main(int argc, const char *argv[])  
+{  
+	printf( "%d", ((int[]){1,2,3,4})[1] );  
+	return 0;  
+}   
+```
+
+把{1,2,3,4}强转成int[]形,再取数组{1,2,3,4}的下标为1的数
