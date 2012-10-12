@@ -111,7 +111,10 @@ int iter(char *x, char *y)
 {
 	static char *p = NULL; 
 	if (!p) p = x; 
-	if (*p == '\0') return 0; 
+	if (*p == '\0'){
+		p  =  NULL; //reset p before end of iterate
+		return 0; 
+	}
 	*y = *p++; 
 	return 1; 
 }
