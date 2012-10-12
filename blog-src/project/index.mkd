@@ -4,6 +4,6 @@
 
 2. [ArchPHP](http://archphp.sinaapp.com/) (ArchPHP是一个小型的PHP框架,特色在于连贯的操作,Github:https://github.com/hit9/archphp)
 
-3. [BKDRHASH](http://hit9.github.com/project/posts/index.html) (A externsion for PHP:a wrapper of bkdrhash in PHP)
+3. [BKDRHASH](https://github.com/hit9/BKDRHash) (A externsion for PHP:a wrapper of bkdrhash in PHP)
 
 4. [php-mysql-orm ](https://github.com/hit9/php-mysql-orm) (NO-SQL way for php/mysql project.)
