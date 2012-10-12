@@ -47,17 +47,6 @@ function gotonext()
 	xmlhttp.open("GET",link,true);
 	xmlhttp.send();
 }
-function path()
-{
-	var args = arguments,
-		result = []
-			;
-
-	for(var i = 0; i < args.length; i++)
-		result.push(args[i].replace('@', '%root_path%scripts/'));
-
-	return result
-};
 </script>
 </head>
 <body>
