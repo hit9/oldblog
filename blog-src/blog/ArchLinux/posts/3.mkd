@@ -1,0 +1,18 @@
+%title Ubuntu下安装wine QQ.效果很赞
+Date:2012-10-13
+
+![wine QQ](http://farm9.staticflickr.com/8334/8079249190_9aa53f6393_b.jpg)
+
+[下载地址](http://www.longene.org/forum/viewtopic.php?f=6&t=4700)
+
+安装:
+```
+sudo dpkg -i 软件名.deb
+```
+
+卸载:
+```
+先dpkg -l | grep qq 找到名字，然后执行：sudo dpkg -r qq-for-wine 或 sudo dpkg -P qq-for-wine
+```
+
+很赞!
