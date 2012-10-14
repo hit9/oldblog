@@ -1,0 +1,22 @@
+%title reverse singly linked list in C
+Date:2012-10-15
+
+解决方案:
+```c
+typedef struct node{
+	char *data; 
+	struct node *next; 
+}node_t; 
+
+node_t *reverse(node_t *head)
+{
+	node_t *q = 0, *t;
+	for (; head; t = head->next, head->next = q, q = head, head = t); 
+	return q; 
+}
+
+```
+测试:
+```c
+
+```
