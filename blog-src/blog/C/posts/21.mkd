@@ -23,7 +23,7 @@ int main(int argc, const char *argv[])
 {
 	node_t d = {"d", 0}, c = {"c", &d}, b = {"b", &c}, a = {"a", &b}, *t = 0;
 	
-	for (t = &a; t; t = t->next)//print lisr
+	for (t = &a; t; t = t->next)//print list
 		printf("%s\n", t->data);
 	node_t *s = reverse(&a); 
 	for (t = s; t; t = t->next)//print list
@@ -31,3 +31,4 @@ int main(int argc, const char *argv[])
 	return 0;
 }
 ```
+----
