@@ -2,6 +2,8 @@ html{
 	width:100%;
 }
 body{
+	background:url('../static/img/blacktocat.svg') center no-repeat fixed;
+	background-position:50% 20%;
 	margin-left:7%;
 	margin-right:7%;
 	line-height:19px; 
@@ -20,7 +22,7 @@ ul{
 	font-size:14px;
 	line-height:19px;
 	overflow:scroll;
-	z-index:999;
+	z-index:10;
 	position:fixed;
 	top:40px;
 	right:3%;
@@ -35,7 +37,7 @@ em{
 #top{
 	width:80%;
 	font-size:17px;
-	z-index:9999;
+	z-index:11;
 	position:fixed;
 	top:5px;
 	border-bottom:solid 1px #999;
