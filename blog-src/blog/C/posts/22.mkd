@@ -1,0 +1,55 @@
+%title C singly linked list swap two nodes
+Date:2012-10-15
+
+思路:
+```c
+go through the list to find p's pre node and q's pre node.
+if p not the head, p_pre node's next = q 
+if q not the head, q_pre node's next = p
+swap p->next and q->next with a temp node
+```
+数据结构和函数实现:
+```c
+typedef struct node{
+	char *data; 
+	struct node *next; 
+}node_t; 
+
+
+int swap(node_t *first, node_t *p, node_t *q)
+{
+	node_t *m = first, *p_pre = 0, *q_pre = 0; 
+	
+	for (; m; m = m->next){
+		if (m->next == p) p_pre = m; 
+		if (m->next == q) q_pre = m; 
+	}
+	
+	if (q != first){
+		if (!q_pre) return -1; 
+		q_pre->next = p; 
+	}
+	
+	if (p != first){
+		if (!p_pre) return -1; 
+		p_pre->next = q; 
+	}
+	
+	m = q->next; 
+	q->next = p->next; 
+	p->next = m;
+	return 0; 
+}
+```
+测试:
+```c
+//test
+int main(int argc, const char *argv[])
+{
+	node_t d = {"d", 0}, c = {"c", &d}, b = {"b", &c}, a = {"a", &b}, *t;
+	swap(&a, &a, &c); 
+	for (t = &c; t; t = t->next)//print list
+        printf("%s\n", t->data);
+	return 0;
+}
+```

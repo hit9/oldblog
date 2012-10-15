@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>C singly linked list swap two nodes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<script type="text/javascript">
+function pagenum()
+{
+	return parseInt(pagename());
+}
+function pagename()
+{
+	var str=window.location.href;
+	 return str.slice(str.lastIndexOf('/')+1,str.lastIndexOf('.'));
+}
+function gotopre()
+{
+	var name=pagename();
+	if(name=='index')
+	{
+		alert('No Pre Page!');
+		return false;
+	}
+	var n=parseInt(name);
+	location.href=(n==2)?'index.html':n-1+'.html';
+}
+function gotonext()
+{
+	var name=pagename();
+	var link=(name=='index')?'2.html':parseInt(name)+1+'.html';
+	// Through ajax to know if link exists 
+	var xmlhttp=new XMLHttpRequest();
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==404)
+		{
+			alert('No Next Page!');
+			return false;
+		}
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{
+			location.href=link;
+		}
+	}
+	xmlhttp.open("GET",link,true);
+	xmlhttp.send();
+}
+</script>
+</head>
+<body>
+<div id="top">
+<div id="top1">
+<a href="/index.html">Hit9</a>
+<a href="/blog/index.html">Blog</a>
+<a href="/wiki/index.html">Wiki</a>
+<a href="/project/index.html">Project</a>
+<a href="/links.html">Links</a>
+<a href="/About.html" rel="author">About</a>
+</div>
+<div id="top2">
+Page:
+<a href="index.html">First</a>
+<a href="../index.html">UP</a>
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+</div>
+</div>
+<h1>C singly linked list swap two nodes</h1>
+<!--fork me on github button-->
+<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+<!--end of github fork button-->
+<p>Date:2012-10-15</p>
+<p>思路:</p>
+<div class="codehilite"><pre><span class="n">go</span> <span class="n">through</span> <span class="n">the</span> <span class="n">list</span> <span class="n">to</span> <span class="n">find</span> <span class="n">p</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">pre</span> <span class="n">node</span> <span class="n">and</span> <span class="n">q</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">pre</span> <span class="n">node</span><span class="p">.</span>
+<span class="k">if</span> <span class="n">p</span> <span class="n">not</span> <span class="n">the</span> <span class="n">head</span><span class="p">,</span> <span class="n">p_pre</span> <span class="n">node</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">next</span> <span class="o">=</span> <span class="n">q</span> 
+<span class="k">if</span> <span class="n">q</span> <span class="n">not</span> <span class="n">the</span> <span class="n">head</span><span class="p">,</span> <span class="n">q_pre</span> <span class="n">node</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">next</span> <span class="o">=</span> <span class="n">p</span>
+<span class="n">swap</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span> <span class="n">and</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">next</span> <span class="n">with</span> <span class="n">a</span> <span class="n">temp</span> <span class="n">node</span>
+</pre></div>
+
+
+<p>数据结构和函数实现:</p>
+<div class="codehilite"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">node</span><span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">data</span><span class="p">;</span> 
+    <span class="k">struct</span> <span class="n">node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span> 
+<span class="p">}</span><span class="n">node_t</span><span class="p">;</span> 
+
+<span class="kt">int</span> <span class="nf">swap</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">first</span><span class="p">,</span> <span class="n">node_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="n">node_t</span> <span class="o">*</span><span class="n">q</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">m</span> <span class="o">=</span> <span class="n">first</span><span class="p">,</span> <span class="o">*</span><span class="n">p_pre</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">q_pre</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
+
+    <span class="k">for</span> <span class="p">(;</span> <span class="n">m</span><span class="p">;</span> <span class="n">m</span> <span class="o">=</span> <span class="n">m</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">){</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">==</span> <span class="n">p</span><span class="p">)</span> <span class="n">p_pre</span> <span class="o">=</span> <span class="n">m</span><span class="p">;</span> 
+        <span class="k">if</span> <span class="p">(</span><span class="n">m</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">==</span> <span class="n">q</span><span class="p">)</span> <span class="n">q_pre</span> <span class="o">=</span> <span class="n">m</span><span class="p">;</span> 
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">q</span> <span class="o">!=</span> <span class="n">first</span><span class="p">){</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">q_pre</span><span class="p">)</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> 
+        <span class="n">q_pre</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span> 
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">!=</span> <span class="n">first</span><span class="p">){</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">p_pre</span><span class="p">)</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> 
+        <span class="n">p_pre</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">q</span><span class="p">;</span> 
+    <span class="p">}</span>
+
+    <span class="n">m</span> <span class="o">=</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> 
+    <span class="n">q</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> 
+    <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">m</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>测试:</p>
+<div class="codehilite"><pre><span class="c1">//test</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;d&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="n">c</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;c&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">},</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">},</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">},</span> <span class="o">*</span><span class="n">t</span><span class="p">;</span>
+    <span class="n">swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">);</span> 
+    <span class="k">for</span> <span class="p">(</span><span class="n">t</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">;</span> <span class="n">t</span><span class="p">;</span> <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span><span class="c1">//print list</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<div id="foot">
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="#">Top</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+</div>
+<br>
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread" data-thread-key="" 
+	data-title="" data-author-key="" data-url=""></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hit9github"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+<div style = "text-align:center; ">
+	<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+</div>
+</body>
+</html>
