@@ -1,3 +1,4 @@
+1. [m个a,n个b的排列数](./posts/23.html)
 1. [C singly linked list swap two nodes](./posts/22.html)
 1. [reverse singly linked list in C](./posts/21.html)
 1. [C语言关键字static](posts/20.html)

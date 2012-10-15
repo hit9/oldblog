@@ -1,0 +1,1 @@
+1. [m个a,n个b的排列数](posts/index.html)

@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>C</title>
+<title>m个a,n个b的排列数</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
-<link rel="stylesheet" href="../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
 <script type="text/javascript">
 function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
 </script>
@@ -28,35 +28,22 @@ Page:
 <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
 </div>
 </div>
-<h1>C</h1>
+<h1>m个a,n个b的排列数</h1>
 <!--fork me on github button-->
-<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 <!--end of github fork button-->
-<ol>
-<li><a href="./posts/23.html">m个a,n个b的排列数</a></li>
-<li><a href="./posts/22.html">C singly linked list swap two nodes</a></li>
-<li><a href="./posts/21.html">reverse singly linked list in C</a></li>
-<li><a href="posts/20.html">C语言关键字static</a></li>
-<li><a href="posts/19.html">C语言匹配字符串中所有小括号</a></li>
-<li><a href="posts/18.html">C程序内存泄漏检测</a></li>
-<li><a href="posts/17.html">gdb使用入门</a></li>
-<li><a href="posts/16.html">头文件的查找目录的顺序</a></li>
-<li><a href="posts/15.html">C语言stat()</a></li>
-<li><a href="posts/14.html">C判断回文数</a></li>
-<li><a href="posts/13.html">C语言字符串替换</a></li>
-<li><a href="posts/12.html">C语言整型数组赋值同一个数值</a></li>
-<li><a href="posts/11.html">getchar详细探究</a></li>
-<li><a href="posts/10.html">getchar返回值类型</a></li>
-<li><a href="posts/9.html">C语言文件操作</a></li>
-<li><a href="posts/8.html">C语言练习4:不用string库实现计算字符串长度</a></li>
-<li><a href="posts/7.html">C语言练习3:不用string库实现字符串连接</a></li>
-<li><a href="posts/6.html">C语言练习2:不用string库实现字符串复制</a></li>
-<li><a href="posts/5.html">C语言练习1:用指针打印字符串每个字符</a></li>
-<li><a href="posts/4.html">PCRE正则表达式API</a></li>
-<li><a href="posts/3.html">C语言中何时函数参数设计为指针,何时不必为指针</a></li>
-<li><a href="posts/2.html">C语言数组赋值:不能一下子赋值,必须循环挨个赋值</a></li>
-<li><a href="posts/index.html">C语言数组游标与数组名称可以互换</a></li>
-</ol>
+<p>Date:2012-10-16</p>
+<p>上课的时候有同学问这个问题.跟同学讨论了下这么做的.</p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">f</span><span class="p">(</span><span class="kt">int</span> <span class="n">m</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">m</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> 
+    <span class="k">return</span> <span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="n">n</span><span class="p">)</span><span class="o">/</span><span class="n">m</span> <span class="o">*</span> <span class="n">f</span><span class="p">(</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>采用的递归.对于<code>m-1,n</code>的情形,有<code>f(m-1,n)</code>个排列情况.</p>
+<p>再添加一个a呢,有<code>m+n</code>个位置供a放置,但是,其中有m-1个a,在这些a的旁边放置都是一个效果,所以,除以m.</p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>
