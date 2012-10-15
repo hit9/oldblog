@@ -2,10 +2,9 @@
 
 1. Github : [@hit9](https://github.com/hit9)
 * Blog : [http://hit9.github.com](http://hit9.github.com)
-* An old Blog : [http://hit9.hit9.net](http://hit9.hit9.net)
 * Sina weibo : [@hit9](http://weibo.com/hit9)
 * Email : [nz2324#126.com](mailto:nz2324@126.com)
 * Google : <a href="https://plus.google.com/100665822151034083512?rel=author" rel="me">Google</a>
-* colleage : HIT(哈尔滨工业大学)
+* HIT(哈尔滨工业大学)
 * 喜欢聪明人,反对僵硬教育和教条.不问政事,专心做产品.
-* 关于这个博客:是hit9用[mkdwiki](../wiki/mkdwiki/)搭建的.
+* 关于这个博客:是hit9用[mkdwiki](../wiki/mkdwiki/)搭建的.另外一个直接搭建这种博客的工具是[mkdblog](https://github.com/hit9/mkdblog)
