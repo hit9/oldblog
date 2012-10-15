@@ -1,0 +1,24 @@
+%title python删除dict中重复value的item
+Date:2012-10-15
+
+原问题来自[segmentfault](http://segmentfault.com/q/1010000000123481)
+
+```
+字典 z 如下
+z = {
+    1: 'a',
+    2: 'a',
+    3: 'a',
+    4: 'b',
+    5: 'c',
+    6: 'c',
+    7: 'd'
+}
+
+要求删除重复的 value 的 item，只保留一个，如何实现？
+```
+
+我的答案是:
+```python
+
+```
