@@ -20,5 +20,8 @@ z = {
 
 我的答案是:
 ```python
-
+func = lambda z:dict([(x, y) for y, x in z.items()])
+print func(func(z))
 ```
+
+-----
