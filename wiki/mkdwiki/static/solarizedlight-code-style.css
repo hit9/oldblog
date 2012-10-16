@@ -1,22 +1,28 @@
-pre{
-	font-family: "Inconsolata-g",Consolas,Liberation Mono,"Courier New", Courier,monospace;
-    font-size: 14px;
-	line-height:19px;
-    overflow: auto;
-	margin: 0 4px;
-    border-radius: 3px 3px 3px 3px;
-    border: 1px solid #fdf6e3;
-    padding: 3px 6px;
+pre {
+  font-family: "Inconsolata-g",Consolas,Liberation Mono,"Courier New", Courier,monospace;
+  background: #ffffcc url('noise.png?1350420938') top left;
+  -webkit-border-radius: 0.4em;
+  -moz-border-radius: 0.4em;
+  -ms-border-radius: 0.4em;
+  -o-border-radius: 0.4em;
+  border-radius: 0.4em;
+  border: 1px solid #fdf6e3;
+  line-height: 1.45em;
+  font-size: 14px;
+  margin-bottom: 2.1em;
+  padding: .8em 1em;
+  color: #93a1a1;
+  overflow: auto;
+}
+pre code {
+  border:none; 
+  padding:0;
 }
 code{
-    border-radius: 3px 3px 3px 3px;
-	font-size:12px;
-    border: 1px solid #CCCCCC;
-    padding:2px 5px;
-}
-pre code{
-	border:none; 
-	padding:0px; 
+  border: 1px solid #CCCCCC;
+  font-family: "Inconsolata-g",Consolas,Liberation Mono,"Courier New", Courier,monospace;
+  font-size:12px;
+  padding: 1px 5px;
 }
 .codehilite .hll { background-color: #ffffcc }
 .codehilite  { background: #fdf6e3; color: #657b83 ;border-radius:4px;}
