@@ -46,7 +46,7 @@ $user=new db('user');
 
 ## 3.add()
 
-```php
+```PHP
 /* add */
 
 $user->name='小明';
