@@ -60,6 +60,7 @@ $user->add();
 数组方式的添加:
 
 ```
+<?php
 $data['name']='小红';
 $data['email']='xiaohong@gmail.com';
 $user->add($data);
@@ -76,6 +77,7 @@ $user->add($data);
 `find($id)`返回一个对象
 
 ```php
+<?php
 echo $user->find(2)->name;
 ```
 
@@ -83,12 +85,14 @@ echo $user->find(2)->name;
 
 这种情况,find返回一个二维数组
 ```php
+<?php
 $re_arr=$user->where('id=1')->find();
 print_r($re_arr);
 ```
 
 还可以这样
 ```php
+<?php
 $c['name']='小明';
 $re_arr=$user->where($c)->find();
 print_r($re_arr);
