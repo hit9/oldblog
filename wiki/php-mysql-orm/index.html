@@ -64,6 +64,7 @@ Page:
 </li>
 </ul>
 </li>
+<li><a href="#12delete">12.delete()</a></li>
 </ul>
 </div>
 <h2 id="1">1.开始</h2>
@@ -269,6 +270,20 @@ Page:
 <div class="codehilite"><pre><span class="cp">&lt;?php</span>
 <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;小明&#39;</span><span class="p">;</span>
 <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;name=&quot;大王&quot;&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
+</pre></div>
+
+
+<h2 id="12delete">12.delete()</h2>
+<p>delete()支持按照主键删除和按照查询条件删除.</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</pre></div>
+
+
+<p>删除一些数据:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$condition</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;小明&#39;</span><span class="p">;</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="nv">$condition</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
 </pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>

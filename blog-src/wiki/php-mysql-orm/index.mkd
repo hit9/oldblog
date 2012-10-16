@@ -243,3 +243,19 @@ $user->update(1,$data);
 $data['name']='小明';
 $user->where('name="大王"')->update($data);
 ```
+
+## 12.delete()
+
+delete()支持按照主键删除和按照查询条件删除.
+```php
+<?php
+$user->delete(1);
+```
+删除一些数据:
+
+```php
+<?php
+$condition['name']='小明';
+$user->where($condition)->delete();
+```
+
