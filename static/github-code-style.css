@@ -20,12 +20,14 @@ pre {
   padding: .8em !important;
   overflow-x: auto;
   line-height: 1.5em;
-  border: 1px solid #CCCCCC;
+  border:none; 
   background: url('img/noise.png?1350420938') top left !important;
 }
-pre code{
-	border:none; 
-	padding:0px; 
+code{
+  border: 1px solid #CCCCCC;
+  font-family: "Inconsolata-g",Consolas,Liberation Mono,"Courier New", Courier,monospace;
+  font-size:12px;
+  padding: 1px 5px;
 }
 .codehilite .hll { background-color: #ffffcc }
 .codehilite .c { color: #999988; font-style: italic } /* Comment */
