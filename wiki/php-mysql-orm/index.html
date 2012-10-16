@@ -51,7 +51,19 @@ Page:
 <li><a href="#842like">8.*like()</a></li>
 <li><a href="#9getby42">9.getBy*()</a></li>
 <li><a href="#10getnum">10.getNum()</a></li>
-<li><a href="#11">11.</a></li>
+<li><a href="#11update">11.update()</a><ul>
+<li><a href="#_1">使用对象方式</a><ul>
+<li><a href="#1_2">1.按照主键更新</a></li>
+<li><a href="#2_1">2.按照条件更新</a></li>
+</ul>
+</li>
+<li><a href="#_2">使用数组方式</a><ul>
+<li><a href="#1_3">1.按照主键更新</a></li>
+<li><a href="#2_2">2.按照条件更新</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 <h2 id="1">1.开始</h2>
@@ -219,7 +231,45 @@ Page:
 </pre></div>
 
 
-<h2 id="11">11.</h2>
+<h2 id="11update">11.update()</h2>
+<h3 id="_1">使用对象方式</h3>
+<h4 id="1_2">1.按照主键更新</h4>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">=</span><span class="s1">&#39;大明&#39;</span><span class="p">;</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</pre></div>
+
+
+<p>更改后结果:</p>
+<p><img alt="" src="https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/5.png" /></p>
+<h4 id="2_1">2.按照条件更新</h4>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">=</span><span class="s1">&#39;大红&#39;</span><span class="p">;</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;name=&quot;小红&quot;&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">();</span>
+</pre></div>
+
+
+<p>当然,支持数组条件</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$c</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;小李&#39;</span><span class="p">;</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">=</span><span class="s1">&#39;大李&#39;</span><span class="p">;</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="nv">$c</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">();</span>
+</pre></div>
+
+
+<h3 id="_2">使用数组方式</h3>
+<h4 id="1_3">1.按照主键更新</h4>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;大王&#39;</span><span class="p">;</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nv">$data</span><span class="p">);</span>
+</pre></div>
+
+
+<h4 id="2_2">2.按照条件更新</h4>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;小明&#39;</span><span class="p">;</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;name=&quot;大王&quot;&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
+</pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

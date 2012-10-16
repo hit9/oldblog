@@ -199,4 +199,47 @@ echo $user->getByName('小明')->email;//获取名字叫小明的人的email
 echo $user->emaillike('%@gmail.com')->getNum();//获取gmail用户的个数
 ```
 
-## 11.
+## 11.update()
+### 使用对象方式
+#### 1.按照主键更新
+
+```php
+<?php
+$user->name='大明';
+$user->update(1);
+```
+更改后结果:
+
+![](https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/5.png)
+
+#### 2.按照条件更新
+
+```php
+<?php
+$user->name='大红';
+$user->where('name="小红"')->update();
+```
+当然,支持数组条件
+
+```php
+<?php
+$c['name']='小李';
+$user->name='大李';
+$user->where($c)->update();
+```
+### 使用数组方式
+
+#### 1.按照主键更新
+```php
+<?php
+$data['name']='大王';
+$user->update(1,$data);
+```
+
+#### 2.按照条件更新
+
+```php
+<?php
+$data['name']='小明';
+$user->where('name="大王"')->update($data);
+```
