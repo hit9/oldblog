@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>PHP的mysql数据库操作类wiki</title>
+<title>PHP的mysql数据库操作类-抛弃裸SQL语句</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
 <link rel="stylesheet" href="../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
@@ -28,12 +28,12 @@ Page:
 <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
 </div>
 </div>
-<h1>PHP的mysql数据库操作类wiki</h1>
+<h1>PHP的mysql数据库操作类-抛弃裸SQL语句</h1>
 <!--fork me on github button-->
 <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 <!--end of github fork button-->
 <p>注:这是hit9的项目php-mysql-orm的wiki</p>
-<p>php-mysql-orm on Github: <a href="https://github.com/hit9/php-mysql-orm">watch it!</a></p>
+<p><strong>php-mysql-orm on Github: <a href="https://github.com/hit9/php-mysql-orm">watch it!</a></strong></p>
 <div class="toc">
 <ul>
 <li><a href="#1">1.开始</a></li>
@@ -65,6 +65,8 @@ Page:
 </ul>
 </li>
 <li><a href="#12delete">12.delete()</a></li>
+<li><a href="#13">13.事务处理</a></li>
+<li><a href="#14exec_sql">14.exec_sql()</a></li>
 </ul>
 </div>
 <h2 id="1">1.开始</h2>
@@ -285,6 +287,40 @@ Page:
 <span class="nv">$condition</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;小明&#39;</span><span class="p">;</span>
 <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="nv">$condition</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
 </pre></div>
+
+
+<p>清空表:<code>$user-&gt;empty_table();</code></p>
+<h2 id="13">13.事务处理</h2>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="cm">/*要么这两条数据全部写入,要不全不写入*/</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">begin</span><span class="p">();</span><span class="c1">//开启一个事务</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">=</span><span class="s1">&#39;小胖&#39;</span><span class="p">;</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">email</span><span class="o">=</span><span class="s1">&#39;xiaopang@gmail.com&#39;</span><span class="p">;</span>
+<span class="nv">$re1</span><span class="o">=</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">();</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">=</span><span class="s1">&#39;小惠&#39;</span><span class="p">;</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">email</span><span class="o">=</span><span class="s1">&#39;xiaohui@gmail.com&#39;</span><span class="p">;</span><span class="c1">//假如id=2已经有记录了,构造一个冲突</span>
+<span class="nv">$re2</span><span class="o">=</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">();</span><span class="c1">//构造一个不可能完成的事件做回滚测试</span>
+<span class="k">if</span><span class="p">(</span><span class="nv">$re1</span> <span class="o">&amp;&amp;</span> <span class="nv">$re2</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">commit</span><span class="p">();</span><span class="c1">// 如果均顺利执行,commit</span>
+<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+    <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">rollback</span><span class="p">();</span><span class="c1">//否则有一个执行失败则回滚</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Note: Mysql数据库要是INNODB或BDB才支持事务 </p>
+<h2 id="14exec_sql">14.exec_sql()</h2>
+<p>exec_sql($sql);函数参数是sql语句(支持CURD),查询失败返回false.查询成功返回二维数组结果集(便于foreach);添加,删除,更新返回bool</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$re_arr</span><span class="o">=</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">exec_sql</span><span class="p">(</span><span class="s1">&#39;SELECT name FROM t_user WHERE 1&#39;</span><span class="p">);</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$re_arr</span> <span class="k">as</span> <span class="nv">$var</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$var</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>尽量避免用裸SQL</p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

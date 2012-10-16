@@ -1,8 +1,8 @@
-%title PHP的mysql数据库操作类wiki
+%title PHP的mysql数据库操作类-抛弃裸SQL语句
 
 注:这是hit9的项目php-mysql-orm的wiki
 
-php-mysql-orm on Github: [watch it!](https://github.com/hit9/php-mysql-orm)
+**php-mysql-orm on Github: [watch it!](https://github.com/hit9/php-mysql-orm)**
 
 [TOC]
 
@@ -258,4 +258,38 @@ $user->delete(1);
 $condition['name']='小明';
 $user->where($condition)->delete();
 ```
+清空表:` $user->empty_table();`
 
+## 13.事务处理
+
+```php
+<?php
+/*要么这两条数据全部写入,要不全不写入*/
+$user->begin();//开启一个事务
+$user->name='小胖';
+$user->email='xiaopang@gmail.com';
+$re1=$user->add();
+$user->name='小惠';
+$user->email='xiaohui@gmail.com';//假如id=2已经有记录了,构造一个冲突
+$re2=$user->add();//构造一个不可能完成的事件做回滚测试
+if($re1 && $re2)
+{
+	$user->commit();// 如果均顺利执行,commit
+}else{
+	$user->rollback();//否则有一个执行失败则回滚
+}
+```
+Note: Mysql数据库要是INNODB或BDB才支持事务 
+
+## 14.exec_sql()
+
+exec_sql($sql);函数参数是sql语句(支持CURD),查询失败返回false.查询成功返回二维数组结果集(便于foreach);添加,删除,更新返回bool
+
+```php
+<?php
+$re_arr=$user->exec_sql('SELECT name FROM t_user WHERE 1');
+foreach ($re_arr as $var) {
+	echo $var['name'];
+}
+```
+尽量避免用裸SQL
