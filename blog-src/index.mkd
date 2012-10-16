@@ -7,7 +7,7 @@
 int main()
 {
 	do{
-		I love You - Y;
+		I love You - everyone in my life;
 	}while(FOREVER);
 	
 	return 0;
