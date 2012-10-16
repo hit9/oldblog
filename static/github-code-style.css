@@ -1,5 +1,6 @@
 pre {
   background: url('img/noise.png?1350420938') top left;
+  font-family: "Inconsolata-g",Consolas,Liberation Mono,"Courier New", Courier,monospace !important;
   -webkit-border-radius: 0.4em;
   -moz-border-radius: 0.4em;
   -ms-border-radius: 0.4em;
@@ -12,16 +13,9 @@ pre {
   padding: .8em 1em;
   overflow: auto;
 }
-.codehilite code {
-  font-family: "Inconsolata-g",Consolas,Liberation Mono,"Courier New", Courier,monospace;
-  overflow: scroll;
-  overflow-y: hidden;
-  display: block;
-  padding: .8em !important;
-  overflow-x: auto;
-  line-height: 1.5em;
-  border:none; 
-  background: url('img/noise.png?1350420938') top left !important;
+pre code{
+	border:none;
+	padding:0;
 }
 code{
   border: 1px solid #CCCCCC;
