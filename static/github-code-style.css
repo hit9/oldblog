@@ -20,6 +20,7 @@ pre {
   padding: .8em !important;
   overflow-x: auto;
   line-height: 1.5em;
+  border: 1px solid #CCCCCC;
   background: url('img/noise.png?1350420938') top left !important;
 }
 pre code{
