@@ -46,6 +46,12 @@ Page:
 </ul>
 </li>
 <li><a href="#5where">5.where()</a></li>
+<li><a href="#6limit">6.limit()</a></li>
+<li><a href="#7orderby">7.orderBy()</a></li>
+<li><a href="#842like">8.*like()</a></li>
+<li><a href="#9getby42">9.getBy*()</a></li>
+<li><a href="#10getnum">10.getNum()</a></li>
+<li><a href="#11">11.</a></li>
 </ul>
 </div>
 <h2 id="1">1.开始</h2>
@@ -173,6 +179,47 @@ Page:
 <p>结果:</p>
 <p><img alt="" src="https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/3.png" /></p>
 <p>where 还支持一串长龙式的连贯.也就是where后面还可以继续where</p>
+<h2 id="6limit">6.limit()</h2>
+<p>limit()支持数字参数,也支持字符串参数.</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$re_arr</span><span class="o">=</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;id&gt;1&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="s1">&#39;1,3&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">();</span><span class="c1">//从第一条开始,读取3条数据</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$re_arr</span><span class="p">);</span>
+</pre></div>
+
+
+<p>另外 ,<code>limit(1)</code>表示只读一条数据(<code>即limit('0,1')</code>)</p>
+<h2 id="7orderby">7.orderBy()</h2>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$re_arr</span><span class="o">=</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;id&gt;1&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">();</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$re_arr</span><span class="p">);</span>
+</pre></div>
+
+
+<p>如果想要反序,使用<code>orderBy('email DESC')</code></p>
+<h2 id="842like">8.*like()</h2>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">echo</span> <span class="nv">$re</span><span class="o">=</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;id&gt;1&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">namelike</span><span class="p">(</span><span class="s1">&#39;%小%&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getNum</span><span class="p">();</span>
+</pre></div>
+
+
+<p>上例显示了name字段类似'%小%'的数据的数目</p>
+<h2 id="9getby42">9.getBy*()</h2>
+<p>函数根据某个字段的值得到对应的一条数据记录.</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">echo</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">getByName</span><span class="p">(</span><span class="s1">&#39;小明&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">email</span><span class="p">;</span><span class="c1">//获取名字叫小明的人的email</span>
+</pre></div>
+
+
+<p>注:getBy*()的*处必须是数据库该表的一个字段名(首字母需要大写) </p>
+<h2 id="10getnum">10.getNum()</h2>
+<p>函数的参数可选:$sql.</p>
+<p>参数是sql语句或者使用前面的查询条件,返回查询到的记录个数 </p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">echo</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">emaillike</span><span class="p">(</span><span class="s1">&#39;%@gmail.com&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getNum</span><span class="p">();</span><span class="c1">//获取gmail用户的个数</span>
+</pre></div>
+
+
+<h2 id="11">11.</h2>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

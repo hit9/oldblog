@@ -149,3 +149,54 @@ print_r($re_arr);
 ![](https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/3.png)
 
 where 还支持一串长龙式的连贯.也就是where后面还可以继续where
+
+## 6.limit()
+
+limit()支持数字参数,也支持字符串参数.
+
+```php
+<?php
+$re_arr=$user->where('id>1')->limit('1,3')->find();//从第一条开始,读取3条数据
+print_r($re_arr);
+```
+
+另外 ,`limit(1)`表示只读一条数据(`即limit('0,1')`)
+
+## 7.orderBy()
+
+```
+<?php
+$re_arr=$user->where('id>1')->orderBy('email')->find();
+print_r($re_arr);
+```
+如果想要反序,使用`orderBy('email DESC')`
+
+## 8.\*like()
+```php
+<?php
+echo $re=$user->where('id>1')->namelike('%小%')->getNum();
+```
+上例显示了name字段类似'%小%'的数据的数目
+
+## 9.getBy\*()
+
+函数根据某个字段的值得到对应的一条数据记录.
+
+```php
+<?php
+echo $user->getByName('小明')->email;//获取名字叫小明的人的email
+```
+注:getBy\*()的\*处必须是数据库该表的一个字段名(首字母需要大写) 
+
+## 10.getNum()
+
+函数的参数可选:$sql.
+
+参数是sql语句或者使用前面的查询条件,返回查询到的记录个数 
+
+```php
+<?php
+echo $user->emaillike('%@gmail.com')->getNum();//获取gmail用户的个数
+```
+
+## 11.
