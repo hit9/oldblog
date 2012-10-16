@@ -84,11 +84,12 @@ Page:
 
 <p>默认的主键是id,如果想指明,用<code>new db($tbl,$my_primary_key)</code></p>
 <h2 id="3add">3.add()</h2>
-<div class="codehilite"><pre><span class="cm">/* add */</span>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="cm">/* add */</span>
 
-<span class="err">$</span><span class="n">user</span><span class="o">-&gt;</span><span class="n">name</span><span class="o">=</span><span class="p">&#39;</span><span class="err">小明</span><span class="p">&#39;;</span>
-<span class="err">$</span><span class="n">user</span><span class="o">-&gt;</span><span class="n">email</span><span class="o">=</span><span class="m">&#39;x</span><span class="n">iaoming</span><span class="p">@</span><span class="n">gamil</span><span class="p">.</span><span class="n">com</span><span class="p">&#39;;</span>
-<span class="err">$</span><span class="n">user</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">();</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">=</span><span class="s1">&#39;小明&#39;</span><span class="p">;</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">email</span><span class="o">=</span><span class="s1">&#39;xiaoming@gamil.com&#39;</span><span class="p">;</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">();</span>
 </pre></div>
 
 
@@ -131,6 +132,23 @@ Page:
 <p>返回的结果</p>
 <p><img alt="" src="https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/3.png" /></p>
 <h3 id="3select">3.配合select()使用</h3>
+<p>其实,select()只是告诉程序提取哪些字段.不用select的时候会提取* (对应于<code>select \*</code>)</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$arr</span><span class="o">=</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;name,email&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">();</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$arr</span> <span class="k">as</span> <span class="nv">$var</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$var</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span><span class="nv">$var</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>当然还可以用数组做参数:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$select</span><span class="o">=</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;email&#39;</span><span class="p">);</span>
+<span class="nv">$arr</span><span class="o">=</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="nv">$select</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">();</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$arr</span> <span class="k">as</span> <span class="nv">$var</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$var</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span><span class="nv">$var</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">];</span>
+<span class="p">}</span>
+</pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

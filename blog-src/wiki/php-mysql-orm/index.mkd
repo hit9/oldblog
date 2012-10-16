@@ -46,7 +46,8 @@ $user=new db('user');
 
 ## 3.add()
 
-```PHP
+```php
+<?php
 /* add */
 
 $user->name='小明';
@@ -102,3 +103,24 @@ print_r($re_arr);
 ![](https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/3.png)
 
 ### 3.配合select()使用
+
+其实,select()只是告诉程序提取哪些字段.不用select的时候会提取* (对应于`select \*`)
+
+```
+<?php
+$arr=$user->select('name,email')->find();
+foreach ($arr as $var) {
+	echo $var['name'],$var['email'];
+}
+```
+
+当然还可以用数组做参数:
+
+```
+<?php
+$select=array('name','email');
+$arr=$user->select($select)->find();
+foreach ($arr as $var) {
+	echo $var['name'],$var['email'];
+}
+```
