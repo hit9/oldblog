@@ -1,19 +1,28 @@
-pre{
-	font-family: "Inconsolata-g",Consolas,Liberation Mono,"Courier New", Courier,monospace;
-    font-size: 14px;
-	line-height:19px;
-    overflow: auto;
-	margin: 0 4px;
-    border-radius: 3px 3px 3px 3px;
-    border: 1px solid #CCCCCC;
-    padding: 3px 6px;
+pre {
+  background: #002b36 url('img/noise.png?1350420938') top left;
+  -webkit-border-radius: 0.4em;
+  -moz-border-radius: 0.4em;
+  -ms-border-radius: 0.4em;
+  -o-border-radius: 0.4em;
+  border-radius: 0.4em;
+  border: 1px solid #05232b;
+  line-height: 1.5em;
+  font-size: 14px;
+  margin-bottom: 2.1em;
+  padding: .8em 1em;
+  color: #93a1a1;
+  overflow: auto;
 }
-code{
-    border-radius: 3px 3px 3px 3px;
-    border: 1px solid #CCCCCC;
-    padding:2px 5px;
-	font-size:12px;
-	margin:0 4px;
+.codehilite code {
+  font-family: "Inconsolata-g",Consolas,Liberation Mono,"Courier New", Courier,monospace;
+  overflow: scroll;
+  overflow-y: hidden;
+  display: block;
+  padding: .8em !important;
+  overflow-x: auto;
+  line-height: 1.5em;
+  background: #002b36 url('img/noise.png?1350420938') top left !important;
+  color: #93a1a1 !important;
 }
 pre code{
 	border:none; 
