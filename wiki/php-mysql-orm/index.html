@@ -45,6 +45,7 @@ Page:
 <li><a href="#3select">3.配合select()使用</a></li>
 </ul>
 </li>
+<li><a href="#5where">5.where()</a></li>
 </ul>
 </div>
 <h2 id="1">1.开始</h2>
@@ -132,7 +133,7 @@ Page:
 <p>返回的结果</p>
 <p><img alt="" src="https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/3.png" /></p>
 <h3 id="3select">3.配合select()使用</h3>
-<p>其实,select()只是告诉程序提取哪些字段.不用select的时候会提取* (对应于<code>select \*</code>)</p>
+<p>其实,select()只是告诉程序提取哪些字段.不用select的时候会SQL提取全部字段</p>
 <div class="codehilite"><pre><span class="cp">&lt;?php</span>
 <span class="nv">$arr</span><span class="o">=</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;name,email&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">();</span>
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$arr</span> <span class="k">as</span> <span class="nv">$var</span><span class="p">)</span> <span class="p">{</span>
@@ -149,6 +150,29 @@ Page:
     <span class="k">echo</span> <span class="nv">$var</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span><span class="nv">$var</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">];</span>
 <span class="p">}</span>
 </pre></div>
+
+
+<h2 id="5where">5.where()</h2>
+<p>where()方法接受字符串和数组参数,返回一个数据对象 </p>
+<p>字符串参数:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$re_arr</span><span class="o">=</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;id=1 AND name=&quot;小明&quot;&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">();</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$re_arr</span><span class="p">);</span>
+</pre></div>
+
+
+<p>数组参数:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$c</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;小明&#39;</span><span class="p">;</span>
+<span class="nv">$c</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+<span class="nv">$re_arr</span><span class="o">=</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="nv">$c</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">();</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$re_arr</span><span class="p">);</span>
+</pre></div>
+
+
+<p>结果:</p>
+<p><img alt="" src="https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/3.png" /></p>
+<p>where 还支持一串长龙式的连贯.也就是where后面还可以继续where</p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

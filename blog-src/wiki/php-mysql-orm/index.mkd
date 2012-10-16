@@ -104,7 +104,7 @@ print_r($re_arr);
 
 ### 3.配合select()使用
 
-其实,select()只是告诉程序提取哪些字段.不用select的时候会提取* (对应于`select \*`)
+其实,select()只是告诉程序提取哪些字段.不用select的时候会SQL提取全部字段
 
 ```
 <?php
@@ -124,3 +124,28 @@ foreach ($arr as $var) {
 	echo $var['name'],$var['email'];
 }
 ```
+
+## 5.where()
+
+where()方法接受字符串和数组参数,返回一个数据对象 
+
+字符串参数:
+```
+<?php
+$re_arr=$user->where('id=1 AND name="小明"')->find();
+print_r($re_arr);
+```
+数组参数:
+
+```
+<?php
+$c['name']='小明';
+$c['id']=1;
+$re_arr=$user->where($c)->find();
+print_r($re_arr);
+```
+结果:
+
+![](https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/3.png)
+
+where 还支持一串长龙式的连贯.也就是where后面还可以继续where
