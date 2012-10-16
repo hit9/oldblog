@@ -6,3 +6,4 @@
 * [vim-高效强悍的编辑器](./vim_study/index.html)
 * [mkdwiki-用markdown写wiki](./mkdwiki/index.html)
 * [趣味C代码片段](./funny-c-codes/index.html)
+* [php-mysql-orm](./php-mysql-orm/index.html)

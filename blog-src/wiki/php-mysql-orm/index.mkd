@@ -1,0 +1,100 @@
+%title PHP的mysql数据库操作类wiki
+
+注:这是hit9的项目php-mysql-orm的wiki
+
+php-mysql-orm on Github: [watch it!](https://github.com/hit9/php-mysql-orm)
+
+[TOC]
+
+## 1.开始
+
+首先,我们建立好数据库mydb,和表user
+```sql
+create database mydb;
+use mydb;
+create table t_user( 
+	name char(20), 
+	email char(30), 
+	id int primary key auto_increment 
+);
+```
+表格如下:
+
+![](https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/0.png)
+
+建立settings.php:
+```php
+<?php
+define('DB_HOST','localhost');
+define('DB_NAME','mydb');
+define('DB_USER','root');
+define('DB_PASSWD','123456');
+define('TABLE_PREFIX','t_');
+define('DB_CHAR_SET','utf8');
+define('QUERY_ERROR',true);
+```
+## 2.实例化
+```php
+<?php
+require_once('settings.php');
+require_once('../src/db.class.php');
+
+$user=new db('user');
+
+```
+默认的主键是id,如果想指明,用`new db($tbl,$my_primary_key)`
+
+## 3.add()
+
+```php
+/* add */
+
+$user->name='小明';
+$user->email='xiaoming@gamil.com';
+$user->add();
+```
+执行结果
+
+![](https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/1.png)
+
+数组方式的添加:
+
+```
+$data['name']='小红';
+$data['email']='xiaohong@gmail.com';
+$user->add($data);
+```
+
+执行结果
+
+![](https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/2.png)
+
+## 4.find()
+
+### 1.按照主键查找
+
+`find($id)`返回一个对象
+
+```php
+echo $user->find(2)->name;
+```
+
+### 2.按照查询条件,结合where()
+
+这种情况,find返回一个二维数组
+```php
+$re_arr=$user->where('id=1')->find();
+print_r($re_arr);
+```
+
+还可以这样
+```php
+$c['name']='小明';
+$re_arr=$user->where($c)->find();
+print_r($re_arr);
+```
+返回的结果
+
+![](https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/3.png)
+
+### 3.配合select()使用

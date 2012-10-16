@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>PHP的mysql数据库操作类wiki</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<script type="text/javascript">
+function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
+</script>
+</head>
+<body>
+<div id="top">
+<div id="top1">
+<a href="/index.html">Hit9</a>
+<a href="/blog/index.html">Blog</a>
+<a href="/wiki/index.html">Wiki</a>
+<a href="/project/index.html">Project</a>
+<a href="/links.html">Links</a>
+<a href="/About.html" rel="author">About</a>
+</div>
+<div id="top2">
+Page:
+<a href="index.html">First</a>
+<a href="../index.html">UP</a>
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+</div>
+</div>
+<h1>PHP的mysql数据库操作类wiki</h1>
+<!--fork me on github button-->
+<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+<!--end of github fork button-->
+<p>注:这是hit9的项目php-mysql-orm的wiki</p>
+<p>php-mysql-orm on Github: <a href="https://github.com/hit9/php-mysql-orm">watch it!</a></p>
+<div class="toc">
+<ul>
+<li><a href="#1">1.开始</a></li>
+<li><a href="#2">2.实例化</a></li>
+<li><a href="#3add">3.add()</a></li>
+<li><a href="#4find">4.find()</a><ul>
+<li><a href="#1_1">1.按照主键查找</a></li>
+<li><a href="#2where">2.按照查询条件,结合where()</a></li>
+<li><a href="#3select">3.配合select()使用</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="1">1.开始</h2>
+<p>首先,我们建立好数据库mydb,和表user</p>
+<div class="codehilite"><pre><span class="k">create</span> <span class="k">database</span> <span class="n">mydb</span><span class="p">;</span>
+<span class="n">use</span> <span class="n">mydb</span><span class="p">;</span>
+<span class="k">create</span> <span class="k">table</span> <span class="n">t_user</span><span class="p">(</span> 
+    <span class="n">name</span> <span class="nb">char</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span> 
+    <span class="n">email</span> <span class="nb">char</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span> 
+    <span class="n">id</span> <span class="nb">int</span> <span class="k">primary</span> <span class="k">key</span> <span class="n">auto_increment</span> 
+<span class="p">);</span>
+</pre></div>
+
+
+<p>表格如下:</p>
+<p><img alt="" src="https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/0.png" /></p>
+<p>建立settings.php:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DB_HOST&#39;</span><span class="p">,</span><span class="s1">&#39;localhost&#39;</span><span class="p">);</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DB_NAME&#39;</span><span class="p">,</span><span class="s1">&#39;mydb&#39;</span><span class="p">);</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DB_USER&#39;</span><span class="p">,</span><span class="s1">&#39;root&#39;</span><span class="p">);</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DB_PASSWD&#39;</span><span class="p">,</span><span class="s1">&#39;123456&#39;</span><span class="p">);</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;TABLE_PREFIX&#39;</span><span class="p">,</span><span class="s1">&#39;t_&#39;</span><span class="p">);</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DB_CHAR_SET&#39;</span><span class="p">,</span><span class="s1">&#39;utf8&#39;</span><span class="p">);</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;QUERY_ERROR&#39;</span><span class="p">,</span><span class="k">true</span><span class="p">);</span>
+</pre></div>
+
+
+<h2 id="2">2.实例化</h2>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;settings.php&#39;</span><span class="p">);</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;../src/db.class.php&#39;</span><span class="p">);</span>
+
+<span class="nv">$user</span><span class="o">=</span><span class="k">new</span> <span class="nx">db</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">);</span>
+</pre></div>
+
+
+<p>默认的主键是id,如果想指明,用<code>new db($tbl,$my_primary_key)</code></p>
+<h2 id="3add">3.add()</h2>
+<div class="codehilite"><pre><span class="x">/* add */</span>
+
+<span class="x">$user-&gt;name=&#39;小明&#39;;</span>
+<span class="x">$user-&gt;email=&#39;xiaoming@gamil.com&#39;;</span>
+<span class="x">$user-&gt;add();</span>
+</pre></div>
+
+
+<p>执行结果</p>
+<p><img alt="" src="https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/1.png" /></p>
+<p>数组方式的添加:</p>
+<div class="codehilite"><pre>$<span class="n">data</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]=</span><span class="s">&#39;小红&#39;</span><span class="p">;</span>
+$<span class="n">data</span><span class="p">[</span><span class="s">&#39;email&#39;</span><span class="p">]=</span><span class="s">&#39;xiaohong@gmail.com&#39;</span><span class="p">;</span>
+$<span class="n">user</span><span class="o">-&gt;</span><span class="n">add</span><span class="p">(</span>$<span class="n">data</span><span class="p">);</span>
+</pre></div>
+
+
+<p>执行结果</p>
+<p><img alt="" src="https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/2.png" /></p>
+<h2 id="4find">4.find()</h2>
+<h3 id="1_1">1.按照主键查找</h3>
+<p><code>find($id)</code>返回一个对象</p>
+<div class="codehilite"><pre><span class="x">echo $user-&gt;find(2)-&gt;name;</span>
+</pre></div>
+
+
+<h3 id="2where">2.按照查询条件,结合where()</h3>
+<p>这种情况,find返回一个二维数组</p>
+<div class="codehilite"><pre><span class="x">$re_arr=$user-&gt;where(&#39;id=1&#39;)-&gt;find();</span>
+<span class="x">print_r($re_arr);</span>
+</pre></div>
+
+
+<p>还可以这样</p>
+<div class="codehilite"><pre><span class="x">$c[&#39;name&#39;]=&#39;小明&#39;;</span>
+<span class="x">$re_arr=$user-&gt;where($c)-&gt;find();</span>
+<span class="x">print_r($re_arr);</span>
+</pre></div>
+
+
+<p>返回的结果</p>
+<p><img alt="" src="https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/3.png" /></p>
+<h3 id="3select">3.配合select()使用</h3>
+<div id="foot">
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="#">Top</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+</div>
+<br>
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread" data-thread-key="" 
+	data-title="" data-author-key="" data-url=""></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hit9github"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+<div style = "text-align:center; ">
+	<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+</div>
+</body>
+</html>
