@@ -293,3 +293,27 @@ foreach ($re_arr as $var) {
 }
 ```
 尽量避免用裸SQL
+
+## 15.table()
+
+table()方法可以改变一个db实例的表名属性.参数是真实表名.(不带前缀)
+
+## 16.多表联合查询
+
+使用table()方法进行多表查询.
+
+新建一个表t_profile.结构如下:
+
+![](https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/6.png)
+
+其中有一条数据:
+
+![](https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/7.png)
+
+我们想得到`name`和`tel`的对应关系:
+
+```php
+<?php
+$arr=$user->table('t_user p,t_profile q')->where('p.id=q.id')->select('p.name,q.tel')->find();
+print_r($arr);
+```

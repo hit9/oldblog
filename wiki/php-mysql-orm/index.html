@@ -67,6 +67,8 @@ Page:
 <li><a href="#12delete">12.delete()</a></li>
 <li><a href="#13">13.事务处理</a></li>
 <li><a href="#14exec_sql">14.exec_sql()</a></li>
+<li><a href="#15table">15.table()</a></li>
+<li><a href="#16">16.多表联合查询</a></li>
 </ul>
 </div>
 <h2 id="1">1.开始</h2>
@@ -321,6 +323,19 @@ Page:
 
 
 <p>尽量避免用裸SQL</p>
+<h2 id="15table">15.table()</h2>
+<p>table()方法可以改变一个db实例的表名属性.参数是真实表名.(不带前缀)</p>
+<h2 id="16">16.多表联合查询</h2>
+<p>使用table()方法进行多表查询.</p>
+<p>新建一个表t_profile.结构如下:</p>
+<p><img alt="" src="https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/6.png" /></p>
+<p>其中有一条数据:</p>
+<p><img alt="" src="https://github.com/hit9/blog-img-store/raw/master/wiki/php-mysql-orm/7.png" /></p>
+<p>我们想得到<code>name</code>和<code>tel</code>的对应关系:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nv">$arr</span><span class="o">=</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s1">&#39;t_user p,t_profile q&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;p.id=q.id&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;p.name,q.tel&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">();</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$arr</span><span class="p">);</span>
+</pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>
