@@ -51,7 +51,7 @@ $user=new db('user');
 /* add */
 
 $user->name='小明';
-$user->email='xiaoming@gamil.com';
+$user->email='xiaoming@gmail.com';
 $user->add();
 ```
 执行结果
