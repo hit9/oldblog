@@ -6,4 +6,4 @@
 
 3. [BKDRHASH](https://github.com/hit9/BKDRHash) (A externsion for PHP:a wrapper of bkdrhash in PHP)
 
-4. [php-mysql-orm ](https://github.com/hit9/php-mysql-orm) (NO-SQL way for php/mysql project.)
+4. [php-mysql-orm ](../wiki/php-mysql-orm) (NO-SQL way for php/mysql project.)
