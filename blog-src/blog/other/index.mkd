@@ -1,0 +1,2 @@
+1. [firefox使用ipv6 hosts 的一些问题](./posts/index.html)
+%title other

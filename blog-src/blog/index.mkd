@@ -10,3 +10,5 @@
 1. [Google](Google/index.html)
 1. [Data_Structures_Qs](Data_Structures_Qs/index.html)
 1. [ICPC](ICPC/index.html)
+
+1. [other](./other/index.html)
