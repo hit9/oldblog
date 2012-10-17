@@ -31,16 +31,12 @@ int main()
 另外linux 下有专门的函数, 屏蔽回显, 但是不会显示星号
 
 ```c
-#include <curses.h>
+#include <stdio.h>
+#include <unistd.h>
 int main()
 {
-	initscr(); 
-	char c;
-	noecho(); 
-	while((c = getch()) != '\n') {
-		printw("*");
-	}
-	endwin(); 
+	char *passwd = getpass("password:"); 
+	printf("%s\n", passwd);
 	return 0;
 }
 ```

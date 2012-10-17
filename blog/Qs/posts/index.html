@@ -59,16 +59,12 @@ Page:
 
 
 <p>另外linux 下有专门的函数, 屏蔽回显, 但是不会显示星号</p>
-<div class="codehilite"><pre><span class="cp">#include &lt;curses.h&gt;</span>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;unistd.h&gt;</span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
-    <span class="n">initscr</span><span class="p">();</span> 
-    <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>
-    <span class="n">noecho</span><span class="p">();</span> 
-    <span class="k">while</span><span class="p">((</span><span class="n">c</span> <span class="o">=</span> <span class="n">getch</span><span class="p">())</span> <span class="o">!=</span> <span class="sc">&#39;\n&#39;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">printw</span><span class="p">(</span><span class="s">&quot;*&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="n">endwin</span><span class="p">();</span> 
+    <span class="kt">char</span> <span class="o">*</span><span class="n">passwd</span> <span class="o">=</span> <span class="n">getpass</span><span class="p">(</span><span class="s">&quot;password:&quot;</span><span class="p">);</span> 
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">passwd</span><span class="p">);</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
