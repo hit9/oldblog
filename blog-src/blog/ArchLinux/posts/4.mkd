@@ -1,4 +1,4 @@
-%title Gnome shell推荐-最大化隐藏标题栏,播放器整合到上栏等
+%title Gnome shell扩展推荐-最大化隐藏标题栏,播放器整合到上栏等
 Date:2012-10-18
 
 1. [Maximus](https://extensions.gnome.org/extension/354/maximus/) 当窗口最大化大的时候自动隐藏其标题栏.
