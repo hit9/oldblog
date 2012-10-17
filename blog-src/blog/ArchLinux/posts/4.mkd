@@ -26,5 +26,6 @@ Date:2012-10-18
 
 ![](https://extensions.gnome.org/static/extension-data/screenshots/screenshot_55_3.png)
 
-我用的是DeaDBeef.需要安装插件(https://github.com/kernelhcy/DeaDBeeF-MPRIS-plugin)
+其github([link](https://github.com/eonpatapon/gnome-shell-extensions-mediaplayer))上有支持的播放器列表和设置方式.
 
+我用的是DeaDBeef.需要安装插件(https://github.com/kernelhcy/DeaDBeeF-MPRIS-plugin)
