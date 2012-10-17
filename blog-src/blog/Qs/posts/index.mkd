@@ -1,0 +1,46 @@
+%title C语言密码输入回显星号
+Date:2012-10-18
+
+来自[careercup](http://www.careercup.com/question?id=14866702)
+
+原问题:
+
+```
+Write a C program to display * for each letter of password you type in command line.
+
+Like:Password
+********
+```
+
+我给出的解决方案:
+```c
+#include <curses.h>
+int main()
+{
+	initscr(); 
+	char c;
+	noecho(); 
+	while((c = getch()) != '\n') {
+		printw("*");
+	}
+	endwin(); 
+	return 0;
+}
+```
+
+另外linux 下有专门的函数, 屏蔽回显, 但是不会显示星号
+
+```c
+#include <curses.h>
+int main()
+{
+	initscr(); 
+	char c;
+	noecho(); 
+	while((c = getch()) != '\n') {
+		printw("*");
+	}
+	endwin(); 
+	return 0;
+}
+```

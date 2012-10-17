@@ -1,0 +1,2 @@
+1. [C语言密码输入回显星号](./posts/index.html)
+%title Qs
