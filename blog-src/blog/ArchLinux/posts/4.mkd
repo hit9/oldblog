@@ -17,4 +17,14 @@ Date:2012-10-18
 
 1. [Shell Restart User Entry](https://extensions.gnome.org/extension/239/shell-restart-user-menu-entry/) 在右上角user菜单中添加一个重启gnome shell的按钮  (这个...结束了我一直使用`pkill gnome-shell`的历史)
 
-2.
+2. [Todo list](https://extensions.gnome.org/extension/162/todo-list/) 看图:
+
+![](https://extensions.gnome.org/static/extension-data/screenshots/screenshot_162_1.png)
+
+3. [Media player indicator](https://extensions.gnome.org/extension/55/media-player-indicator/)
+在面板控制音乐播放器
+
+![](https://extensions.gnome.org/static/extension-data/screenshots/screenshot_55_3.png)
+
+我用的是DeaDBeef.需要安装插件(https://github.com/kernelhcy/DeaDBeeF-MPRIS-plugin)
+
