@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>ArchLinux</title>
+<title>Gnome shell推荐-最大化隐藏标题栏,播放器整合到上栏等</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
-<link rel="stylesheet" href="../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
 <script type="text/javascript">
 function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
 </script>
@@ -28,16 +28,26 @@ Page:
 <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
 </div>
 </div>
-<h1>ArchLinux</h1>
+<h1>Gnome shell推荐-最大化隐藏标题栏,播放器整合到上栏等</h1>
 <!--fork me on github button-->
-<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 <!--end of github fork button-->
+<p>Date:2012-10-18</p>
 <ol>
-<li><a href="./posts/4.html">Gnome shell推荐-最大化隐藏标题栏,播放器整合到上栏等</a></li>
-<li><a href="posts/3.html">Ubuntu下安装wine QQ.效果很赞</a></li>
-<li><a href="posts/2.html">使用tmux管理多个shell会话</a></li>
-<li><a href="posts/index.html">ArchLinux下拨号上网</a></li>
+<li><a href="https://extensions.gnome.org/extension/354/maximus/">Maximus</a> 当窗口最大化大的时候自动隐藏其标题栏.</li>
 </ol>
+<p><img alt="" src="https://github.com/hit9/blog-img-store/raw/master/blog/ArchLinux/4_0.png" /></p>
+<ol>
+<li><a href="https://extensions.gnome.org/extension/426/window-buttons/">Window Buttons</a> 在面板上(上方栏)右边添加最大化最小化, 关闭窗口按钮.</li>
+</ol>
+<p><img alt="" src="https://extensions.gnome.org/static/extension-data/screenshots/screenshot_426_1.png" /></p>
+<p>上面的俩配合起来绝对棒!</p>
+<p>关于第1个的安装后出现<code>execution of xprop failed</code>解决办法:安装xorg-xprop</p>
+<p>还有几个插件也很棒:</p>
+<ol>
+<li><a href="https://extensions.gnome.org/extension/239/shell-restart-user-menu-entry/">Shell Restart User Entry</a> 在右上角user菜单中添加一个重启gnome shell的按钮  (这个...结束了我一直使用<code>pkill gnome-shell</code>的历史)</li>
+</ol>
+<p>2.</p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

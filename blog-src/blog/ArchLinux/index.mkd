@@ -1,3 +1,4 @@
+1. [Gnome shell推荐-最大化隐藏标题栏,播放器整合到上栏等](./posts/4.html)
 1. [Ubuntu下安装wine QQ.效果很赞](posts/3.html)
 1. [使用tmux管理多个shell会话](posts/2.html)
 1. [ArchLinux下拨号上网](posts/index.html)

@@ -1,0 +1,20 @@
+%title Gnome shell推荐-最大化隐藏标题栏,播放器整合到上栏等
+Date:2012-10-18
+
+1. [Maximus](https://extensions.gnome.org/extension/354/maximus/) 当窗口最大化大的时候自动隐藏其标题栏.
+
+![](https://github.com/hit9/blog-img-store/raw/master/blog/ArchLinux/4_0.png)
+
+2. [Window Buttons](https://extensions.gnome.org/extension/426/window-buttons/) 在面板上(上方栏)右边添加最大化最小化, 关闭窗口按钮.
+
+![](https://extensions.gnome.org/static/extension-data/screenshots/screenshot_426_1.png)
+
+上面的俩配合起来绝对棒!
+
+关于第1个的安装后出现`execution of xprop failed`解决办法:安装xorg-xprop
+
+还有几个插件也很棒:
+
+1. [Shell Restart User Entry](https://extensions.gnome.org/extension/239/shell-restart-user-menu-entry/) 在右上角user菜单中添加一个重启gnome shell的按钮  (这个...结束了我一直使用`pkill gnome-shell`的历史)
+
+2.
