@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>使用Github做图床-Geek又靠谱</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<script type="text/javascript">
+function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
+</script>
+</head>
+<body>
+<div id="top">
+<div id="top1">
+<a href="/index.html">Hit9</a>
+<a href="/blog/index.html">Blog</a>
+<a href="/wiki/index.html">Wiki</a>
+<a href="/project/index.html">Project</a>
+<a href="/links.html">Links</a>
+<a href="/About.html" rel="author">About</a>
+</div>
+<div id="top2">
+Page:
+<a href="index.html">First</a>
+<a href="../index.html">UP</a>
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+</div>
+</div>
+<h1>使用Github做图床-Geek又靠谱</h1>
+<!--fork me on github button-->
+
+<p><a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+<!--end of github fork button-->
+<p>Date:2012-10-16</p>
+<p>图床是个大事!尤其咱这种在github上搭博客的,图片放在网站这里有点大.github单个项目上限300M呢.</p>
+<p>有人说用flickr,有人用dropbox,有人用google code,有人用新浪weibo,还有用付费网盘链接的,又拍的..不一而论</p>
+<p>我还是觉得github最靠谱.备份又方便.而且很适合咱这在终端下耕耘的孩子..</p>
+<p>Google code也不错,就是觉得上传很麻烦,不如终端敲几个命令舒服.另外有封号的危险.</p>
+<p>weibo目前没什么不好,速度杠杠的,就是不便于分类管理.</p>
+<p>还是github好..咱怎么什么也用人家github的!(^-^)</p>
+<p>这是一个sample</p>
+<p><img alt="" src="https://raw.github.com/hit9/blog-img-store/master/sample.jpg" /></p>
+<div id="foot">
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="#">Top</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+</div>
+<br>
+<!-- Duoshuo Comment BEGIN -->
+    <div class="ds-thread" data-thread-key="" 
+    data-title="" data-author-key="" data-url=""></div>
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hit9github"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- Duoshuo Comment END -->
+<div style = "text-align:center; ">
+    <p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+</div>
+</body>
+</html></p>

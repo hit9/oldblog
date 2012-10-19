@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>如何在Google搜索结果中呈现你(网站作者)的头像</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<script type="text/javascript">
+function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
+</script>
+</head>
+<body>
+<div id="top">
+<div id="top1">
+<a href="/index.html">Hit9</a>
+<a href="/blog/index.html">Blog</a>
+<a href="/wiki/index.html">Wiki</a>
+<a href="/project/index.html">Project</a>
+<a href="/links.html">Links</a>
+<a href="/About.html" rel="author">About</a>
+</div>
+<div id="top2">
+Page:
+<a href="index.html">First</a>
+<a href="../index.html">UP</a>
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+</div>
+</div>
+<h1>如何在Google搜索结果中呈现你(网站作者)的头像</h1>
+<!--fork me on github button-->
+
+<p><a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+<!--end of github fork button-->
+<p>Date:2012-08-28</p>
+<p>我想实现的效果是:Google中搜到你的网站的时候,搜索列表内会显示你的头像(Google头像): </p>
+<p><img alt="" src="http://farm9.staticflickr.com/8454/8058437050_84a156cb77.jpg" /></p>
+<p>如果你还没有注册Google+,可以去这里修改https://profiles.google.com/me .注册了Google+的话,直接在Google+编辑个人资料.</p>
+<p>找到"以下网站的撰稿者",并添加你的网站.</p>
+<p>注:大陆ip访问Google+或者Google profie显示404是正常现象,要么你改hosts为国外,要么你挂代理. 
+两个方式:</p>
+<p>1.在你的网站的一个页面加入你的Google profile或者Google Plus的链接(rel设置为"author"):</p>
+<div class="codehilite"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;https://plus.google.com/u/0/100665822151034083512&quot;</span> <span class="na">rel=</span><span class="s">&quot;author&quot;</span><span class="nt">&gt;</span>about<span class="nt">&lt;/a&gt;</span>
+</pre></div></p>
+<p>但是这样的话,只有加入这个链接的页面在Google搜索结果中那样显示.</p>
+
+<p>2.第二种方式可以让整个网站的页面都这样显示.</p>
+
+<p>如果你的网站有About页面(或者About me啦),在里面加入你的Google profile或者Google+链接:(rel设置为"me")</p>
+
+<div class="codehilite"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;https://plus.google.com/100665822151034083512?rel=author&quot;</span> <span class="na">rel=</span><span class="s">&quot;me&quot;</span><span class="nt">&gt;</span>Google<span class="nt">&lt;/a&gt;</span>
+</pre></div>
+
+<p>然后在你的每个页面如果都有一个指向About页面的链接(比如侧边栏或者导航栏内一般会有吧),把这个链接的rel设置为"author" </p>
+
+<p>测试 .做好了之后不会立刻在搜索页面看到结果.但可以到这里测试:http://www.google.com/webmasters/tools/richsnippets</p>
+
+<p>另外,Google的指南:http://support.google.com/webmasters/bin/answer.py?hl=zh-Hans&amp;answer=1408986 </p>
+
+<div id="foot">
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="#">Top</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+</div>
+
+<p><br>
+<!-- Duoshuo Comment BEGIN -->
+    <div class="ds-thread" data-thread-key="" 
+    data-title="" data-author-key="" data-url=""></div>
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hit9github"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- Duoshuo Comment END -->
+<div style = "text-align:center; ">
+    <p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+</div>
+</body>
+</html></p>
