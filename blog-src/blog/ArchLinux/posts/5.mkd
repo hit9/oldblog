@@ -1,0 +1,20 @@
+%title nc传输语音
+Date:2012-10-21
+
+note:copy from my old blog:hit9.hit9.net
+
+安装alsa-utils:
+```
+pacman -S alsa-utils 
+```
+
+语言等待方:
+```
+nc -l -p 端口 | aplay  
+```
+语音呼叫方:
+```
+arecord | nc -nvv ip地址 端口  
+```
+
+音质很糟..
