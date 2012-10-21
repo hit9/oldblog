@@ -1,3 +1,4 @@
+1. [ArchLinux设置DNS](./posts/9.html)
 1. [Archlinux 下使用 gsynaptics禁用触摸板](./posts/8.html)
 1. [Archlinux安装Xorg](./posts/7.html)
 1. [ntfs-3g挂载镜像](posts/6.html)
