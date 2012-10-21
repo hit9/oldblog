@@ -1,0 +1,10 @@
+%title Archlinux 下使用 gsynaptics禁用触摸板
+Date:2012-10-21
+
+note:this is copy from my old blog:hit9.hit9.net
+
+有个本本很幸福，也很烦闹
+
+一句话
+
+pacman -S  gsynaptics
