@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>PHP格式检查类</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<script type="text/javascript">
+function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
+</script>
+</head>
+<body>
+<div id="top">
+<div id="top1">
+<a href="/index.html">Hit9</a>
+<a href="/blog/index.html">Blog</a>
+<a href="/wiki/index.html">Wiki</a>
+<a href="/project/index.html">Project</a>
+<a href="/links.html">Links</a>
+<a href="/About.html" rel="author">About</a>
+</div>
+<div id="top2">
+Page:
+<a href="index.html">First</a>
+<a href="../index.html">UP</a>
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+</div>
+</div>
+<h1>PHP格式检查类</h1>
+<!--fork me on github button-->
+<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+<!--end of github fork button-->
+<p>Date:2012-10-22</p>
+<p>该类的源码:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="sd">/**</span>
+<span class="sd"> * input:php格式检查类</span>
+<span class="sd"> * 用法:</span>
+<span class="sd"> * require_once(&#39;../src/input.class.php&#39;);</span>
+<span class="sd">   $arr=array(</span>
+<span class="sd">        array(&#39;name&#39;,&#39;username&#39;),</span>
+<span class="sd">        array(&#39;email&#39;,&#39;email&#39;),</span>
+<span class="sd">        array(&#39;tel&#39;,&#39;notempty&#39;)</span>
+<span class="sd">    );</span>
+<span class="sd">    $i=new input;</span>
+<span class="sd">    $data=$i-&gt;create($arr);</span>
+<span class="sd">    if(!$data){</span>
+<span class="sd">        echo $i-&gt;error_field;</span>
+<span class="sd">    }else{</span>
+<span class="sd">        print_r($data);</span>
+<span class="sd">    }</span>
+<span class="sd"> **/</span>
+<span class="k">class</span> <span class="nc">input</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$error_field</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">create</span><span class="p">(</span><span class="nv">$arr</span><span class="p">,</span><span class="nv">$m</span><span class="o">=</span><span class="s1">&#39;post&#39;</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$M</span><span class="o">=</span><span class="p">(</span><span class="nv">$m</span><span class="o">===</span><span class="s1">&#39;post&#39;</span><span class="p">)</span><span class="o">?</span><span class="nv">$_POST</span><span class="o">:</span><span class="nv">$_GET</span><span class="p">;</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$arr</span> <span class="k">as</span> <span class="nv">$var</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="nb">method_exists</span><span class="p">(</span><span class="nv">$this</span><span class="p">,</span><span class="nv">$var</span><span class="p">[</span><span class="mi">1</span><span class="p">])){</span>
+                <span class="k">if</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$M</span><span class="p">[</span><span class="nv">$var</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span> <span class="k">and</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nv">$var</span><span class="p">[</span><span class="mi">1</span><span class="p">](</span><span class="nv">$M</span><span class="p">[</span><span class="nv">$var</span><span class="p">[</span><span class="mi">0</span><span class="p">]])){}</span>
+                <span class="k">else</span><span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">error_field</span><span class="o">=</span><span class="nv">$var</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+                    <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nv">$M</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">notempty</span><span class="p">(</span><span class="nv">$str</span><span class="p">){</span>
+        <span class="k">return</span> <span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$str</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">email</span><span class="p">(</span><span class="nv">$str</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">is_string</span><span class="p">(</span><span class="nv">$str</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="nb">preg_match</span><span class="p">(</span><span class="s1">&#39;/^[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,4}$/&#39;</span><span class="p">,</span><span class="nv">$str</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">url</span><span class="p">(</span><span class="nv">$str</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">is_string</span><span class="p">(</span><span class="nv">$str</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="nb">preg_match</span><span class="p">(</span><span class="s2">&quot;/^http:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&amp;_~`@[\]\&#39;:+!]*([^&lt;&gt;</span><span class="se">\&quot;\&quot;</span><span class="s2">])*$/&quot;</span><span class="p">,</span><span class="nv">$str</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">phone</span><span class="p">(</span><span class="nv">$str</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">preg_match</span><span class="p">(</span><span class="s1">&#39;/^((\(\d{3}\))|(\d{3}\-))?(\(0\d{2,3}\)|0\d{2,3}-)?[1-9]\d{6,7}$/&#39;</span><span class="p">,</span><span class="nv">$str</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">ip</span><span class="p">(</span><span class="nv">$ip</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">preg_match</span><span class="p">(</span><span class="s2">&quot;/^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])&quot;</span> <span class="o">.</span> <span class="s2">&quot;(\.([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])){3}$/&quot;</span><span class="p">,</span> <span class="nv">$ip</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">date</span><span class="p">(</span><span class="nv">$var</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">preg_match</span><span class="p">(</span><span class="s2">&quot;/([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})/&quot;</span><span class="p">,</span><span class="nv">$var</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">color</span><span class="p">(</span><span class="nv">$var</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">preg_match</span><span class="p">(</span><span class="s2">&quot;/^#?([a-f]|[A-F]|[0-9]){3}(([a-f]|[A-F]|[0-9]){3})?$/&quot;</span><span class="p">,</span><span class="nv">$var</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">username</span><span class="p">(</span><span class="nv">$var</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">preg_match</span><span class="p">(</span><span class="s2">&quot;/^[a-zA-Z0-9_\.\-]{3,16}$/&quot;</span><span class="p">,</span><span class="nv">$var</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">pic</span><span class="p">(</span><span class="nv">$var</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">preg_match</span><span class="p">(</span><span class="s2">&quot;/^[a-zA-Z0-9\-\.]+\.(jpg|jpeg|gif|png)$/&quot;</span><span class="p">,</span><span class="nv">$var</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">tel</span><span class="p">(</span><span class="nv">$str</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">preg_match</span><span class="p">(</span><span class="s2">&quot;/^((13[0-9])|(15[^4,</span><span class="se">\\</span><span class="s2">D])|(18[0,5-9]))</span><span class="se">\\</span><span class="s2">d{8}$/&quot;</span><span class="p">,</span><span class="nv">$str</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<div id="foot">
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="#">Top</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+</div>
+<br>
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread" data-thread-key="" 
+	data-title="" data-author-key="" data-url=""></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hit9github"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+<div style = "text-align:center; ">
+	<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+</div>
+</body>
+</html>
