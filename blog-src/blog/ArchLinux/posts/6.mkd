@@ -1,0 +1,13 @@
+%title ntfs-3g挂载镜像
+Date:2012-10-21
+
+我在普通用户下边挂载镜像的时候总出现readonly现象。
+
+于是使用了官方软件仓库的ntfs-3g
+```
+pacman -S ntfs-3g
+```
+挂载镜像：
+```
+sudo ntfs-3g /dev/sda5 /home/hit9/usb
+```

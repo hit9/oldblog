@@ -1,3 +1,4 @@
+1. [ntfs-3g挂载镜像](posts/6.html)
 1. [nc传输语音](./posts/5.html)
 1. [Gnome shell扩展推荐-最大化隐藏标题栏,播放器整合到上栏等](./posts/4.html)
 1. [Ubuntu下安装wine QQ.效果很赞](posts/3.html)
