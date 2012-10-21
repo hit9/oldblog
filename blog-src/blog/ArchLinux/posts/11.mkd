@@ -1,0 +1,61 @@
+%title archlinux 下更换ati官方显卡驱动,本本大降温
+
+Date:2012-10-21
+
+
+note:this is copy from my old blog:hit9.hit9.net
+
+archlinux官方的wiki推荐使用xf86-video-ati这个开源的驱动。ubuntu也默认地使用开源的这个驱动.
+
+但是，我从使用ubuntu就发现使用桌面环境的问题：风扇一直在转，散热很多。
+
+一开始我以为是mentohust的问题,所以我投奔了ruijieclient,但是问题仍然没有解决。风扇还是一直在转！
+
+热量来主要自两个方向:显卡和cpu
+
+我试着使用cpufreq给系统的cpu降低频率，效果还是有一些的。但是还是一直在吹。
+
+所以，必然就是显卡驱动的问题了！
+
+我是ATI的显卡。网上有人说开源的显卡驱动都是残疾状态。于是我果断投奔闭源驱动。
+
+下面是更换步骤：
+```
+vim  /etc/pacman.conf
+```
+添加源:
+```
+[catalyst]
+Server=http://catalyst.apocalypsus.net/repo/catalyst/i686/
+```
+然后`pacman -S catalyst`
+
+安装过程中会提示你卸载开源的那个驱动，卸载gl
+
+一律y下去
+
+安装完后
+
+`Xorg -configure`来生成新的 xorg.conf(记得先备份原来的）
+
+再`aticonfig --initial`下
+
+这时候重新编辑了xorg.conf
+
+然后编辑rc.conf
+
+在modules里面添加fglrx 即开机加载fglrx模块(也可以手工加载,modprobe fglrx)
+
+编辑/etc/X11/xorg.conf
+
+添加以下内容：
+```
+Section "DRI"
+
+Mode 0666
+
+End Section
+```
+然后重启，startx 即可
+
+更换显卡驱动之后，我的普通账户也换成gnome3了，虽然不是很喜欢。。。
