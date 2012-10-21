@@ -6,3 +6,11 @@
 
 在github上关注这个博客:[watch it](https://github.com/hit9/hit9.github.com)
 
+```python
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+```
