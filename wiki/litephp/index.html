@@ -1,0 +1,286 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>litephp's doc</title>
+        <link rel="stylesheet" href="./static/style.css" type="text/css" media="screen" charset="utf-8">
+    </head>
+	<body>
+		<h1>litephp's doc</h1>
+		<p>author:<a href="http://hit9.org">hit9</a></p>
+<p>email:nz2324@126.com</p>
+<p>github:@hit9</p>
+<p>note:litephp的语法和thinkphp很像.但比thinkphp简陋的多</p>
+<div class="toc">
+<ul>
+<li><a href="#1">1.开始一个项目</a></li>
+<li><a href="#2hello-world">2.Hello World</a></li>
+<li><a href="#3">3.目录结构</a></li>
+<li><a href="#4url">4.url结构</a></li>
+<li><a href="#5">5.命名规则</a><ul>
+<li><a href="#1_1">1.控制器</a></li>
+<li><a href="#2">2.模型</a></li>
+<li><a href="#3_1">3.新建一个模板</a></li>
+</ul>
+</li>
+<li><a href="#6">6.快速实例化</a></li>
+<li><a href="#7">7.配置文件</a></li>
+<li><a href="#8">8.使用数据库操作类</a></li>
+<li><a href="#9">9.使用模板引擎</a></li>
+<li><a href="#10">10.使用输入格式检查类</a></li>
+</ul>
+</div>
+<h2 id="1">1.开始一个项目</h2>
+<div class="codehilite"><pre><span class="n">mkdir</span> <span class="n">myproject</span>
+<span class="n">cd</span> <span class="n">myproject</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">hit9</span><span class="o">/</span><span class="n">litephp</span> <span class="n">Core</span> 
+<span class="n">mkdir</span> <span class="n">C</span> <span class="n">M</span> <span class="n">V</span> <span class="n">V_c</span> #建立必要的项目下的目录
+<span class="n">touch</span> <span class="n">index</span><span class="p">.</span><span class="n">php</span>#建立入口文件
+</pre></div>
+
+
+<p>其中入口文件index.php内容为:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="cm">/*</span>
+<span class="cm"> *file:index.php</span>
+<span class="cm"> */</span>
+<span class="nx">header</span><span class="p">(</span><span class="s2">&quot;Content-type:text/html;charset=utf-8&quot;</span><span class="p">);</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;CORE_PATH&#39;</span><span class="p">,</span><span class="s1">&#39;Core/&#39;</span><span class="p">);</span><span class="c1">//定义框架的目录相对于入口文件的路径</span>
+<span class="k">require_once</span><span class="p">(</span><span class="nx">CORE_PATH</span><span class="o">.</span><span class="s1">&#39;core.php&#39;</span><span class="p">);</span><span class="c1">#导入框架</span>
+<span class="nx">C</span><span class="o">::</span><span class="na">run</span><span class="p">();</span><span class="c1">#分发请求</span>
+</pre></div>
+
+
+<h2 id="2hello-world">2.Hello World</h2>
+<div class="codehilite"><pre><span class="n">touch</span> <span class="n">C</span><span class="o">/</span><span class="n">index</span><span class="p">.</span><span class="n">class</span><span class="p">.</span><span class="n">php</span>
+</pre></div>
+
+
+<p>index.php:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">Cindex</span> <span class="k">extends</span> <span class="nx">C</span><span class="p">{</span>
+    <span class="k">function</span> <span class="nf">index</span><span class="p">(){</span>
+        <span class="k">echo</span> <span class="s1">&#39;Hello World&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>访问http://url-to-your-project/index.php查看hello world</p>
+<h2 id="3">3.目录结构</h2>
+<p>就上面的hello world, 目录结构是:</p>
+<div class="codehilite"><pre><span class="n">myproject</span>
+├── <span class="n">C</span> #模块目录<span class="p">,</span>存放控制器文件
+│   └── <span class="n">index</span><span class="p">.</span><span class="n">class</span><span class="p">.</span><span class="n">php</span>
+├── <span class="n">index</span><span class="p">.</span><span class="n">php</span>  #入口文件
+├── <span class="n">Core</span><span class="o">/</span> #框架目录
+├── <span class="n">M</span><span class="o">/</span> #模型目录<span class="p">,</span> 控制底层数据库
+├── <span class="n">V</span><span class="o">/</span> #视图目录<span class="p">,</span> 存放模板文件
+└── <span class="n">V_c</span><span class="o">/</span> #模板的缓存文件目录
+</pre></div>
+
+
+<h2 id="4url">4.url结构</h2>
+<p>index.php?c=control&amp;a=action</p>
+<p>上面的url将调用C/目录下的control.class.php的Ccontrol类的action方法.</p>
+<p>默认的控制器是index, 默认的操作方法是index</p>
+<h2 id="5">5.命名规则</h2>
+<h3 id="1_1">1.控制器</h3>
+<p>新建一个控制器sample. 需要在C目录下建立一个名字为sample.class.php的文件, 文件内需要定义一个名字为Csample的类并继承C:</p>
+<div class="codehilite"><pre><span class="x">class Csample extends C</span>
+</pre></div>
+
+
+<h3 id="2">2.模型</h3>
+<p>新建一个模型雷同于新建一个控制器.相应的文件为M/sample.class.php, 类为:</p>
+<div class="codehilite"><pre><span class="x">class Msample extends M</span>
+</pre></div>
+
+
+<h3 id="3_1">3.新建一个模板</h3>
+<p>新建一个模板, 在V目录下建立文件sample.html即可</p>
+<h2 id="6">6.快速实例化</h2>
+<p>可以在项目中的任何地方使用这两个函数来快速实例化:</p>
+<ol>
+<li>C($name) 来实例化一个控制器对象$name</li>
+<li>M($name) 来实例化一个模型$name</li>
+</ol>
+<h2 id="7">7.配置文件</h2>
+<p>配置文件在框架目录下的config.php中.上例即Core/config.php</p>
+<p>框架的配置项仅有一个:</p>
+<div class="codehilite"><pre><span class="x">define(&#39;ERROR_REPORT&#39;, false); //关闭错误输出. 默认开启</span>
+</pre></div>
+
+
+<h2 id="8">8.使用数据库操作类</h2>
+<p>数据库操作类的语法和wiki请见:<a href="http://hit9.org/wiki/php-mysql-orm/">http://hit9.org</a></p>
+<p><strong>litephp中的模型和数据库中的表名(不带前缀)对应, 并且默认主键是'id'</strong></p>
+<p>配置:</p>
+<p>使用数据库操作类需要写好配置到框架目录/config.php:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DB_HOST&#39;</span><span class="p">,</span><span class="s1">&#39;localhost&#39;</span><span class="p">);</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DB_NAME&#39;</span><span class="p">,</span><span class="s1">&#39;mydb&#39;</span><span class="p">);</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DB_USER&#39;</span><span class="p">,</span><span class="s1">&#39;root&#39;</span><span class="p">);</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DB_PASSWD&#39;</span><span class="p">,</span><span class="s1">&#39;123456&#39;</span><span class="p">);</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;TABLE_PREFIX&#39;</span><span class="p">,</span><span class="s1">&#39;t_&#39;</span><span class="p">);</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DB_CHAR_SET&#39;</span><span class="p">,</span><span class="s1">&#39;utf8&#39;</span><span class="p">);</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;QUERY_ERROR&#39;</span><span class="p">,</span><span class="k">true</span><span class="p">);</span>
+</pre></div>
+
+
+<p>下面是一个添加数据的例子:</p>
+<p>新建一个数据库mydb, 并建立一个表t_user(表前缀是t_):</p>
+<div class="codehilite"><pre><span class="k">create</span> <span class="k">database</span> <span class="n">mydb</span><span class="p">;</span>
+<span class="n">use</span> <span class="n">mydb</span><span class="p">;</span>
+<span class="k">create</span> <span class="k">table</span> <span class="n">t_user</span><span class="p">(</span> 
+    <span class="n">name</span> <span class="nb">char</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span> 
+    <span class="n">email</span> <span class="nb">char</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span> 
+    <span class="n">id</span> <span class="nb">int</span> <span class="k">primary</span> <span class="k">key</span> <span class="n">auto_increment</span> 
+<span class="p">);</span>
+</pre></div>
+
+
+<p>新建一个模型user:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="cm">/*file:M/user.class.php */</span>
+<span class="k">class</span> <span class="nc">Muser</span> <span class="k">extends</span> <span class="nx">M</span><span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>在控制器index中新建一个方法add:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="cm">/*file:C/index.class.php */</span>
+<span class="k">class</span> <span class="nc">Cindex</span> <span class="k">extends</span> <span class="nx">C</span><span class="p">{</span>
+    <span class="k">function</span> <span class="nf">add</span><span class="p">(){</span>
+        <span class="nv">$user</span><span class="o">=</span><span class="nx">M</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">);</span>
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">=</span><span class="s1">&#39;小明&#39;</span><span class="p">;</span>
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">email</span><span class="o">=</span><span class="s1">&#39;xiaoming@126.com&#39;</span><span class="p">;</span>
+        <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>访问index.php?a=add即可添加一条数据到数据库mydb</p>
+<p><strong>如果表主键不是'id', 只需在user模型中添加一个字段即可:<code>public $primary_key = 'my_key';</code></strong></p>
+<h2 id="9">9.使用模板引擎</h2>
+<p>需要的配置项:</p>
+<div class="codehilite"><pre><span class="x">define(&#39;TPL_DIR&#39;,&#39;V&#39;);//模板文件的存放目录, 需要可读权限</span>
+<span class="x">define(&#39;TPL_C_DIR&#39;,&#39;V_c&#39;);//模板文件的缓存目录, 需要可写权限</span>
+<span class="x">define(&#39;TPL_REAL&#39;, true); //是否开启实时编译</span>
+</pre></div>
+
+
+<p>模板文件的后缀是.html</p>
+<p>新建一个模板文件sample.html:</p>
+<div class="codehilite"><pre><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    你好!{$name}
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+
+<p>在index控制器中建立一个greet()方法:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">function</span> <span class="nf">greet</span><span class="p">(){</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tpl</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;小明&#39;</span><span class="p">);</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tpl</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="s1">&#39;sample&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>访问index.php?a=greet即可看到'你好!小明'</p>
+<p>关于tpl的用法:</p>
+<div class="codehilite"><pre><span class="x">* {loop $array $key $value}..........{/loop} 循环</span>
+<span class="x">* {loop $array $value}..........{/loop} 循环</span>
+<span class="x">* {if condition}...{elseif condition}..{else}..{/if} if条件语句</span>
+<span class="x">* {$val} 输出变量值</span>
+<span class="x">* {eval echo &quot;ok&quot;;} 运行PHP代码</span>
+<span class="x">* {template file} 包含另外一个模版</span>
+<span class="x">* 对象方法:</span>
+<span class="x">* setTplDir($dir)</span>
+<span class="x">* setReal($real)</span>
+<span class="x">* setExtName($ext)</span>
+<span class="x">* setTmpDir($dir)</span>
+<span class="x">* setU(&amp;$dispatcher)</span>
+<span class="x">* assign($name, $value=null)</span>
+<span class="x">* getVal($name)</span>
+<span class="x">* saveHtml($tFile, $html)</span>
+<span class="x">* display($tFile)</span>
+</pre></div>
+
+
+<h2 id="10">10.使用输入格式检查类</h2>
+<p>无需配置.</p>
+<p>比如我们需要添加一个表单的数据到数据库.</p>
+<p>建立一个表单V/add.html:</p>
+<div class="codehilite"><pre><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">&quot;?a=do_add&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span> <span class="na">accept-charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;email&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;p&gt;&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;Continue &amp;rarr;&quot;</span><span class="nt">&gt;&lt;/p&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></div>
+
+
+<p>在index模块中添加一个do_add方法接收post数据:</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">Cindex</span> <span class="k">extends</span> <span class="nx">C</span><span class="p">{</span>
+    <span class="k">function</span> <span class="nf">form</span><span class="p">(){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tpl</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="s1">&#39;add&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="nf">do_add</span><span class="p">(){</span>
+        <span class="nv">$filter</span><span class="o">=</span><span class="k">array</span><span class="p">(</span>
+            <span class="k">array</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;username&#39;</span><span class="p">),</span>
+            <span class="k">array</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">,</span><span class="s1">&#39;email&#39;</span><span class="p">)</span>
+        <span class="p">);</span><span class="c1">//过滤规则</span>
+        <span class="nv">$data</span><span class="o">=</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">input</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="nv">$filter</span><span class="p">);</span><span class="c1">//创建合法数据(数组),有一个不合法即返回false</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nv">$data</span><span class="p">)</span> <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">input</span><span class="o">-&gt;</span><span class="na">error_field</span><span class="p">;</span><span class="c1">//如果检查到非法数据,显示非法数据的表单字段</span>
+        <span class="k">else</span><span class="p">{</span><span class="c1">// 否则,全部合法.添加到数据库</span>
+            <span class="nx">M</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>访问index.php?a=form查看表单并填写数据做测试.</p>
+<p>验证规则的数组语法如下:</p>
+<div class="codehilite"><pre><span class="n">array</span><span class="p">(</span>
+    <span class="n">array</span><span class="p">(</span>字段名称<span class="p">,</span> 验证规则<span class="p">),</span> 
+    <span class="n">array</span><span class="p">(</span>字段名称<span class="p">,</span> 验证规则<span class="p">),</span> 
+    <span class="p">...</span>
+<span class="p">);</span> 
+</pre></div>
+
+
+<p>表单验证类内置的验证规则有:</p>
+<p>username, email, notempty, url, phone, ip, date, color, pic, tel</p>
+<p>如果需要验证的规则不在上述之列, 可以这么用:</p>
+<p>比如我们只需要name字段符合正则<code>^he</code>的数据是合法的.name的验证规则可以这么写:</p>
+<div class="codehilite"><pre><span class="n">array</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="s">&#39;preg_match(&quot;/^he/&quot;,$name)&#39;</span><span class="p">),</span>
+</pre></div>
+
+
+<p>也就是说array(字段, 验证规则)中的验证规则可以是一个返回布尔真假值的php代码(字符串).其中的变量($name)会被替换成字段name对应的值.</p>
+<p>再比如, 我们需要name字段符合长度大于6的数据是合法的.name的验证规则可以是:</p>
+<div class="codehilite"><pre><span class="n">array</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="s">&#39;strlen($name)&gt;6&#39;</span><span class="p">),</span> 
+</pre></div>
+		<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread" data-thread-key="" 
+	data-title="" data-author-key="" data-url=""></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hit9github"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+    </body>
+</html>

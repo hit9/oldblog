@@ -2,8 +2,8 @@
 1. [mkdblog](https://github.com/hit9/mkdblog) (Generator tool in Markdown Syntax for static blog (for example:via github Page) )
 1. [mkdwiki](../wiki/mkdwiki/index.html) (mkdwiki是一个python语言编写的基于目录的用来组织wiki的小工具,特色在于Github风格的有界代码高亮和模板支持,本站基于mkdwiki)
 
-2. [ArchPHP](http://archphp.sinaapp.com/) (ArchPHP是一个小型的PHP框架,特色在于连贯的操作,Github:https://github.com/hit9/archphp)
-
 3. [BKDRHASH](https://github.com/hit9/BKDRHash) (A externsion for PHP:a wrapper of bkdrhash in PHP)
 
 4. [php-mysql-orm ](../wiki/php-mysql-orm) (NO-SQL way for php/mysql project.)
+
+1. [litephp](../wiki/litephp) (应用于php-mysql开发模式的简单mvc框架.集成了连贯操作的数据库操作类,输入格式检查类和模板引擎.)
