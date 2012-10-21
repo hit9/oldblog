@@ -1,0 +1,33 @@
+%title Archlinux安装Xorg
+Date:2012-10-21
+
+安装Xorg是开始桌面之旅的必由之路。
+
+无论安装什么环境，初始化Xorg是必须的。
+
+目前,Xorg并不再依赖于hal，也不再依赖于hwd.所以，需要做的只是安装以下：
+
+首先，更新pacman
+```
+pacman -Sy pacman
+```
+然后更新整个系统
+```
+pacman -Syu
+
+reboot
+
+pacman -S xorg-server
+
+pacman -S xorg-twm
+
+pacman -S xterm
+
+pacman -S xorg-xinit
+
+pacman -S xf86-video-ati
+```
+我的机器安装以上之后即可启动X
+```
+startx（或者xinit)
+```

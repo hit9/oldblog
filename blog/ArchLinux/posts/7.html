@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>ArchLinux</title>
+<title>Archlinux安装Xorg</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
-<link rel="stylesheet" href="../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
 <script type="text/javascript">
 function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
 </script>
@@ -28,19 +28,39 @@ Page:
 <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
 </div>
 </div>
-<h1>ArchLinux</h1>
+<h1>Archlinux安装Xorg</h1>
 <!--fork me on github button-->
-<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 <!--end of github fork button-->
-<ol>
-<li><a href="./posts/7.html">Archlinux安装Xorg</a></li>
-<li><a href="posts/6.html">ntfs-3g挂载镜像</a></li>
-<li><a href="./posts/5.html">nc传输语音</a></li>
-<li><a href="./posts/4.html">Gnome shell扩展推荐-最大化隐藏标题栏,播放器整合到上栏等</a></li>
-<li><a href="posts/3.html">Ubuntu下安装wine QQ.效果很赞</a></li>
-<li><a href="posts/2.html">使用tmux管理多个shell会话</a></li>
-<li><a href="posts/index.html">ArchLinux下拨号上网</a></li>
-</ol>
+<p>Date:2012-10-21</p>
+<p>安装Xorg是开始桌面之旅的必由之路。</p>
+<p>无论安装什么环境，初始化Xorg是必须的。</p>
+<p>目前,Xorg并不再依赖于hal，也不再依赖于hwd.所以，需要做的只是安装以下：</p>
+<p>首先，更新pacman</p>
+<div class="codehilite"><pre><span class="n">pacman</span> <span class="o">-</span><span class="n">Sy</span> <span class="n">pacman</span>
+</pre></div>
+
+
+<p>然后更新整个系统</p>
+<div class="codehilite"><pre><span class="n">pacman</span> <span class="o">-</span><span class="n">Syu</span>
+
+<span class="n">reboot</span>
+
+<span class="n">pacman</span> <span class="o">-</span><span class="n">S</span> <span class="n">xorg</span><span class="o">-</span><span class="n">server</span>
+
+<span class="n">pacman</span> <span class="o">-</span><span class="n">S</span> <span class="n">xorg</span><span class="o">-</span><span class="n">twm</span>
+
+<span class="n">pacman</span> <span class="o">-</span><span class="n">S</span> <span class="n">xterm</span>
+
+<span class="n">pacman</span> <span class="o">-</span><span class="n">S</span> <span class="n">xorg</span><span class="o">-</span><span class="n">xinit</span>
+
+<span class="n">pacman</span> <span class="o">-</span><span class="n">S</span> <span class="n">xf86</span><span class="o">-</span><span class="n">video</span><span class="o">-</span><span class="n">ati</span>
+</pre></div>
+
+
+<p>我的机器安装以上之后即可启动X</p>
+<div class="codehilite"><pre><span class="n">startx</span>（或者<span class="n">xinit</span><span class="p">)</span>
+</pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>
