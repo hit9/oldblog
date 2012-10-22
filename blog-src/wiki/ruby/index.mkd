@@ -20,4 +20,42 @@ hello=> nil
 
 另外会发现p打印返回打印的字符串,print和puts返回nil
 
-## 2.
+## 2.heredoc
+语法:
+```
+<<结束标志
+# here docs
+结束标志
+```
+sample:
+```ruby
+print <<EOF  # heredoc
+hello
+world
+EOF
+
+print <<'EOF' # 同上
+hello
+world
+EOF
+
+print <<`EOF` # 执行外部命令
+echo 'hello world'
+EOF
+
+print <<"foo", <<"bar"  # 你可以把这些heredoc堆积起来
+	I said foo.
+foo
+	I said bar.
+bar
+```
+输出
+```
+hello
+world
+hello
+world
+hello world
+        I said foo.
+        I said bar.
+```

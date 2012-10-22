@@ -35,7 +35,7 @@ Page:
 <div class="toc">
 <ul>
 <li><a href="#1">1.打印字符串</a></li>
-<li><a href="#2">2.</a></li>
+<li><a href="#2heredoc">2.heredoc</a></li>
 </ul>
 </div>
 <h2 id="1">1.打印字符串</h2>
@@ -53,7 +53,46 @@ Page:
 
 <p>会发现print打印不带换行,puts和p打印带换行(<code>print "hello\n"</code>实现换行)</p>
 <p>另外会发现p打印返回打印的字符串,print和puts返回nil</p>
-<h2 id="2">2.</h2>
+<h2 id="2heredoc">2.heredoc</h2>
+<p>语法:</p>
+<div class="codehilite"><pre><span class="o">&lt;&lt;</span>结束标志
+# <span class="n">here</span> <span class="n">docs</span>
+结束标志
+</pre></div>
+
+
+<p>sample:</p>
+<div class="codehilite"><pre><span class="nb">print</span> <span class="o">&lt;&lt;</span><span class="no">EOF</span>  <span class="c1"># heredoc</span>
+<span class="sh">hello</span>
+<span class="sh">world</span>
+<span class="no">EOF</span>
+
+<span class="nb">print</span> <span class="o">&lt;&lt;</span><span class="sh">&#39;</span><span class="no">EOF</span><span class="sh">&#39;</span> <span class="c1"># 同上</span>
+<span class="sh">hello</span>
+<span class="sh">world</span>
+<span class="no">EOF</span>
+
+<span class="nb">print</span> <span class="o">&lt;&lt;</span><span class="sh">`</span><span class="no">EOF</span><span class="sh">`</span> <span class="c1"># 执行外部命令</span>
+<span class="sh">echo &#39;hello world&#39;</span>
+<span class="no">EOF</span>
+
+<span class="nb">print</span> <span class="o">&lt;&lt;</span><span class="sh">&quot;</span><span class="no">foo</span><span class="sh">&quot;</span><span class="p">,</span> <span class="o">&lt;&lt;</span><span class="sh">&quot;</span><span class="no">bar</span><span class="sh">&quot;</span>  <span class="c1"># 你可以把这些heredoc堆积起来</span>
+<span class="sh">    I said foo.</span>
+<span class="no">foo</span>
+<span class="sh">    I said bar.</span>
+<span class="no">bar</span>
+</pre></div>
+
+
+<p>输出</p>
+<div class="codehilite"><pre><span class="n">hello</span>
+<span class="n">world</span>
+<span class="n">hello</span>
+<span class="n">world</span>
+<span class="n">hello</span> <span class="n">world</span>
+        <span class="n">I</span> <span class="n">said</span> <span class="n">foo</span><span class="p">.</span>
+        <span class="n">I</span> <span class="n">said</span> <span class="n">bar</span><span class="p">.</span>
+</pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>
