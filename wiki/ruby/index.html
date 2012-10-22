@@ -34,18 +34,26 @@ Page:
 <!--end of github fork button-->
 <div class="toc">
 <ul>
-<li><a href="#_1">打印字符串</a></li>
+<li><a href="#1">1.打印字符串</a></li>
+<li><a href="#2">2.</a></li>
 </ul>
 </div>
-<h2 id="_1">打印字符串</h2>
+<h2 id="1">1.打印字符串</h2>
 <p>三种打印方式:</p>
-<div class="codehilite"><pre><span class="nb">print</span> <span class="s1">&#39;hello&#39;</span>
-<span class="nb">puts</span> <span class="s1">&#39;hello&#39;</span>
-<span class="nb">p</span> <span class="s1">&#39;hello&#39;</span>
+<div class="codehilite"><pre><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">001</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="nb">p</span> <span class="s1">&#39;hello&#39;</span>
+<span class="s2">&quot;hello&quot;</span>
+<span class="o">=&gt;</span> <span class="s2">&quot;hello&quot;</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">002</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="nb">puts</span> <span class="s1">&#39;hello&#39;</span>
+<span class="n">hello</span>
+<span class="o">=&gt;</span> <span class="kp">nil</span>
+<span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">003</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="nb">print</span> <span class="s1">&#39;hello&#39;</span>
+<span class="n">hello</span><span class="o">=&gt;</span> <span class="kp">nil</span>
 </pre></div>
 
 
 <p>会发现print打印不带换行,puts和p打印带换行(<code>print "hello\n"</code>实现换行)</p>
+<p>另外会发现p打印返回打印的字符串,print和puts返回nil</p>
+<h2 id="2">2.</h2>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

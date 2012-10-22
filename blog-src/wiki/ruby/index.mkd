@@ -2,14 +2,22 @@
 
 [TOC]
 
-## 打印字符串
+## 1.打印字符串
 
 三种打印方式:
+
 ```ruby
-print 'hello'
-puts 'hello'
-p 'hello'
+irb(main):001:0> p 'hello'
+"hello"
+=> "hello"
+irb(main):002:0> puts 'hello'
+hello
+=> nil
+irb(main):003:0> print 'hello'
+hello=> nil
 ```
 会发现print打印不带换行,puts和p打印带换行(`print "hello\n"`实现换行)
 
+另外会发现p打印返回打印的字符串,print和puts返回nil
 
+## 2.
