@@ -1,1 +1,15 @@
 %title ruby学习笔记(简明教程)
+
+[TOC]
+
+## 打印字符串
+
+三种打印方式:
+```ruby
+print 'hello'
+puts 'hello'
+p 'hello'
+```
+会发现print打印不带换行,puts和p打印带换行(`print "hello\n"`实现换行)
+
+
