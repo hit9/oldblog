@@ -59,3 +59,30 @@ hello world
         I said foo.
         I said bar.
 ```
+## 3.BEGIN和END
+BEGIN:声明将在程序的开始调用的代码
+
+END:声明将在程序的最后调用的代码
+```ruby
+print 'hello world'
+BEGIN{
+  print 'begin code'
+}
+END{
+  print 'end code'
+}
+```
+
+## 4.程序注释
+单行注释:
+```ruby
+# comments
+```
+多行注释:
+```ruby
+=begin
+# comments
+# comments
+# comments
+=end
+```

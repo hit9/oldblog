@@ -36,6 +36,8 @@ Page:
 <ul>
 <li><a href="#1">1.打印字符串</a></li>
 <li><a href="#2heredoc">2.heredoc</a></li>
+<li><a href="#3beginend">3.BEGIN和END</a></li>
+<li><a href="#4">4.程序注释</a></li>
 </ul>
 </div>
 <h2 id="1">1.打印字符串</h2>
@@ -92,6 +94,34 @@ Page:
 <span class="n">hello</span> <span class="n">world</span>
         <span class="n">I</span> <span class="n">said</span> <span class="n">foo</span><span class="p">.</span>
         <span class="n">I</span> <span class="n">said</span> <span class="n">bar</span><span class="p">.</span>
+</pre></div>
+
+
+<h2 id="3beginend">3.BEGIN和END</h2>
+<p>BEGIN:声明将在程序的开始调用的代码</p>
+<p>END:声明将在程序的最后调用的代码</p>
+<div class="codehilite"><pre><span class="nb">print</span> <span class="s1">&#39;hello world&#39;</span>
+<span class="k">BEGIN</span><span class="p">{</span>
+  <span class="nb">print</span> <span class="s1">&#39;begin code&#39;</span>
+<span class="p">}</span>
+<span class="k">END</span><span class="p">{</span>
+  <span class="nb">print</span> <span class="s1">&#39;end code&#39;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="4">4.程序注释</h2>
+<p>单行注释:</p>
+<div class="codehilite"><pre><span class="c1"># comments</span>
+</pre></div>
+
+
+<p>多行注释:</p>
+<div class="codehilite"><pre><span class="cm">=begin</span>
+<span class="cm"># comments</span>
+<span class="cm"># comments</span>
+<span class="cm"># comments</span>
+<span class="cm">=end</span>
 </pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>

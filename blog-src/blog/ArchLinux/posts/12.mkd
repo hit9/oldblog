@@ -1,0 +1,64 @@
+%title ArchLinux无线上网
+Date:2012-10-23
+
+首先看看是否已经安装无线驱动:
+
+```
+ifconfig | grep wlan0
+```
+
+如果有信息显示说明已经安装驱动.否则请到官方wiki去看说明安装驱动.[link](https://wiki.archlinux.org/index.php/Wireless_Setup)
+
+我的本子是bcm4313的,使用的是linux默认自带的驱动brcmsmac(开机自动加载)
+
+开启无线
+
+```
+ifconfig wlan0 up #需要root权限
+```
+
+扫描可以使用的网络
+
+```
+sudo iwlist wlan0 scan | less
+```
+
+如果连接开放网络(像我们哈工大的HIT-WLAN这种,先分配ip再给上网权限的):
+
+```
+sudo iwconfig wlan0 essid 'HIT-WLAN'
+```
+
+然后为wlan0获取ip
+
+```
+sudo dhcpcd wlan0
+```
+
+如果连接需要认证的网络,这里只讲WPA/WPA2认证.
+
+进行WPA/WPA2认证需要安装wpa_supplicant
+
+建议把程序自带的配置文件`/etc/wpa_supplicant.conf`更名:
+
+```
+mv /etc/wpa_supplicant.conf /etc/wpa_supplicant.conf.bak  
+```
+
+然后我们生成一份新的配置文件
+
+```
+wpa_passphrase ssid "my_secret_passkey" > /etc/wpa_supplicant.conf   
+```
+
+然后我们根据这份配置文件连接ssid无线网
+
+```
+wpa_supplicant -i wlan0 -c /etc/wpa_supplicant.conf
+```
+
+最后,不论是哪种认证方式还是开放网络.都需要获取ip
+
+```
+sudo dhcpcd wlan0
+```
