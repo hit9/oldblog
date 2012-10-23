@@ -62,7 +62,8 @@ Page:
 
 <p>它们是如上图那样连续存储的.</p>
 <p>我们怎么用这三个指针来表示这些内存块上存储的数据呢?</p>
-<p>a[i][j]表示的是a+</p>
+<p>如果我们用t表示a,b,c三者相等的内存地址数值</p>
+<p>a[i][j]表示的是从地址t开始,数3*i个单元(方格),再数j个就找到了数据的地址,即<code>t+3\*i+j</code></p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>
