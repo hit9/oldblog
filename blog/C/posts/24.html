@@ -45,8 +45,9 @@ Page:
     <span class="kt">int</span> <span class="o">**</span><span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">**</span><span class="p">)</span><span class="n">a</span><span class="p">;</span> 
 
     <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">c</span><span class="p">)[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="p">)[</span><span class="mi">6</span><span class="p">])</span><span class="n">a</span><span class="p">;</span> 
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">b</span><span class="o">+</span><span class="mi">5</span><span class="p">));</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="n">c</span><span class="o">+</span><span class="mi">3</span><span class="p">));</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span><span class="c1">//2</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">b</span><span class="o">+</span><span class="mi">5</span><span class="p">));</span><span class="c1">//6</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="n">c</span><span class="o">+</span><span class="mi">3</span><span class="p">));</span><span class="c1">//4</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
@@ -57,6 +58,11 @@ Page:
 <span class="o">|</span> 1 <span class="o">|</span> 2 <span class="o">|</span> 3 <span class="o">|</span> 4 <span class="o">|</span> 5 <span class="o">|</span> 6 <span class="o">|</span> 
 <span class="o">+---+---+---+---+---+---+</span> 
 </pre></div>
+
+
+<p>它们是如上图那样连续存储的.</p>
+<p>我们怎么用这三个指针来表示这些内存块上存储的数据呢?</p>
+<p>a[i][j]表示的是a+</p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

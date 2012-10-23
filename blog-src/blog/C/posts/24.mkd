@@ -15,8 +15,9 @@ int main(int argc, const char *argv[])
 	int **b = (int **)a; 
 	
 	int (*c)[6] = (int (*)[6])a; 
-	printf("%d\n", *(b+5));
-	printf("%d\n", *(*c+3));
+	printf("%d\n", a[0][1]);//2
+	printf("%d\n", *(b+5));//6
+	printf("%d\n", *(*c+3));//4
 	return 0;
 }
 ```
@@ -27,3 +28,9 @@ int main(int argc, const char *argv[])
 | 1 | 2 | 3 | 4 | 5 | 6 | 
 +---+---+---+---+---+---+ 
 ```
+
+它们是如上图那样连续存储的.
+
+我们怎么用这三个指针来表示这些内存块上存储的数据呢?
+
+a[i][j]表示的是a+
