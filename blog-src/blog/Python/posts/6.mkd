@@ -193,7 +193,8 @@ takewhile(func, seq)
 例子:
 ```python
 from itertools import *
-
 for i in takewhile(lambda x:x<6, range(10)):#1, 2, 3, 4, 5
 	print i
 ```
+
+
