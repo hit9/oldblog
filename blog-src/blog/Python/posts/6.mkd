@@ -148,4 +148,52 @@ from itertools import *
 for i in imap(lambda x:x+1, range(10)):#1, 2, ..., 10
 	print i
 ```
+### starup
+原型:
+```
+starup(func, seq)
+```
+返回:对序列seq的每个元素作为func的参数列表执行, 返回执行结果的迭代器
 
+例子:
+```python
+from itertools import *
+for i in starmap(pow, [(2,2), (3, 2)]):#4, 9
+	print i
+```
+### tee
+原型:
+```
+tee(it[, n = 2])
+```
+把一个迭代器分为n个迭代器, 返回一个元组.默认是两个
+```python
+from itertools import *
+a = "hello"
+c, d = tee(iter(a), 2)
+for i, j in zip(c, d):
+	print i, j
+```
+输出:
+```
+h h
+e e
+l l
+l l
+o o
+```
+### takewhile
+
+原型:
+```
+takewhile(func, seq)
+```
+从序列的头开始, 直到执行函数func失败.
+
+例子:
+```python
+from itertools import *
+
+for i in takewhile(lambda x:x<6, range(10)):#1, 2, 3, 4, 5
+	print i
+```
