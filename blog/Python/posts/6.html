@@ -50,6 +50,8 @@ Page:
 <li><a href="#starup">starup</a></li>
 <li><a href="#tee">tee</a></li>
 <li><a href="#takewhile">takewhile</a></li>
+<li><a href="#izip">izip</a></li>
+<li><a href="#izip_longest">izip_longest</a></li>
 </ul>
 </div>
 <h3 id="count">count</h3>
@@ -241,6 +243,20 @@ Page:
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">takewhile</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">&lt;</span><span class="mi">6</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)):</span><span class="c">#1, 2, 3, 4, 5</span>
     <span class="k">print</span> <span class="n">i</span>
 </pre></div>
+
+
+<h3 id="izip">izip</h3>
+<p>雷同于zip</p>
+<p>原型:</p>
+<div class="codehilite"><pre><span class="n">izip</span><span class="p">(</span><span class="n">iter1</span><span class="p">,</span> <span class="n">iter2</span><span class="p">,</span> <span class="p">...</span> <span class="n">iterN</span><span class="p">):</span>
+</pre></div>
+
+
+<p>返回:(it1[0],it2 [0], it3[0], ..), (it1[1], it2[1], it3[1], ..)...</p>
+<p>只要提供的某个迭代器不再生成值，迭代就会停止</p>
+<h3 id="izip_longest">izip_longest</h3>
+<p>原型同izip</p>
+<p>只不过, 迭代过程会持续到所有输入迭代变量iter1,iter2等都耗尽为止，如果没有使用fillvalue关键字参数指定不同的值，则使用None来填充已经使用的迭代变量的值</p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>
