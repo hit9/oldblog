@@ -271,6 +271,8 @@ combinations(iterable, r)
 ```
 创建一个迭代器，返回iterable中所有长度为r的子序列，返回的子序列中的项按输入iterable中的顺序排序
 
+note:不带重复
+
 例子:
 ```python
 from itertools import *
@@ -283,4 +285,22 @@ for i in combinations([1, 2, 3], 2):
 (1, 2)
 (1, 3)
 (2, 3)
+```
+### combinations_with_replacement
+同上, 带重复
+例子:
+```python
+from itertools import *
+
+for i in combinations_with_replacement([1, 2, 3], 2):
+    print i
+```
+输出:
+```
+(1, 1)
+(1, 2)
+(1, 3)
+(2, 2)
+(2, 3)
+(3, 3)
 ```

@@ -55,6 +55,7 @@ Page:
 <li><a href="#permutations">permutations</a></li>
 <li><a href="#product">product</a></li>
 <li><a href="#combinations">combinations()</a></li>
+<li><a href="#combinations_with_replacement">combinations_with_replacement</a></li>
 </ul>
 </div>
 <h3 id="count">count</h3>
@@ -320,6 +321,7 @@ Page:
 
 
 <p>创建一个迭代器，返回iterable中所有长度为r的子序列，返回的子序列中的项按输入iterable中的顺序排序</p>
+<p>note:不带重复</p>
 <p>例子:</p>
 <div class="codehilite"><pre><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="o">*</span>
 
@@ -332,6 +334,26 @@ Page:
 <div class="codehilite"><pre><span class="p">(</span>1<span class="p">,</span> 2<span class="p">)</span>
 <span class="p">(</span>1<span class="p">,</span> 3<span class="p">)</span>
 <span class="p">(</span>2<span class="p">,</span> 3<span class="p">)</span>
+</pre></div>
+
+
+<h3 id="combinations_with_replacement">combinations_with_replacement</h3>
+<p>同上, 带重复
+例子:</p>
+<div class="codehilite"><pre><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">combinations_with_replacement</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">2</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+
+
+<p>输出:</p>
+<div class="codehilite"><pre><span class="p">(</span>1<span class="p">,</span> 1<span class="p">)</span>
+<span class="p">(</span>1<span class="p">,</span> 2<span class="p">)</span>
+<span class="p">(</span>1<span class="p">,</span> 3<span class="p">)</span>
+<span class="p">(</span>2<span class="p">,</span> 2<span class="p">)</span>
+<span class="p">(</span>2<span class="p">,</span> 3<span class="p">)</span>
+<span class="p">(</span>3<span class="p">,</span> 3<span class="p">)</span>
 </pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
