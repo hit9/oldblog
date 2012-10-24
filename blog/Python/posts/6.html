@@ -45,6 +45,41 @@ Page:
 <p>example:</p>
 <div class="codehilite"><pre><span class="n">count</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="o">.....</span>
 </pre></div>
+
+
+<h3 id="2cycle">2.cycle</h3>
+<p>原型:</p>
+<div class="codehilite"><pre><span class="n">cycle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+
+
+<p>返回:</p>
+<p>p0, p1, p2, ...,plast, p0, p1, ... (对序列循环遍历)</p>
+<h3 id="3repeat">3.repeat</h3>
+<p>原型</p>
+<div class="codehilite"><pre><span class="n">repeat</span><span class="p">(</span><span class="n">elem</span><span class="p">[,</span> <span class="n">n</span><span class="p">])</span>
+</pre></div>
+
+
+<p>返回:</p>
+<p>elem, elem, elem...( 重复n次或者无限下去)</p>
+<h3 id="4chain">4.chain</h3>
+<p>原型:</p>
+<div class="codehilite"><pre><span class="n">chain</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="p">...)</span>
+</pre></div>
+
+
+<p>返回:</p>
+<p>p0, p1, ..., plast, q0, q1, ..., qlast, ... (一个一个地遍历这些序列的, 不必生成大序列即可这样遍历)</p>
+<h3 id="5compress">5.compress</h3>
+<p>原型:</p>
+<div class="codehilite"><pre><span class="n">compress</span><span class="p">(</span><span class="n">data</span> <span class="n">d</span><span class="p">,</span> <span class="n">selector</span> <span class="n">s</span><span class="p">)</span>
+</pre></div>
+
+
+<p>返回:</p>
+<p>(d[0] if s[0]), (d[1] if s[1]), ...</p>
+<p>例子:</p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

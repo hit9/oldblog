@@ -17,3 +17,44 @@ example:
 ```python
 count(10):10, 11, 12, 13, .....
 ```
+
+### 2.cycle
+
+原型:
+```
+cycle(p)
+```
+
+返回:
+
+p0, p1, p2, ...,plast, p0, p1, ... (对序列循环遍历)
+
+### 3.repeat
+原型
+```
+repeat(elem[, n])
+```
+返回:
+
+elem, elem, elem...( 重复n次或者无限下去)
+
+### 4.chain
+
+原型:
+```
+chain(p, q, ...)
+```
+返回:
+
+p0, p1, ..., plast, q0, q1, ..., qlast, ... (一个一个地遍历这些序列的, 不必生成大序列即可这样遍历)
+
+### 5.compress
+原型:
+```
+compress(data d, selector s)
+```
+返回:
+
+(d[0] if s[0]), (d[1] if s[1]), ...
+
+例子:
