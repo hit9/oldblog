@@ -1,4 +1,4 @@
-1. [C语言二维数组和二维指针并不一样](./posts/24.html)
+1. [C语言二维数组结构探析](./posts/24.html)
 1. [m个a,n个b的排列数](./posts/23.html)
 1. [C singly linked list swap two nodes](./posts/22.html)
 1. [reverse singly linked list in C](./posts/21.html)

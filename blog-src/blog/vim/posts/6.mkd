@@ -1,0 +1,14 @@
+%title vim中用Drawit插件绘制表格
+Date:2012-10-24
+
+插件在[http://vim.sourceforge.net/scripts/script.php?script_id=40](http://vim.sourceforge.net/scripts/script.php?script_id=40)
+
+例子:
+
+```
+
++-------+-----+------+-----------+
+|+--+   |     |      |           |
+|+--+---+-----+      |           |
++---+---+-----+------+-----------+
+```
