@@ -1,0 +1,19 @@
+%title python itertools模块学习笔记
+Date:2012-10-25
+
+以下函数均返回迭代器
+
+### 1.count
+原型:
+```python
+count(start[, step])
+```
+返回:
+
+start, start+step, start+2*step, ... (以start为首项, step为公差的等差数列)
+
+example:
+
+```python
+count(10):10, 11, 12, 13, .....
+```
