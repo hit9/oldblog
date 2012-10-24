@@ -86,7 +86,7 @@ Page:
 <p>会发现a,*a,**a都是一样的.最后一个输出数据1.</p>
 <p>所以这就摸清了规律了.</p>
 <p>所以对上面的定义方式来说,a根本不是一个二级指针.</p>
-<p>既然他们联系存储,加入2句code:</p>
+<p>既然是连续存储,加入2句code:(存储方式就是一维数组的方式)</p>
 <div class="codehilite"><pre><span class="kt">int</span> <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">a</span><span class="p">;</span> 
 <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">b</span><span class="p">);</span> 
 </pre></div>
@@ -94,6 +94,20 @@ Page:
 
 <p>会看到输出了1.也就是,只要这种存储方式,数组名永远是首元素的地址.上式中把a强制赋值给了b,b记录着a[0][0]的地址</p>
 <p>那对于下面的code呢?,并不是上面我们讨论的存储方式:</p>
+<div class="codehilite"><pre><span class="cp">#include&lt;stdio.h&gt;</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">m</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span> 
+    <span class="kt">int</span> <span class="n">n</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">};</span> 
+    <span class="kt">int</span> <span class="o">*</span><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">};</span> 
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>                                                             
+<span class="p">}</span>
+</pre></div>
+
+
+<p>并且这里的a与*a也不相等.</p>
+<p>这个问题很不好理解.欢迎交流!</p>
+<p>---over----</p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>
