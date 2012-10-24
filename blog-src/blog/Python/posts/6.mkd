@@ -5,7 +5,7 @@ Date:2012-10-25
 
 [TOC]
 
-### 1.count
+### count
 原型:
 ```python
 count(start[, step])
@@ -20,7 +20,7 @@ example:
 count(10):10, 11, 12, 13, .....
 ```
 
-### 2.cycle
+### cycle
 
 原型:
 ```
@@ -31,7 +31,7 @@ cycle(p)
 
 p0, p1, p2, ...,plast, p0, p1, ... (对序列循环遍历)
 
-### 3.repeat
+### repeat
 原型
 ```
 repeat(elem[, n])
@@ -40,7 +40,7 @@ repeat(elem[, n])
 
 elem, elem, elem...( 重复n次或者无限下去)
 
-### 4.chain
+### chain
 
 原型:
 ```
@@ -50,7 +50,7 @@ chain(p, q, ...)
 
 p0, p1, ..., plast, q0, q1, ..., qlast, ... (一个一个地遍历这些序列的, 不必生成大序列即可这样遍历)
 
-### 5.compress
+### compress
 原型:
 ```
 compress(data d, selector s)
@@ -119,3 +119,33 @@ a = [1, 2, 3, 4, 5]
 for i in ifilter(lambda x:x>3, a):#4, 5
 	print i
 ```
+### ifilterfalse
+原型:
+```
+ifilterfalse(func, seq)
+```
+返回:对函数func执行返回假的元素的迭代器
+
+### islice
+原型:
+```
+islice(seq[, start], stop[, step])
+```
+返回:返回序列seq的从start开始到stop结束的步长为step的元素的迭代器
+```python
+from itertools import *
+for i in islice("abcdef", 0, 4, 2):#a, c
+	print i
+```
+### imap
+原型:
+```
+imap(func, seq)
+```
+返回 :返回序列每个元素被func执行后返回值的序列的迭代器
+```python
+from itertools import *
+for i in imap(lambda x:x+1, range(10)):#1, 2, ..., 10
+	print i
+```
+
