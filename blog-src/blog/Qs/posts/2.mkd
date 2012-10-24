@@ -1,0 +1,57 @@
+%title 找出矩阵中列最大,行最小的元素
+Date:2012-10-24
+
+原问题是我在[careercup](http://www.careercup.com/question?id=14872723)上提出的:
+```
+suppose a matrix A. find a element x in this matrix,x is the smallest in his line but the biggest in his column. Give codes in C
+```
+
+解决方法也很明显:
+
+```
+
+for each line:
+    find the samllest one in this line.
+    if it is also the biggest one in his column, return it.
+return -1 if not found
+```
+
+代码:
+
+```c
+#include <stdio.h>
+
+typedef int B[3][3]; 
+
+int foo(B a, int m, int n) //mxn矩阵
+{
+	int i, j, t, k, p, q; 
+	for (i = 0; i < m; i++){
+		for(j = 0, t = a[i][0], p = 0; j < n; j++){
+			if (a[i][j] < t){
+				t = a[i][j]; 
+				p = j; 
+			}
+		}
+		for (q = 0, k = a[0][p]; q < m; q++){ //找出第p列最大数k
+			if (a[q][p] > k) k = a[q][p]; 
+		}
+
+		if (k == t) return t; 
+	}
+	
+	return -1; // 没找到
+}
+
+
+int main(int argc, const char *argv[])
+{
+	B a = {
+		{1, 2, 3}, 
+		{4, 7, 5}, 
+		{8, 6, 9}
+	}; 
+	printf("%d\n", foo(a, 3, 3));
+	return 0;
+}
+```
