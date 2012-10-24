@@ -33,6 +33,58 @@ Page:
 <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 <!--end of github fork button-->
 <p>Date:2012-10-24</p>
+<p>看下面的代码:</p>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span> 
+        <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">}</span>
+    <span class="p">};</span> 
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>会发现a和*a竟然是一样的.</p>
+<p>其实这6个数字是连续存储的:</p>
+<div class="codehilite"><pre><span class="o">+---+---+---+---+---+---+</span>
+<span class="o">|</span> 1 <span class="o">|</span> 2 <span class="o">|</span> 3 <span class="o">|</span> 4 <span class="o">|</span> 5 <span class="o">|</span> 6 <span class="o">|</span>
+<span class="o">+---+---+---+---+---+---+</span>
+</pre></div>
+
+
+<p>那就是说,存储的跟一维数组完全一样.</p>
+<p>如果我们这么定义 a[2][3]:</p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span>
+    <span class="p">};</span>
+</pre></div>
+
+
+<p>会发现编译和执行都正常.验证了这6个数据是连续存储的.</p>
+<p>而a存储着a[0][0]的地址.</p>
+<p>看下面的代码:</p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span>
+    <span class="p">};</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">a</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">a</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">***</span><span class="n">a</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>                                                             
+<span class="p">}</span>
+</pre></div>
+
+
+<p>会发现a,*a,**a都是一样的.最后一个输出数据1.</p>
+<p>所以这就摸清了规律了.</p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>
