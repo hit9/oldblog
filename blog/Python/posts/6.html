@@ -41,6 +41,9 @@ Page:
 <li><a href="#3repeat">3.repeat</a></li>
 <li><a href="#4chain">4.chain</a></li>
 <li><a href="#5compress">5.compress</a></li>
+<li><a href="#dropwhile">dropwhile</a></li>
+<li><a href="#groupby">groupby</a></li>
+<li><a href="#ifilter">ifilter</a></li>
 </ul>
 </div>
 <h3 id="1count">1.count</h3>
@@ -89,6 +92,64 @@ Page:
 <p>返回:</p>
 <p>(d[0] if s[0]), (d[1] if s[1]), ...</p>
 <p>例子:</p>
+<div class="codehilite"><pre><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">compress</span><span class="p">(</span><span class="s">&quot;abcdef&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]):</span> <span class="c"># a, b, d, f</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+
+
+<h3 id="dropwhile">dropwhile</h3>
+<p>原型:</p>
+<div class="codehilite"><pre><span class="n">dropwhile</span><span class="p">(</span><span class="n">func</span> <span class="n">f</span><span class="p">,</span> <span class="n">seq</span> <span class="n">q</span><span class="p">)</span>
+</pre></div>
+
+
+<p>返回:</p>
+<p>当函数f执行返回假时, 开始迭代序列</p>
+<p>例子:</p>
+<div class="codehilite"><pre><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dropwhile</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">]):</span><span class="c">#6, 4, 3</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+
+
+<h3 id="groupby">groupby</h3>
+<p>原型:</p>
+<div class="codehilite"><pre><span class="n">groupby</span><span class="p">(</span><span class="n">iterable</span><span class="p">[,</span> <span class="n">keyfunc</span><span class="p">])</span>
+</pre></div>
+
+
+<p>返回:按照keyfunc函数对序列每个元素执行后的结果分组(每个分组是一个迭代器), 返回这些分组的迭代器</p>
+<p>例子:</p>
+<div class="codehilite"><pre><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;aa&#39;</span><span class="p">,</span> <span class="s">&#39;ab&#39;</span><span class="p">,</span> <span class="s">&#39;abc&#39;</span><span class="p">,</span> <span class="s">&#39;bcd&#39;</span><span class="p">,</span> <span class="s">&#39;abcde&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">groupby</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">len</span><span class="p">):</span><span class="c">#按照字符串的长度对a的每个元素进行分组</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">m</span><span class="p">,</span> 
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+
+
+<p>输出:</p>
+<div class="codehilite"><pre><span class="n">aa</span> <span class="n">ab</span> 2
+<span class="n">abc</span> <span class="n">bcd</span> 3
+<span class="n">abcde</span> 5
+</pre></div>
+
+
+<h3 id="ifilter">ifilter</h3>
+<p>原型:</p>
+<div class="codehilite"><pre><span class="n">ifilter</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">seq</span><span class="p">)</span>
+</pre></div>
+
+
+<p>返回:对函数func执行返回真的元素的迭代器</p>
+<p>例子:</p>
+<div class="codehilite"><pre><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ifilter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span><span class="c">#4, 5</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

@@ -60,3 +60,62 @@ compress(data d, selector s)
 (d[0] if s[0]), (d[1] if s[1]), ...
 
 例子:
+```python
+from itertools import *
+for i in compress("abcdef", [1, 1, 0, 1, 0, 1]): # a, b, d, f
+	print i
+```
+### dropwhile
+
+原型:
+```
+dropwhile(func f, seq q)
+```
+返回:
+
+当函数f执行返回假时, 开始迭代序列
+
+例子:
+```python
+from itertools import *
+for i in dropwhile(lambda x:x<5, [1, 2, 6, 4, 3]):#6, 4, 3
+	print i
+```
+
+### groupby
+
+原型:
+```
+groupby(iterable[, keyfunc])
+```
+返回:按照keyfunc函数对序列每个元素执行后的结果分组(每个分组是一个迭代器), 返回这些分组的迭代器
+
+例子:
+```python
+from itertools import *
+a = ['aa', 'ab', 'abc', 'bcd', 'abcde']
+for i, k in groupby(a, len):#按照字符串的长度对a的每个元素进行分组
+	for m in k:
+		print m, 
+	print i
+```
+输出:
+```
+aa ab 2
+abc bcd 3
+abcde 5
+```
+### ifilter
+原型:
+```
+ifilter(func, seq)
+```
+返回:对函数func执行返回真的元素的迭代器
+
+例子:
+```python
+from itertools import *
+a = [1, 2, 3, 4, 5]
+for i in ifilter(lambda x:x>3, a):#4, 5
+	print i
+```
