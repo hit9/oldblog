@@ -52,6 +52,8 @@ Page:
 <li><a href="#takewhile">takewhile</a></li>
 <li><a href="#izip">izip</a></li>
 <li><a href="#izip_longest">izip_longest</a></li>
+<li><a href="#permutations">permutations</a></li>
+<li><a href="#product">product</a></li>
 </ul>
 </div>
 <h3 id="count">count</h3>
@@ -257,6 +259,57 @@ Page:
 <h3 id="izip_longest">izip_longest</h3>
 <p>原型同izip</p>
 <p>只不过, 迭代过程会持续到所有输入迭代变量iter1,iter2等都耗尽为止，如果没有使用fillvalue关键字参数指定不同的值，则使用None来填充已经使用的迭代变量的值</p>
+<h3 id="permutations">permutations</h3>
+<p>原型:</p>
+<div class="codehilite"><pre><span class="n">permutations</span><span class="p">(</span><span class="n">p</span><span class="p">[,</span> <span class="n">r</span><span class="p">])</span>
+</pre></div>
+
+
+<p>返回p中任意取r个元素做排列的元组的迭代器</p>
+<p>实例:</p>
+<div class="codehilite"><pre><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">permutations</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">3</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+
+
+<p>输出:</p>
+<div class="codehilite"><pre><span class="p">(</span>1<span class="p">,</span> 2<span class="p">,</span> 3<span class="p">)</span>
+<span class="p">(</span>1<span class="p">,</span> 3<span class="p">,</span> 2<span class="p">)</span>
+<span class="p">(</span>2<span class="p">,</span> 1<span class="p">,</span> 3<span class="p">)</span>
+<span class="p">(</span>2<span class="p">,</span> 3<span class="p">,</span> 1<span class="p">)</span>
+<span class="p">(</span>3<span class="p">,</span> 1<span class="p">,</span> 2<span class="p">)</span>
+<span class="p">(</span>3<span class="p">,</span> 2<span class="p">,</span> 1<span class="p">)</span>
+</pre></div>
+
+
+<h3 id="product">product</h3>
+<p>原型:</p>
+<div class="codehilite"><pre><span class="n">product</span><span class="p">(</span><span class="n">iter1</span><span class="p">,</span> <span class="n">iter2</span><span class="p">,</span> <span class="p">...</span> <span class="n">iterN</span><span class="p">,</span> <span class="p">[</span><span class="n">repeat</span><span class="p">=</span>1<span class="p">])</span>
+</pre></div>
+
+
+<p>创建一个迭代器，生成表示item1，item2等中的项目的笛卡尔积的元组，repeat是一个关键字参数，指定重复生成序列的次数</p>
+<div class="codehilite"><pre><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">product</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]):</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+
+
+<p>输出:</p>
+<div class="codehilite"><pre><span class="p">(</span>1<span class="p">,</span> 4<span class="p">,</span> 6<span class="p">)</span>
+<span class="p">(</span>1<span class="p">,</span> 4<span class="p">,</span> 7<span class="p">)</span>
+<span class="p">(</span>1<span class="p">,</span> 5<span class="p">,</span> 6<span class="p">)</span>
+<span class="p">(</span>1<span class="p">,</span> 5<span class="p">,</span> 7<span class="p">)</span>
+<span class="p">(</span>2<span class="p">,</span> 4<span class="p">,</span> 6<span class="p">)</span>
+<span class="p">(</span>2<span class="p">,</span> 4<span class="p">,</span> 7<span class="p">)</span>
+<span class="p">(</span>2<span class="p">,</span> 5<span class="p">,</span> 6<span class="p">)</span>
+<span class="p">(</span>2<span class="p">,</span> 5<span class="p">,</span> 7<span class="p">)</span>
+<span class="p">(</span>3<span class="p">,</span> 4<span class="p">,</span> 6<span class="p">)</span>
+<span class="p">(</span>3<span class="p">,</span> 4<span class="p">,</span> 7<span class="p">)</span>
+<span class="p">(</span>3<span class="p">,</span> 5<span class="p">,</span> 6<span class="p">)</span>
+<span class="p">(</span>3<span class="p">,</span> 5<span class="p">,</span> 7<span class="p">)</span>
+</pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

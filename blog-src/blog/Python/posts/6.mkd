@@ -213,3 +213,54 @@ izip(iter1, iter2, ... iterN):
 原型同izip
 
 只不过, 迭代过程会持续到所有输入迭代变量iter1,iter2等都耗尽为止，如果没有使用fillvalue关键字参数指定不同的值，则使用None来填充已经使用的迭代变量的值
+
+### permutations
+
+原型:
+```
+permutations(p[, r])
+```
+返回p中任意取r个元素做排列的元组的迭代器
+
+实例:
+
+```python
+from itertools import *
+for i in permutations([1, 2, 3], 3):
+    print i
+```
+输出:
+```
+(1, 2, 3)
+(1, 3, 2)
+(2, 1, 3)
+(2, 3, 1)
+(3, 1, 2)
+(3, 2, 1)
+```
+### product
+原型:
+```
+product(iter1, iter2, ... iterN, [repeat=1])
+```
+创建一个迭代器，生成表示item1，item2等中的项目的笛卡尔积的元组，repeat是一个关键字参数，指定重复生成序列的次数
+```python
+from itertools import *
+for i in product([1, 2, 3], [4, 5], [6, 7]):
+    print i
+```
+输出:
+```
+(1, 4, 6)
+(1, 4, 7)
+(1, 5, 6)
+(1, 5, 7)
+(2, 4, 6)
+(2, 4, 7)
+(2, 5, 6)
+(2, 5, 7)
+(3, 4, 6)
+(3, 4, 7)
+(3, 5, 6)
+(3, 5, 7)
+```
