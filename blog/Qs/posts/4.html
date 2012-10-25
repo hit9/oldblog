@@ -45,6 +45,21 @@ Page:
 
 
 <p>下面是模拟的python代码,很好理解:</p>
+<p>描述:</p>
+<div class="codehilite"><pre><span class="n">b</span><span class="p">=[</span>1<span class="p">,</span>1<span class="p">,...,</span>1<span class="p">]</span> <span class="p">(</span><span class="n">init</span> <span class="n">b</span> <span class="n">as</span> <span class="n">a</span> <span class="n">list</span> <span class="n">of</span> <span class="n">n</span> <span class="n">times</span> 1 <span class="n">elems</span><span class="p">)</span>
+<span class="n">a</span><span class="p">=</span>0 # <span class="n">a</span> <span class="n">is</span> <span class="n">counter</span><span class="p">,</span><span class="n">always</span> <span class="n">from</span> 1 <span class="n">to</span> <span class="n">m</span>
+<span class="n">cycle</span> <span class="n">loop</span> <span class="n">b</span> <span class="n">until</span> <span class="n">b</span> <span class="n">has</span> <span class="n">only</span> <span class="n">one</span> 1 <span class="n">elem</span><span class="p">:</span>
+    <span class="n">get</span> <span class="n">index</span> <span class="n">k</span> <span class="n">and</span> <span class="n">value</span> <span class="n">v</span><span class="p">.</span>
+    <span class="k">if</span> <span class="n">v</span> <span class="n">is</span> 1 <span class="p">(</span>1 <span class="k">for</span> <span class="n">alive</span><span class="p">,</span>0 <span class="k">for</span> <span class="n">died</span><span class="p">):</span>
+        <span class="n">counter</span> <span class="n">a</span> <span class="n">plus</span> <span class="n">itself</span> <span class="n">one</span>
+        <span class="k">if</span> <span class="n">a</span><span class="o">==</span><span class="n">m</span><span class="p">:</span>
+            <span class="n">elem</span> <span class="n">on</span> <span class="n">index</span> <span class="n">v</span> <span class="n">died</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">[</span><span class="n">k</span><span class="p">]=</span>0
+            <span class="n">reset</span> <span class="n">counter</span> <span class="n">a</span> <span class="n">to</span> 0
+        <span class="n">print</span> <span class="n">once</span> <span class="n">b</span> <span class="n">to</span> <span class="n">look</span> <span class="n">at</span> <span class="n">state</span> <span class="n">this</span> <span class="n">time</span>
+</pre></div>
+
+
+<p>代码:</p>
 <div class="codehilite"><pre><span class="c">#--coding:utf-8--</span>
 
 <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span>

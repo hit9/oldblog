@@ -16,6 +16,20 @@ Date:2012-10-26
 
 下面是模拟的python代码,很好理解:
 
+描述:
+```
+b=[1,1,...,1] (init b as a list of n times 1 elems)
+a=0 # a is counter,always from 1 to m
+cycle loop b until b has only one 1 elem:
+	get index k and value v.
+	if v is 1 (1 for alive,0 for died):
+		counter a plus itself one
+		if a==m:
+			elem on index v died => b[k]=0
+			reset counter a to 0
+		print once b to look at state this time
+```
+代码:
 ```python
 #--coding:utf-8--
 
