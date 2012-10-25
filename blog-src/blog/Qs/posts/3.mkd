@@ -1,0 +1,37 @@
+%title m个位置,每个位置上有n个可能值的排列
+Date:2012-10-26
+
+下面是C的实现:
+
+```c
+#include <stdio.h>
+void foo(int *arr,int m,int n,int i)
+{
+	int j; 
+    if (i==m) {
+        for (i = 0; i < m; i++) {
+            printf("%d\t",arr[i]);
+        }
+        printf("\n");
+    }else{
+		for(j = 0; j<n; j++) {
+			arr[i] = j; 
+			foo(arr, m, n, i+1); 
+		}
+    }
+}
+
+int main(int argc, const char *argv[])
+{
+    int n = 3;
+	int m = 2; 
+    int arr[m], i;
+    foo(arr,m, n, 0);
+    return 0;
+}
+
+```
+
+当然,按照这个想法的话,也会有相应的python实现:
+
+
