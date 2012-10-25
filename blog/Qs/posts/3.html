@@ -33,6 +33,8 @@ Page:
 <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 <!--end of github fork button-->
 <p>Date:2012-10-26</p>
+<p>问题:给你m个位置,每个位置放置一个数字,这个数字在0~n-1之间,打印所有可能的情形.</p>
+<p>特殊地,当n=2的时候,是二进制位的问题.</p>
 <p>下面是C的实现:</p>
 <div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
 <span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">arr</span><span class="p">,</span><span class="kt">int</span> <span class="n">m</span><span class="p">,</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span>
@@ -63,6 +65,31 @@ Page:
 
 
 <p>当然,按照这个想法的话,也会有相应的python实现:</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">m</span><span class="p">):</span>
+        <span class="k">print</span> <span class="n">a</span>
+    <span class="k">else</span> <span class="p">:</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">o</span><span class="p">:</span>
+            <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span>
+            <span class="n">foo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">m</span> <span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">runit</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">m</span> 
+    <span class="n">o</span> <span class="o">=</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">foo</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="n">runit</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+
+<p>python还可以更神奇!下面是一个非常geek的实现方式:</p>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">itertools</span>
+
+<span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="p">((</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="p">)</span><span class="o">*</span><span class="n">m</span><span class="p">)):</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

@@ -1,6 +1,10 @@
 %title m个位置,每个位置上有n个可能值的排列
 Date:2012-10-26
 
+问题:给你m个位置,每个位置放置一个数字,这个数字在0~n-1之间,打印所有可能的情形.
+
+特殊地,当n=2的时候,是二进制位的问题.
+
 下面是C的实现:
 
 ```c
@@ -34,4 +38,30 @@ int main(int argc, const char *argv[])
 
 当然,按照这个想法的话,也会有相应的python实现:
 
+```python
+def foo(a, m, o, i):
+	if (i == m):
+		print a
+	else :
+		for k in o:
+			a[i] = k
+			foo(a,m , o, i+1)
 
+def runit(m, n):
+	a = [0]*m 
+	o = xrange(n)
+	foo(a, m, o, 0)
+
+runit(3, 2)
+```
+
+python还可以更神奇!下面是一个非常geek的实现方式:
+
+```python
+import itertools
+
+m, n = 3, 2
+
+for i in itertools.product(*((range(n), )*m)):
+	print i
+```
