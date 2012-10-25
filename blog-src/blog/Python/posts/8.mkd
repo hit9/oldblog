@@ -1,0 +1,11 @@
+%title python upack 链表或元组对函数传参
+Date:2012-10-25
+
+实例:
+```python
+def foo(*args):
+	for i in args:
+		print i
+
+foo(*range(10))
+```
