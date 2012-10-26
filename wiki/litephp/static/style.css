@@ -19,7 +19,7 @@ ul{
 	font-size:14px;
 	line-height:19px;
 	overflow:scroll;
-	z-index:999;
+	z-index:11;
 	position:fixed;
 	top:40px;
 	right:3%;
