@@ -1,0 +1,11 @@
+%title m个a,n个b的全排列问题
+Date:2012-10-27
+
+有了itertools.排列组合问题都不怕
+
+```
+from itertools import permutations
+m = 2
+n = 3
+print {}.fromkeys(list(permutations([0]*m+[1]*n)), 0).keys(
+```
