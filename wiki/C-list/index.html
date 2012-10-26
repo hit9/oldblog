@@ -1,0 +1,253 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>C-list - C语言实现的单链表WIKI</title>
+		<link rel="stylesheet" href="./static/style.css" type="text/css" media="screen" charset="utf-8">
+	</head>
+	<body>
+		<a href="https://github.com/hit9/C-list"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="./static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+		<h1>C-list - C语言实现的单链表WIKI</h1>
+		<p>author:<a href="http://hit9.org">hit9</a></p>
+<p>email:<a href="mailto:nz2324@126.com">nz2324#126.com</a></p>
+<p>C-list:<a href="http://github.com/hit9/C-list">github.com/hit9/C-list</a></p>
+<p>简单的单链表的C语言封装</p>
+<div class="toc">
+<ul>
+<li><a href="#code-example">code example</a></li>
+<li><a href="#_1">数据类型</a></li>
+<li><a href="#_2">链表的数据结构</a></li>
+<li><a href="#list_init">list_init</a></li>
+<li><a href="#list_len">list_len</a></li>
+<li><a href="#list_append">list_append</a></li>
+<li><a href="#list_get">list_get</a></li>
+<li><a href="#list_set">list_set</a></li>
+<li><a href="#list_pop_tail">list_pop_tail</a></li>
+<li><a href="#list_pop">list_pop</a></li>
+<li><a href="#list_iter">list_iter</a></li>
+<li><a href="#list_extend">list_extend</a></li>
+<li><a href="#list_swap">list_swap</a></li>
+<li><a href="#list_reverse">list_reverse</a></li>
+<li><a href="#list_index">list_index</a></li>
+<li><a href="#list_from_array">list_from_array</a></li>
+<li><a href="#list_cycle">list_cycle</a></li>
+</ul>
+</div>
+<h2 id="code-example">code example</h2>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;stdlib.h&gt;</span>
+<span class="cp">#include &quot;list.h&quot;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">list_t</span> <span class="o">*</span><span class="n">list</span> <span class="o">=</span> <span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">list_t</span><span class="p">));</span> 
+    <span class="n">list_init</span><span class="p">(</span><span class="n">list</span><span class="p">);</span> <span class="c1">//初始化链表</span>
+
+    <span class="n">list_append</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="s">&quot;hello&quot;</span><span class="p">);</span> <span class="c1">//追加结点</span>
+    <span class="n">list_append</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="s">&quot;world&quot;</span><span class="p">);</span> 
+    <span class="n">list_append</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="s">&quot;hehe&quot;</span><span class="p">);</span> 
+
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span> 
+    <span class="kt">char</span> <span class="o">*</span><span class="n">temp</span><span class="p">;</span> 
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">list_len</span><span class="p">(</span><span class="n">list</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span><span class="c1">//list_len获取链表的长度</span>
+        <span class="n">list_get</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">temp</span><span class="p">);</span> <span class="c1">//取得位置为i的结点的数据</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">temp</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>编译:<code>gcc &lt;path-to&gt;list.c test.c -I&lt;path-to-list.h&gt;</code></p>
+<h2 id="_1">数据类型</h2>
+<div class="codehilite"><pre><span class="n">list_t</span>
+</pre></div>
+
+
+<h2 id="_2">链表的数据结构</h2>
+<div class="codehilite"><pre><span class="n">typedef</span> <span class="n">struct</span> <span class="n">node</span> <span class="p">{</span>
+    <span class="n">void</span> <span class="o">*</span><span class="n">data</span><span class="p">;</span>
+    <span class="n">struct</span> <span class="n">node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">node_t</span><span class="p">;</span> 
+
+<span class="n">typedef</span> <span class="n">struct</span> <span class="n">list</span> <span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">;</span> 
+<span class="p">}</span> <span class="n">list_t</span><span class="p">;</span> 
+</pre></div>
+
+
+<h2 id="list_init">list_init</h2>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="n">list_init</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">);</span>
+</pre></div>
+
+
+<p>传入一个list_t *指针, 把链表头指向NULL</p>
+<h2 id="list_len">list_len</h2>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">list_len</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">);</span> 
+</pre></div>
+
+
+<p>返回链表的长度.</p>
+<h2 id="list_append">list_append</h2>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="n">list_append</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">);</span> 
+</pre></div>
+
+
+<p>在链表的末尾追加一个结点, 其数据为data</p>
+<h2 id="list_get">list_get</h2>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">list_get</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">,</span> <span class="kt">int</span> <span class="n">position</span><span class="p">,</span> <span class="kt">void</span> <span class="o">**</span><span class="n">data_ptr</span><span class="p">);</span> 
+</pre></div>
+
+
+<p>获取位置为position的数据, 执行失败返回0, 执行成功返回1</p>
+<h2 id="list_set">list_set</h2>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">list_set</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">);</span> 
+</pre></div>
+
+
+<p>把位置为pos的数据设置为data.执行失败返回0, 执行成功返回1</p>
+<h2 id="list_pop_tail">list_pop_tail</h2>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">list_pop_tail</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">);</span> 
+</pre></div>
+
+
+<p>删除末尾元素, 执行成功返回1, 失败返回0</p>
+<h2 id="list_pop">list_pop</h2>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">list_pop</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">,</span> <span class="kt">int</span> <span class="n">position</span><span class="p">);</span> 
+</pre></div>
+
+
+<p>删除位置为position的元素, 执行成功返回1, 失败返回0</p>
+<h2 id="list_iter">list_iter</h2>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">list_iter</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">,</span> <span class="kt">void</span> <span class="o">**</span><span class="n">data_ptr</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">pos_ptr</span><span class="p">);</span> 
+</pre></div>
+
+
+<p>迭代链表.函数每执行一次, 取出数据data和位置, 并移动到下一元素.取出成功返回1, 否则返回0(迭代完毕)</p>
+<p>例子:</p>
+<div class="codehilite"><pre><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span> <span class="o">=</span> <span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">list_t</span><span class="p">));</span> 
+<span class="n">list_init</span><span class="p">(</span><span class="n">list</span><span class="p">);</span> 
+
+<span class="n">list_append</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="s">&quot;hello&quot;</span><span class="p">);</span> 
+<span class="n">list_append</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="s">&quot;world&quot;</span><span class="p">);</span> 
+<span class="n">list_append</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="s">&quot;hehe&quot;</span><span class="p">);</span> 
+
+<span class="kt">char</span> <span class="o">*</span><span class="n">data</span><span class="p">;</span> <span class="c1">//用来取出数据</span>
+<span class="kt">int</span> <span class="n">pos</span><span class="p">;</span> <span class="c1">//用来记录位置</span>
+
+<span class="k">while</span><span class="p">(</span><span class="n">list_iter</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">pos</span><span class="p">))</span><span class="c1">//迭代打印链表</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">pos</span><span class="p">);</span>
+</pre></div>
+
+
+<h2 id="list_extend">list_extend</h2>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="n">list_extend</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list_a</span><span class="p">,</span> <span class="n">list_t</span> <span class="o">*</span><span class="n">list_b</span><span class="p">);</span> 
+</pre></div>
+
+
+<p>把链表list_b连接到list_a后面.</p>
+<h2 id="list_swap">list_swap</h2>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">list_swap</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos_a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pos_b</span><span class="p">);</span> 
+</pre></div>
+
+
+<p>交换位置为pos_a和pos_b上的元素, 成功返回1, 否则返回0</p>
+<h2 id="list_reverse">list_reverse</h2>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="n">list_reverse</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">);</span> 
+</pre></div>
+
+
+<p>反转一个链表</p>
+<h2 id="list_index">list_index</h2>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">list_index</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">);</span> 
+</pre></div>
+
+
+<p>在链表中查找数据为data的结点, 返回找到的第一个符合条件的结点的位置, 否则找不到的话返回-1</p>
+<h2 id="list_from_array">list_from_array</h2>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">list_from_array</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">);</span> <span class="c1">//make a list from array.</span>
+</pre></div>
+
+
+<p>从一个数组生成一个链表(list必须是空链表才可以).</p>
+<p>例子</p>
+<div class="codehilite"><pre><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span> <span class="o">=</span> <span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">list_t</span><span class="p">));</span> 
+
+<span class="n">list_init</span><span class="p">(</span><span class="n">list</span><span class="p">);</span> 
+
+<span class="kt">char</span> <span class="n">str</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;hello&quot;</span><span class="p">;</span> 
+<span class="c1">//根据str字符数组生成一个链表</span>
+<span class="n">list_from_array</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">str</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">),</span> <span class="mi">5</span><span class="p">);</span> 
+<span class="c1">//打印链表</span>
+<span class="kt">char</span> <span class="o">*</span><span class="n">data</span><span class="p">;</span> 
+<span class="kt">int</span> <span class="n">pos</span><span class="p">;</span> 
+<span class="k">while</span><span class="p">(</span><span class="n">list_iter</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">pos</span><span class="p">))</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="n">pos</span><span class="p">);</span>
+</pre></div>
+
+
+<p>或者根据一个整数数组来生成:</p>
+<div class="codehilite"><pre><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span> <span class="o">=</span> <span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">list_t</span><span class="p">));</span> 
+
+<span class="n">list_init</span><span class="p">(</span><span class="n">list</span><span class="p">);</span> 
+<span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">};</span> 
+<span class="n">list_from_array</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">arr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span> <span class="mi">6</span><span class="p">);</span> 
+<span class="c1">//打印链表</span>
+<span class="kt">int</span> <span class="o">*</span><span class="n">data</span><span class="p">;</span> 
+<span class="kt">int</span> <span class="n">pos</span><span class="p">;</span> 
+<span class="k">while</span><span class="p">(</span><span class="n">list_iter</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">pos</span><span class="p">))</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="n">pos</span><span class="p">);</span>
+</pre></div>
+
+
+<p>但是如下的数组arr是不可以的:</p>
+<div class="codehilite"><pre><span class="kt">char</span> <span class="o">*</span><span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;hello&quot;</span><span class="p">,</span> <span class="s">&quot;world&quot;</span><span class="p">,</span> <span class="s">&quot;hi&quot;</span><span class="p">};</span> <span class="c1">//因为这个数组存储的各个指针之间不是等差连续的</span>
+</pre></div>
+
+
+<p>但是这个arr可以:</p>
+<div class="codehilite"><pre><span class="kt">char</span> <span class="n">a</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;hello&quot;</span><span class="p">;</span> 
+<span class="kt">char</span> <span class="n">b</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;world&quot;</span><span class="p">;</span> 
+<span class="kt">char</span> <span class="n">c</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;hi&quot;</span><span class="p">;</span> 
+<span class="kt">char</span> <span class="o">*</span><span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">};</span> 
+</pre></div>
+
+
+<h2 id="list_cycle">list_cycle</h2>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="n">list_cycle</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">,</span> <span class="kt">void</span> <span class="o">**</span><span class="n">data_ptr</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">pos_ptr</span><span class="p">);</span> 
+</pre></div>
+
+
+<p>循环迭代器.相比list_iter而言, 就是不断重复的遍历到尾再回到头.</p>
+<p>例子:</p>
+<div class="codehilite"><pre><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span> <span class="o">=</span> <span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">list_t</span><span class="p">));</span> 
+
+<span class="n">list_init</span><span class="p">(</span><span class="n">list</span><span class="p">);</span> 
+
+<span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">};</span> 
+
+<span class="n">list_from_array</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">arr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span> <span class="mi">6</span><span class="p">);</span> 
+
+<span class="kt">int</span> <span class="o">*</span><span class="n">data</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">pos</span><span class="p">;</span> 
+<span class="k">while</span><span class="p">(</span><span class="n">k</span><span class="o">--</span><span class="p">){</span>
+    <span class="n">list_cycle</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">data</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">pos</span><span class="p">);</span> 
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="n">pos</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+		<!-- Duoshuo Comment BEGIN -->
+		<div class="ds-thread" data-thread-key=""
+			data-title="" data-author-key="" data-url=""></div>
+		<script type="text/javascript">
+			var duoshuoQuery = {short_name:"hit9github"};
+			(function() {
+				var ds = document.createElement('script');
+				ds.type = 'text/javascript';ds.async = true;
+				ds.src = 'http://static.duoshuo.com/embed.js';
+				ds.charset = 'UTF-8';
+				(document.getElementsByTagName('head')[0]
+				|| document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+		</script>
+		<!-- Duoshuo Comment END -->
+	</body>
+</html>
