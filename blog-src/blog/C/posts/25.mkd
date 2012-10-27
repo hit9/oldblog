@@ -1,0 +1,15 @@
+%title 链表的各种题目整理
+Date:2012-10-27
+
+这里处理的全部是单链表:
+
+```c
+typedef struct node {
+	char *data; 
+	struct node *next; 
+} node_t;
+```
+
+下面是几个常见的链表笔面问题:
+
+## 
