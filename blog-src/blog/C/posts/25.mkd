@@ -1,4 +1,4 @@
-%title 链表的各种题目整理
+%title 链表的各种题目整理(Simple and Brief)
 Date:2012-10-27
 
 这里处理的全部是单链表:
@@ -10,6 +10,58 @@ typedef struct node {
 } node_t;
 ```
 
+我们约定一个打印链表的函数:
+
+```c
+void list_display(node_t *head)
+{
+	for (; head; head = head->next)
+		printf("%s ", head->data);
+	printf("\n");
+}
+```
+
 下面是几个常见的链表笔面问题:
 
-## 
+[TOC]
+
+## 1.计算链表长度
+
+很简单:
+```c
+int list_len(node_t *head)
+{
+	int i; 
+	for (i = 0; head; head = head->next, i++); 
+	return i; 
+}
+```
+测试:
+```
+int main(int argc, const char *argv[])
+{
+	node_t d = {"d", 0}, c = {"c", &d}, b = {"b", &c}, a = {"a", &b}; 
+	printf("%d\n", list_len(&a));//4
+	return 0;
+}
+```
+
+## 2.反转链表
+
+我们多用几个指针就可以在O(n)完成反转任务:
+
+算法:t遍历链表, q记录t的上一个结点, p是一个临时变量用来缓存t的值
+```c
+void reverse(node_t *head)
+{
+	node_t *p = 0, *q = 0, *t = 0; 
+	for (t = head; t; p = t, t = t->next, p->next = q, q = p); 
+}
+```
+测试:
+```c
+node_t d = {"d", 0}, c = {"c", &d}, b = {"b", &c}, a = {"a", &b}; 
+list_display(&a); 
+reverse(&a); 
+list_display(&d); 
+```

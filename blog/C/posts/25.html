@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>链表的各种题目整理</title>
+<title>链表的各种题目整理(Simple and Brief)</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
 <link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
@@ -28,7 +28,7 @@ Page:
 <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
 </div>
 </div>
-<h1>链表的各种题目整理</h1>
+<h1>链表的各种题目整理(Simple and Brief)</h1>
 <!--fork me on github button-->
 <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 <!--end of github fork button-->
@@ -41,8 +41,61 @@ Page:
 </pre></div>
 
 
+<p>我们约定一个打印链表的函数:</p>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="nf">list_display</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">for</span> <span class="p">(;</span> <span class="n">head</span><span class="p">;</span> <span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s &quot;</span><span class="p">,</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <p>下面是几个常见的链表笔面问题:</p>
-<h2></h2>
+<div class="toc">
+<ul>
+<li><a href="#1">1.计算链表长度</a></li>
+<li><a href="#2">2.反转链表</a></li>
+</ul>
+</div>
+<h2 id="1">1.计算链表长度</h2>
+<p>很简单:</p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">list_len</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span> 
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">head</span><span class="p">;</span> <span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">i</span><span class="o">++</span><span class="p">);</span> 
+    <span class="k">return</span> <span class="n">i</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>测试:</p>
+<div class="codehilite"><pre><span class="n">int</span> <span class="n">main</span><span class="p">(</span><span class="n">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">const</span> <span class="n">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="n">d</span> <span class="p">=</span> <span class="p">{</span>&quot;<span class="n">d</span>&quot;<span class="p">,</span> 0<span class="p">},</span> <span class="n">c</span> <span class="p">=</span> <span class="p">{</span>&quot;<span class="n">c</span>&quot;<span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">},</span> <span class="n">b</span> <span class="p">=</span> <span class="p">{</span>&quot;<span class="n">b</span>&quot;<span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">},</span> <span class="n">a</span> <span class="p">=</span> <span class="p">{</span>&quot;<span class="n">a</span>&quot;<span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">};</span> 
+    <span class="n">printf</span><span class="p">(</span>&quot;<span class="c">%d\n&quot;, list_len(&amp;a));//4</span>
+    <span class="k">return</span> 0<span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="2">2.反转链表</h2>
+<p>我们多用几个指针就可以在O(n)完成反转任务:</p>
+<p>算法:t遍历链表, q记录t的上一个结点, p是一个临时变量用来缓存t的值</p>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="nf">reverse</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">q</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
+    <span class="k">for</span> <span class="p">(</span><span class="n">t</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span> <span class="n">t</span><span class="p">;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">t</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">q</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">p</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>测试:</p>
+<div class="codehilite"><pre><span class="n">node_t</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;d&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="n">c</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;c&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">},</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">},</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">};</span> 
+<span class="n">list_display</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">);</span> 
+<span class="n">reverse</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">);</span> 
+<span class="n">list_display</span><span class="p">(</span><span class="o">&amp;</span><span class="n">d</span><span class="p">);</span> 
+</pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>
