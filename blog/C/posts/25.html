@@ -163,6 +163,23 @@ Page:
 <h2 id="6">6.判断一个链表是否有环</h2>
 <p>如果一个链表有环, 那么它肯定只有一个环.(一个相交结点)</p>
 <p>算法:设两个指针p, q, 初始化指向头.p以步长2的速度向前跑, q的步长是1.这样, 如果链表不存在环, p和q肯定不会相遇.如果存在环, p和q一定会相遇.(就像两个速度不同的汽车在一个环上跑绝对会相遇)</p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">any_ring</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="o">*</span><span class="n">q</span><span class="p">;</span> 
+    <span class="k">for</span> <span class="p">(</span><span class="n">p</span> <span class="o">=</span> <span class="n">q</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span><span class="n">p</span><span class="p">;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">){</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> 
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span> 
+        <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="n">q</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">//yes</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//no.</span>
+</pre></div>
+
+
+<p>测试:</p>
+<div class="codehilite"><pre><span class="n">node_t</span> <span class="n">e</span> <span class="p">=</span> <span class="p">{</span>&quot;<span class="n">e</span>&quot;<span class="p">,</span> 0<span class="p">},</span> <span class="n">d</span> <span class="p">=</span> <span class="p">{</span>&quot;<span class="n">d</span>&quot;<span class="p">,</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">},</span> <span class="n">c</span> <span class="p">=</span> <span class="p">{</span>&quot;<span class="n">c</span>&quot;<span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">},</span> <span class="n">b</span> <span class="p">=</span> <span class="p">{</span>&quot;<span class="n">b</span>&quot;<span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">},</span> <span class="n">a</span> <span class="p">=</span> <span class="p">{</span>&quot;<span class="n">a</span>&quot;<span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">};</span> 
+<span class="n">e</span><span class="p">.</span><span class="n">next</span> <span class="p">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span> 
+<span class="n">printf</span><span class="p">(</span>&quot;<span class="c">%d\n&quot;, any_ring(&amp;a));</span>
+</pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

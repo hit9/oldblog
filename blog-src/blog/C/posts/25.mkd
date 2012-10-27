@@ -135,4 +135,20 @@ void r_display(node_t *t)
 
 算法:设两个指针p, q, 初始化指向头.p以步长2的速度向前跑, q的步长是1.这样, 如果链表不存在环, p和q肯定不会相遇.如果存在环, p和q一定会相遇.(就像两个速度不同的汽车在一个环上跑绝对会相遇)
 
-
+```c
+int any_ring(node_t *head)
+{
+	node_t *p, *q; 
+	for (p = q = head;p; p = p->next, q = q->next){
+		p = p->next; 
+		if (!p) break; 
+		if (p == q) return 1; //yes
+	}
+	return 0; //no.
+```
+测试:
+```
+node_t e = {"e", 0}, d = {"d", &e}, c = {"c", &d}, b = {"b", &c}, a = {"a", &b}; 
+e.next = &a; 
+printf("%d\n", any_ring(&a));
+```
