@@ -56,6 +56,9 @@ Page:
 <ul>
 <li><a href="#1">1.计算链表长度</a></li>
 <li><a href="#2">2.反转链表</a></li>
+<li><a href="#3k0">3.查找倒数第k个元素(尾结点记为倒数第0个)</a></li>
+<li><a href="#4">4.查找中间结点</a></li>
+<li><a href="#_1">逆序打印链表</a></li>
 </ul>
 </div>
 <h2 id="1">1.计算链表长度</h2>
@@ -96,6 +99,67 @@ Page:
 <span class="n">reverse</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">);</span> 
 <span class="n">list_display</span><span class="p">(</span><span class="o">&amp;</span><span class="n">d</span><span class="p">);</span> 
 </pre></div>
+
+
+<h2 id="3k0">3.查找倒数第k个元素(尾结点记为倒数第0个)</h2>
+<p>算法:2个指针p, q初始化指向头结点.p先跑到k结点处, 然后q再开始跑, 当p跑到最后跑到尾巴时, q正好到达倒数第k个.</p>
+<div class="codehilite"><pre><span class="n">node_t</span> <span class="o">*</span><span class="nf">_kth</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">head</span><span class="p">,</span> <span class="o">*</span><span class="n">q</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span> 
+    <span class="k">for</span> <span class="p">(;</span> <span class="n">p</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">i</span><span class="o">++</span><span class="p">);</span> 
+    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(;</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span> 
+    <span class="k">return</span> <span class="n">q</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>测试:</p>
+<div class="codehilite"><pre><span class="n">node_t</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;d&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="n">c</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;c&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">},</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">},</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">};</span> 
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;_0 :%s _1: %s _2:%s _3:%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">_kth</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">,</span> <span class="n">_kth</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">,</span> <span class="n">_kth</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">,</span> <span class="n">_kth</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span>
+</pre></div>
+
+
+<p>输出:</p>
+<div class="codehilite"><pre><span class="n">_0</span> <span class="o">:</span><span class="n">d</span> <span class="n">_1</span><span class="o">:</span> <span class="n">c</span> <span class="n">_2</span><span class="o">:</span><span class="n">b</span> <span class="n">_3</span><span class="o">:</span><span class="n">a</span>
+</pre></div>
+
+
+<h2 id="4">4.查找中间结点</h2>
+<p>找出中间的那个结点</p>
+<p>算法:设两个初始化指向头结点的指针p, q.p每次前进两个结点, q每次前进一个结点, 这样当p到达链表尾巴的时候, q到达了中间.</p>
+<div class="codehilite"><pre><span class="n">node_t</span> <span class="o">*</span><span class="nf">middle</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="o">*</span><span class="n">q</span><span class="p">;</span> 
+    <span class="k">for</span> <span class="p">(</span><span class="n">p</span> <span class="o">=</span> <span class="n">q</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">){</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> 
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">))</span> <span class="k">break</span><span class="p">;</span> 
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">q</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>测试:</p>
+<div class="codehilite"><pre><span class="n">node_t</span> <span class="n">e</span> <span class="p">=</span> <span class="p">{</span>&quot;<span class="n">e</span>&quot;<span class="p">,</span> 0<span class="p">},</span> <span class="n">d</span> <span class="p">=</span> <span class="p">{</span>&quot;<span class="n">d</span>&quot;<span class="p">,</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">},</span> <span class="n">c</span> <span class="p">=</span> <span class="p">{</span>&quot;<span class="n">c</span>&quot;<span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">},</span> <span class="n">b</span> <span class="p">=</span> <span class="p">{</span>&quot;<span class="n">b</span>&quot;<span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">},</span> <span class="n">a</span> <span class="p">=</span> <span class="p">{</span>&quot;<span class="n">a</span>&quot;<span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">};</span> 
+<span class="n">printf</span><span class="p">(</span>&quot;<span class="c">%s\n&quot;, middle(&amp;a)-&gt;data);</span>
+</pre></div>
+
+
+<h2 id="_1">逆序打印链表</h2>
+<p>给你链表的头结点, 逆序打印这个链表.使用递归(即让系统使用递归), 时间复杂度O(n)</p>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="nf">r_display</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">t</span><span class="p">){</span>
+        <span class="n">r_display</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span> 
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2></h2>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

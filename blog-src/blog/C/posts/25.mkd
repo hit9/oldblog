@@ -65,3 +65,68 @@ list_display(&a);
 reverse(&a); 
 list_display(&d); 
 ```
+
+## 3.查找倒数第k个元素(尾结点记为倒数第0个)
+
+算法:2个指针p, q初始化指向头结点.p先跑到k结点处, 然后q再开始跑, 当p跑到最后跑到尾巴时, q正好到达倒数第k个.
+
+```c
+node_t *_kth(node_t *head, int k)
+{
+	int i = 0; 
+	node_t *p = head, *q = head; 
+	for (; p && i < k; p = p->next, i++); 
+	if (i < k) return 0;
+	for (; p->next; p = p->next, q = q->next); 
+	return q; 
+}
+```
+测试:
+```c
+node_t d = {"d", 0}, c = {"c", &d}, b = {"b", &c}, a = {"a", &b}; 
+printf("_0 :%s _1: %s _2:%s _3:%s\n", _kth(&a, 0)->data, _kth(&a, 1)->data, _kth(&a, 2)->data, _kth(&a, 3)->data);
+```
+输出:
+```
+_0 :d _1: c _2:b _3:a
+```
+## 4.查找中间结点 
+
+找出中间的那个结点
+
+算法:设两个初始化指向头结点的指针p, q.p每次前进两个结点, q每次前进一个结点, 这样当p到达链表尾巴的时候, q到达了中间.
+
+```c
+node_t *middle(node_t *head)
+{
+	node_t *p, *q; 
+	for (p = q = head; p->next; p = p->next, q = q->next){
+		p = p->next; 
+		if (!(p->next)) break; 
+	}
+	return q; 
+}
+```
+
+测试:
+
+```
+node_t e = {"e", 0}, d = {"d", &e}, c = {"c", &d}, b = {"b", &c}, a = {"a", &b}; 
+printf("%s\n", middle(&a)->data);
+```
+
+## 逆序打印链表
+
+给你链表的头结点, 逆序打印这个链表.使用递归(即让系统使用递归), 时间复杂度O(n)
+
+```c
+void r_display(node_t *t)
+{
+	if (t){
+		r_display(t->next); 
+		printf("%s", t->data);
+	}
+}
+```
+
+## 
