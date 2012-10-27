@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>链表的各种题目整理(Simple and Brief)</title>
+<title>链表的各种题目整理(C语言实现)(Simple and Brief)</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
 <link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
@@ -28,7 +28,7 @@ Page:
 <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
 </div>
 </div>
-<h1>链表的各种题目整理(Simple and Brief)</h1>
+<h1>链表的各种题目整理(C语言实现)(Simple and Brief)</h1>
 <!--fork me on github button-->
 <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 <!--end of github fork button-->
@@ -59,6 +59,7 @@ Page:
 <li><a href="#3k0">3.查找倒数第k个元素(尾结点记为倒数第0个)</a></li>
 <li><a href="#4">4.查找中间结点</a></li>
 <li><a href="#5">5.逆序打印链表</a></li>
+<li><a href="#6">6.判断一个链表是否有环</a></li>
 </ul>
 </div>
 <h2 id="1">1.计算链表长度</h2>
@@ -159,7 +160,9 @@ Page:
 </pre></div>
 
 
-<h2></h2>
+<h2 id="6">6.判断一个链表是否有环</h2>
+<p>如果一个链表有环, 那么它肯定只有一个环.(一个相交结点)</p>
+<p>算法:设两个指针p, q, 初始化指向头.p以步长2的速度向前跑, q的步长是1.这样, 如果链表不存在环, p和q肯定不会相遇.如果存在环, p和q一定会相遇.(就像两个速度不同的汽车在一个环上跑绝对会相遇)</p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>
