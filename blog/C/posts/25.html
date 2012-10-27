@@ -172,7 +172,8 @@ Page:
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span> 
         <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="n">q</span><span class="p">)</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">//yes</span>
     <span class="p">}</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//no.</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//fail find</span>
+<span class="p">}</span>
 </pre></div>
 
 
@@ -190,7 +191,37 @@ Page:
 <p>我们设meet处相对entry的距离(沿行进方向)为x, 则有</p>
 <p>(n-d)+x = 2x   (p行进的路程是q的两倍)</p>
 <p>解得x = n-d</p>
-<p>那么当p和q在meet处相遇的时候, 从head处再发出一个步长为1的指针r, 可以知道, r和p会在entry处相遇!</p>
+<p>那么当p和q在meet处相遇的时候, 从head处再发出一个步长为1的指针r, 可以知道, r和q会在entry处相遇!</p>
+<p>算法就是:</p>
+<div class="codehilite"><pre>初始化三个指针<span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">r</span>全部指向<span class="n">head</span><span class="p">.</span> 然后<span class="n">p</span>以2的速度行进<span class="p">,</span> <span class="n">q</span>以1的速度行进<span class="p">.</span>当<span class="n">p</span>和<span class="n">q</span>相遇的时候<span class="p">,</span> 发出<span class="n">r</span>指针并以1的速度行进<span class="p">,</span> 当<span class="n">p</span>和<span class="n">r</span>相遇返回这个结点
+</pre></div>
+
+
+<p>代码:</p>
+<div class="codehilite"><pre><span class="n">node_t</span> <span class="o">*</span><span class="nf">find_entry</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="o">*</span><span class="n">r</span><span class="p">;</span> 
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">p</span> <span class="o">=</span> <span class="n">q</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span> <span class="n">p</span><span class="p">;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">){</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> 
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span> 
+        <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="n">q</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span> 
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//no ring in list</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">r</span> <span class="o">=</span> <span class="n">head</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> <span class="n">q</span> <span class="o">!=</span> <span class="n">r</span><span class="p">;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span> 
+
+    <span class="k">return</span> <span class="n">r</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>测试:</p>
+<div class="codehilite"><pre><span class="n">node_t</span> <span class="n">e</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;e&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;d&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">},</span> <span class="n">c</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;c&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">},</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">},</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">};</span> 
+<span class="n">e</span><span class="p">.</span><span class="n">next</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">;</span> 
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">find_entry</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span>
+</pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

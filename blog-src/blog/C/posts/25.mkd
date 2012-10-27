@@ -144,7 +144,8 @@ int any_ring(node_t *head)
 		if (!p) break; 
 		if (p == q) return 1; //yes
 	}
-	return 0; //no.
+	return 0; //fail find
+}
 ```
 测试:
 ```
@@ -167,4 +168,36 @@ printf("%d\n", any_ring(&a));
 
 解得x = n-d
 
-那么当p和q在meet处相遇的时候, 从head处再发出一个步长为1的指针r, 可以知道, r和p会在entry处相遇!
+那么当p和q在meet处相遇的时候, 从head处再发出一个步长为1的指针r, 可以知道, r和q会在entry处相遇!
+
+算法就是:
+
+```
+初始化三个指针p, q, r全部指向head. 然后p以2的速度行进, q以1的速度行进.当p和q相遇的时候, 发出r指针并以1的速度行进, 当p和r相遇返回这个结点
+```
+
+代码:
+```c
+node_t *find_entry(node_t *head)
+{
+	node_t *p, *q, *r; 
+	
+	for (p = q = head; p; p = p->next, q = q->next){
+		p = p->next; 
+		if (!p) break; 
+		if (p == q) break; 
+	}
+	
+	if (!p) return 0; //no ring in list
+	
+	for (r = head, q = q->next; q != r; r = r->next, q = q->next); 
+	
+	return r; 
+}
+```
+测试:
+```c
+node_t e = {"e", 0}, d = {"d", &e}, c = {"c", &d}, b = {"b", &c}, a = {"a", &b}; 
+e.next = &d; 
+printf("%s\n", find_entry(&a)->data);
+```
