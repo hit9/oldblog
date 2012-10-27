@@ -60,6 +60,7 @@ Page:
 <li><a href="#4">4.查找中间结点</a></li>
 <li><a href="#5">5.逆序打印链表</a></li>
 <li><a href="#6">6.判断一个链表是否有环</a></li>
+<li><a href="#7">7.找出链表中环的入口结点</a></li>
 </ul>
 </div>
 <h2 id="1">1.计算链表长度</h2>
@@ -180,6 +181,16 @@ Page:
 <span class="n">e</span><span class="p">.</span><span class="n">next</span> <span class="p">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span> 
 <span class="n">printf</span><span class="p">(</span>&quot;<span class="c">%d\n&quot;, any_ring(&amp;a));</span>
 </pre></div>
+
+
+<h2 id="7">7.找出链表中环的入口结点</h2>
+<p><img alt="" src="https://github.com/hit9/blog-img-store/raw/master/blog/C/25_0.png" /></p>
+<p>还是使用俩指针p和q, p扫描的步长为1, q扫描的步长为2.它们的相遇点为图中meet处(在环上).</p>
+<p>假设头指针head到入口点entry之间的距离是K.则当q入环的时候, p已经领先了q为: d = K%n(n为环的周长).</p>
+<p>我们设meet处相对entry的距离(沿行进方向)为x, 则有</p>
+<p>(n-d)+x = 2x   (p行进的路程是q的两倍)</p>
+<p>解得x = n-d</p>
+<p>那么当p和q在meet处相遇的时候, 从head处再发出一个步长为1的指针r, 可以知道, r和p会在entry处相遇!</p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

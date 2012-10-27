@@ -152,3 +152,19 @@ node_t e = {"e", 0}, d = {"d", &e}, c = {"c", &d}, b = {"b", &c}, a = {"a", &b};
 e.next = &a; 
 printf("%d\n", any_ring(&a));
 ```
+
+## 7.找出链表中环的入口结点
+
+![](https://github.com/hit9/blog-img-store/raw/master/blog/C/25_0.png)
+
+还是使用俩指针p和q, p扫描的步长为1, q扫描的步长为2.它们的相遇点为图中meet处(在环上).
+
+假设头指针head到入口点entry之间的距离是K.则当q入环的时候, p已经领先了q为: d = K%n(n为环的周长).
+
+我们设meet处相对entry的距离(沿行进方向)为x, 则有
+
+(n-d)+x = 2x   (p行进的路程是q的两倍)
+
+解得x = n-d
+
+那么当p和q在meet处相遇的时候, 从head处再发出一个步长为1的指针r, 可以知道, r和p会在entry处相遇!
