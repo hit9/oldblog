@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>n个位置上放置0和1问题</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+<script type="text/javascript">
+function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
+</script>
+</head>
+<body>
+<div id="top">
+<div id="top1">
+<a href="/index.html">Hit9</a>
+<a href="/blog/index.html">Blog</a>
+<a href="/wiki/index.html">Wiki</a>
+<a href="/project/index.html">Project</a>
+<a href="/links.html">Links</a>
+<a href="/About.html" rel="author">About</a>
+</div>
+<div id="top2">
+Page:
+<a href="index.html">First</a>
+<a href="../index.html">UP</a>
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+</div>
+</div>
+<h1>n个位置上放置0和1问题</h1>
+<!--fork me on github button-->
+<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+<!--end of github fork button-->
+<p>Date:2012-10-29</p>
+<p>好吧.貌似我最近光研究这个问题了..</p>
+<p>这个问题是<a href="/blog/Qs/posts/3.html">m个位置,每个位置上有n个可能值的排列</a>的特殊版本</p>
+<p>特殊版本必然有特殊的解决办法.</p>
+<p>另外必须要提及一个问题(来自<a href="http://segmentfault.com/q/1010000000131575">sf</a>):</p>
+<div class="codehilite"><pre>罗列出<span class="n">qwerty</span>被<span class="p">.</span>分割的所有情况：
+
+<span class="n">q</span><span class="p">.</span><span class="n">werty</span>
+<span class="n">q</span><span class="p">.</span><span class="n">w</span><span class="p">.</span><span class="n">erty</span>
+<span class="n">qw</span><span class="p">.</span><span class="n">erty</span>
+<span class="p">...</span>
+<span class="n">q</span><span class="p">.</span><span class="n">w</span><span class="p">.</span><span class="n">e</span><span class="p">.</span><span class="n">r</span><span class="p">.</span><span class="n">t</span><span class="p">.</span><span class="n">y</span>
+</pre></div>
+
+
+<p>不难发现, 这个问题要解决的就是我们这个问题:n个位置上放置0和1</p>
+<p>在这个问题中, 有个大牛给出的代码:</p>
+<div class="codehilite"><pre><span class="cp">#define z(a,b) printf(#a&quot;%s&quot;,(x&gt;&gt;b)&amp;1?&quot;.&quot;:&quot;&quot;),</span>
+<span class="n">main</span><span class="p">(</span><span class="n">x</span><span class="p">){</span><span class="n">z</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="n">z</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="n">z</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="n">z</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="n">puts</span><span class="p">(</span><span class="s">&quot;e&quot;</span><span class="p">);</span><span class="mi">16</span><span class="o">-</span><span class="n">x</span><span class="o">&amp;&amp;</span><span class="n">main</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">);}</span>
+</pre></div>
+
+
+<p>或者针对于咱们的一般化问题的话:</p>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#define N 3</span>
+<span class="n">main</span><span class="p">(</span><span class="n">x</span><span class="p">){</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>  
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">N</span><span class="p">;</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="n">i</span> <span class="o">&amp;</span><span class="mi">1</span><span class="p">),</span> <span class="n">i</span><span class="o">++</span><span class="p">);</span> 
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">N</span><span class="p">)</span><span class="o">-</span><span class="n">x</span> <span class="o">&amp;&amp;</span> <span class="n">main</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span> 
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>下面的是一个比较容易理解的函数版本</p>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span> 
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">),</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">k</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">),</span> <span class="n">k</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="o">++</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>算法思想:</p>
+<div class="codehilite"><pre>对于<span class="n">n</span>个元素的情形<span class="p">,</span> 共有2^<span class="n">n</span>个可能情况<span class="p">.</span>每个情况对应于一个二进制数<span class="p">.</span>所有的情况的二进制数是0<span class="o">~</span>2^<span class="n">n</span><span class="o">-</span>1
+对于每个比2^<span class="n">n</span>小的数<span class="nb">i</span><span class="p">:</span>
+    打印<span class="nb">i</span>的二进制形式<span class="p">,</span> 怎么打印呢<span class="p">:</span>
+    <span class="n">k</span> <span class="p">=</span> <span class="nb">i</span><span class="p">,</span> <span class="n">k</span>跟1取与操作即可得到<span class="n">k</span>的最后一位<span class="p">,</span> 然后<span class="n">k</span>右移1<span class="p">.</span>直到<span class="n">n</span>个位置全部打印
+</pre></div>
+
+
+<p>对于那个大牛代码中的一些细节:</p>
+<ol>
+<li>main(x)中的 x会初始化为1(参数个数)</li>
+<li>宏中的#作用见文章<a href="/blog/C/posts/26.html">C语言宏定义中的井号#</a></li>
+</ol>
+<div id="foot">
+<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+<a href="#">Top</a>
+<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+</div>
+<br>
+<!-- Duoshuo Comment BEGIN -->
+	<div class="ds-thread" data-thread-key="" 
+	data-title="" data-author-key="" data-url=""></div>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"hit9github"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+<div style = "text-align:center; ">
+	<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+</div>
+</body>
+</html>
