@@ -61,10 +61,11 @@ Page:
 <li><a href="#5">5.逆序打印链表</a></li>
 <li><a href="#6">6.判断一个链表是否有环</a></li>
 <li><a href="#7">7.找出链表中环的入口结点</a></li>
+<li><a href="#8">8.判断两个单链表是否相交</a></li>
 </ul>
 </div>
 <h2 id="1">1.计算链表长度</h2>
-<p>很简单:</p>
+<p>很简单:(复杂度O(n))</p>
 <div class="codehilite"><pre><span class="kt">int</span> <span class="nf">list_len</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="kt">int</span> <span class="n">i</span><span class="p">;</span> 
@@ -222,6 +223,9 @@ Page:
 <span class="n">e</span><span class="p">.</span><span class="n">next</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">;</span> 
 <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">find_entry</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span>
 </pre></div>
+
+
+<h2 id="8">8.判断两个单链表是否相交</h2>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

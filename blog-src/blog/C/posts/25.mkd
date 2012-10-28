@@ -27,7 +27,7 @@ void list_display(node_t *head)
 
 ## 1.计算链表长度
 
-很简单:
+很简单:(复杂度O(n))
 ```c
 int list_len(node_t *head)
 {
@@ -201,3 +201,5 @@ node_t e = {"e", 0}, d = {"d", &e}, c = {"c", &d}, b = {"b", &c}, a = {"a", &b};
 e.next = &d; 
 printf("%s\n", find_entry(&a)->data);
 ```
+
+## 8.判断两个单链表是否相交

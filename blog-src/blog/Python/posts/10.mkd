@@ -1,0 +1,21 @@
+%title python生成目录树
+Date:2012-10-28
+
+code:
+
+```python
+import os
+
+def tree(d, n = 0):
+	for i in os.listdir(d):
+		p = os.path.join(d,i)
+		print n*'|   '+'|__'+os.path.basename(p)
+		if os.path.isdir(p):
+			tree(p, n+1)
+
+tree('./')
+```
+不过真心不如linux下的tree命令好看!
+
+```
+```
