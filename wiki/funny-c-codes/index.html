@@ -44,6 +44,7 @@ Page:
 <li><a href="#7">7.结构体对齐问题</a></li>
 <li><a href="#8functionvoidfunction">8.function(void)与function()的区别</a></li>
 <li><a href="#9">9.宏中的#号</a></li>
+<li><a href="#10mainxx">10.main(x)中的x</a></li>
 </ul>
 </div>
 <h2 id="1">1.数组名不可以左值操作,但是..</h2>
@@ -227,6 +228,17 @@ Page:
 <p>#:在宏展开的时候会将#后面的参数替换成字符串</p>
 <p>##:将前后两个的单词拼接在一起</p>
 <p>#@:将值序列变为一个字符</p>
+<h2 id="10mainxx">10.main(x)中的x</h2>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>打印的是c文件接收到的参数的个数</p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

@@ -208,3 +208,15 @@ main(){h(abc)}
 \#\#:将前后两个的单词拼接在一起
 
 \#@:将值序列变为一个字符
+
+## 10.main(x)中的x
+
+```c
+#include <stdio.h>
+int main(x)
+{
+	printf("%d", x);
+	return 0;
+}
+```
+打印的是c文件接收到的参数的个数
