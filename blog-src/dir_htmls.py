@@ -18,7 +18,7 @@ def tree(d, fi):
 			fi.write('1. '+'['+title+']('+os.path.relpath(p, '..')+')\n')
 title_re = re.compile(r'<title>(.*)</title>')
 fi = open('dir_html.mkd', 'w')
-fi.write('%title dir_html\n')
+fi.write('%title Archives\n')
 fi.write('###Ctrl+F查找文章\n\n')
 tree('..', fi)
 fi.close()
