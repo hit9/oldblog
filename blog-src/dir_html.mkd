@@ -2,8 +2,7 @@
 
 1. [About me - Hit9](About.html)
 1. [Links](links.html)
-1. [Makefile](.html)
-1. [dir_html.mkd](dir_html.html)
+1. [dir_html###Ctrl+F查找文章](dir_html.html)
 1. [Project - Hit9](project/index.html)
 1. [Hit9 - Follow my heart](index.html)
 1. [Git](blog/Git/index.html)
