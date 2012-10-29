@@ -1,4 +1,5 @@
-%title dir_html###Ctrl+F查找文章
+%title dir_html
+###Ctrl+F查找文章
 
 1. [About me - Hit9](About.html)
 1. [Links](links.html)
