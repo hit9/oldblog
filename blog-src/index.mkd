@@ -2,7 +2,7 @@
 
 这是hit9在Github上的博客.使用Github风格的Markdown语言来写博客.
 
-这个博客使用[mkdwiki](wiki/mkdwiki)搭建的.也可以直接用[mkdblog](https://github.com/hit9/mkdblog)来搭建
+这个博客使用[mkdwiki](wiki/mkdwiki)搭建的.建议使用[mkdwiki2](https://github.com/hit9/mkdwiki2/)
 
 在github上关注这个博客:[watch it](https://github.com/hit9/hit9.github.com)
 
@@ -13,4 +13,22 @@ Simple is better than complex.
 Complex is better than complicated.
 Flat is better than nested.
 Sparse is better than dense.
+```
+ 
+伟大的老婆给翻译了:
+
+```
+
+优美胜于丑陋（Python 以编写优美的代码为目标）
+
+明了胜于晦涩（优美的代码应当是明了的，命名规范，风格相似）
+
+简洁胜于复杂（优美的代码应当是简洁的，不要有复杂的内部实现）
+
+复杂胜于凌乱（如果复杂不可避免，那代码间也不能有难懂的关系，要保持接口简洁）
+
+扁平胜于嵌套（优美的代码应当是扁平的，不能有太多的嵌套）
+
+间隔胜于紧凑（优美的代码有适当的间隔，不要奢望一行代码解决问题）
+
 ```
