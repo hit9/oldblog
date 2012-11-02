@@ -1,3 +1,4 @@
+1. [python setuptools 程序的入口脚本参数(安装工具为命令)](./posts/12.html)
 1. [python setuptools 静态文件打包](./posts/11.html)
 1. [python生成目录树](./posts/10.html)
 1. [m个a,n个b的全排列问题](./posts/9.html)

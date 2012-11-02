@@ -1,0 +1,14 @@
+%title python setuptools 程序的入口脚本参数(安装工具为命令)
+Date:2012-11-03
+
+比如我需要在为我写的程序在用户的系统中安装一个脚本作为命令.
+
+一般安装到/usr/bin或者/usr/local/bin中 
+
+```
+entry_points = {
+    'console_scripts': [
+		'命令名 = 包名.模块名:模块的函数名'
+    ]
+}
+```
