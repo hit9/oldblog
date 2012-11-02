@@ -1,0 +1,25 @@
+%title python setuptools 静态文件打包
+Date:2012-11-03
+
+比如包里的静态文件是这样的:
+
+```
+├── my_pakage/
+│   └── static/
+└── setup.py
+
+```
+
+需要在setup.py的同级目录下建立一个文件`MANIFEST.in`:
+
+```
+include my_pakage/static/*
+```
+
+当然你还可以写更多行的包含比如include my_pakage/\*.txt 等
+
+然后在setup.py的函数中加入这个参数:(注意:不用指明pakage_data参数的值了)
+
+```python
+include_package_data = True
+```
