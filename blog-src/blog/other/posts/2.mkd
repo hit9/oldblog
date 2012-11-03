@@ -1,0 +1,8 @@
+%title firefox 防止dns劫持
+Date:2012-11-04
+
+国内电信很无耻..
+
+chrome就没这个情况.(小赞一下)
+
+对于firefox,进入`about:config`,找到`network.proxy.socks_remote_dns`设置为`true`
