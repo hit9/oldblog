@@ -4,8 +4,8 @@ html{
 body{
 	margin-left:7%;
 	margin-right:7%;
-	line-height:19px; 
-	font-size:14px; 
+	line-height:19px;
+	font-size:14px;
 	font-family: "Inconsolata-g",Consolas,Liberation Mono, "Courier New", Courier,monospace;
 }
 h1{
@@ -19,11 +19,12 @@ ul{
 	font-size:14px;
 	line-height:19px;
 	overflow:scroll;
-	z-index:999;
+	z-index:11;
 	position:fixed;
 	top:40px;
 	right:3%;
 	border:solid 1px #999;
 	background-color:#fff;
 }
-
+table{ border-collapse:collapse}
+td{border:solid 1px #000; padding 4px 5px;}
