@@ -36,12 +36,12 @@ Page:
 <p>Date:2012-11-03</p>
 <p>比如我需要在为我写的程序在用户的系统中安装一个脚本作为命令.</p>
 <p>一般安装到/usr/bin或者/usr/local/bin中 </p>
-<div class="codehilite"><pre><span class="n">entry_points</span> <span class="p">=</span> <span class="p">{</span>
-    <span class="s">&#39;console_scripts&#39;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s">&#39;命令名 = 包名.模块名:模块的函数名&#39;</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-</pre></div>
+<p><code>`
+entry_points = {
+    'console_scripts': [
+        '命令名 = 包名.模块名:模块的函数名'
+    ]
+}</code></p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>
