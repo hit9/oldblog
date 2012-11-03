@@ -77,6 +77,7 @@
 1. [C语言字符串替换](blog/C/posts/13.html)
 1. [reverse singly linked list in C](blog/C/posts/21.html)
 1. [C语言数组赋值:不能一下子赋值,必须循环挨个赋值](blog/C/posts/2.html)
+1. [size_t](blog/C/posts/23.html)
 1. [C判断回文数](blog/C/posts/14.html)
 1. [gdb使用入门](blog/C/posts/17.html)
 1. [C语言整型数组赋值同一个数值](blog/C/posts/12.html)
