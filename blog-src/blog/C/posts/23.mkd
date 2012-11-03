@@ -1,0 +1,18 @@
+%title size_t
+Date:2012-11-04
+
+头文件:stddef.h
+
+size_t是typedef的类型.与操作系统有关
+
+32位机子上:
+
+```c
+typedef unsigned int size_t  //4 bit
+```
+
+64位机子上:
+
+```c
+typedef unsigned long size_t //8 bit
+```
