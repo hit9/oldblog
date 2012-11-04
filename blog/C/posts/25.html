@@ -64,6 +64,7 @@ Page:
 <li><a href="#7">7.找出链表中环的入口结点</a></li>
 <li><a href="#8">8.判断两个单链表是否相交</a></li>
 <li><a href="#9">9.找两个链表相交的交点</a></li>
+<li><a href="#10o1">10.O(1)删除结点(不给头结点)</a></li>
 </ul>
 </div>
 <h2 id="1">1.计算链表长度</h2>
@@ -277,6 +278,24 @@ Page:
 <div class="codehilite"><pre><span class="n">node_t</span> <span class="n">e</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;e&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;d&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">},</span> <span class="n">c</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;c&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">},</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">},</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">};</span> 
 <span class="n">node_t</span> <span class="n">z</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;z&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">},</span> <span class="n">y</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;y&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">z</span><span class="p">},</span> <span class="n">x</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;x&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">};</span> 
 <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">intersect_point</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span>
+</pre></div>
+
+
+<h2 id="10o1">10.O(1)删除结点(不给头结点)</h2>
+<p>其实我很反对这个做法.</p>
+<p>不给头结点的时候怎么删除一个结点d:</p>
+<div class="codehilite"><pre>把<span class="n">d</span>的下一个结点<span class="n">e</span>的数据拷贝到<span class="n">d</span>中<span class="p">,</span>然后删除<span class="n">e</span>
+</pre></div>
+
+
+<p>我认为这是个伪删除,并且这个算法无法处理d是最后一个结点的情况</p>
+<p>代码实现:</p>
+<div class="codehilite"><pre><span class="n">node_t</span> <span class="o">*</span><span class="nf">delete</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">d</span><span class="p">)</span> 
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">e</span> <span class="o">=</span> <span class="n">d</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> 
+    <span class="n">d</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">e</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span> 
+    <span class="n">d</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">e</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> 
+<span class="p">}</span>
 </pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>

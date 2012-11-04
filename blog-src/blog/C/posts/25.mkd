@@ -261,3 +261,24 @@ node_t e = {"e", 0}, d = {"d", &e}, c = {"c", &d}, b = {"b", &c}, a = {"a", &b};
 node_t z = {"z", &b}, y = {"y", &z}, x = {"x", &y}; 
 printf("%s\n", intersect_point(&a, &x)->data);
 ```
+
+## 10.O(1)删除结点(不给头结点)
+
+其实我很反对这个做法.
+
+不给头结点的时候怎么删除一个结点d:
+```
+把d的下一个结点e的数据拷贝到d中,然后删除e
+```
+我认为这是个伪删除,并且这个算法无法处理d是最后一个结点的情况
+
+代码实现:
+
+```c
+node_t *delete(node_t *d) 
+{
+	node_t *e = d->next; 
+	d->data = e->data; 
+	d->next = e->next; 
+}
+```
