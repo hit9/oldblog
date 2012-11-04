@@ -63,7 +63,7 @@ Page:
 <li><a href="#6">6.判断一个链表是否有环</a></li>
 <li><a href="#7">7.找出链表中环的入口结点</a></li>
 <li><a href="#8">8.判断两个单链表是否相交</a></li>
-<li><a href="#_1">找两个链表相交的交点</a></li>
+<li><a href="#9">9.找两个链表相交的交点</a></li>
 </ul>
 </div>
 <h2 id="1">1.计算链表长度</h2>
@@ -247,10 +247,36 @@ Page:
 </pre></div>
 
 
-<h2 id="_1">找两个链表相交的交点</h2>
-<div class="codehilite"><pre>假设两个链表<span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">.</span><span class="n">a</span>比<span class="n">b</span>长<span class="n">k</span>个结点<span class="p">(</span><span class="n">k</span><span class="o">&gt;</span><span class="p">=</span>0<span class="p">).</span>
-那么当<span class="n">a_ptr</span><span class="p">,</span><span class="n">b_ptr</span>两个指针同时分别遍历<span class="n">a</span><span class="p">,</span><span class="n">b</span>的时候<span class="p">,</span> 必然<span class="n">b_ptr</span>先到达结尾<span class="p">(</span><span class="n">NULL</span><span class="p">),</span>而此时<span class="n">a_ptr</span>落后<span class="n">a</span>的尾巴<span class="n">k</span>个结点<span class="p">.</span>
-如果此时再从<span class="n">a</span>的头发出一个指针<span class="n">t</span><span class="p">,</span>继续和<span class="n">a_ptr</span> 一起走<span class="p">,</span>当<span class="n">a_ptr</span>达到结尾<span class="p">(</span><span class="n">NULL</span><span class="p">)</span>时<span class="p">,</span><span class="n">t</span>恰好走了<span class="n">k</span>个结点<span class="p">.</span>此时从<span class="n">b</span>的头发一个指针<span class="n">s</span><span class="p">,</span> <span class="n">s</span>和<span class="n">t</span>一起走<span class="p">,</span>因为<span class="n">a</span>比<span class="n">b</span>长<span class="n">k</span>个结点<span class="p">,</span>所以<span class="p">,</span><span class="n">t</span>和<span class="n">s</span>会一起到达交点<span class="p">.</span>
+<h2 id="9">9.找两个链表相交的交点</h2>
+<p>假设两个链表a,b.a比b长k个结点(k&gt;=0).</p>
+<p>那么当a_ptr,b_ptr两个指针同时分别遍历a,b的时候, 必然b_ptr先到达结尾(NULL),而此时a_ptr落后a的尾巴k个结点.</p>
+<p>如果此时再从a的头发出一个指针t,继续和a_ptr 一起走,当a_ptr达到结尾(NULL)时,t恰好走了k个结点.此时从b的头发一个指针s, s和t一起走,因为a比b长k个结点,所以,t和s会一起到达交点.</p>
+<p>算法便是:</p>
+<div class="codehilite"><pre><span class="n">p</span><span class="p">,</span><span class="n">q</span>分别遍历链表<span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span>假设<span class="n">q</span>先到达<span class="n">NULL</span><span class="p">,</span>此时从<span class="n">a</span>的头发出一个指针<span class="n">t</span><span class="p">,</span>当<span class="n">p</span>到达<span class="n">NULL</span>时<span class="p">,</span>从<span class="n">b</span>的头发出<span class="n">s</span><span class="p">,</span>当<span class="n">s</span><span class="o">==</span><span class="n">t</span>的时候即交点<span class="p">.</span>
+</pre></div>
+
+
+<p>代码实现:
+(注,当a,b不相交,函数返回0,即相交在NULL)</p>
+<div class="codehilite"><pre><span class="n">node_t</span> <span class="o">*</span><span class="nf">intersect_point</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">node_t</span> <span class="o">*</span><span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="o">*</span><span class="n">k</span><span class="p">,</span> <span class="o">*</span><span class="n">t</span><span class="p">,</span> <span class="o">*</span><span class="n">s</span><span class="p">;</span> 
+    <span class="k">for</span> <span class="p">(</span><span class="n">p</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span> <span class="n">p</span> <span class="o">&amp;&amp;</span> <span class="n">q</span><span class="p">;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span> 
+
+    <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">?</span><span class="n">q</span><span class="o">:</span><span class="n">p</span><span class="p">;</span> <span class="c1">//k record the pointer not NULL</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">?</span><span class="n">b</span><span class="o">:</span><span class="n">a</span><span class="p">;</span> <span class="c1">//if p arrive at tail first, t = b ; else p = a</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">?</span><span class="n">a</span><span class="o">:</span><span class="n">b</span><span class="p">;</span> 
+    <span class="k">for</span> <span class="p">(;</span> <span class="n">k</span><span class="p">;</span> <span class="n">k</span> <span class="o">=</span> <span class="n">k</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span> 
+    <span class="k">for</span> <span class="p">(;</span> <span class="n">t</span> <span class="o">!=</span> <span class="n">s</span><span class="p">;</span> <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span> 
+    <span class="k">return</span> <span class="n">t</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>测试</p>
+<div class="codehilite"><pre><span class="n">node_t</span> <span class="n">e</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;e&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;d&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">},</span> <span class="n">c</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;c&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">},</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">},</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">};</span> 
+<span class="n">node_t</span> <span class="n">z</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;z&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">},</span> <span class="n">y</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;y&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">z</span><span class="p">},</span> <span class="n">x</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;x&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">};</span> 
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">intersect_point</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span>
 </pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
