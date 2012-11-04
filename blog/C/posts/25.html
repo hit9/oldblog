@@ -33,7 +33,7 @@ Page:
 <!--fork me on github button-->
 <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 <!--end of github fork button-->
-<p>Date:2012-10-27</p>
+<p>最后更新于Date:2012-11-04</p>
 <p>这里处理的全部是单链表:</p>
 <div class="codehilite"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="n">node</span> <span class="p">{</span>
     <span class="kt">char</span> <span class="o">*</span><span class="n">data</span><span class="p">;</span> 
@@ -106,7 +106,7 @@ Page:
 
 
 <h2 id="3k0">3.查找倒数第k个元素(尾结点记为倒数第0个)</h2>
-<p>算法:2个指针p, q初始化指向头结点.p先跑到k结点处, 然后q再开始跑, 当p跑到最后跑到尾巴时, q正好到达倒数第k个.</p>
+<p>算法:2个指针p, q初始化指向头结点.p先跑到k结点处, 然后q再开始跑, 当p跑到最后跑到尾巴时, q正好到达倒数第k个.复杂度O(n)</p>
 <div class="codehilite"><pre><span class="n">node_t</span> <span class="o">*</span><span class="nf">_kth</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
@@ -132,7 +132,7 @@ Page:
 
 <h2 id="4">4.查找中间结点</h2>
 <p>找出中间的那个结点</p>
-<p>算法:设两个初始化指向头结点的指针p, q.p每次前进两个结点, q每次前进一个结点, 这样当p到达链表尾巴的时候, q到达了中间.</p>
+<p>算法:设两个初始化指向头结点的指针p, q.p每次前进两个结点, q每次前进一个结点, 这样当p到达链表尾巴的时候, q到达了中间.复杂度O(n)</p>
 <div class="codehilite"><pre><span class="n">node_t</span> <span class="o">*</span><span class="nf">middle</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">node_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="o">*</span><span class="n">q</span><span class="p">;</span> 
@@ -165,7 +165,7 @@ Page:
 
 <h2 id="6">6.判断一个链表是否有环</h2>
 <p>如果一个链表有环, 那么它肯定只有一个环.(一个相交结点)</p>
-<p>算法:设两个指针p, q, 初始化指向头.p以步长2的速度向前跑, q的步长是1.这样, 如果链表不存在环, p和q肯定不会相遇.如果存在环, p和q一定会相遇.(就像两个速度不同的汽车在一个环上跑绝对会相遇)</p>
+<p>算法:设两个指针p, q, 初始化指向头.p以步长2的速度向前跑, q的步长是1.这样, 如果链表不存在环, p和q肯定不会相遇.如果存在环, p和q一定会相遇.(就像两个速度不同的汽车在一个环上跑绝对会相遇).复杂度O(n)</p>
 <div class="codehilite"><pre><span class="kt">int</span> <span class="nf">any_ring</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">node_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="o">*</span><span class="n">q</span><span class="p">;</span> 
@@ -195,7 +195,7 @@ Page:
 <p>解得x = n-d</p>
 <p>那么当p和q在meet处相遇的时候, 从head处再发出一个步长为1的指针r, 可以知道, r和q会在entry处相遇!</p>
 <p>算法就是:</p>
-<div class="codehilite"><pre>初始化三个指针<span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">r</span>全部指向<span class="n">head</span><span class="p">.</span> 然后<span class="n">p</span>以2的速度行进<span class="p">,</span> <span class="n">q</span>以1的速度行进<span class="p">.</span>当<span class="n">p</span>和<span class="n">q</span>相遇的时候<span class="p">,</span> 发出<span class="n">r</span>指针并以1的速度行进<span class="p">,</span> 当<span class="n">p</span>和<span class="n">r</span>相遇返回这个结点
+<div class="codehilite"><pre>初始化三个指针<span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">r</span>全部指向<span class="n">head</span><span class="p">.</span> 然后<span class="n">p</span>以2的速度行进<span class="p">,</span> <span class="n">q</span>以1的速度行进<span class="p">.</span>当<span class="n">p</span>和<span class="n">q</span>相遇的时候<span class="p">,</span> 发出<span class="n">r</span>指针并以1的速度行进<span class="p">,</span> 当<span class="n">p</span>和<span class="n">r</span>相遇返回这个结点<span class="p">.</span>复杂度<span class="n">O</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 </pre></div>
 
 
@@ -227,6 +227,23 @@ Page:
 
 
 <h2 id="8">8.判断两个单链表是否相交</h2>
+<p>算法:两个指针遍历这两个链表,如果他们的尾结点相同,则必定相交.复杂度O(m+n)</p>
+<p>代码实现:</p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">is_intersect</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">node_t</span> <span class="o">*</span><span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">a</span> <span class="o">||</span> <span class="o">!</span><span class="n">b</span><span class="p">)</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="c1">//a or b is NULL</span>
+    <span class="k">for</span> <span class="p">(;</span> <span class="n">a</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span> 
+    <span class="k">for</span> <span class="p">(;</span> <span class="n">b</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span> 
+    <span class="k">return</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="o">?</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">;</span> <span class="c1">//return 1 for yes, 0 for no</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>测试代码 :</p>
+<div class="codehilite"><pre><span class="n">node_t</span> <span class="n">e</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;e&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;d&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">},</span> <span class="n">c</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;c&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">},</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;b&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">},</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">};</span> 
+<span class="n">node_t</span> <span class="n">z</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;z&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">},</span> <span class="n">y</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;y&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">z</span><span class="p">},</span> <span class="n">x</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;x&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">};</span> 
+<span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">is_intersect</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">));</span>
+</pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>
