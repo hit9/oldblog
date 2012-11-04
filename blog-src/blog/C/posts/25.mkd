@@ -282,3 +282,48 @@ node_t *delete(node_t *d)
 	d->next = e->next; 
 }
 ```
+
+## 11.两个链表右对齐打印
+
+为了打印的整齐性,我们把结点存储的数据类型改为int(我们存放数字)
+
+比如两个链表`1->2->3->4->5`和`6->7->8`,我们想要打印这种效果:
+
+```
+1 2 3 4 5 
+    6 7 8 
+```
+
+算法:
+
+```
+p和q两个指针分别遍历链表a和b,假如q先到达0(即a比b长),此时由a头发出t,打印链表a,p不再移动.
+p一直移动到0,并打印空格.
+从b头发出指针s打印链表b
+```
+
+代码:
+```c
+void foo(node_t *a, node_t *b)
+{
+	node_t *p, *q, *k, *t, *s; 
+	for (p = a, q = b; p && q; p = p->next, q = q->next); 
+
+	k = p?p:q; 
+	t = p?a:b; 
+	s = p?b:a; 
+	
+	for (; t; printf("%d ", t->data), t = t->next); 
+	printf("\n");
+	for (; k; printf("  "), k = k->next); 
+	for (; s; printf("%d ", s->data), s = s->next); 
+}
+```
+
+测试:
+
+```c
+node_t e = {5, 0}, d = {4, &e}, c = {3, &d}, b = {2, &c}, a = {1, &b}; 
+node_t  o = {8, 0}, n = {7, &o}, m = {6, &n}; 
+foo(&a, &m); 
+```

@@ -65,6 +65,7 @@ Page:
 <li><a href="#8">8.判断两个单链表是否相交</a></li>
 <li><a href="#9">9.找两个链表相交的交点</a></li>
 <li><a href="#10o1">10.O(1)删除结点(不给头结点)</a></li>
+<li><a href="#11">11.两个链表右对齐打印</a></li>
 </ul>
 </div>
 <h2 id="1">1.计算链表长度</h2>
@@ -296,6 +297,46 @@ Page:
     <span class="n">d</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">e</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span> 
     <span class="n">d</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">e</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> 
 <span class="p">}</span>
+</pre></div>
+
+
+<h2 id="11">11.两个链表右对齐打印</h2>
+<p>为了打印的整齐性,我们把结点存储的数据类型改为int(我们存放数字)</p>
+<p>比如两个链表<code>1-&gt;2-&gt;3-&gt;4-&gt;5</code>和<code>6-&gt;7-&gt;8</code>,我们想要打印这种效果:</p>
+<div class="codehilite"><pre>1 2 3 4 5 
+    6 7 8 
+</pre></div>
+
+
+<p>算法:</p>
+<div class="codehilite"><pre><span class="n">p</span>和<span class="n">q</span>两个指针分别遍历链表<span class="n">a</span>和<span class="n">b</span><span class="p">,</span>假如<span class="n">q</span>先到达0<span class="p">(</span>即<span class="n">a</span>比<span class="n">b</span>长<span class="p">),</span>此时由<span class="n">a</span>头发出<span class="n">t</span><span class="p">,</span>打印链表<span class="n">a</span><span class="p">,</span><span class="n">p</span>不再移动<span class="p">.</span>
+<span class="n">p</span>一直移动到0<span class="p">,</span>并打印空格<span class="p">.</span>
+从<span class="n">b</span>头发出指针<span class="n">s</span>打印链表<span class="n">b</span>
+</pre></div>
+
+
+<p>代码:</p>
+<div class="codehilite"><pre><span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="n">node_t</span> <span class="o">*</span><span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="o">*</span><span class="n">q</span><span class="p">,</span> <span class="o">*</span><span class="n">k</span><span class="p">,</span> <span class="o">*</span><span class="n">t</span><span class="p">,</span> <span class="o">*</span><span class="n">s</span><span class="p">;</span> 
+    <span class="k">for</span> <span class="p">(</span><span class="n">p</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">b</span><span class="p">;</span> <span class="n">p</span> <span class="o">&amp;&amp;</span> <span class="n">q</span><span class="p">;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">q</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span> 
+
+    <span class="n">k</span> <span class="o">=</span> <span class="n">p</span><span class="o">?</span><span class="n">p</span><span class="o">:</span><span class="n">q</span><span class="p">;</span> 
+    <span class="n">t</span> <span class="o">=</span> <span class="n">p</span><span class="o">?</span><span class="n">a</span><span class="o">:</span><span class="n">b</span><span class="p">;</span> 
+    <span class="n">s</span> <span class="o">=</span> <span class="n">p</span><span class="o">?</span><span class="n">b</span><span class="o">:</span><span class="n">a</span><span class="p">;</span> 
+
+    <span class="k">for</span> <span class="p">(;</span> <span class="n">t</span><span class="p">;</span> <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d &quot;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">),</span> <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span> 
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+    <span class="k">for</span> <span class="p">(;</span> <span class="n">k</span><span class="p">;</span> <span class="n">printf</span><span class="p">(</span><span class="s">&quot;  &quot;</span><span class="p">),</span> <span class="n">k</span> <span class="o">=</span> <span class="n">k</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span> 
+    <span class="k">for</span> <span class="p">(;</span> <span class="n">s</span><span class="p">;</span> <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d &quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">),</span> <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>测试:</p>
+<div class="codehilite"><pre><span class="n">node_t</span> <span class="n">e</span> <span class="o">=</span> <span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">},</span> <span class="n">c</span> <span class="o">=</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">},</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">},</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">};</span> 
+<span class="n">node_t</span>  <span class="n">o</span> <span class="o">=</span> <span class="p">{</span><span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="n">n</span> <span class="o">=</span> <span class="p">{</span><span class="mi">7</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">o</span><span class="p">},</span> <span class="n">m</span> <span class="o">=</span> <span class="p">{</span><span class="mi">6</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">};</span> 
+<span class="n">foo</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">);</span> 
 </pre></div>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
