@@ -13,3 +13,4 @@
 * [NCURSES Programming HOWTO](http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/)
 * [ Bit Twiddling Hacks ](http://graphics.stanford.edu/~seander/bithacks.html)
 * [The GNU C Programming Tutorial](http://crasseux.com/books/ctutorial/)
+* [HACKMEN](http://www.inwap.com/pdp10/hbaker/hakmem/hakmem.html)
