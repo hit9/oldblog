@@ -22,7 +22,7 @@ C语言中位运算有: and ,or , xor, not ,shift left,shift right
 
 ## 2.基本技巧
 
-### 1.取反操作
+### 1.一些等式
 ** ~a+1=-a **(负数的表示是:取反再加一)
 
 ** ~(a-1)=-a **(由上)
@@ -30,8 +30,6 @@ C语言中位运算有: and ,or , xor, not ,shift left,shift right
 ** ~(a+b)=~a+~b+1 **
 
 证明:~(a+b)=-(a+b)-1=(-a-1)+(-b-1)+1=~a+~b+1 (依据公式~a=-a-1)
-
-### 2.异或操作
 
 ** a^a=0 **
 
@@ -48,3 +46,5 @@ C语言中位运算有: and ,or , xor, not ,shift left,shift right
 ** (a-1)^(-a)=-1 **
 
 证明:令b=-a 即证 (-b-1)^b=-1 即证 ~b^b=-1 : ~b^b=~(b^b)=~0=-1
+
+
