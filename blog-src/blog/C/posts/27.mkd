@@ -41,7 +41,7 @@ C语言中位运算有: and ,or , xor, not ,shift left,shift right
 
 ** (~a)^b=a^(~b)=~(a^b) **(可以枚举归纳证之)
 
-** c=a^b => b=a^c
+** c=a^b => b=a^c **
 
 证:c=a^b => a^c=a^a^b => a^c=0^b => a^c=b
 
