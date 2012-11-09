@@ -37,7 +37,11 @@ Page:
 <div class="toc">
 <ul>
 <li><a href="#1">1.位运算基本</a></li>
-<li><a href="#2">2.基本技巧</a></li>
+<li><a href="#2">2.基本技巧</a><ul>
+<li><a href="#1_1">1.取反操作</a></li>
+<li><a href="#2_1">2.异或操作</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <h2 id="1">1.位运算基本</h2>
@@ -57,10 +61,16 @@ Page:
 </pre>
 
 <h2 id="2">2.基本技巧</h2>
+<h3 id="1_1">1.取反操作</h3>
 <p><strong> ~a+1=-a </strong>(负数的表示是:取反再加一)</p>
 <p><strong> ~(a-1)=-a </strong>(由上)</p>
 <p><strong> ~(a+b)=~a+~b+1 </strong></p>
 <p>证明:~(a+b)=-(a+b)-1=(-a-1)+(-b-1)+1=~a+~b+1 (依据公式~a=-a-1)</p>
+<h3 id="2_1">2.异或操作</h3>
+<p><strong> a^a=0 </strong></p>
+<p><strong> a^b=b^a </strong> (交换律)</p>
+<p><strong> (a^b)^c=a^(b^c) </strong>(结合律)</p>
+<p>** </p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>
