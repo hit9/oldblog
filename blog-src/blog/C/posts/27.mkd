@@ -39,4 +39,12 @@ C语言中位运算有: and ,or , xor, not ,shift left,shift right
 
 ** (a^b)^c=a^(b^c) **(结合律)
 
-** 
+** (~a)^b=a^(~b)=~(a^b) **(可以枚举归纳证之)
+
+** c=a^b => b=a^c
+
+证:c=a^b => a^c=a^a^b => a^c=0^b => a^c=b
+
+** (a-1)^(-a)=-1 **
+
+证明:令b=-a 即证 (-b-1)^b=-1 即证 ~b^b=-1 : ~b^b=~(b^b)=~0=-1
