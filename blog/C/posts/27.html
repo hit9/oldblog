@@ -51,7 +51,9 @@
 <li><a href="#1_2">1.整数奇偶性判断</a></li>
 <li><a href="#2_3">2.判断整数的符号</a></li>
 <li><a href="#3">3.计算整数的绝对值</a></li>
-<li><a href="#4">4.</a></li>
+<li><a href="#4">4.不用临时变量交换两个整数变量</a></li>
+<li><a href="#52">5.判断整数是不是2的整数幂</a></li>
+<li><a href="#6">6.左移, 右移</a></li>
 </ul>
 </li>
 </ul>
@@ -89,7 +91,7 @@
 </pre></div>
 
 
-<p>or: 可以把位元强制转1</p>
+<p>or: 可以把位元强制置1</p>
 <p>例如, 我们把整数n的第五位标1: n|(1 &lt;&lt; 4)</p>
 <p>xor: 0^1 =&gt; 1, 1^1 =&gt; 0, 可以看出异或可以颠倒位元的值</p>
 <p>例如我们要把n的第五位颠倒:n^(1 &lt;&lt; 4)</p>
@@ -131,7 +133,26 @@
 
 <p>当n是非负整数的时候, n^0 = n = abs(n)</p>
 <p>当n是负数的时候, (n-1)^-1 = -n = abs(n)</p>
-<h4 id="4">4.</h4>
+<h4 id="4">4.不用临时变量交换两个整数变量</h4>
+<div class="codehilite"><pre><span class="cp">#define SWAP(x, y) (x) ^= (y) ^= (x) ^= (y)</span>
+</pre></div>
+
+
+<p>或者更'详细'些:</p>
+<div class="codehilite"><pre><span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">^</span><span class="n">b</span><span class="p">;</span> 
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">^</span><span class="n">b</span><span class="p">;</span> 
+<span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="o">^</span><span class="n">b</span><span class="p">;</span> 
+</pre></div>
+
+
+<p>证明 :令t = a, s = b.用t, s保留原值.</p>
+<p>a = a^b  =&gt; a = t^s</p>
+<p>b = a^b  =&gt; b = (t^s)^s = t^(s^s) = t^0 = t</p>
+<p>a = a^b  =&gt; a = (t^s)^t = s^(t^t) = s</p>
+<h4 id="52">5.判断整数是不是2的整数幂</h4>
+<p>x &amp; (x&amp;(x-1))</p>
+<h4 id="6">6.左移, 右移</h4>
+<p>左移1位相当于乘以2, 右移相当于除以2</p>
 		</div>
 		<div id="foot">
 			<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
