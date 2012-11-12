@@ -76,9 +76,7 @@
 </pre>
 
 <h4 id="2">2.各自特色</h4>
-<ol>
-<li>and: 可以判断出位元是不是1, 可以强制标0</li>
-</ol>
+<p>and: 可以判断出位元是不是1, 可以强制标0</p>
 <p>例如对整数n的位元中是1的计数:</p>
 <div class="codehilite"><pre><span class="cp">#define INT_BITS sizeof(int)*8  </span><span class="c1">//number of bits of integer</span>
 <span class="kt">int</span> <span class="nf">count_bit_1</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
@@ -91,13 +89,9 @@
 </pre></div>
 
 
-<ol>
-<li>or: 可以把位元强制转1</li>
-</ol>
+<p>or: 可以把位元强制转1</p>
 <p>例如, 我们把整数n的第五位标1: n|(1 &lt;&lt; 4)</p>
-<ol>
-<li>xor: 0^1 =&gt; 1, 1^1 =&gt; 0, 可以看出异或可以颠倒位元的值</li>
-</ol>
+<p>xor: 0^1 =&gt; 1, 1^1 =&gt; 0, 可以看出异或可以颠倒位元的值</p>
 <p>例如我们要把n的第五位颠倒:n^(1 &lt;&lt; 4)</p>
 <h2 id="2_1">2.基本技巧</h2>
 <h3 id="1_1">1.一些等式</h3>
