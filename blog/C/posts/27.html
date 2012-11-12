@@ -40,6 +40,11 @@ Page:
 <li><a href="#1">1.位运算基本</a></li>
 <li><a href="#2">2.基本技巧</a><ul>
 <li><a href="#1_1">1.一些等式</a></li>
+<li><a href="#2_1">2.应用技巧</a><ul>
+<li><a href="#1_2">1.整数奇偶性判断</a></li>
+<li><a href="#2_2">2.判断整数的符号</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -74,6 +79,19 @@ Page:
 <p>证:c=a^b =&gt; a^c=a^a^b =&gt; a^c=0^b =&gt; a^c=b</p>
 <p><strong> (a-1)^(-a)=-1 </strong></p>
 <p>证明:令b=-a 即证 (-b-1)^b=-1 即证 ~b^b=-1 : ~b^b=~(b^b)=~0=-1</p>
+<h3 id="2_1">2.应用技巧</h3>
+<h4 id="1_2">1.整数奇偶性判断</h4>
+<p>a&amp;1可以判断a的奇偶性.二进制的末位为1表示为奇数,否则偶数</p>
+<h4 id="2_2">2.判断整数的符号</h4>
+<div class="codehilite"><pre><span class="cp">#define INT_BITS sizeof(int)*8  </span><span class="c1">//number of bits of integer</span>
+<span class="kt">int</span> <span class="nf">signof</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">INT_BITS</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>返回-1表示负数,返回0表示非负数</p>
 <div id="foot">
 <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
 <a href="#">Top</a>

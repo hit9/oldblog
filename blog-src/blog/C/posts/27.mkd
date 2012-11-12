@@ -47,4 +47,20 @@ C语言中位运算有: and ,or , xor, not ,shift left,shift right
 
 证明:令b=-a 即证 (-b-1)^b=-1 即证 ~b^b=-1 : ~b^b=~(b^b)=~0=-1
 
+### 2.应用技巧
 
+#### 1.整数奇偶性判断
+
+a&1可以判断a的奇偶性.二进制的末位为1表示为奇数,否则偶数
+
+#### 2.判断整数的符号
+
+```c
+#define INT_BITS sizeof(int)*8  //number of bits of integer
+int signof(int n)
+{
+	return n >> INT_BITS-1; 
+}
+```
+
+返回-1表示负数,返回0表示非负数
