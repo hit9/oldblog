@@ -4,6 +4,9 @@ Date:2012-11-08
 [TOC]
 
 ## 1.位运算基本
+
+#### 1.overview
+
 C语言中位运算有: and ,or , xor, not ,shift left,shift right
 
 <pre style="text-align:center">
@@ -19,6 +22,32 @@ C语言中位运算有: and ,or , xor, not ,shift left,shift right
 | 1 | 1 |  1  |  1  |  0  | 0  |
 +---+---+-----+-----+-----+----+
 </pre>
+
+#### 2.各自特色
+
+1. and: 可以判断出位元是不是1, 可以强制标0
+
+例如对整数n的位元中是1的计数:
+
+```c
+#define INT_BITS sizeof(int)*8  //number of bits of integer
+int count_bit_1(int n)
+{
+	int i, j; 
+	for (i = 0, j = 0; i < INT_BITS; i++)
+		if (n & (1  << i)) j++; 
+	return j; 
+}
+
+```
+
+2. or: 可以把位元强制转1
+
+例如, 我们把整数n的第五位标1: n|(1 << 4)
+
+3. xor: 0^1 => 1, 1^1 => 0, 可以看出异或可以颠倒位元的值
+
+例如我们要把n的第五位颠倒:n^(1 << 4)
 
 ## 2.基本技巧
 
@@ -65,4 +94,18 @@ int signof(int n)
 
 返回-1表示负数,返回0表示非负数
 
-#### 3.
+#### 3.计算整数的绝对值
+
+```c
+int abs(int n)
+{
+	int sign = n >> INT_BITS-1; 
+	return (n+sign)^sign; 
+}
+```
+
+当n是非负整数的时候, n^0 = n = abs(n)
+
+当n是负数的时候, (n-1)^-1 = -n = abs(n)
+
+#### 4.

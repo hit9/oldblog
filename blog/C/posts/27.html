@@ -38,13 +38,20 @@
 			<p>Date:2012-11-08</p>
 <div class="toc">
 <ul>
-<li><a href="#1">1.位运算基本</a></li>
-<li><a href="#2">2.基本技巧</a><ul>
+<li><a href="#1">1.位运算基本</a><ul>
+<li><a href="#1overview">1.overview</a><ul>
+<li><a href="#2">2.各自特色</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#2_1">2.基本技巧</a><ul>
 <li><a href="#1_1">1.一些等式</a></li>
-<li><a href="#2_1">2.应用技巧</a><ul>
+<li><a href="#2_2">2.应用技巧</a><ul>
 <li><a href="#1_2">1.整数奇偶性判断</a></li>
-<li><a href="#2_2">2.判断整数的符号</a></li>
-<li><a href="#3">3.</a></li>
+<li><a href="#2_3">2.判断整数的符号</a></li>
+<li><a href="#3">3.计算整数的绝对值</a></li>
+<li><a href="#4">4.</a></li>
 </ul>
 </li>
 </ul>
@@ -52,6 +59,7 @@
 </ul>
 </div>
 <h2 id="1">1.位运算基本</h2>
+<h4 id="1overview">1.overview</h4>
 <p>C语言中位运算有: and ,or , xor, not ,shift left,shift right</p>
 <pre style="text-align:center">
 +---+---+-----+-----+-----+----+
@@ -67,7 +75,31 @@
 +---+---+-----+-----+-----+----+
 </pre>
 
-<h2 id="2">2.基本技巧</h2>
+<h4 id="2">2.各自特色</h4>
+<ol>
+<li>and: 可以判断出位元是不是1, 可以强制标0</li>
+</ol>
+<p>例如对整数n的位元中是1的计数:</p>
+<div class="codehilite"><pre><span class="cp">#define INT_BITS sizeof(int)*8  </span><span class="c1">//number of bits of integer</span>
+<span class="kt">int</span> <span class="nf">count_bit_1</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span> 
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">INT_BITS</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span>  <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">))</span> <span class="n">j</span><span class="o">++</span><span class="p">;</span> 
+    <span class="k">return</span> <span class="n">j</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<ol>
+<li>or: 可以把位元强制转1</li>
+</ol>
+<p>例如, 我们把整数n的第五位标1: n|(1 &lt;&lt; 4)</p>
+<ol>
+<li>xor: 0^1 =&gt; 1, 1^1 =&gt; 0, 可以看出异或可以颠倒位元的值</li>
+</ol>
+<p>例如我们要把n的第五位颠倒:n^(1 &lt;&lt; 4)</p>
+<h2 id="2_1">2.基本技巧</h2>
 <h3 id="1_1">1.一些等式</h3>
 <p><strong> ~a+1=-a </strong>(求相反数是:取反再加一)</p>
 <p><strong> ~(a+b)=~a+~b+1 </strong></p>
@@ -81,10 +113,10 @@
 <p>证:c=a^b =&gt; a^c=a^a^b =&gt; a^c=0^b =&gt; a^c=b</p>
 <p><strong> (a-1)^(-a)=-1 </strong></p>
 <p>证明:令b=-a 即证 (-b-1)^b=-1 即证 ~b^b=-1 : ~b^b=~(b^b)=~0=-1</p>
-<h3 id="2_1">2.应用技巧</h3>
+<h3 id="2_2">2.应用技巧</h3>
 <h4 id="1_2">1.整数奇偶性判断</h4>
 <p>a&amp;1可以判断a的奇偶性.二进制的末位为1表示为奇数,否则偶数</p>
-<h4 id="2_2">2.判断整数的符号</h4>
+<h4 id="2_3">2.判断整数的符号</h4>
 <div class="codehilite"><pre><span class="cp">#define INT_BITS sizeof(int)*8  </span><span class="c1">//number of bits of integer</span>
 <span class="kt">int</span> <span class="nf">signof</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>
@@ -94,7 +126,18 @@
 
 
 <p>返回-1表示负数,返回0表示非负数</p>
-<h4 id="3">3.</h4>
+<h4 id="3">3.计算整数的绝对值</h4>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">abs</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">sign</span> <span class="o">=</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">INT_BITS</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> 
+    <span class="k">return</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="n">sign</span><span class="p">)</span><span class="o">^</span><span class="n">sign</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>当n是非负整数的时候, n^0 = n = abs(n)</p>
+<p>当n是负数的时候, (n-1)^-1 = -n = abs(n)</p>
+<h4 id="4">4.</h4>
 		</div>
 		<div id="foot">
 			<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
