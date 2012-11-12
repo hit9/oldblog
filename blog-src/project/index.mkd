@@ -1,4 +1,7 @@
 %title Project - Hit9
+
+我的开源项目:
+
 1. [mkdwiki2](https://github.com/hit9/mkdwiki2) (Write wiki in Github Favorite Markdown. )
 
 1. [mkdwiki](../wiki/mkdwiki/index.html) (mkdwiki是一个python语言编写的基于目录的用来组织wiki的小工具,特色在于Github风格的有界代码高亮和模板支持,本站基于mkdwiki.It is old! See mkdwiki2)
@@ -10,3 +13,9 @@
 1. [litephp](../wiki/litephp) (应用于php-mysql开发模式的简单mvc框架.集成了连贯操作的数据库操作类,输入格式检查类和模板引擎.)
 
 1. [C-list](../wiki/C-list) (单链表的C语言封装)
+
+承接以下付费项目:
+
+1. wordpress的chrome推送插件 案例:[值得买](http://www.zdmai.cn/2106.html)
+2. PHP小型网站开发(具体需要详细商议)
+3. 单页导航网站 案例(开源的) [软件博客导航](http://www.hit9.net/daohang)
