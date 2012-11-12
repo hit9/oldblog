@@ -1,40 +1,41 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<title>约瑟夫问题过程模拟</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
-<link rel="stylesheet" href="../../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
-<script type="text/javascript">
-function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
-</script>
-</head>
-<body>
-<div id="top">
-<div id="top1">
-<a href="/index.html">Hit9</a>
-<a href="/blog/index.html">Blog</a>
-<a href="/wiki/index.html">Wiki</a>
-<a href="/project/index.html">Project</a>
-<a href="/links.html">Links</a>
-<a href="/dir_html.html">Archives</a>
-<a href="/About.html" rel="author">About</a>
-</div>
-<div id="top2">
-Page:
-<a href="index.html">First</a>
-<a href="../index.html">UP</a>
-<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
-<a href="javascript:void(0);" onclick="gotonext()">Next</a>
-<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
-</div>
-</div>
-<h1>约瑟夫问题过程模拟</h1>
-<!--fork me on github button-->
-<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
-<!--end of github fork button-->
-<p>允许转载, 但转载请注明出处</p>
-<p>Date:2012-10-26</p>
+	<head>
+		<title>约瑟夫问题过程模拟</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="../../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
+		<script type="text/javascript">
+			function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
+		</script>
+	</head>
+	<body itemscope itemtype="http://schema.org/BlogPosting">
+		<div id="top">
+			<div id="top1">
+				<a href="/index.html">Hit9</a>
+				<a href="/blog/index.html">Blog</a>
+				<a href="/wiki/index.html">Wiki</a>
+				<a href="/project/index.html">Project</a>
+				<a href="/links.html">Links</a>
+				<a href="/dir_html.html">Archives</a>
+				<a href="/About.html" rel="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person" >About</a>
+			</div>
+			<div id="top2">
+				Page:
+				<a href="index.html">First</a>
+				<a href="../index.html">UP</a>
+				<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+				<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+				<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+			</div>
+		</div>
+		<h1 itemprop="headline">约瑟夫问题过程模拟</h1>
+		<!--fork me on github button-->
+		<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+		<!--end of github fork button-->
+		<p itemprop="copyrightHolder">允许转载, 但转载请注明出处</p>
+		<div itemprop="articleBody">
+			<p>Date:2012-10-26</p>
 <p>约瑟夫问题很老很老的问题啦....</p>
 <p>问题描述:</p>
 <div class="codehilite"><pre>约瑟夫环是一个数学的应用问题：已知<span class="n">n</span>个人（以编号1，2，3<span class="p">...</span><span class="n">n</span>分别表示）围坐在一张圆桌周围。从编号为<span class="n">k</span>的人开始报数，数到<span class="n">m</span>的那个人出列；他的下一个人又从1开始报数，数到<span class="n">m</span>的那个人又出列；依此规律重复下去，直到圆桌周围的人全部出列
@@ -82,29 +83,30 @@ Page:
     <span class="k">except</span><span class="p">:</span>
         <span class="n">i</span> <span class="o">=</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 </pre></div>
-<div id="foot">
-<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
-<a href="#">Top</a>
-<a href="javascript:void(0);" onclick="gotonext()">Next</a>
-</div>
-<br>
-<!-- Duoshuo Comment BEGIN -->
-	<div class="ds-thread" data-thread-key="" 
-	data-title="" data-author-key="" data-url=""></div>
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"hit9github"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = 'http://static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		|| document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-<!-- Duoshuo Comment END -->
-<div style = "text-align:center; ">
-	<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
-</div>
-</body>
+		</div>
+		<div id="foot">
+			<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+			<a href="#">Top</a>
+			<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+		</div>
+		<br>
+		<!-- Duoshuo Comment BEGIN -->
+		<div class="ds-thread" data-thread-key="" 
+			data-title="" data-author-key="" data-url=""></div>
+		<script type="text/javascript">
+			var duoshuoQuery = {short_name:"hit9github"};
+			(function() {
+				var ds = document.createElement('script');
+				ds.type = 'text/javascript';ds.async = true;
+				ds.src = 'http://static.duoshuo.com/embed.js';
+				ds.charset = 'UTF-8';
+				(document.getElementsByTagName('head')[0] 
+				|| document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+		</script>
+		<!-- Duoshuo Comment END -->
+		<div style = "text-align:center; ">
+			<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+		</div>
+	</body>
 </html>
