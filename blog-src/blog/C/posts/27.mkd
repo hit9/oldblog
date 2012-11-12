@@ -136,3 +136,9 @@ x & (x&(x-1))
 
 #### 6.左移, 右移
 左移1位相当于乘以2, 右移相当于除以2
+
+## 3.推荐链接
+
+[The Aggregate Magic Algorithms ](http://aggregate.org/MAGIC)
+
+[Bit Twidding Hacks](http://graphics.stanford.edu/~seander/bithacks.html)
