@@ -1,0 +1,10 @@
+%title vim插件之easymotion
+Date:2012-11-22
+
+这个插件很好玩..
+
+用vimperator的人都知道,vimperator里面可以按下f键快速对网页元素做标记.
+
+[easymotion](https://github.com/Lokaltog/vim-easymotion)就是做这个的.
+
+![](https://github.com/hit9/blog-img-store/raw/master/blog/vim/8_0.png)
