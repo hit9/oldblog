@@ -1,0 +1,16 @@
+%title vim插件之syntastic
+Date:2012-11-22
+
+syntastic是一款查错插件.你每次:w保存文件都会引起这个插件的查错操作
+
+支持几乎所有的主流语言.
+
+安装:(use bundle)
+
+```
+cd ~/.vim/bundle
+git clone https://github.com/scrooloose/syntastic
+```
+很简单的插件.也很好用:
+
+![](https://github.com/scrooloose/syntastic/raw/master/_assets/screenshot_1.png)
