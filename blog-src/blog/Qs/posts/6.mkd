@@ -1,0 +1,56 @@
+%title N对括号做排列,打印所有合法情形
+Date:2012-11-22
+
+原题目为:
+
+>左“{”，右”}"括号各N个，请打印出所有正确的组合，比如当N=3，{}{}{}，{{{}}}，等为正确的组合。如果写的代码是recursive，能否用iterative再写一个；反之亦然。
+
+来自新浪weibo: [@陈利人](http://weibo.com/1915548291/z5J3dsL8M)
+
+不过我只采用递归了.C版本:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+void foo(char *buf, int pairs, int open, int close, int pos)
+{
+	if (open == pairs && close == pairs){
+		puts(buf); 
+		return; 
+	}
+	
+	if (open < pairs){
+		buf[pos] = '('; 
+		foo(buf, pairs, open+1, close, pos+1); 
+	}
+	
+	if (close < open){
+		buf[pos] = ')'; 
+		foo(buf, pairs, open, close+1, pos+1); 
+	}
+}
+
+int main()
+{
+	int pairs = 4; 
+	char buf[8] = {0}; //size = 2*pairs
+	foo(buf, pairs, 0, 0, 0); 
+	return 0;
+}
+```
+
+python 版本:
+
+```python
+def foo(output, open, close, pairs):
+	if open == pairs and close == pairs:
+		print output
+	else:
+		if open<pairs:
+			foo(output+'(', open+1, close, pairs)
+		if close<open:
+			foo(output+')', open, close+1, pairs)
+
+foo('', 0, 0, 3)
+```
