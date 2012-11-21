@@ -1,0 +1,4 @@
+%title SIOCSIFFLAGS: Operation not possible due to RF-kill
+Date:2012-11-21
+
+因为我是win7+Arch双系统.所以只要去win下开启无线即可..
