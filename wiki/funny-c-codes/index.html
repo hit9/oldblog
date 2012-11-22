@@ -48,6 +48,7 @@
 <li><a href="#8functionvoidfunction">8.function(void)与function()的区别</a></li>
 <li><a href="#9">9.宏中的#号</a></li>
 <li><a href="#10mainxx">10.main(x)中的x</a></li>
+<li><a href="#11c">11.编译的时候再输入C代码</a></li>
 </ul>
 </div>
 <h2 id="1">1.数组名不可以左值操作,但是..</h2>
@@ -242,6 +243,42 @@
 
 
 <p>打印的是c文件接收到的参数的个数</p>
+<h2 id="11c">11.编译的时候再输入C代码</h2>
+<p>写一个一行C程序1.c:</p>
+<div class="codehilite"><pre><span class="cp">#include &quot;/dev/tty&quot;</span>
+</pre></div>
+
+
+<p>然后编译它:</p>
+<div class="codehilite"><pre><span class="n">cc</span> 1<span class="p">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> 1
+</pre></div>
+
+
+<p>会发现在编译的时候可以输入.那么我们输入一段c代码:</p>
+<div class="codehilite"><pre><span class="n">int</span> <span class="n">main</span><span class="p">(){</span>
+    <span class="n">printf</span><span class="p">(</span>&quot;<span class="n">hello</span>&quot;<span class="p">);</span> 
+    <span class="k">return</span> 0<span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>按下Ctrl-D结束输入</p>
+<p>测试结果 :</p>
+<div class="codehilite"><pre>$ <span class="n">cc</span> 1<span class="p">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> 1
+<span class="n">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span>&quot;<span class="n">hello</span>&quot;<span class="p">);</span>
+    <span class="k">return</span> 0<span class="p">;</span>
+<span class="p">}</span>
+<span class="n">In</span> <span class="n">file</span> <span class="n">included</span> <span class="n">from</span> 1<span class="p">.</span><span class="n">c</span><span class="p">:</span>1<span class="p">:</span>0<span class="p">:</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">tty</span><span class="p">:</span> <span class="n">In</span> <span class="k">function</span> ‘<span class="n">main</span>’<span class="p">:</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">tty</span><span class="p">:</span>3<span class="p">:</span>5<span class="p">:</span> <span class="n">warning</span><span class="p">:</span> <span class="n">incompatible</span> <span class="n">implicit</span> <span class="n">declaration</span> <span class="n">of</span> <span class="n">built</span><span class="o">-</span><span class="n">in</span> <span class="k">function</span> ‘<span class="n">printf</span>’ <span class="p">[</span><span class="n">enabled</span> <span class="n">by</span> <span class="n">default</span><span class="p">]</span>
+$<span class="o">./</span>1
+<span class="n">hello</span>$
+</pre></div>
+
+
+<p>来自<a href="http://stackoverflow.com/questions/1512864/how-to-write-program-during-compiling">stackoverflow</a></p>
 		</div>
 		<div id="foot">
 			<a href="javascript:void(0);" onclick="gotopre();">Pre</a>

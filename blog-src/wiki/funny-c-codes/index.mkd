@@ -220,3 +220,44 @@ int main(x)
 }
 ```
 打印的是c文件接收到的参数的个数
+
+## 11.编译的时候再输入C代码
+
+写一个一行C程序1.c:
+
+```c
+#include "/dev/tty"
+```
+
+然后编译它:
+
+```
+cc 1.c -o 1
+```
+
+会发现在编译的时候可以输入.那么我们输入一段c代码:
+
+```
+int main(){
+	printf("hello"); 
+	return 0; 
+}
+```
+按下Ctrl-D结束输入
+
+测试结果 :
+```
+$ cc 1.c -o 1
+int main()
+{
+    printf("hello");
+    return 0;
+}
+In file included from 1.c:1:0:
+/dev/tty: In function ‘main’:
+/dev/tty:3:5: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+$./1
+hello$
+```
+
+来自[stackoverflow](http://stackoverflow.com/questions/1512864/how-to-write-program-during-compiling)
