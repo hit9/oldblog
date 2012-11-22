@@ -261,3 +261,9 @@ hello$
 ```
 
 来自[stackoverflow](http://stackoverflow.com/questions/1512864/how-to-write-program-during-compiling)
+
+同样的还有
+
+```c
+#include "/dev/stdin"
+```
