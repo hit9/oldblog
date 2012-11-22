@@ -1,3 +1,4 @@
+1. [python判断字符串是不是一个数字](./posts/13.html)
 1. [python setuptools 程序的入口脚本参数(安装工具为命令)](./posts/12.html)
 1. [python setuptools 静态文件打包](./posts/11.html)
 1. [python生成目录树](./posts/10.html)

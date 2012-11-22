@@ -1,0 +1,6 @@
+%title python判断字符串是不是一个数字
+Date:2012-11-23
+
+```python
+'12'.isdigit()
+```
