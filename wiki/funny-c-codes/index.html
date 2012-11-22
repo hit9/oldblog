@@ -51,6 +51,7 @@
 <li><a href="#11c">11.编译的时候再输入C代码</a></li>
 <li><a href="#12">12.看似错误的语法</a></li>
 <li><a href="#13">13.逗号运算符的用处</a></li>
+<li><a href="#14printffloat">14.printf打印float时怎么动态确定打印几位呢</a></li>
 </ul>
 </div>
 <h2 id="1">1.数组名不可以左值操作,但是..</h2>
@@ -311,6 +312,20 @@ $<span class="o">./</span>1
 
 <p>会是3 </p>
 <p><strong>带逗号的表达式会返回最后一个的执行结果</strong></p>
+<h2 id="14printffloat">14.printf打印float时怎么动态确定打印几位呢</h2>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">6.412355</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%.*f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>输出是6.4124</p>
+<p>其中<code>*</code>号起了作用</p>
 		</div>
 		<div id="foot">
 			<a href="javascript:void(0);" onclick="gotopre();">Pre</a>

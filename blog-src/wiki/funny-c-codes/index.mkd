@@ -296,3 +296,20 @@ main()
 会是3 
 
 **带逗号的表达式会返回最后一个的执行结果**
+
+## 14.printf打印float时怎么动态确定打印几位呢
+
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 4;
+    float b = 6.412355;
+    printf("%.*f\n",a,b);
+    return 0;
+}
+```
+
+输出是6.4124
+
+其中`*`号起了作用
