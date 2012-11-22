@@ -662,6 +662,13 @@ print type(False)#<type 'bool'>
 print type(1.1)#<type 'float'>
 print type(lambda :1)#<type 'function'>
 ```
+
+判断a是不是str类型:
+
+```python
+>>> type(a) is str
+```
+
 ###3.len(dict/str/list/tupple/set)
 len()的参数是序列或者字典,集合.返回参数的长度(元素个数). 
 
@@ -811,6 +818,7 @@ print isinstance(a,A),isinstance(a,B)#True False
 ```python
 print isinstance('',basestring),isinstance({},dict),isinstance([],list),isinstance(1,int),isinstance(True,bool)
 ```
+但是用type和isinstance来判断类型是不同的:见[link]()
 
 ## 23.获取外部参数
 

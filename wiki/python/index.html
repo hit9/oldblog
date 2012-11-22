@@ -747,6 +747,11 @@
 </pre></div>
 
 
+<p>判断a是不是str类型:</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span>
+</pre></div>
+
+
 <h3 id="3lendictstrlisttuppleset">3.len(dict/str/list/tupple/set)</h3>
 <p>len()的参数是序列或者字典,集合.返回参数的长度(元素个数). </p>
 <h3 id="4rangestartendstep">4.range([start,]end[,step])</h3>
@@ -888,6 +893,7 @@ xrange()返回的对象有 <code>__iter__()</code>方法 </p>
 </pre></div>
 
 
+<p>但是用type和isinstance来判断类型是不同的:见<a href="">link</a></p>
 <h2 id="23">23.获取外部参数</h2>
 <p>就像我们使用Git的时候,git clone 让git接收一个参数为:clone</p>
 <p>我们想要让foo.py接收python foo.py args 的args参数.</p>

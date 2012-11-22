@@ -1,0 +1,17 @@
+%title python判断类型二法
+Date:2012-11-23
+
+常见的两个方法是:(比如判断a是不是str)
+
+使用type():
+```python
+>>> type(a) is str
+```
+
+使用isinstance()
+```python
+>>> isinstance(a,str)
+```
+
+但区别是:**如果a是一个继承str的类的实例,type(a) is str会返回False而此时isinstance(a,str)返回True**
+

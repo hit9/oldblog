@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-		<title>Python</title>
+		<title>python判断类型二法</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
-		<link rel="stylesheet" href="../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="../../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
 		<script type="text/javascript">
 			function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
 		</script>
@@ -29,28 +29,25 @@
 				<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
 			</div>
 		</div>
-		<h1 itemprop="headline name">Python</h1>
+		<h1 itemprop="headline name">python判断类型二法</h1>
 		<!--fork me on github button-->
-		<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+		<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 		<!--end of github fork button-->
 		<p itemprop="copyrightHolder">允许转载, 但转载请注明出处</p>
 		<div itemprop="articleBody">
-			<ol>
-<li><a href="./posts/14.html">python判断类型二法</a></li>
-<li><a href="./posts/13.html">python判断字符串是不是一个数字</a></li>
-<li><a href="./posts/12.html">python setuptools 程序的入口脚本参数(安装工具为命令)</a></li>
-<li><a href="./posts/11.html">python setuptools 静态文件打包</a></li>
-<li><a href="./posts/10.html">python生成目录树</a></li>
-<li><a href="./posts/9.html">m个a,n个b的全排列问题</a></li>
-<li><a href="./posts/8.html">python upack 链表或元组对函数传参</a></li>
-<li><a href="./posts/7.html">python生成一个元素重复n次的链表或元组</a></li>
-<li><a href="./posts/6.html">python itertools模块学习笔记</a></li>
-<li><a href="./posts/5.html">python删除dict中重复value的item</a></li>
-<li><a href="posts/4.html">Python合并两个字典</a></li>
-<li><a href="posts/3.html">Python-Markdown模块的fenced_code_hilite模块:有边界代码块高亮</a></li>
-<li><a href="posts/2.html">用python把markdown中的代码高亮</a></li>
-<li><a href="posts/index.html">format VS %</a></li>
-</ol>
+			<p>Date:2012-11-23</p>
+<p>常见的两个方法是:(比如判断a是不是str)</p>
+<p>使用type():</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span>
+</pre></div>
+
+
+<p>使用isinstance()</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="nb">str</span><span class="p">)</span>
+</pre></div>
+
+
+<p>但区别是:<strong>如果a是一个继承str的类的实例,type(a) is str会返回False而此时isinstance(a,str)返回True</strong></p>
 		</div>
 		<div id="foot">
 			<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
