@@ -1,0 +1,10 @@
+%title gnome终端的solarized配色
+Date:2012-11-23
+
+Gnome终端也有solarized 配色啦!我超喜欢solarized配色,这不,我的blog代码配色也是solarized的.
+
+安装很简单..Github地址:[Gnome-Terminal-Solarized](https://github.com/sigurdga/gnome-terminal-colors-solarized)
+
+截图:
+
+![](https://github.com/hit9/blog-img-store/raw/master/blog/ArchLinux/14_0.png)
