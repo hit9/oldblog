@@ -50,6 +50,7 @@
 <li><a href="#10mainxx">10.main(x)中的x</a></li>
 <li><a href="#11c">11.编译的时候再输入C代码</a></li>
 <li><a href="#12">12.看似错误的语法</a></li>
+<li><a href="#13">13.逗号运算符的用处</a></li>
 </ul>
 </div>
 <h2 id="1">1.数组名不可以左值操作,但是..</h2>
@@ -298,6 +299,18 @@ $<span class="o">./</span>1
 
 
 <p>但是gcc编译顺利</p>
+<h2 id="13">13.逗号运算符的用处</h2>
+<p>下面的输出会是什么？</p>
+<div class="codehilite"><pre><span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="p">);</span> 
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>会是3 </p>
+<p><strong>带逗号的表达式会返回最后一个的执行结果</strong></p>
 		</div>
 		<div id="foot">
 			<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
