@@ -1,0 +1,22 @@
+%title ArchLinux下使用1g1g air听歌以及如何在archlinux下运行air
+Date:2012-11-24
+
+首先你要保证你有安装adobe air
+
+去1g1g的blog下载1g1g air: [link](http://blog.1g1g.com/2011/05/23/1g1g-air-2-test/)
+
+下载后，把air文件1g1g.air放到/opt/下。然后新建一个shell文件/usr/bin/1g1g:
+
+```shell
+#!/bin/bash
+adobe-air /opt/1g1g.air 
+```
+
+然后赋予其可执行权限 `chmod u+x /usr/bin/1g1g`
+
+输入命令`1g1g`可启动软件
+
+
+![](https://github.com/hit9/blog-img-store/raw/master/blog/ArchLinux/15_0.png)
+
+![](https://github.com/hit9/blog-img-store/raw/master/blog/ArchLinux/15_1.png)

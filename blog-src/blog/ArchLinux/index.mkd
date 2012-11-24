@@ -1,3 +1,4 @@
+1. [ArchLinux下使用1g1g air听歌以及如何在archlinux下运行air](./posts/15.html)
 1. [gnome终端的solarized配色](./posts/14.html)
 1. [SIOCSIFFLAGS: Operation not possible due to RF-kill](./posts/13.html)
 1. [ArchLinux无线上网](./posts/12.html)
