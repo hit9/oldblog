@@ -16,7 +16,7 @@ case $1 in
 	push)
 		mkdwiki . -o ../
 		git add ../*
-		git commit -m 'mkdwiki'
+		git commit -m ''$2
 		git push
 		;;	
 	clean)

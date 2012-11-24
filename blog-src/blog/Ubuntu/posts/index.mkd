@@ -1,0 +1,17 @@
+%title Linux下更换fcitx的词库为搜狗词库
+Date:2012-11-24
+
+首先下载这个词库:[fcitx-sougou](http://prob-chrome.googlecode.com/files/fcitx-sougou-phrase-full.7z)
+
+下载后，解压：7z x fcitx-sougou-phrase-full.7z
+
+然后，cd 进去。
+
+sh run.sh
+
+把生成的pyphrase.mb和pySym.mb全部拷贝到/usr/share/fcitx/data下(ubuntu下)或者/usr/share/fcitx/pinyin/data下(archlinux下)即可.
+
+
+另外这个输入法叫做四叶草。来自[ubuntu论坛](http://forum.ubuntu.org.cn/viewtopic.php?t=332168 )
+
+![](https://raw.github.com/hit9/blog-img-store/master/blog/Ubuntu/1_0.png)

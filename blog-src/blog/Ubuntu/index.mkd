@@ -1,0 +1,2 @@
+1. [Linux下更换fcitx的词库为搜狗词库](posts/index.html)
+%title Ubuntu

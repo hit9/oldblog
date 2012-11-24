@@ -12,3 +12,4 @@
 1. [ICPC](ICPC/index.html)
 1. [other](./other/index.html)
 1. [Qs](./Qs/index.html)
+1. [Ubuntu](Ubuntu/index.html)
