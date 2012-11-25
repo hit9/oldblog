@@ -52,6 +52,7 @@
 <li><a href="#12">12.看似错误的语法</a></li>
 <li><a href="#13">13.逗号运算符的用处</a></li>
 <li><a href="#14printffloat">14.printf打印float时怎么动态确定打印几位呢</a></li>
+<li><a href="#15">15.另类的数组初始化</a></li>
 </ul>
 </div>
 <h2 id="1">1.数组名不可以左值操作,但是..</h2>
@@ -325,7 +326,32 @@ $<span class="o">./</span>1
 
 
 <p>输出是6.4124</p>
-<p>其中<code>*</code>号起了作用</p>
+<p>其中*号起了作用</p>
+<h2 id="15">15.另类的数组初始化</h2>
+<p>新建一个文件arr.txt:</p>
+<div class="codehilite"><pre><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">},</span>
+<span class="p">{</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">}</span>
+</pre></div>
+
+
+<p>然后我们写我们的C文件1.c:</p>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">arr</span><span class="p">[][</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="cp">#include &quot;arr.txt&quot;</span>
+    <span class="p">};</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>现在我们编译:</p>
+<div class="codehilite"><pre><span class="n">gcc</span> <span class="mf">1.</span><span class="n">c</span>  <span class="o">-</span><span class="n">g</span>
+</pre></div>
+
+
+<p>现在用gdb debug a.out。会发现arr是<code>{{1,2,3},{4,5,6}}</code></p>
+<p>当然你也可以直接在1.c中打印数组</p>
 		</div>
 		<div id="foot">
 			<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
