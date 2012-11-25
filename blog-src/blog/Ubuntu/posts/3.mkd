@@ -1,0 +1,14 @@
+%title ubuntu下解禁所有的系统托盘图标显示
+Date:2012-11-25
+
+最近离开了archlinux来到了ubuntu 11.04
+
+在 Ubuntu 11.04 Natty 中，Ubuntu 对顶部面板右上角的通知区域(系统托盘)采用了白名单制度，只有支持 Indicators 并位于白名单的部分程序才会被显示在系统托盘中
+
+解禁所有程序的托盘显示的命令 :
+
+```
+gsettings set com.canonical.Unity.Panel systray-whitelist "['all']"
+```
+
+然后重启下gnome 即可

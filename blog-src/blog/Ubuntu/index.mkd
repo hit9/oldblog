@@ -1,3 +1,4 @@
+1. [ubuntu下解禁所有的系统托盘图标显示](posts/3.html)
 1. [ubuntu下安装ati私有驱动catalyst](posts/2.html)
 1. [Linux下更换fcitx的词库为搜狗词库](posts/index.html)
 %title Ubuntu
