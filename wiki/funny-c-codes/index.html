@@ -352,6 +352,13 @@ $<span class="o">./</span>1
 
 <p>现在用gdb debug a.out。会发现arr是<code>{{1,2,3},{4,5,6}}</code></p>
 <p>当然你也可以直接在1.c中打印数组</p>
+<p>其实你还可以发现，如下的初始化是合法的！(因为gcc的扩展):</p>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">100</span><span class="p">]</span> <span class="o">=</span> <span class="p">{[</span><span class="mi">1</span> <span class="p">...</span> <span class="mi">90</span> <span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">91</span> <span class="p">...</span> <span class="mi">99</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">};</span> 
+<span class="p">}</span>
+</pre></div>
 		</div>
 		<div id="foot">
 			<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
