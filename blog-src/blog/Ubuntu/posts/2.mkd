@@ -1,0 +1,14 @@
+%title ubuntu下安装ati私有驱动catalyst
+Date:2012-11-25
+
+如果你的本本是ati显卡的，会发现用ubuntu的时候本子发热很大。这是因为开源界的ati驱动并不理想。
+
+首先去[这里](http://support.amd.com/us/gpudownload/linux/previous/Pages/radeon_linux.aspx)下载一个适合你的ubuntu版本和系统架构的驱动.(比如我的ubuntu 32bit 11.04,下载catalyst 11.4)
+
+下载后，解压。
+
+```
+sudo sh 文件名.sh
+```
+
+选择1,一路y下去。重启之后会在系统设置->硬件中看到ati的管理程序图标,安装成功
