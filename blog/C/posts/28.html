@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-		<title>C</title>
+		<title>C语言数组初始化技巧</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
-		<link rel="stylesheet" href="../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="../../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
 		<script type="text/javascript">
 			function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
 		</script>
@@ -29,42 +29,38 @@
 				<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
 			</div>
 		</div>
-		<h1 itemprop="headline name">C</h1>
+		<h1 itemprop="headline name">C语言数组初始化技巧</h1>
 		<!--fork me on github button-->
-		<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+		<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 		<!--end of github fork button-->
 		<p itemprop="copyrightHolder">允许转载, 但转载请注明出处</p>
 		<div itemprop="articleBody">
-			<ol>
-<li><a href="posts/28.html">C语言数组初始化技巧</a></li>
-<li><a href="./posts/27.html">C语言位操作基本技巧收集</a></li>
-<li><a href="posts/23.html">size_t</a></li>
-<li><a href="./posts/26.html">C语言宏定义中的井号#</a></li>
-<li><a href="./posts/25.html">链表的各种题目整理</a></li>
-<li><a href="./posts/24.html">C语言二维数组结构探析</a></li>
-<li><a href="./posts/22.html">C singly linked list swap two nodes</a></li>
-<li><a href="./posts/21.html">reverse singly linked list in C</a></li>
-<li><a href="posts/20.html">C语言关键字static</a></li>
-<li><a href="posts/19.html">C语言匹配字符串中所有小括号</a></li>
-<li><a href="posts/18.html">C程序内存泄漏检测</a></li>
-<li><a href="posts/17.html">gdb使用入门</a></li>
-<li><a href="posts/16.html">头文件的查找目录的顺序</a></li>
-<li><a href="posts/15.html">C语言stat()</a></li>
-<li><a href="posts/14.html">C判断回文数</a></li>
-<li><a href="posts/13.html">C语言字符串替换</a></li>
-<li><a href="posts/12.html">C语言整型数组赋值同一个数值</a></li>
-<li><a href="posts/11.html">getchar详细探究</a></li>
-<li><a href="posts/10.html">getchar返回值类型</a></li>
-<li><a href="posts/9.html">C语言文件操作</a></li>
-<li><a href="posts/8.html">C语言练习4:不用string库实现计算字符串长度</a></li>
-<li><a href="posts/7.html">C语言练习3:不用string库实现字符串连接</a></li>
-<li><a href="posts/6.html">C语言练习2:不用string库实现字符串复制</a></li>
-<li><a href="posts/5.html">C语言练习1:用指针打印字符串每个字符</a></li>
-<li><a href="posts/4.html">PCRE正则表达式API</a></li>
-<li><a href="posts/3.html">C语言中何时函数参数设计为指针,何时不必为指针</a></li>
-<li><a href="posts/2.html">C语言数组赋值:不能一下子赋值,必须循环挨个赋值</a></li>
-<li><a href="posts/index.html">C语言数组游标与数组名称可以互换</a></li>
-</ol>
+			<p>Date:2012-11-26</p>
+<p>首先预测下面的数组初始化:</p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span> 
+</pre></div>
+
+
+<p>对，arr被初始化为10个0的int数组.</p>
+<p>再看看下面的code：</p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">};</span> 
+</pre></div>
+
+
+<p>你用gdb(gdb教程:<a href="http://hit9.org/blog/C/posts/17.html">link</a>)看下，print一下arr会发现只有arr[0]是1, 其余为0.</p>
+<p>再试试下面的代码:</p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">};</span> 
+</pre></div>
+
+
+<p>会发现只有 arr[3]为2, 其余为0</p>
+<p>下面的代码也是可以的！</p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{[</span><span class="mi">3</span> <span class="p">...</span> <span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">7</span> <span class="p">...</span> <span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">};</span> <span class="c1">//注意...前后均有空格</span>
+</pre></div>
+
+
+<p>会发现arr被初始化为:<code>{0, 0, 0, 1, 1, 1, 1, 2, 2, 2}</code></p>
+<p>那么以上三种初始化方式都是可以的，只是，没有指明的元素默认清0</p>
 		</div>
 		<div id="foot">
 			<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
