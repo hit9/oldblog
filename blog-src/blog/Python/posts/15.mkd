@@ -1,0 +1,20 @@
+%title python转dict为list
+Date:2012-11-27
+
+原题在stackoverflow :
+
+>I have
+
+>{key1:value1, key2:value2, etc}
+
+>I want it to become:
+
+>[key1,value1,key2,value2] , if certain keys match certain criteria.
+
+>How can i do it as pythonically as possible?
+
+解决办法中比较cool的是:
+
+```python
+list(sum(d.items(),()))
+```
