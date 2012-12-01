@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<title>Python语言的技巧</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="../../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
+		<script type="text/javascript">
+			function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
+		</script>
+	</head>
+	<body itemscope itemtype="http://schema.org/BlogPosting">
+		<div id="top">
+			<div id="top1">
+				<a href="/index.html">Hit9</a>
+				<a href="/blog/index.html">Blog</a>
+				<a href="/wiki/index.html">Wiki</a>
+				<a href="/project/index.html">Project</a>
+				<a href="/links.html">Links</a>
+				<a href="/dir_html.html">Archives</a>
+				<a href="/About.html" rel="author publisher" itemprop="author" itemscope="" itemtype="http://schema.org/Person" >About</a>
+			</div>
+			<div id="top2">
+				Page:
+				<a href="index.html">First</a>
+				<a href="../index.html">UP</a>
+				<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+				<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+				<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+			</div>
+		</div>
+		<h1 itemprop="headline name">Python语言的技巧</h1>
+		<!--fork me on github button-->
+		<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+		<!--end of github fork button-->
+		<p itemprop="copyrightHolder">允许转载, 但转载请注明出处</p>
+		<div itemprop="articleBody">
+			<p>Date:2012-11-30</p>
+<p>注：所有技巧来自互联网，hit9只负责整理。欢迎指正错误以及不当之处，欢迎补充</p>
+<h2 id="1pythonunzip">1.为何python没有unzip()函数</h2>
+<p>因为zip(*c)办到了同样的效果!</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span><span class="o">=</span><span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">c</span><span class="p">)</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> 
+</pre></div>
+
+
+<h2 id="2sum">2.sum()函数</h2>
+<p>怎么把一个‘二层’嵌套的列表去掉内层列表。比如<code>[[1,2],[3]]</code>=&gt;<code>[1,2,3]</code></p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">],[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">]]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,[])</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+</pre></div>
+
+
+<p>这个技巧很赞。比如我们想知道一个2D数组（矩阵）的数的和的话:</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">]]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,[]))</span>
+<span class="mi">45</span>
+</pre></div>
+
+
+<h2 id="3">3.判断子串</h2>
+<p>如果我们想判断一个字符串是不是另一个字符串的子串，可以使用index或者find方法:</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="s">&#39;i love u&#39;</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;u&#39;</span><span class="p">)</span>
+<span class="mi">7</span>
+</pre></div>
+
+
+<p>更pythonic的做法是:</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="s">&#39;u&#39;</span> <span class="ow">in</span> <span class="s">&#39;my heart&#39;</span>
+<span class="bp">False</span>
+</pre></div>
+
+
+<h2 id="4">4.这是为什么！</h2>
+<p>看代码：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">=</span><span class="mi">256</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span><span class="o">=</span><span class="mi">256</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="ow">is</span> <span class="n">b</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">=</span><span class="mi">257</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span><span class="o">=</span><span class="mi">257</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="ow">is</span> <span class="n">b</span>
+<span class="bp">False</span>
+</pre></div>
+
+
+<p>这是因为:All integers from -5 to 256 inclusive are cached as global objects </p>
+<h2 id="5">5.快速列表初始化的问题</h2>
+<p>我们可以使用<code>[m]*n</code>来初始化一个n个元素都是m的列表</p>
+<p>看下面的代码:</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">=</span><span class="p">[[]]</span><span class="o">*</span><span class="mi">4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="p">[[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="p">[[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+</pre></div>
+
+
+<p>为什么a的每一个元素都被修改了呢？因为这样得到的列表的每个元素都是同一个对象:</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">=</span><span class="p">[[]]</span><span class="o">*</span><span class="mi">4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="bp">True</span>
+</pre></div>
+
+
+<h2 id="6-zipiterx2">6. zip(<em>[iter(x)]</em>2)</h2>
+<p>首先看这么一个问题:</p>
+<p>怎么把一个列表的n等分:</p>
+<p>[1,2,3,4,5,6,7,8,9]=&gt;[(1,2,3),(4,5,6),(7,8,9)] (此时n取3)</p>
+<p>其中一个做法就是<code>zip(*[iter(x)]*2)</code></p>
+		</div>
+		<div id="foot">
+			<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+			<a href="#">Top</a>
+			<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+		</div>
+		<br>
+		<!-- Duoshuo Comment BEGIN -->
+		<div class="ds-thread" data-thread-key="" 
+			data-title="" data-author-key="" data-url=""></div>
+		<script type="text/javascript">
+			var duoshuoQuery = {short_name:"hit9github"};
+			(function() {
+				var ds = document.createElement('script');
+				ds.type = 'text/javascript';ds.async = true;
+				ds.src = 'http://static.duoshuo.com/embed.js';
+				ds.charset = 'UTF-8';
+				(document.getElementsByTagName('head')[0] 
+				|| document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+		</script>
+		<!-- Duoshuo Comment END -->
+		<div style = "text-align:center; ">
+			<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+		</div>
+	</body>
+</html>
