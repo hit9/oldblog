@@ -37,6 +37,17 @@
 		<div itemprop="articleBody">
 			<p>Date:2012-11-30</p>
 <p>注：所有技巧来自互联网，hit9只负责整理。欢迎指正错误以及不当之处，欢迎补充</p>
+<div class="toc">
+<ul>
+<li><a href="#1pythonunzip">1.为何python没有unzip()函数</a></li>
+<li><a href="#2sum">2.sum()函数</a></li>
+<li><a href="#3">3.判断子串</a></li>
+<li><a href="#4">4.这是为什么！</a></li>
+<li><a href="#5">5.快速列表初始化的问题</a></li>
+<li><a href="#6iter">6.iter函数的调用</a></li>
+<li><a href="#7-zip42iterx42n">7. zip(*[iter(x)]*n)</a></li>
+</ul>
+</div>
 <h2 id="1pythonunzip">1.为何python没有unzip()函数</h2>
 <p>因为zip(*c)办到了同样的效果!</p>
 <div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
@@ -49,6 +60,7 @@
 </pre></div>
 
 
+<p>可以用来计算矩阵的转置矩阵</p>
 <h2 id="2sum">2.sum()函数</h2>
 <p>怎么把一个‘二层’嵌套的列表去掉内层列表。比如<code>[[1,2],[3]]</code>=&gt;<code>[1,2,3]</code></p>
 <div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">],[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">]]</span>
@@ -110,11 +122,34 @@
 </pre></div>
 
 
-<h2 id="6-zipiterx2">6. zip(<em>[iter(x)]</em>2)</h2>
+<h2 id="6iter">6.iter函数的调用</h2>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span><span class="o">=</span><span class="nb">iter</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="p">[]</span>
+</pre></div>
+
+
+<p>为何两次调用的结果不一样呢?因为b每次被调用取元素都会向下跑一位.</p>
+<p>也就是向迭代器取元素的时候，向后推进一位并非next()函数所为，iter()函数会自动后偏一位</p>
+<h2 id="7-zip42iterx42n">7. zip(*[iter(x)]*n)</h2>
 <p>首先看这么一个问题:</p>
 <p>怎么把一个列表的n等分:</p>
-<p>[1,2,3,4,5,6,7,8,9]=&gt;[(1,2,3),(4,5,6),(7,8,9)] (此时n取3)</p>
-<p>其中一个做法就是<code>zip(*[iter(x)]*2)</code></p>
+<p>[1,2,3,4,5,6,7,8,9]=&gt;[(1,2,3),(4,5,6),(7,8,9)] (此时n取3,列表为x)</p>
+<p>其中一个做法就是<code>zip(*[iter(x)]*3)</code>,另一种方法是<code>map(None,*[iter(x)]*3)</code></p>
+<p>为何这个会起作用呢?</p>
+<p>注意,比如我们取y=iter(x),根据第5个规律，<code>[iter(x)]*3</code>就是<code>[y,y,y]</code>.而iter()函数每次被调用都会从x取一个元素。那么对zip函数的传参列表为:</p>
+<div class="codehilite"><pre>参数1  参数2  参数3
+1      2     3             <span class="o">---</span>  第一次取元素
+4      5     6             <span class="o">---</span>  第二次
+7      8     9             <span class="o">---</span>  第三次
+</pre></div>
+
+
+<p>所以zip函数接受到的参数列表相当于:(1,4,7),(2,5,8),(3,6,9)</p>
+<p>再根据规律1，所以得到了转置的矩阵:[(1,2,3),(4,5,6),(7,8,9)]</p>
 		</div>
 		<div id="foot">
 			<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
