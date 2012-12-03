@@ -47,6 +47,7 @@
 <li><a href="#6iter">6.iter函数的调用</a></li>
 <li><a href="#7-zip42iterx42n">7. zip(*[iter(x)]*n)</a></li>
 <li><a href="#8property">8.property装饰器</a></li>
+<li><a href="#9">9.快速地链表去重复</a></li>
 </ul>
 </div>
 <h2 id="1pythonunzip">1.为何python没有unzip()函数</h2>
@@ -160,6 +161,13 @@
 <span class="o">...</span> 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">A</span><span class="p">()</span><span class="o">.</span><span class="n">foo</span>
 <span class="s">&#39;hello&#39;</span>
+</pre></div>
+
+
+<h2 id="9">9.快速地链表去重复</h2>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{}</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
 </pre></div>
 		</div>
 		<div id="foot">
