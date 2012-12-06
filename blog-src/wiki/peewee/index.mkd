@@ -1,0 +1,52 @@
+%title peewee(mysql数据库)教程
+
+[TOC]
+
+## 1.安装
+
+首先需要安装[python-mysql](http://sourceforge.net/projects/mysql-python/)
+
+然后`pip install peewee`安装peewee
+
+## 2.连接mysql
+
+启动mysql服务器.
+
+进入mysql : `mysql -uroot -p`
+
+建立数据库 `create database mydb;`
+
+```python
+#--*-- coding:utf-8 --*--
+
+from peewee import *
+
+mysql_db = MySQLDatabase("mydb", user = "root", passwd = "123456")
+
+mysql_db.connect() #连接数据库
+
+print mysql_db.get_conn() #获取数据库连接
+```
+不过，get_conn()不止是获取数据库连接：如果没有连接存在，新建一个。
+
+所以我们可以使用get_conn()来实现单例数据库连接.
+
+可以看到，两次使用建立connect()函数建立的并不是一个连接：
+
+```python
+>>> from peewee import MySQLDatabase
+>>> mysql_db=MySQLDatabase('mydb',user='root',passwd='123456')
+>>> mysql_db.connect()  # 第一次
+>>> mysql_db.get_conn()
+<_mysql.connection open to 'localhost' at 8818204>
+>>> mysql_db.connect() # 第二次
+>>> mysql_db.get_conn()
+<_mysql.connection open to 'localhost' at 8830e74>
+```
+另外，MySQLDatabase类还支持的初始化参数有host(字符串参数), port(数字参数), charset(字符串参数，多用"utf8")等连接MySQL服务的参数
+
+## 3.建表
+
+orm的理念是一个表对应于一个类, 字段对应于类的属性
+
+

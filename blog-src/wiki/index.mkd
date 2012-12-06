@@ -9,3 +9,4 @@
 * [趣味C代码片段](./funny-c-codes/index.html)
 * [php-mysql-orm](./php-mysql-orm/index.html)
 * [litephp](./litephp/index.html)
+* [peewee(mysql)教程](./peewee/index.html)

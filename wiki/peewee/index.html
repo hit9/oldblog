@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<title>peewee(mysql数据库)教程</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
+		<script type="text/javascript">
+			function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
+		</script>
+	</head>
+	<body itemscope itemtype="http://schema.org/BlogPosting">
+		<div id="top">
+			<div id="top1">
+				<a href="/index.html">Hit9</a>
+				<a href="/blog/index.html">Blog</a>
+				<a href="/wiki/index.html">Wiki</a>
+				<a href="/project/index.html">Project</a>
+				<a href="/links.html">Links</a>
+				<a href="/dir_html.html">Archives</a>
+				<a href="/About.html" rel="author publisher" itemprop="author" itemscope="" itemtype="http://schema.org/Person" >About</a>
+			</div>
+			<div id="top2">
+				Page:
+				<a href="index.html">First</a>
+				<a href="../index.html">UP</a>
+				<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+				<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+				<a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+			</div>
+		</div>
+		<h1 itemprop="headline name">peewee(mysql数据库)教程</h1>
+		<!--fork me on github button-->
+		<a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+		<!--end of github fork button-->
+		<p itemprop="copyrightHolder">允许转载, 但转载请注明出处</p>
+		<div itemprop="articleBody">
+			<div class="toc">
+<ul>
+<li><a href="#1">1.安装</a></li>
+<li><a href="#2mysql">2.连接mysql</a></li>
+<li><a href="#3">3.建表</a></li>
+</ul>
+</div>
+<h2 id="1">1.安装</h2>
+<p>首先需要安装<a href="http://sourceforge.net/projects/mysql-python/">python-mysql</a></p>
+<p>然后<code>pip install peewee</code>安装peewee</p>
+<h2 id="2mysql">2.连接mysql</h2>
+<p>启动mysql服务器.</p>
+<p>进入mysql : <code>mysql -uroot -p</code></p>
+<p>建立数据库 <code>create database mydb;</code></p>
+<div class="codehilite"><pre><span class="c">#--*-- coding:utf-8 --*--</span>
+
+<span class="kn">from</span> <span class="nn">peewee</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">mysql_db</span> <span class="o">=</span> <span class="n">MySQLDatabase</span><span class="p">(</span><span class="s">&quot;mydb&quot;</span><span class="p">,</span> <span class="n">user</span> <span class="o">=</span> <span class="s">&quot;root&quot;</span><span class="p">,</span> <span class="n">passwd</span> <span class="o">=</span> <span class="s">&quot;123456&quot;</span><span class="p">)</span>
+
+<span class="n">mysql_db</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="c">#连接数据库</span>
+
+<span class="k">print</span> <span class="n">mysql_db</span><span class="o">.</span><span class="n">get_conn</span><span class="p">()</span> <span class="c">#获取数据库连接</span>
+</pre></div>
+
+
+<p>不过，get_conn()不止是获取数据库连接：如果没有连接存在，新建一个。</p>
+<p>所以我们可以使用get_conn()来实现单例数据库连接.</p>
+<p>可以看到，两次使用建立connect()函数建立的并不是一个连接：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">peewee</span> <span class="kn">import</span> <span class="n">MySQLDatabase</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">mysql_db</span><span class="o">=</span><span class="n">MySQLDatabase</span><span class="p">(</span><span class="s">&#39;mydb&#39;</span><span class="p">,</span><span class="n">user</span><span class="o">=</span><span class="s">&#39;root&#39;</span><span class="p">,</span><span class="n">passwd</span><span class="o">=</span><span class="s">&#39;123456&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">mysql_db</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>  <span class="c"># 第一次</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">mysql_db</span><span class="o">.</span><span class="n">get_conn</span><span class="p">()</span>
+<span class="o">&lt;</span><span class="n">_mysql</span><span class="o">.</span><span class="n">connection</span> <span class="nb">open</span> <span class="n">to</span> <span class="s">&#39;localhost&#39;</span> <span class="n">at</span> <span class="mi">8818204</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">mysql_db</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="c"># 第二次</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">mysql_db</span><span class="o">.</span><span class="n">get_conn</span><span class="p">()</span>
+<span class="o">&lt;</span><span class="n">_mysql</span><span class="o">.</span><span class="n">connection</span> <span class="nb">open</span> <span class="n">to</span> <span class="s">&#39;localhost&#39;</span> <span class="n">at</span> <span class="mf">8830e74</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p>另外，MySQLDatabase类还支持的初始化参数有host(字符串参数), port(数字参数), charset(字符串参数，多用"utf8")等连接MySQL服务的参数</p>
+<h2 id="3">3.建表</h2>
+<p>orm的理念是一个表对应于一个类, 字段对应于类的属性</p>
+		</div>
+		<div id="foot">
+			<a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+			<a href="#">Top</a>
+			<a href="javascript:void(0);" onclick="gotonext()">Next</a>
+		</div>
+		<br>
+		<!-- Duoshuo Comment BEGIN -->
+		<div class="ds-thread" data-thread-key="" 
+			data-title="" data-author-key="" data-url=""></div>
+		<script type="text/javascript">
+			var duoshuoQuery = {short_name:"hit9github"};
+			(function() {
+				var ds = document.createElement('script');
+				ds.type = 'text/javascript';ds.async = true;
+				ds.src = 'http://static.duoshuo.com/embed.js';
+				ds.charset = 'UTF-8';
+				(document.getElementsByTagName('head')[0] 
+				|| document.getElementsByTagName('body')[0]).appendChild(ds);
+			})();
+		</script>
+		<!-- Duoshuo Comment END -->
+		<div style = "text-align:center; ">
+			<p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+		</div>
+	</body>
+</html>
