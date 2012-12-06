@@ -78,6 +78,40 @@
 <p>另外，MySQLDatabase类还支持的初始化参数有host(字符串参数), port(数字参数), charset(字符串参数，多用"utf8")等连接MySQL服务的参数</p>
 <h2 id="3">3.建表</h2>
 <p>orm的理念是一个表对应于一个类, 字段对应于类的属性</p>
+<div class="codehilite"><pre><span class="c">#--*-- coding:utf-8 --*--</span>
+
+<span class="kn">from</span> <span class="nn">peewee</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">mysql_db</span> <span class="o">=</span> <span class="n">MySQLDatabase</span><span class="p">(</span><span class="s">&quot;mydb&quot;</span><span class="p">,</span> <span class="n">user</span> <span class="o">=</span> <span class="s">&quot;root&quot;</span><span class="p">,</span> <span class="n">passwd</span> <span class="o">=</span> <span class="s">&quot;123456&quot;</span><span class="p">,</span> <span class="n">charset</span> <span class="o">=</span> <span class="s">&quot;utf8&quot;</span><span class="p">)</span>
+
+<span class="n">mysql_db</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span> <span class="c">#连接数据库</span>
+
+<span class="k">class</span> <span class="nc">MySQLModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">database</span> <span class="o">=</span> <span class="n">mysql_db</span>
+
+<span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">MySQLModel</span><span class="p">):</span> <span class="c">#类的小写即表名</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">()</span> <span class="c">#字段声明</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">()</span>
+
+<span class="n">User</span><span class="o">.</span><span class="n">create_table</span><span class="p">()</span> <span class="c">#建表, 其实create_table是一个类方法，但也可以被其实例调用</span>
+</pre></div>
+
+
+<p>现在可以看下mysql:</p>
+<div class="codehilite"><pre><span class="n">mysql</span><span class="o">&gt;</span> <span class="n">desc</span> <span class="n">user</span><span class="p">;</span>
+<span class="o">+----------+--------------+------+-----+---------+----------------+</span>
+<span class="o">|</span> <span class="n">Field</span>    <span class="o">|</span> <span class="n">Type</span>         <span class="o">|</span> <span class="n">Null</span> <span class="o">|</span> <span class="n">Key</span> <span class="o">|</span> <span class="n">Default</span> <span class="o">|</span> <span class="n">Extra</span>          <span class="o">|</span>
+<span class="o">+----------+--------------+------+-----+---------+----------------+</span>
+<span class="o">|</span> <span class="n">id</span>       <span class="o">|</span> <span class="n">int</span><span class="p">(</span>11<span class="p">)</span>      <span class="o">|</span> <span class="n">NO</span>   <span class="o">|</span> <span class="n">PRI</span> <span class="o">|</span> <span class="n">NULL</span>    <span class="o">|</span> <span class="n">auto_increment</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">username</span> <span class="o">|</span> <span class="n">varchar</span><span class="p">(</span>255<span class="p">)</span> <span class="o">|</span> <span class="n">NO</span>   <span class="o">|</span>     <span class="o">|</span> <span class="n">NULL</span>    <span class="o">|</span>                <span class="o">|</span>
+<span class="o">|</span> <span class="n">email</span>    <span class="o">|</span> <span class="n">varchar</span><span class="p">(</span>255<span class="p">)</span> <span class="o">|</span> <span class="n">NO</span>   <span class="o">|</span>     <span class="o">|</span> <span class="n">NULL</span>    <span class="o">|</span>                <span class="o">|</span>
+<span class="o">+----------+--------------+------+-----+---------+----------------+</span>
+3 <span class="n">rows</span> <span class="n">in</span> <span class="n">set</span> <span class="p">(</span>0<span class="p">.</span>00 <span class="nb">sec</span><span class="p">)</span>
+</pre></div>
+
+
+<p>会发现自动添加了一个自增主键<code>id</code></p>
 		</div>
 		<div id="foot">
 			<a href="javascript:void(0);" onclick="gotopre();">Pre</a>

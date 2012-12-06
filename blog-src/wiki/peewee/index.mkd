@@ -49,4 +49,41 @@ print mysql_db.get_conn() #获取数据库连接
 
 orm的理念是一个表对应于一个类, 字段对应于类的属性
 
+```python
+
+#--*-- coding:utf-8 --*--
+
+from peewee import *
+
+mysql_db = MySQLDatabase("mydb", user = "root", passwd = "123456", charset = "utf8")
+
+mysql_db.connect() #连接数据库
+
+
+class MySQLModel(Model):
+	class Meta:
+		database = mysql_db
+
+class User(MySQLModel): #类的小写即表名
+	username = CharField() #字段声明
+	email = CharField()
+
+User.create_table() #建表, 其实create_table是一个类方法，但也可以被其实例调用
+```
+
+现在可以看下mysql:
+
+```
+mysql> desc user;
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| id       | int(11)      | NO   | PRI | NULL    | auto_increment |
+| username | varchar(255) | NO   |     | NULL    |                |
+| email    | varchar(255) | NO   |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+```
+会发现自动添加了一个自增主键`id`
+
 
