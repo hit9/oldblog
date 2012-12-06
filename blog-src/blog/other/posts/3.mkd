@@ -1,0 +1,9 @@
+%title MySQL控制台中文乱码问题
+Date:2012-12-06
+
+首先保证数据库连接校验编码是utf8(即在你的程序连接mysql处设置charset参数为utf8)
+
+然后保证该数据库默认编码是utf8.(建立数据库时可以`create database mydb default character set =utf8 ;
+`)
+
+控制台内输入`set character_set_results='utf9';`(如果你的终端编码是utf8的话。否则如果你是win,设置为gbk)

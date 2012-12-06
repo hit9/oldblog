@@ -40,6 +40,7 @@
 <li><a href="#1">1.安装</a></li>
 <li><a href="#2mysql">2.连接mysql</a></li>
 <li><a href="#3">3.建表</a></li>
+<li><a href="#4curd">4.CURD</a></li>
 </ul>
 </div>
 <h2 id="1">1.安装</h2>
@@ -48,7 +49,7 @@
 <h2 id="2mysql">2.连接mysql</h2>
 <p>启动mysql服务器.</p>
 <p>进入mysql : <code>mysql -uroot -p</code></p>
-<p>建立数据库 <code>create database mydb;</code></p>
+<p>建立数据库 <code>create database mydb default character set = utf8 ;</code> (其中设定了mydb默认编码为utf8编码)</p>
 <div class="codehilite"><pre><span class="c">#--*-- coding:utf-8 --*--</span>
 
 <span class="kn">from</span> <span class="nn">peewee</span> <span class="kn">import</span> <span class="o">*</span>
@@ -112,6 +113,7 @@
 
 
 <p>会发现自动添加了一个自增主键<code>id</code></p>
+<h2 id="4curd">4.CURD</h2>
 		</div>
 		<div id="foot">
 			<a href="javascript:void(0);" onclick="gotopre();">Pre</a>

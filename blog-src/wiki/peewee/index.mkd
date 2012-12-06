@@ -14,7 +14,7 @@
 
 进入mysql : `mysql -uroot -p`
 
-建立数据库 `create database mydb;`
+建立数据库 `create database mydb default character set = utf8 ;` (其中设定了mydb默认编码为utf8编码)
 
 ```python
 #--*-- coding:utf-8 --*--
@@ -85,5 +85,7 @@ mysql> desc user;
 3 rows in set (0.00 sec)
 ```
 会发现自动添加了一个自增主键`id`
+
+## 4.CURD
 
 
