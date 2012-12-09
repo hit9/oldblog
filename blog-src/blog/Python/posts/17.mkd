@@ -1,0 +1,39 @@
+%title Python新式类
+Date:2012-12-09
+
+从形式上看，new style class继承自object或者其他新式类。old style class则不是
+
+看他们的实例的type:
+
+```python
+In [5]: class A:pass
+   ...: 
+
+In [6]: class B(object):pass
+   ...: 
+
+In [7]: type(A())
+Out[7]: <type 'instance'>
+
+In [8]: type(B())
+Out[8]: <class '__main__.B'>
+
+```
+old style class的实例全是<type 'instance'>,而在new style class中,type(B)即B().__class__
+
+注:type继承自object,是一个新式类
+
+```python
+In [9]: type.__base__
+Out[9]: <type 'object'>
+```
+
+其实type是object的子类，也是object的实例.object是type的父类，也是type的实例
+```python
+In [13]: isinstance(type,object)
+Out[13]: True
+
+In [14]: isinstance(object,type)                                                                                                       
+Out[14]: True
+
+```

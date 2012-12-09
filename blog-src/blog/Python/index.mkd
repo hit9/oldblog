@@ -1,3 +1,4 @@
+1. [Python新式类](posts/17.html)
 1. [Python语言的技巧](posts/16.html)
 1. [python转dict为list](posts/15.html)
 1. [python判断类型二法](./posts/14.html)
