@@ -19,7 +19,7 @@ In [8]: type(B())
 Out[8]: <class '__main__.B'>
 
 ```
-old style class的实例全是<type 'instance'>,而在new style class中,type(B)即B().__class__
+old style class的实例全是`<type 'instance'>`,而在new style class中,type(B)即`B().__class__`
 
 注:type继承自object,是一个新式类
 
