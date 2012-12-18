@@ -1,6 +1,8 @@
 %title wubi安装ubuntu,启动时出现找不到root.disk
 Date:2012-12-18
 
+![](https://raw.github.com/hit9/blog-img-store/master/blog/Ubuntu/4_0.jpg)
+
 出错的信息为:
 
 > error:no such device:/ubuntu/disks/root.disk.
