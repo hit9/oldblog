@@ -1,0 +1,25 @@
+%title wubi安装ubuntu,启动时出现找不到root.disk
+Date:2012-12-18
+
+出错的信息为:
+
+> error:no such device:/ubuntu/disks/root.disk.
+> error:no such device:/ubuntu/install/boot/grub/grub.cfg.
+
+再进入windows发现ubuntu安装目录下的disks目录已经消失了。
+
+这种错误多数是因为在ubuntu下强制关机引起的。
+
+由于是win和ubuntu的双系统。windows可能会在检查到磁盘错误的时候把它删掉。
+
+解决方法:
+
+进入windows系统，找到ubuntu安装目录。
+
+在ubuntu的安装盘的根目录下，显示隐藏文件（系统文件什么的都显示之~~），然后看看有没有一个叫做found.000的目录。
+
+如果没有，看看这个盘的大小，是不是比以前小很多，如果是的话，你的ubuntu的数据可能已经丢了，如果没有变化的话（盘的容积没有变），你的ubuntu的数据没有丢失！还在这个分区上！
+
+找不到这个目录就重启下，再进入windows的时候会自动进行磁盘检查的。
+
+你的disks目录下的东西就在那个目录下！移动回去就好了。
