@@ -1,0 +1,14 @@
+%title opera添加vim按键
+Date:2012-12-19
+
+我。。离开firefox了。不喜欢firefox慢吞吞的样子。但是忘不了vimperator.
+
+试试chrome?觉得占内存真大阿。。
+
+还是回归了小巧可爱的opera
+
+去https://github.com/GunioRobot/vimperopera
+
+克隆下来后，把vimperopera.ini复制到~/.opera/keyboard下
+
+然后进入首选项->高级->快捷键，选择vimperopera即可！

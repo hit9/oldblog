@@ -1,3 +1,4 @@
+1. [opera添加vim按键](posts/4.html)
 1. [MySQL控制台中文乱码问题](posts/3.html)
 1. [firefox 防止dns劫持](./posts/2.html)
 1. [firefox使用ipv6 hosts 的一些问题](./posts/index.html)
