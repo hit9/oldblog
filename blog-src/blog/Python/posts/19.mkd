@@ -1,0 +1,52 @@
+%title python打开类
+Date:2012-12-23
+
+玩ruby的人都知道ruby有打开类这个神奇的功能.
+
+python 也可以完成类似的功能：
+
+```python
+class User:
+
+    def __init__(self, name):
+        self.name = name
+
+
+def hi(self):
+    print "hi! %s" % self.name
+
+User.sayhi = hi
+
+user = User("Jack")
+
+user.sayhi()
+```
+
+如果想给User加一个类方法:
+
+```python
+class User:
+    pass
+
+@classmethod
+def test(cls):
+    print "a test"
+
+User.test = test
+User.test()
+```
+
+相应的，对于@property也可以动态添加哦:
+
+```python
+class User:
+    pass
+
+@property
+def test(self):
+    print "a test"
+
+User.test = test
+
+User().test
+```
