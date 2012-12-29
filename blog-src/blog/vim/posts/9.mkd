@@ -1,0 +1,6 @@
+%title vim插件pep8
+Date:2012-12-29
+
+http://www.vim.org/scripts/script.php?script_id=2914
+
+然后在.vimrc中加入 `let g:pep8_map='<C-k>'`,按下Ctrl_K检查
