@@ -2,7 +2,7 @@
 
 我的开源项目:
 
-1. [virgo](https://github.com/hit9/virgo) (Simple & Easy to use ORM for Python-MySQL)
+1. [virgo](https://hit9.org/virgo) (Simple & Easy to use ORM for Python-MySQL)
 
 1. [mkdwiki2](https://github.com/hit9/mkdwiki2) (Write wiki in Github Favorite Markdown. )
 
