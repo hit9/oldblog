@@ -1,0 +1,53 @@
+%title Python扩展(一)
+Date:2012-12-30
+
+ubuntu下开发的话，需要安装`python-dev`
+
+```
+sudo apt-get install python-dev
+```
+
+spammodule.c:
+```c
+#include <Python.h>
+
+PyObject* add(PyObject* self, PyObject* args) //必须有self参数
+{
+    int x, y, z; 
+    if (!PyArg_ParseTuple(args, "i|i", &x, &y))  //解析参数元组，取出整数赋值给x,y
+        return NULL; 
+    z = x+y; 
+    return Py_BuildValue("i", z); //建立一个整数，值是z
+}
+
+static PyMethodDef spamMethod[] =   //方法列表
+{
+    {
+        "add", add, METH_VARARGS, "add"
+    }, 
+    {
+        NULL, NULL
+    }
+}; 
+
+void initspam() //初始化模块
+{
+    PyObject* m; 
+    m = Py_InitModule("spam", spamMethod); 
+}
+```
+编译链接:
+```
+gcc -fpic -c -I /usr/include/python2.7/ spammodule.c 
+
+gcc -shared -o spam.so  spammodule.o   # spam.so即我们的模块
+
+```
+
+然后在该目录下:
+
+```
+>>> import spam 
+>>> spam.add(1,2)
+3
+```
