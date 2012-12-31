@@ -20,3 +20,4 @@ Hit9推荐的文章:
 * [趣味C技巧](wiki/funny-c-codes/index.html)
 * [vim-高效强悍的编辑器](wiki/vim_study/index.html)
 * [Python正则表达式](wiki/python_re/index.html)
+* [Python itertools学习笔记](blog/Python/posts/6.html)
