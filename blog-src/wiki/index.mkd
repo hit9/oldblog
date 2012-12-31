@@ -1,7 +1,6 @@
 %title wiki - Hit9
 1. [PHP coding tips](./phptips/index.html)
 * [Python学习笔记](./python/index.html)
-* [Ruby学习笔记](./ruby/index.html)
 * [cmake学习笔记](./cmake/index.html)
 * [python正则表达式](./python_re/index.html)
 * [vim-高效强悍的编辑器](./vim_study/index.html)
@@ -9,4 +8,3 @@
 * [趣味C代码片段](./funny-c-codes/index.html)
 * [php-mysql-orm](./php-mysql-orm/index.html)
 * [litephp](./litephp/index.html)
-* [peewee(mysql)教程](./peewee/index.html)
