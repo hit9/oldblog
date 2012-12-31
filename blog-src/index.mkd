@@ -12,11 +12,11 @@ Sparse is better than dense.
 
 Hit9推荐的文章:
 
-* [PHP Coding Tips](wiki/phptips)
-* [Python简明学习笔记](wiki/python)
+1. [PHP Coding Tips](wiki/phptips/index.html)
+* [Python简明学习笔记](wiki/python/index.html)
 * [链表题目整理(C语言)](blog/C/posts/25.html)
 * [C程序内存泄露检测工具](blog/C/posts/18.html)
 * [gdb使用入门](blog/C/posts/17.html)
-* [趣味C技巧](wiki/funny-c-codes)
-* [vim-高效强悍的编辑器](wiki/vim_study)
-* [Python正则表达式](wiki/python_re)
+* [趣味C技巧](wiki/funny-c-codes/index.html)
+* [vim-高效强悍的编辑器](wiki/vim_study/index.html)
+* [Python正则表达式](wiki/python_re/index.html)
