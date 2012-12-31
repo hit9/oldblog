@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <title>Python</title>
+        <title>使用nose进行单元测试</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
-        <link rel="stylesheet" href="../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="../../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
         <script type="text/javascript">
             function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
         </script>
@@ -29,35 +29,33 @@
                 <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
             </div>
         </div>
-        <h1 itemprop="headline name">Python</h1>
+        <h1 itemprop="headline name">使用nose进行单元测试</h1>
         <!--fork me on github button-->
-        <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+        <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
         <!--end of github fork button-->
         <p itemprop="copyrightHolder">允许转载, 但转载请注明出处</p>
         <div itemprop="articleBody">
-            <ol>
-<li><a href="posts/21.html">使用nose进行单元测试</a></li>
-<li><a href="posts/20.html">Python扩展(一)</a></li>
-<li><a href="posts/19.html">python打开类</a></li>
-<li><a href="posts/18.html">Python decorator in class</a></li>
-<li><a href="posts/17.html">Python新式类</a></li>
-<li><a href="posts/16.html">Python语言的技巧</a></li>
-<li><a href="posts/15.html">python转dict为list</a></li>
-<li><a href="./posts/14.html">python判断类型二法</a></li>
-<li><a href="./posts/13.html">python判断字符串是不是一个数字</a></li>
-<li><a href="./posts/12.html">python setuptools 程序的入口脚本参数(安装工具为命令)</a></li>
-<li><a href="./posts/11.html">python setuptools 静态文件打包</a></li>
-<li><a href="./posts/10.html">python生成目录树</a></li>
-<li><a href="./posts/9.html">m个a,n个b的全排列问题</a></li>
-<li><a href="./posts/8.html">python upack 链表或元组对函数传参</a></li>
-<li><a href="./posts/7.html">python生成一个元素重复n次的链表或元组</a></li>
-<li><a href="./posts/6.html">python itertools模块学习笔记</a></li>
-<li><a href="./posts/5.html">python删除dict中重复value的item</a></li>
-<li><a href="posts/4.html">Python合并两个字典</a></li>
-<li><a href="posts/3.html">Python-Markdown模块的fenced_code_hilite模块:有边界代码块高亮</a></li>
-<li><a href="posts/2.html">用python把markdown中的代码高亮</a></li>
-<li><a href="posts/index.html">format VS %</a></li>
-</ol>
+            <p>Date:2012-12-31</p>
+<p>最近写了一个python和mysql的orm。需要做一个单元测试</p>
+<p>GG下发现，大家都在向nose靠拢。</p>
+<p>nose是一个python的单元测试工具,nose会把名字是test或者Test开头的python模块，类，函数当作测试用例。</p>
+<p>注意的是：任两个测试用例之间不应该有联系，也不应有顺序关系</p>
+<p>以setUp命名的函数，模块或者类会在相应的测试级别对每个用例测试前执行:</p>
+<p>比如:</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">TestSomething</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+</pre></div>
+
+
+<p>setUp函数会在类TestSomething的每个测试函数执行前执行。</p>
+<p>相应的，tearDown命名的函数，模块或者类会在相应的测试级别对每个用例测试后执行。</p>
+<p>nose官方原文：</p>
+<blockquote>
+<p>nose supports fixtures (setup and teardown methods) at the package, module, class, and test level. 
+As with py.test or unittest fixtures, setup always runs before any test (or collection of tests for test packages and modules); teardown runs if setup has completed successfully, regardless of the status of the test run.</p>
+</blockquote>
         </div>
         <div id="foot">
             <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
