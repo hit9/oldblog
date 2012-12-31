@@ -1,0 +1,43 @@
+%title quickperm全排列算法
+Date:2013-01-01
+
+生成全排列很简单:
+
+```python
+def permutation(n): # return 2d list
+    if n == 1:
+        return [[1]]
+    
+    lst = []
+
+    for perm in permutation(n-1):
+        for i in range(n):
+            lst.append(perm[:i]+[n]+perm[i:])
+    return lst
+```
+
+如上是一个递归的方法，但这个性能很差！目前最快的算法是[quickperm](http://www.quickperm.org/)
+
+```
+The Counting QuickPerm Algorithm:
+
+   let a[] represent an arbitrary list of objects to permute
+   let N equal the length of a[]
+   create an integer array p[] of size N to control the iteration       
+   initialize p[0] to 0, p[1] to 0, p[2] to 0, ..., and p[N-1] to 0
+   initialize index variable i to 1
+   while (i < N) do {
+      if (p[i] < i) then {
+         if i is odd, then let j = p[i] otherwise let j = 0
+         swap(a[j], a[i])
+         increment p[i] by 1
+         let i = 1 (reset i to 1)
+      } // end if
+      else { // (p[i] equals i)
+         let p[i] = 0 (reset p[i] to 0)
+         increment i by 1
+      } // end else (p[i] equals i)
+   } // end while (i < N)
+```
+
+我也不知道这个算法怎么做分析，如果你知道，写在评论里吧，谢谢了。

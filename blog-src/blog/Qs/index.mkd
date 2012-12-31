@@ -1,3 +1,4 @@
+1. [quickperm全排列算法](posts/8.html)
 1. [N+1个从0到N的数找重复的那一个](posts/7.html)
 1. [N对括号做排列,打印所有合法情形](./posts/6.html)
 1. [n个位置上放置0和1问题](./posts/5.html)
