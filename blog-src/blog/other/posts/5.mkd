@@ -1,0 +1,15 @@
+%title nginx配置pathinfo，简单
+Date:2013-01-01
+
+```
+		location ~ \.php { # 原来有$符号，去掉
+			fastcgi_pass 127.0.0.1:9000;
+			fastcgi_index index.php;
+            fastcgi_param PATH_INFO $fastcgi_script_name; #添加这一行
+			fastcgi_param SCRIPT_FILENAME /var/www/$fastcgi_script_name;
+			include fastcgi_params;
+			include /etc/nginx/fastcgi_params;
+		}
+```
+
+然后重启服务器
