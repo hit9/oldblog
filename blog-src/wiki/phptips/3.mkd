@@ -1,5 +1,7 @@
-%title PHP Coding Tips
+%title PHP Coding Tips(PHP的技巧和瑕疵)
+
 [TOC]
+
 ### 16.用FALSE表示错误, 用NULL表示不存在
 
 这一条同样来自鸟哥博客;

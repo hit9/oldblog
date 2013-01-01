@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <title>Hit9 - Follow my heart</title>
+        <title>PHP Coding Tips(PHP的技巧和瑕疵)</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="stylesheet" href="./static/style.css" type="text/css" media="screen" charset="utf-8">
-        <link rel="stylesheet" href="./static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
         <script type="text/javascript">
             function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
         </script>
@@ -29,34 +29,29 @@
                 <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
             </div>
         </div>
-        <h1 itemprop="headline name">Hit9 - Follow my heart</h1>
+        <h1 itemprop="headline name">PHP Coding Tips(PHP的技巧和瑕疵)</h1>
         <!--fork me on github button-->
-        <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="./static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+        <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
         <!--end of github fork button-->
         <p itemprop="copyrightHolder">允许转载, 但转载请注明出处</p>
         <div itemprop="articleBody">
-            <p>这是Hit9在Github上用<a href="wiki/mkdwiki">mkdwiki</a>搭建的博客.</p>
-<div class="codehilite"><pre><span class="n">Beautiful</span> <span class="n">is</span> <span class="n">better</span> <span class="n">than</span> <span class="n">ugly</span><span class="p">.</span>
-<span class="n">Explicit</span> <span class="n">is</span> <span class="n">better</span> <span class="n">than</span> <span class="n">implicit</span><span class="p">.</span>
-<span class="n">Simple</span> <span class="n">is</span> <span class="n">better</span> <span class="n">than</span> <span class="nb">complex</span><span class="p">.</span>
-<span class="n">Complex</span> <span class="n">is</span> <span class="n">better</span> <span class="n">than</span> <span class="n">complicated</span><span class="p">.</span>
-<span class="n">Flat</span> <span class="n">is</span> <span class="n">better</span> <span class="n">than</span> <span class="n">nested</span><span class="p">.</span>
-<span class="n">Sparse</span> <span class="n">is</span> <span class="n">better</span> <span class="n">than</span> <span class="n">dense</span><span class="p">.</span>
+            <div class="toc">
+<ul>
+<li><a href="#24">24.闭合标签前没有分号？</a></li>
+</ul>
+</div>
+<h3 id="24">24.闭合标签前没有分号？</h3>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">echo</span> <span class="mi">1</span>
+<span class="cp">?&gt;</span><span class="x"></span>
 </pre></div>
 
 
-<p>Hit9推荐的文章:</p>
-<ol>
-<li><a href="wiki/phptips/index.html">PHP Coding Tips(PHP的技巧和瑕疵)</a></li>
-<li><a href="wiki/python/index.html">Python简明学习笔记</a></li>
-<li><a href="blog/C/posts/25.html">链表题目整理(C语言)</a></li>
-<li><a href="blog/C/posts/18.html">C程序内存泄露检测工具</a></li>
-<li><a href="blog/C/posts/17.html">gdb使用入门</a></li>
-<li><a href="wiki/funny-c-codes/index.html">趣味C技巧</a></li>
-<li><a href="wiki/vim_study/index.html">vim-高效强悍的编辑器</a></li>
-<li><a href="wiki/python_re/index.html">Python正则表达式</a></li>
-<li><a href="blog/Python/posts/6.html">Python itertools学习笔记</a></li>
-</ol>
+<p>上面的code是合法的，php不认为有语法错误。</p>
+<p>但是，这样就不被认为成对的了：</p>
+<div class="codehilite"><pre><span class="cp">&lt;?php</span>
+<span class="k">echo</span> <span class="mi">1</span>
+</pre></div>
         </div>
         <div id="foot">
             <a href="javascript:void(0);" onclick="gotopre();">Pre</a>

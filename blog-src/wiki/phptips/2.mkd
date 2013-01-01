@@ -1,5 +1,7 @@
-%title PHP Coding Tips
+%title PHP Coding Tips(PHP的技巧和瑕疵)
+
 [TOC]
+
 ###10.养成检查提交请求的习惯
 
 这是老生常谈的了 
