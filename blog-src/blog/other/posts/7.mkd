@@ -1,0 +1,15 @@
+%title SQL语句之delete
+Date:2013-01-01
+
+![](https://raw.github.com/hit9/blog-img-store/master/blog/other/7_0.png)
+
+看上面的SQL语句。
+
+以前一直不知道原来delete后面可以直接写table
+
+如果我们想从两个表中删除
+
+```sql
+delete user from user,post where user.id=post.user_id; /*删除user表中的相应记录*/
+delete user,post from user,post where user.id=post.user_id; /*删除user表和post中的相应记录*/
+```

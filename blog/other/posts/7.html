@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <title>other</title>
+        <title>SQL语句之delete</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
-        <link rel="stylesheet" href="../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="../../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
         <script type="text/javascript">
             function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
         </script>
@@ -29,21 +29,20 @@
                 <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
             </div>
         </div>
-        <h1 itemprop="headline name">other</h1>
+        <h1 itemprop="headline name">SQL语句之delete</h1>
         <!--fork me on github button-->
-        <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+        <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
         <!--end of github fork button-->
         <p itemprop="copyrightHolder">允许转载, 但转载请注明出处</p>
         <div itemprop="articleBody">
-            <ol>
-<li><a href="posts/7.html">SQL语句之delete</a></li>
-<li><a href="posts/6.html">mysql字段限制，违规插入</a></li>
-<li><a href="posts/5.html">nginx配置pathinfo，简单</a></li>
-<li><a href="posts/4.html">opera添加vim按键</a></li>
-<li><a href="posts/3.html">MySQL控制台中文乱码问题</a></li>
-<li><a href="./posts/2.html">firefox 防止dns劫持</a></li>
-<li><a href="./posts/index.html">firefox使用ipv6 hosts 的一些问题</a></li>
-</ol>
+            <p>Date:2013-01-01</p>
+<p><img alt="" src="https://raw.github.com/hit9/blog-img-store/master/blog/other/7_0.png" /></p>
+<p>看上面的SQL语句。</p>
+<p>以前一直不知道原来delete后面可以直接写table</p>
+<p>如果我们想从两个表中删除</p>
+<div class="codehilite"><pre><span class="k">delete</span> <span class="k">user</span> <span class="k">from</span> <span class="k">user</span><span class="p">,</span><span class="n">post</span> <span class="k">where</span> <span class="k">user</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">post</span><span class="p">.</span><span class="n">user_id</span><span class="p">;</span> <span class="cm">/*删除user表中的相应记录*/</span>
+<span class="k">delete</span> <span class="k">user</span><span class="p">,</span><span class="n">post</span> <span class="k">from</span> <span class="k">user</span><span class="p">,</span><span class="n">post</span> <span class="k">where</span> <span class="k">user</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="n">post</span><span class="p">.</span><span class="n">user_id</span><span class="p">;</span> <span class="cm">/*删除user表和post中的相应记录*/</span>
+</pre></div>
         </div>
         <div id="foot">
             <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
