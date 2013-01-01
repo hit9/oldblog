@@ -1,3 +1,4 @@
+1. [mysql字段限制，违规插入](posts/6.html)
 1. [nginx配置pathinfo，简单](posts/5.html)
 1. [opera添加vim按键](posts/4.html)
 1. [MySQL控制台中文乱码问题](posts/3.html)

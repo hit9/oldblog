@@ -1,0 +1,6 @@
+%title mysql字段限制，违规插入
+Date:2013-01-01
+
+![](https://raw.github.com/hit9/blog-img-store/master/blog/other/6_0.png)
+
+会看到，mysql报了一个warning,但是还是插入了！
