@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <title>PHP</title>
+        <title>nginx服务器下CI框架url去掉index.php</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
-        <link rel="stylesheet" href="../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="../../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
         <script type="text/javascript">
             function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
         </script>
@@ -29,17 +29,31 @@
                 <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
             </div>
         </div>
-        <h1 itemprop="headline name">PHP</h1>
+        <h1 itemprop="headline name">nginx服务器下CI框架url去掉index.php</h1>
         <!--fork me on github button-->
-        <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+        <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
         <!--end of github fork button-->
         <p itemprop="copyrightHolder">允许转载, 但转载请注明出处</p>
         <div itemprop="articleBody">
-            <ol>
-<li><a href="posts/3.html">nginx服务器下CI框架url去掉index.php</a></li>
-<li><a href="./posts/2.html">PHP格式检查类</a></li>
-<li><a href="posts/index.html">PHP5.4的-S内置服务器</a></li>
-</ol>
+            <p>Date:2013-01-03</p>
+<p>其实现在不怎么写php,也不大喜欢php</p>
+<p>打开你的nginx.conf (/etc/nginx/nginx.conf),在server的{}中加入:</p>
+<div class="codehilite"><pre><span class="n">location</span> <span class="o">/</span> <span class="p">{</span>
+        <span class="n">try_files</span> $<span class="n">uri</span> $<span class="n">uri</span><span class="o">/</span> <span class="o">/</span><span class="n">index</span><span class="p">.</span><span class="n">php</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></div>
+
+
+<p>如果你的ci在服务器目录下的/path/to/ci/</p>
+<p>这一行这么写</p>
+<div class="codehilite"><pre>        <span class="n">try_files</span> $<span class="n">uri</span> $<span class="n">uri</span><span class="o">/</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">ci</span><span class="o">/</span><span class="n">index</span><span class="p">.</span><span class="n">php</span><span class="p">;</span>
+</pre></div>
+
+
+<p>重启服务器</p>
+<p>在ci的config.php中,修改为</p>
+<div class="codehilite"><pre>$<span class="n">config</span><span class="p">[</span><span class="s">&#39;index_page&#39;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&#39;&#39;</span><span class="p">;</span>
+</pre></div>
         </div>
         <div id="foot">
             <a href="javascript:void(0);" onclick="gotopre();">Pre</a>

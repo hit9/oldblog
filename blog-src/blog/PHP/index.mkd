@@ -1,3 +1,4 @@
+1. [nginx服务器下CI框架url去掉index.php](posts/3.html)
 1. [PHP格式检查类](./posts/2.html)
 1. [PHP5.4的-S内置服务器](posts/index.html)
 %title PHP

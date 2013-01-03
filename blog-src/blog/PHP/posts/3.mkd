@@ -1,0 +1,28 @@
+%title nginx服务器下CI框架url去掉index.php
+Date:2013-01-03
+
+其实现在不怎么写php,也不大喜欢php
+
+打开你的nginx.conf (/etc/nginx/nginx.conf),在server的{}中加入:
+
+```
+location / {
+        try_files $uri $uri/ /index.php;
+    }
+```
+
+如果你的ci在服务器目录下的/path/to/ci/
+
+这一行这么写
+
+```
+        try_files $uri $uri/ /path/to/ci/index.php;
+```
+
+重启服务器
+
+在ci的config.php中,修改为
+
+```
+$config['index_page'] = '';
+```
