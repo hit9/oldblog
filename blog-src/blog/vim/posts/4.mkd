@@ -18,7 +18,8 @@ set nocompatible
 set t_Co=256
 Bundle 'vim-powerline'
 set laststatus=2
+let g:Powerline_colorscheme='solarized256'
 ```
 很漂亮的!~
 
-![sample](http://farm9.staticflickr.com/8169/8059351386_f566006992_b.jpg)
+![](https://raw.github.com/hit9/blog-img-store/blob/master/blog/vim/4_1.png)
