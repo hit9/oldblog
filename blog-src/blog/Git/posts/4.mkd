@@ -10,7 +10,9 @@ Date:2013-01-04
 
 关于Git分支策略，见[http://www.ruanyifeng.com/blog/2012/07/git.html](http://www.ruanyifeng.com/blog/2012/07/git.html)
 
-当两个分支在同一个commit的基础上对相同部分做了修改会引起冲突
+当两个分支在同一个commit的基础上对相同部分做了修改并提交会引起冲突
+
+简单的说,Git无法区分两个提交该取舍哪个的时候就会发生冲突
 
 解决冲突的办法可以有：
 
