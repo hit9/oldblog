@@ -1,0 +1,10 @@
+%title 终端增强工具powerline-bash
+Date:2013-01-04
+
+看截图:
+
+![](https://raw.github.com/hit9/blog-img-store/master/blog/other/8_0.png)
+
+安装见[github](https://github.com/milkbikis/powerline-bash)
+
+特别喜欢的是，它很好的指示了你git的状态和分支
