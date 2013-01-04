@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Git合并与冲突</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="../../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
+        <script type="text/javascript">
+            function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
+        </script>
+    </head>
+    <body itemscope itemtype="http://schema.org/BlogPosting">
+        <div id="top">
+            <div id="top1">
+                <a href="/index.html">Hit9</a>
+                <a href="/blog/index.html">Blog</a>
+                <a href="/wiki/index.html">Wiki</a>
+                <a href="/project/index.html">Project</a>
+                <a href="/links.html">Links</a>
+                <a href="/dir_html.html">Archives</a>
+                <a href="/About.html" rel="author publisher" itemprop="author" itemscope="" itemtype="http://schema.org/Person" >About</a>
+            </div>
+            <div id="top2">
+                Page:
+                <a href="index.html">First</a>
+                <a href="../index.html">UP</a>
+                <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+                <a href="javascript:void(0);" onclick="gotonext()">Next</a>
+                <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+            </div>
+        </div>
+        <h1 itemprop="headline name">Git合并与冲突</h1>
+        <!--fork me on github button-->
+        <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+        <!--end of github fork button-->
+        <p itemprop="copyrightHolder">允许转载, 但转载请注明出处</p>
+        <div itemprop="articleBody">
+            <p>Date:2013-01-04</p>
+<p>最近在做一个项目，由于第一次跟多个人一起用Git做版本控制，还是出了不少问题的。</p>
+<p>一般的，我们习惯：</p>
+<blockquote>
+<p>在master主分支上发布代码，新建一个分支dev来做开发，然后不断的把dev分支合并到主分支。
+另外还有一些其他不会合并入主分支的其他分支，比如gh-pages或者数据库文件等等</p>
+</blockquote>
+<p>关于Git分支策略，见<a href="http://www.ruanyifeng.com/blog/2012/07/git.html">http://www.ruanyifeng.com/blog/2012/07/git.html</a></p>
+<p>当两个分支在同一个commit的基础上对相同部分做了修改会引起冲突</p>
+<p>解决冲突的办法可以有：</p>
+<h4 id="_1">手工解决冲突。</h4>
+<p>先merge然后编辑文件解决冲突，再add 冲突文件，再commit.</p>
+<p>或者先diff HEAD,检查最新的提交跟master的差别，然后解决差别，再合并</p>
+<h4 id="_2">对于一些二进制文件，或者不同版本的第三方库引起的冲突</h4>
+<p>这时候不可能去手工编辑来解决冲突了，必须在两个版本的库中进行一个选择.</p>
+<p>要么强制(-f)覆盖掉原来的版本。要么 checkout --therirs (使用他们分支的版本)</p>
+<h4 id="sample1">Sample1</h4>
+<p>hit9为了熟悉下流程，手工制作一个冲突</p>
+<p>建立一个README,
+然后初始化,进行第一次提交。(第一次提交会建立主分支master并切换到master):</p>
+<div class="codehilite"><pre><span class="o">&gt;</span> <span class="n">README</span>
+<span class="n">vim</span> <span class="n">README</span>  # 编辑些东西<span class="o">~</span>
+<span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#39;master.first commit&#39;</span>
+</pre></div>
+
+
+<p>建立分支dev,并切换过去</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">dev</span>
+</pre></div>
+
+
+<p>编辑 README并做一个commit.如果编辑同一个位置，会引发合并冲突</p>
+<div class="codehilite"><pre><span class="n">vim</span> <span class="n">README</span>
+<span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#39;dev.first commit&#39;</span>
+</pre></div>
+
+
+<p>再回到master分支,编辑README,并提交.</p>
+<div class="codehilite"><pre><span class="n">vim</span> <span class="n">README</span>
+<span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#39;master.2nd commit&#39;</span>
+</pre></div>
+
+
+<p>察看下提交历史:</p>
+<p><img alt="" src="https://github.com/hit9/blog-img-store/raw/master/blog/Git/4_0.png" /></p>
+<p>会看到提交的timeline.</p>
+<p>现在把dev分支合并到master:</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">merge</span> <span class="n">dev</span>
+</pre></div>
+
+
+<p>会看到输出:</p>
+<p><img alt="" src="https://raw.github.com/hit9/blog-img-store/master/blog/Git/4_1.png" /></p>
+<p>察看下冲突:(其中HEAD表示最领先的提交)</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">diff</span> <span class="o">--</span><span class="n">diff</span><span class="o">-</span><span class="n">filter</span><span class="p">=</span><span class="n">U</span>
+</pre></div>
+
+
+<p><img alt="" src="https://raw.github.com/hit9/blog-img-store/master/blog/Git/4_2.png" /></p>
+<p>手工合并冲突</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">mergetool</span> <span class="o">--</span><span class="n">tool</span><span class="p">=</span><span class="n">vimdiff</span>
+</pre></div>
+
+
+<h4 id="sample2">Sample2</h4>
+<p>下载jquery 1.7.2,并重命名为jquery.js</p>
+<div class="codehilite"><pre><span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">code</span><span class="p">.</span><span class="n">jquery</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">jquery</span><span class="o">-</span>1<span class="p">.</span>7<span class="p">.</span>2<span class="p">.</span><span class="n">js</span>
+<span class="n">mv</span> <span class="n">jquery</span><span class="o">-</span>1<span class="p">.</span>7<span class="p">.</span>2<span class="p">.</span><span class="n">js</span> <span class="n">jquery</span><span class="p">.</span><span class="n">js</span>
+</pre></div>
+
+
+<p>初始化源，进行第一次commit:</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">init</span>
+<span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#39;master.first commit&#39;</span>
+</pre></div>
+
+
+<p>建立dev 分支并切换过去,下载1.7.1版本，并重命名为jquery.js</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">dev</span>
+
+<span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">code</span><span class="p">.</span><span class="n">jquery</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">jquery</span><span class="o">-</span>1<span class="p">.</span>7<span class="p">.</span>1<span class="p">.</span><span class="n">js</span>
+
+<span class="n">mv</span> <span class="n">jquery</span><span class="o">-</span>1<span class="p">.</span>7<span class="p">.</span>1<span class="p">.</span><span class="n">js</span> <span class="n">jquery</span><span class="p">.</span><span class="n">js</span>
+
+# 做一次提交
+<span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#39;dev.first commit&#39;</span>
+</pre></div>
+
+
+<p>切换回主分支并下载1.8.1版本并覆盖jquery.js</p>
+<div class="codehilite"><pre><span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">code</span><span class="p">.</span><span class="n">jquery</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">jquery</span><span class="o">-</span>1<span class="p">.</span>8<span class="p">.</span>1<span class="p">.</span><span class="n">js</span>
+
+<span class="n">mv</span> <span class="n">jquery</span><span class="o">-</span>1<span class="p">.</span>8<span class="p">.</span>1<span class="p">.</span><span class="n">js</span> <span class="n">jquery</span><span class="p">.</span><span class="n">jsa</span>
+
+<span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#39;master.2nd commit&#39;</span>
+</pre></div>
+
+
+<p>察看下提交历史:</p>
+<p><img alt="" src="https://raw.github.com/hit9/blog-img-store/master/blog/Git/4_3.png" /></p>
+<p>这次冲突很多。不能编辑！要确定使用哪个版本</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="o">--</span><span class="n">theirs</span> <span class="n">jquery</span><span class="p">.</span><span class="n">js</span> # 使用<span class="n">dev</span>分支的<span class="n">jquery</span><span class="p">.</span><span class="n">js</span>
+
+<span class="n">git</span> <span class="n">add</span> <span class="n">jquery</span><span class="p">.</span><span class="n">js</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#39;Merge dev&#39;</span>
+</pre></div>
+
+
+<h3 id="_3">宗上呢，解决冲突有两条道路：</h3>
+<p>1.如果某个分支的冲突文件不再需要，直接<code>git checkout --therirs</code>或者<code>git checkout --ours</code>来决定使用哪个</p>
+<p>2.如果有需要编辑的地方，直接编辑冲突文件，然后提交冲突文件完成合并</p>
+        </div>
+        <div id="foot">
+            <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+            <a href="#">Top</a>
+            <a href="javascript:void(0);" onclick="gotonext()">Next</a>
+        </div>
+        <br>
+        <!-- Duoshuo Comment BEGIN -->
+        <div class="ds-thread" data-thread-key="" 
+            data-title="" data-author-key="" data-url=""></div>
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:"hit9github"};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = 'http://static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0] 
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+        <!-- Duoshuo Comment END -->
+        <div style = "text-align:center; ">
+            <p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+        </div>
+    </body>
+</html>

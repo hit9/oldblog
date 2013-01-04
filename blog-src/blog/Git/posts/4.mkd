@@ -1,0 +1,154 @@
+%title Git合并与冲突
+Date:2013-01-04
+
+最近在做一个项目，由于第一次跟多个人一起用Git做版本控制，还是出了不少问题的。
+
+一般的，我们习惯：
+
+> 在master主分支上发布代码，新建一个分支dev来做开发，然后不断的把dev分支合并到主分支。
+> 另外还有一些其他不会合并入主分支的其他分支，比如gh-pages或者数据库文件等等
+
+关于Git分支策略，见[http://www.ruanyifeng.com/blog/2012/07/git.html](http://www.ruanyifeng.com/blog/2012/07/git.html)
+
+当两个分支在同一个commit的基础上对相同部分做了修改会引起冲突
+
+解决冲突的办法可以有：
+
+#### 手工解决冲突。
+
+先merge然后编辑文件解决冲突，再add 冲突文件，再commit.
+
+或者先diff HEAD,检查最新的提交跟master的差别，然后解决差别，再合并
+
+#### 对于一些二进制文件，或者不同版本的第三方库引起的冲突
+
+这时候不可能去手工编辑来解决冲突了，必须在两个版本的库中进行一个选择.
+
+要么强制(-f)覆盖掉原来的版本。要么 checkout --therirs (使用他们分支的版本)
+
+#### Sample1
+
+hit9为了熟悉下流程，手工制作一个冲突
+
+
+建立一个README,
+然后初始化,进行第一次提交。(第一次提交会建立主分支master并切换到master):
+
+```
+> README
+vim README  # 编辑些东西~
+git add .
+git commit -m 'master.first commit'
+```
+
+建立分支dev,并切换过去
+
+```
+git checkout -b dev
+```
+
+编辑 README并做一个commit.如果编辑同一个位置，会引发合并冲突
+
+```
+vim README
+git add .
+git commit -m 'dev.first commit'
+```
+
+再回到master分支,编辑README,并提交.
+
+```
+vim README
+git add .
+git commit -m 'master.2nd commit'
+```
+察看下提交历史:
+
+![](https://github.com/hit9/blog-img-store/raw/master/blog/Git/4_0.png)
+
+会看到提交的timeline.
+
+现在把dev分支合并到master:
+
+```
+git merge dev
+```
+
+会看到输出:
+
+![](https://raw.github.com/hit9/blog-img-store/master/blog/Git/4_1.png)
+
+察看下冲突:(其中HEAD表示最领先的提交)
+
+```
+git diff --diff-filter=U
+```
+
+![](https://raw.github.com/hit9/blog-img-store/master/blog/Git/4_2.png)
+
+手工合并冲突
+
+```
+git mergetool --tool=vimdiff
+```
+
+#### Sample2
+
+下载jquery 1.7.2,并重命名为jquery.js
+```
+wget http://code.jquery.com/jquery-1.7.2.js
+mv jquery-1.7.2.js jquery.js
+```
+
+初始化源，进行第一次commit:
+
+```
+git init
+git add .
+git commit -m 'master.first commit'
+```
+
+建立dev 分支并切换过去,下载1.7.1版本，并重命名为jquery.js
+
+```
+git checkout -b dev
+
+wget http://code.jquery.com/jquery-1.7.1.js
+
+mv jquery-1.7.1.js jquery.js
+
+# 做一次提交
+git add .
+
+git commit -m 'dev.first commit'
+```
+
+切换回主分支并下载1.8.1版本并覆盖jquery.js
+
+```
+wget http://code.jquery.com/jquery-1.8.1.js
+
+mv jquery-1.8.1.js jquery.jsa
+
+git add .
+git commit -m 'master.2nd commit'
+```
+察看下提交历史:
+
+![](https://raw.github.com/hit9/blog-img-store/master/blog/Git/4_3.png)
+
+
+这次冲突很多。不能编辑！要确定使用哪个版本
+
+```
+git checkout --theirs jquery.js # 使用dev分支的jquery.js
+
+git add jquery.js
+git commit -m 'Merge dev'
+```
+
+### 宗上呢，解决冲突有两条道路：
+
+1.如果某个分支的冲突文件不再需要，直接`git checkout --therirs`或者`git checkout --ours`来决定使用哪个
+
+2.如果有需要编辑的地方，直接编辑冲突文件，然后提交冲突文件完成合并

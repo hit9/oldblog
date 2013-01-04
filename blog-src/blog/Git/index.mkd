@@ -1,3 +1,4 @@
+1. [Git合并与冲突](posts/4.html)
 1. [使用Github做图床-Geek又靠谱](./posts/3.html)
 1. [github(或gitcafe)添加ssh密钥后显示无权限登录ssh](posts/2.html)
 1. [git push询问用户名和密码变成使用ssh认证](posts/index.html)
