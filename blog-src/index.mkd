@@ -1,6 +1,10 @@
 %title Hit9 - Follow my heart
 这是Hit9在Github上用[mkdwiki](wiki/mkdwiki)搭建的博客.
 
+为什么不能订阅这个博客?
+
+那就去Github上[watch这个博客](https://github.com/hit9/hit9.github.com)吧
+
 ```
 Beautiful is better than ugly.
 Explicit is better than implicit.
