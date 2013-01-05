@@ -34,3 +34,9 @@ git difftool --tool=vimdiff # 合并后在vimdiff 中列出所有冲突
 ```
 git checkout --theirs master soemfile #使用其他分支master的soemfile文件 
 ```
+
+
+Git add后撤销不提交
+```
+git reset HEAD yourfile
+```
