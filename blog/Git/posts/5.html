@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <title>Git</title>
+        <title>git分支与合并操作</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
-        <link rel="stylesheet" href="../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="../../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
         <script type="text/javascript">
             function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
         </script>
@@ -29,19 +29,44 @@
                 <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
             </div>
         </div>
-        <h1 itemprop="headline name">Git</h1>
+        <h1 itemprop="headline name">git分支与合并操作</h1>
         <!--fork me on github button-->
-        <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+        <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
         <!--end of github fork button-->
         <p itemprop="copyrightHolder">允许转载, 但转载请注明出处</p>
         <div itemprop="articleBody">
-            <ol>
-<li><a href="posts/5.html">git分支与合并操作</a></li>
-<li><a href="posts/4.html">Git合并与冲突</a></li>
-<li><a href="./posts/3.html">使用Github做图床-Geek又靠谱</a></li>
-<li><a href="posts/2.html">github(或gitcafe)添加ssh密钥后显示无权限登录ssh</a></li>
-<li><a href="posts/index.html">git push询问用户名和密码变成使用ssh认证</a></li>
-</ol>
+            <p>Date:2013-01-05</p>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">branch</span> <span class="n">dev</span> # 建立分支<span class="n">dev</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">dev</span> # 建立分支<span class="n">dev</span>并切换过去
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="o">--</span><span class="n">orphan</span> <span class="n">dev</span> #建立分支<span class="n">dev</span><span class="p">,</span>不在任何<span class="n">commit</span>之上建立，建立一个空的分支
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="n">master</span> #转入主分支
+<span class="n">git</span> <span class="n">merge</span> <span class="n">dev</span> #合并<span class="n">dev</span>到<span class="n">master</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">mergetool</span> <span class="o">--</span><span class="n">tool</span><span class="p">=</span><span class="n">vimdiff</span> # 使用<span class="n">vimdiff</span>来手工解决冲突
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">diff</span> # 合并后列出所有冲突
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">difftool</span> <span class="o">--</span><span class="n">tool</span><span class="p">=</span><span class="n">vimdiff</span> # 合并后在<span class="n">vimdiff</span> 中列出所有冲突
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="o">--</span><span class="n">theirs</span> <span class="n">master</span> <span class="n">soemfile</span> #使用其他分支<span class="n">master</span>的<span class="n">soemfile</span>文件 
+</pre></div>
         </div>
         <div id="foot">
             <a href="javascript:void(0);" onclick="gotopre();">Pre</a>

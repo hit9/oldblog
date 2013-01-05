@@ -1,3 +1,4 @@
+1. [git分支与合并操作](posts/5.html)
 1. [Git合并与冲突](posts/4.html)
 1. [使用Github做图床-Geek又靠谱](./posts/3.html)
 1. [github(或gitcafe)添加ssh密钥后显示无权限登录ssh](posts/2.html)

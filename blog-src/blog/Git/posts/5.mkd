@@ -1,0 +1,36 @@
+%title git分支与合并操作
+Date:2013-01-05
+
+```
+git branch dev # 建立分支dev
+```
+
+```
+git checkout -b dev # 建立分支dev并切换过去
+```
+
+```
+git checkout --orphan dev #建立分支dev,不在任何commit之上建立，建立一个空的分支
+```
+
+```
+git checkout master #转入主分支
+git merge dev #合并dev到master
+```
+
+```
+git mergetool --tool=vimdiff # 使用vimdiff来手工解决冲突
+```
+
+
+```
+git diff # 合并后列出所有冲突
+```
+
+```
+git difftool --tool=vimdiff # 合并后在vimdiff 中列出所有冲突
+```
+
+```
+git checkout --theirs master soemfile #使用其他分支master的soemfile文件 
+```
