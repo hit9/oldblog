@@ -1,0 +1,47 @@
+%title Python操作MySQL出现长时间等待的问题
+Date:2013-01-06
+
+今天在travis 做测试的时候发现，跟数据库建立了连接之后一直出现停顿，drop table 竟然执行了很久。
+
+mysql默认是启用 autocommit的，就是说每次执行一个查询语句，mysql都会自动commit，同时解锁。
+
+如果没有解锁就用另外一条数据库连接去操作这个表。就会出现等待。
+
+这种清形，只要在数据库连接上启用autocommit:
+
+```python
+conn.autocommit(True)
+```
+
+这是我做的一个测试的代码
+
+```python
+
+import MySQLdb
+
+create_tbl_SQL = open("tables.sql").read()
+
+conn = MySQLdb.connect(db = "test_travis", user = "root", passwd = "", charset = "utf8", host = "localhost", port = 3306)
+
+def create_tables():
+    conn.cursor().execute(create_tbl_SQL)
+
+def drop_tables():
+    conn.cursor().execute("drop table user, post")
+
+create_tables()
+
+conn1 = MySQLdb.connect(db = "test_travis", user = "root", passwd = "", charset = "utf8", host = "localhost", port = 3306)
+
+conn1.autocommit(True)  # here !
+
+c = conn1.cursor()
+
+c.execute("insert into user set user.name = '111'")
+
+c.execute("select * from user; ")
+
+drop_tables()
+```
+
+去掉这个语句的话，在没有默认设置autocommit的mysql服务器上会引起mysql挂起

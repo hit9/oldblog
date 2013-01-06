@@ -1,3 +1,4 @@
+1. [Python操作MySQL出现长时间等待的问题](posts/22.html)
 1. [使用nose进行单元测试](posts/21.html)
 1. [Python扩展(一)](posts/20.html)
 1. [python打开类](posts/19.html)
