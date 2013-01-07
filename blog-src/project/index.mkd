@@ -2,19 +2,19 @@
 
 我的开源项目:
 
-1. [virgo](http://hit9.org/virgo) (Simple & Easy to use ORM for Python-MySQL)
+1. [virgo](http://virgo.readthedocs.org/) (Simple & Easy to use ORM for Python-MySQL)
 
 1. [mkdwiki2](https://github.com/hit9/mkdwiki2) (Write wiki in Github Favorite Markdown. )
 
 1. [mkdwiki](../wiki/mkdwiki/index.html) (mkdwiki是一个python语言编写的基于目录的用来组织wiki的小工具,特色在于Github风格的有界代码高亮和模板支持,本站基于mkdwiki.It is old! See mkdwiki2)
 
-3. [BKDRHASH](https://github.com/hit9/BKDRHash) (A externsion for PHP:a wrapper of bkdrhash in PHP)
-
-4. [php-mysql-orm ](../wiki/php-mysql-orm) (NO-SQL way for php/mysql project.)
+1. [php-mysql-orm ](../wiki/php-mysql-orm) (NO-SQL way for php/mysql project.)
 
 1. [litephp](../wiki/litephp) (应用于php-mysql开发模式的简单mvc框架.集成了连贯操作的数据库操作类,输入格式检查类和模板引擎.)
 
 1. [C-list](../wiki/C-list) (单链表的C语言封装)
+
+1. [C-dict](https://github.com/hit9/C-dict) (哈希表的C语言封装)
 
 承接以下付费项目:
 
