@@ -1,0 +1,12 @@
+%title 小而好用的浏览器midori
+Date:2013-01-09
+
+有必要记录下这个浏览器。
+
+讨厌了chrome.opera ff什么的了
+
+在linux下我只要个小的浏览器就足够了。
+
+midori很小，在ubuntu的软件中心就有。
+
+midori还支持jk滚动，还支持s快捷键搜索。而且，支持css3和html5!
