@@ -1,3 +1,4 @@
+1. [轻量级终端sakura](posts/5.html)
 1. [wubi安装ubuntu,启动时出现找不到root.disk](posts/4.html)
 1. [ubuntu下解禁所有的系统托盘图标显示](posts/3.html)
 1. [ubuntu下安装ati私有驱动catalyst](posts/2.html)

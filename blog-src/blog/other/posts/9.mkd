@@ -1,0 +1,13 @@
+%title vim功能键不能使用，产生H和F字符解决办法
+Date:2013-01-09
+
+这是因为vim的终端环境不支持.如果你在.bashrc中配置了term不是 xterm的话，就会发生这个情况。
+
+比如我配置是screen-256color
+
+这时我们需要在vimrc中重置这个参数:
+
+```
+set term=xterm-256color
+set t_Co=256
+```
