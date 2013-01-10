@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>终端增强之powerline工具</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="../../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
+        <script type="text/javascript">
+            function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
+        </script>
+    </head>
+    <body itemscope itemtype="http://schema.org/BlogPosting">
+        <div id="top">
+            <div id="top1">
+                <a href="/index.html">Hit9</a>
+                <a href="/blog/index.html">Blog</a>
+                <a href="/wiki/index.html">Wiki</a>
+                <a href="/project/index.html">Project</a>
+                <a href="/links.html">Links</a>
+                <a href="/dir_html.html">Archives</a>
+                <a href="/About.html" rel="author publisher" itemprop="author" itemscope="" itemtype="http://schema.org/Person" >About</a>
+            </div>
+            <div id="top2">
+                Page:
+                <a href="index.html">First</a>
+                <a href="../index.html">UP</a>
+                <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+                <a href="javascript:void(0);" onclick="gotonext()">Next</a>
+                <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+            </div>
+        </div>
+        <h1 itemprop="headline name">终端增强之powerline工具</h1>
+        <!--fork me on github button-->
+        <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+        <!--end of github fork button-->
+        <p itemprop="copyrightHolder">允许转载, 但转载请注明出处</p>
+        <div itemprop="articleBody">
+            <p>Date:2013-01-10</p>
+<p>powerline不仅美化了你的工作区，还能很大程度帮助你工作。</p>
+<h3 id="1-powerline-bash">1. powerline-bash</h3>
+<p>What is: Powerline for Bash/ZSH</p>
+<p>Github repo :<a href="https://github.com/milkbikis/powerline-bash">https://github.com/milkbikis/powerline-bash</a></p>
+<p>Snapshot:</p>
+<p><img alt="" src="https://raw.github.com/hit9/blog-img-store/master/blog/other/11_0.png" /></p>
+<p>特点:可以很清晰的指明所在目录的Git状态.</p>
+<p>安装: </p>
+<ol>
+<li>
+<p>克隆 git clone https://github.com/milkbikis/powerline-bash</p>
+</li>
+<li>
+<p>追加以下到你的~/.bashrc,注意修改<path-to>为克隆下来的powerline目录路径</p>
+</li>
+</ol>
+<div class="codehilite"><pre><span class="k">function</span><span class="w"> </span><span class="nf">_update_ps1</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+   <span class="n">export</span> <span class="n">PS1</span><span class="p">=</span>&quot;$<span class="p">(</span><span class="o">&lt;</span><span class="n">path</span><span class="o">-</span><span class="n">to</span><span class="o">&gt;/</span><span class="n">powerline</span><span class="o">-</span><span class="n">bash</span><span class="p">.</span><span class="n">py</span> $?<span class="p">)</span>&quot;
+<span class="p">}</span>
+
+<span class="n">export</span> <span class="n">PROMPT_COMMAND</span><span class="p">=</span>&quot;<span class="n">_update_ps1</span>&quot;
+</pre></div>
+
+
+<p>问题：</p>
+<ol>
+<li>如果出现乱码或者字体问题, 访问<a href="https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts">https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts</a></li>
+</ol>
+<p>选一个你喜欢的字体，比如<a href="https://gist.github.com/1595572">Inconsolata-dz-Powerline.otf</a></p>
+<p>点击<a href="https://gist.github.com/raw/1595572/51bdd743cc1cc551c49457fe1503061b9404183f/Inconsolata-dz-Powerline.otf">View Raw</a></p>
+<p>然后安装这个字体.Ubuntu下双击字体即可安装.然后进入你的终端，让终端使用这个字体.</p>
+<ol>
+<li>tmux中powerline-bash的颜色不那么好看？不那么鲜艳？</li>
+</ol>
+<p>在.tmux.conf中加入</p>
+<div class="codehilite"><pre><span class="n">set</span> <span class="o">-</span><span class="n">g</span> <span class="n">default</span><span class="o">-</span><span class="n">terminal</span> &quot;<span class="n">screen</span><span class="o">-</span>256<span class="n">color</span>&quot;
+</pre></div>
+
+
+<h3 id="2vim-powerline">2.vim-powerline</h3>
+<p>What is : The ultimate vim statusline utility.(Vim状态栏增强工具)</p>
+<p>Github repo : [https://github.com/Lokaltog/vim-powerline][https://github.com/Lokaltog/vim-powerline]</p>
+<p>Snapshot:</p>
+<p><img alt="" src="https://raw.github.com/hit9/blog-img-store/master/blog/other/11_1.png" /></p>
+<p>特点:高亮VIM的状态</p>
+<p>安装: </p>
+<p>克隆:(使用bundle安装)</p>
+<div class="codehilite"><pre><span class="n">cd</span> <span class="o">~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">bundle</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">Lokaltog</span><span class="o">/</span><span class="n">vim</span><span class="o">-</span><span class="n">powerline</span>
+</pre></div>
+
+
+<p>然后编辑你的vimrc:</p>
+<div class="codehilite"><pre><span class="n">Bundle</span> <span class="s">&#39;vim-powerline&#39;</span>
+<span class="n">set</span> <span class="n">laststatus</span><span class="p">=</span>2
+<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">Powerline_colorscheme</span><span class="p">=</span><span class="s">&#39;solarized256&#39;</span>
+</pre></div>
+
+
+<p>问题:</p>
+<ol>
+<li>
+<p>主题在目录<code>autoload/Powerline/Themes</code>下,配色在<code>autoload/Powerline/Colorschemes</code></p>
+</li>
+<li>
+<p>在tmux中的vim状态栏不颜色并不那么好看？</p>
+</li>
+</ol>
+<p>确保你在.tmux.conf中启用了256color:</p>
+<div class="codehilite"><pre><span class="n">set</span> <span class="o">-</span><span class="n">g</span> <span class="n">default</span><span class="o">-</span><span class="n">terminal</span> &quot;<span class="n">screen</span><span class="o">-</span>256<span class="n">color</span>&quot;
+</pre></div>
+
+
+<p>确保你在.vimrc中启用了终端256color:</p>
+<div class="codehilite"><pre><span class="n">set</span> <span class="n">t_Co</span><span class="p">=</span>256
+</pre></div>
+
+
+<h3 id="3tmux-powerline">3.tmux-powerline</h3>
+<p>What is : Statusbar configuration for tmux that looks like vim-powerline and consist of dynamic segments. </p>
+<p>Github repo: <a href="https://github.com/erikw/tmux-powerline">https://github.com/erikw/tmux-powerline</a></p>
+<p>Snapshot:</p>
+<p><img alt="" src="https://raw.github.com/hit9/blog-img-store/master/blog/other/11_2.png" /></p>
+<p>特点:美化tmux状态栏</p>
+<p>安装:</p>
+<p>克隆: git clone git://github.com/erikw/tmux-powerline.git</p>
+<p>追加这些到~/.tmux.conf</p>
+<div class="codehilite"><pre><span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span> <span class="n">on</span>
+<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">interval</span> 2
+<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">utf8</span> <span class="n">on</span>
+<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">justify</span> &quot;<span class="n">centre</span>&quot;
+<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">left</span><span class="o">-</span><span class="nb">length</span> 60
+<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">right</span><span class="o">-</span><span class="nb">length</span> 90
+<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">left</span> &quot;#<span class="p">(</span><span class="o">~/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">tmux</span><span class="o">-</span><span class="n">powerline</span><span class="o">/</span><span class="n">powerline</span><span class="p">.</span><span class="n">sh</span> <span class="n">left</span><span class="p">)</span>&quot;
+<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">right</span> &quot;#<span class="p">(</span><span class="o">~/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">tmux</span><span class="o">-</span><span class="n">powerline</span><span class="o">/</span><span class="n">powerline</span><span class="p">.</span><span class="n">sh</span> <span class="n">right</span><span class="p">)</span>&quot;
+</pre></div>
+
+
+<h3 id="end">END</h3>
+<p>此外,还有emacs-powerline,zsh-powerline,oh-my-zsh-powerline-theme..</p>
+        </div>
+        <div id="foot">
+            <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+            <a href="#">Top</a>
+            <a href="javascript:void(0);" onclick="gotonext()">Next</a>
+        </div>
+        <br>
+        <!-- Duoshuo Comment BEGIN -->
+        <div class="ds-thread" data-thread-key="" 
+            data-title="" data-author-key="" data-url=""></div>
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:"hit9github"};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = 'http://static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0] 
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+        <!-- Duoshuo Comment END -->
+        <div style = "text-align:center; ">
+            <p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,127 @@
+%title 终端增强之powerline工具
+Date:2013-01-10
+
+powerline不仅美化了你的工作区，还能很大程度帮助你工作。
+
+### 1. powerline-bash
+
+What is: Powerline for Bash/ZSH
+
+Github repo :[https://github.com/milkbikis/powerline-bash](https://github.com/milkbikis/powerline-bash)
+
+Snapshot:
+
+![](https://raw.github.com/hit9/blog-img-store/master/blog/other/11_0.png)
+
+特点:可以很清晰的指明所在目录的Git状态.
+
+安装: 
+
+1. 克隆 git clone https://github.com/milkbikis/powerline-bash
+
+2. 追加以下到你的~/.bashrc,注意修改<path-to>为克隆下来的powerline目录路径
+
+```
+function _update_ps1() {
+   export PS1="$(<path-to>/powerline-bash.py $?)"
+}
+
+export PROMPT_COMMAND="_update_ps1"
+```
+
+问题：
+
+1. 如果出现乱码或者字体问题, 访问[https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts](https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts)
+
+选一个你喜欢的字体，比如[Inconsolata-dz-Powerline.otf](https://gist.github.com/1595572)
+
+点击[View Raw](https://gist.github.com/raw/1595572/51bdd743cc1cc551c49457fe1503061b9404183f/Inconsolata-dz-Powerline.otf)
+
+然后安装这个字体.Ubuntu下双击字体即可安装.然后进入你的终端，让终端使用这个字体.
+
+2. tmux中powerline-bash的颜色不那么好看？不那么鲜艳？
+
+在.tmux.conf中加入
+
+```
+set -g default-terminal "screen-256color"
+```
+
+### 2.vim-powerline
+
+What is : The ultimate vim statusline utility.(Vim状态栏增强工具)
+
+Github repo : [https://github.com/Lokaltog/vim-powerline][https://github.com/Lokaltog/vim-powerline]
+
+Snapshot:
+
+![](https://raw.github.com/hit9/blog-img-store/master/blog/other/11_1.png)
+
+特点:高亮VIM的状态
+
+安装: 
+
+克隆:(使用bundle安装)
+
+```
+cd ~/.vim/bundle
+git clone https://github.com/Lokaltog/vim-powerline
+```
+然后编辑你的vimrc:
+
+```
+Bundle 'vim-powerline'
+set laststatus=2
+let g:Powerline_colorscheme='solarized256'
+```
+
+问题:
+
+1. 主题在目录`autoload/Powerline/Themes `下,配色在` autoload/Powerline/Colorschemes`
+
+2. 在tmux中的vim状态栏不颜色并不那么好看？
+
+确保你在.tmux.conf中启用了256color:
+
+```
+set -g default-terminal "screen-256color"
+```
+
+确保你在.vimrc中启用了终端256color:
+
+```
+set t_Co=256
+```
+
+### 3.tmux-powerline
+
+What is : Statusbar configuration for tmux that looks like vim-powerline and consist of dynamic segments. 
+
+Github repo: [https://github.com/erikw/tmux-powerline](https://github.com/erikw/tmux-powerline)
+
+Snapshot:
+
+![](https://raw.github.com/hit9/blog-img-store/master/blog/other/11_2.png)
+
+特点:美化tmux状态栏
+
+安装:
+
+克隆: git clone git://github.com/erikw/tmux-powerline.git
+
+追加这些到~/.tmux.conf
+
+```
+set-option -g status on
+set-option -g status-interval 2
+set-option -g status-utf8 on
+set-option -g status-justify "centre"
+set-option -g status-left-length 60
+set-option -g status-right-length 90
+set-option -g status-left "#(~/path/to/tmux-powerline/powerline.sh left)"
+set-option -g status-right "#(~/path/to/tmux-powerline/powerline.sh right)"
+```
+
+### END
+
+此外,还有emacs-powerline,zsh-powerline,oh-my-zsh-powerline-theme..

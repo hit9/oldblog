@@ -1,3 +1,4 @@
+1. [终端增强之powerline工具](posts/11.html)
 1. [小而好用的浏览器midori](posts/10.html)
 1. [vim功能键不能使用，产生H和F字符解决办法](posts/9.html)
 1. [终端增强工具powerline-bash](posts/8.html)
