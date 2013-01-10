@@ -25,3 +25,4 @@ Hit9推荐的文章:
 * [vim-高效强悍的编辑器](wiki/vim_study/index.html)
 * [Python正则表达式](wiki/python_re/index.html)
 * [Python itertools学习笔记](blog/Python/posts/6.html)
+* [powerline工具](blog/other/posts/11.html)
