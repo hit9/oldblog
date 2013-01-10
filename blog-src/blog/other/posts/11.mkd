@@ -31,7 +31,7 @@ export PROMPT_COMMAND="_update_ps1"
 
 问题：
 
-1. 如果出现乱码或者字体问题, 访问[https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts](https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts)
+1.如果出现乱码或者字体问题, 访问[https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts](https://github.com/Lokaltog/vim-powerline/wiki/Patched-fonts)
 
 选一个你喜欢的字体，比如[Inconsolata-dz-Powerline.otf](https://gist.github.com/1595572)
 
@@ -39,7 +39,7 @@ export PROMPT_COMMAND="_update_ps1"
 
 然后安装这个字体.Ubuntu下双击字体即可安装.然后进入你的终端，让终端使用这个字体.
 
-2. tmux中powerline-bash的颜色不那么好看？不那么鲜艳？
+2.tmux中powerline-bash的颜色不那么好看？不那么鲜艳？
 
 在.tmux.conf中加入
 
