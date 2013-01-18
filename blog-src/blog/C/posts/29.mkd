@@ -1,0 +1,166 @@
+%title C语言函数指针的介绍和用途
+Date:2013-01-17
+
+阅读[Stackoverflow的一个帖子](http://stackoverflow.com/questions/840501/how-do-function-pointers-in-c-work)有感。
+
+以下代码块是C代码以及gdb调试器.
+
+我们定义一个简单的函数`add`
+
+```c
+int add(int a, int b)
+{
+    return a+b; 
+}
+```
+
+然后我们定义一个这种类型的函数指针并指向`add`:
+
+```c
+int (*fp)(int, int) = &add; 
+```
+
+在gdb中测试下这个指针, 工作良好麻
+
+```c
+(gdb) p (*fp)(3,4) 
+$1 = 7
+```
+
+把这个指针传递给函数也很简单:
+
+
+```c
+int add2to3(int (*fp)(int, int)){
+    return (*fp)(2, 3); 
+```
+
+我们把add函数的指针传给它试试:
+
+```c
+(gdb) p add2to3(&add) 
+$2 = 5
+```
+
+想到了什么？ 函数工厂对吗？！
+
+下面定义了一个函数`functionFactory`, 它接收一个参数`n`, 返回一个函数指针
+
+```c
+int (*functionFactory(int n))(int, int){
+    printf("Got parameter %d", n); 
+    int (*fp)(int, int) = &add; 
+    return fp; 
+}
+```
+我们看看它工作的如何:
+
+```c
+(gdb) p functionFactory(1) 
+$1 = (int (*)(int, int)) 0x80483c4 <add>
+```
+
+用个`typedef`就好看多了:
+
+```c
+typedef int (*FuncP)(int, int); 
+
+FuncP functionFactory(int n){
+    printf("Got parameter %d", n); 
+    FuncP fp = &add; 
+    return fp; 
+}
+```
+
+还有一个比较好玩的用法，构造一个语法简洁的迭代器！
+
+看看下面的迭代链表的部分:
+
+```c
+#include <stdio.h>
+
+typedef struct node {
+    int data; 
+    struct node *next; 
+} node_t; 
+
+//define 4 nodes a->b->c->d
+node_t d = {4, 0}, 
+    c = {3, &d}, 
+    b = {2, &c}, 
+    a = {1, &b}; 
+
+
+void PrintData(node_t *n)
+{
+    printf("%d", n->data); 
+}
+
+
+void eachNode(void (*fp)(node_t *))
+{
+    node_t *p; 
+    for(p = &a; p; p = p->next){
+        (*fp)(p); 
+    }
+}
+
+int main()
+{
+    eachNode(PrintData); 
+    return 0; 
+}
+```
+
+更面向对象一点！
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node {
+    int data; 
+    struct node *next; 
+} node_t; 
+
+typedef struct list list_t; 
+
+typedef void (*funcP)(node_t *); 
+
+struct list {
+    node_t *head; 
+    void (*eachNode)(funcP); 
+}; 
+
+void PrintData(node_t *n)
+{
+    printf("%d", n->data); 
+}
+
+void eachNode(list_t *list, funcP fp)
+{
+    node_t *p; 
+    for(p = list->head; p; p = p->next){
+        (*fp)(p); 
+    }
+}
+
+void init(list_t *list, node_t *head)
+{
+    list->head = head; 
+    void each(funcP fp){
+        eachNode(list, fp); 
+    }
+    list->eachNode = &each; 
+}
+
+int main()
+{
+    //a->b->c->d
+    node_t d = {4, 0}, c = {3, &d}, b = {2, &c}, a = {1, &b}; 
+    list_t *list = (list_t *)malloc(sizeof(list_t)); 
+    init(list, &a); 
+    list->eachNode(PrintData); 
+    return 0; 
+}
+```

@@ -1,3 +1,4 @@
+1. [C语言函数指针的介绍和用途](posts/29.html)
 1. [C语言数组初始化技巧](posts/28.html)
 1. [C语言位操作基本技巧收集](./posts/27.html)
 1. [size_t](posts/23.html)

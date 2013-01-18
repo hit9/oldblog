@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>C语言函数指针的介绍和用途</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="../../../static/solarizeddark-code-style.css" type="text/css" media="screen" charset="utf-8">
+        <script type="text/javascript">
+            function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
+        </script>
+    </head>
+    <body itemscope itemtype="http://schema.org/BlogPosting">
+        <div id="top">
+            <div id="top1">
+                <a href="/index.html">Hit9</a>
+                <a href="/blog/index.html">Blog</a>
+                <a href="/wiki/index.html">Wiki</a>
+                <a href="/project/index.html">Project</a>
+                <a href="/links.html">Links</a>
+                <a href="/dir_html.html">Archives</a>
+                <a href="/About.html" rel="author publisher" itemprop="author" itemscope="" itemtype="http://schema.org/Person" >About</a>
+            </div>
+            <div id="top2">
+                Page:
+                <a href="index.html">First</a>
+                <a href="../index.html">UP</a>
+                <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+                <a href="javascript:void(0);" onclick="gotonext()">Next</a>
+                <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+            </div>
+        </div>
+        <h1 itemprop="headline name">C语言函数指针的介绍和用途</h1>
+        <!--fork me on github button-->
+        <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+        <!--end of github fork button-->
+        <p itemprop="copyrightHolder">允许转载, 但转载请注明出处</p>
+        <div itemprop="articleBody">
+            <p>Date:2013-01-17</p>
+<p>阅读<a href="http://stackoverflow.com/questions/840501/how-do-function-pointers-in-c-work">Stackoverflow的一个帖子</a>有感。</p>
+<p>以下代码块是C代码以及gdb调试器.</p>
+<p>我们定义一个简单的函数<code>add</code></p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>然后我们定义一个这种类型的函数指针并指向<code>add</code>:</p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">add</span><span class="p">;</span> 
+</pre></div>
+
+
+<p>在gdb中测试下这个指针, 工作良好麻</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">p</span> <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> 
+<span class="err">$</span><span class="mi">1</span> <span class="o">=</span> <span class="mi">7</span>
+</pre></div>
+
+
+<p>把这个指针传递给函数也很简单:</p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="n">add2to3</span><span class="p">(</span><span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)){</span>
+    <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span> 
+</pre></div>
+
+
+<p>我们把add函数的指针传给它试试:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">p</span> <span class="n">add2to3</span><span class="p">(</span><span class="o">&amp;</span><span class="n">add</span><span class="p">)</span> 
+<span class="err">$</span><span class="mi">2</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+
+
+<p>想到了什么？ 函数工厂对吗？！</p>
+<p>下面定义了一个函数<code>functionFactory</code>, 它接收一个参数<code>n</code>, 返回一个函数指针</p>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">functionFactory</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">))(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">){</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Got parameter %d&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span> 
+    <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">add</span><span class="p">;</span> 
+    <span class="k">return</span> <span class="n">fp</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>我们看看它工作的如何:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">p</span> <span class="n">functionFactory</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> 
+<span class="err">$</span><span class="mi">1</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">))</span> <span class="mh">0x80483c4</span> <span class="o">&lt;</span><span class="n">add</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p>用个<code>typedef</code>就好看多了:</p>
+<div class="codehilite"><pre><span class="k">typedef</span> <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">FuncP</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span> 
+
+<span class="n">FuncP</span> <span class="n">functionFactory</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Got parameter %d&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span> 
+    <span class="n">FuncP</span> <span class="n">fp</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">add</span><span class="p">;</span> 
+    <span class="k">return</span> <span class="n">fp</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>还有一个比较好玩的用法，构造一个语法简洁的迭代器！</p>
+<p>看看下面的迭代链表的部分:</p>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">node</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span> 
+    <span class="k">struct</span> <span class="n">node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span> 
+<span class="p">}</span> <span class="n">node_t</span><span class="p">;</span> 
+
+<span class="c1">//define 4 nodes a-&gt;b-&gt;c-&gt;d</span>
+<span class="n">node_t</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> 
+    <span class="n">c</span> <span class="o">=</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">},</span> 
+    <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">},</span> 
+    <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">};</span> 
+
+<span class="kt">void</span> <span class="nf">PrintData</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span> 
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">eachNode</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="n">node_t</span> <span class="o">*</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span> 
+    <span class="k">for</span><span class="p">(</span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span> <span class="n">p</span><span class="p">;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">){</span>
+        <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="n">p</span><span class="p">);</span> 
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">eachNode</span><span class="p">(</span><span class="n">PrintData</span><span class="p">);</span> 
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>更面向对象一点！</p>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;stdlib.h&gt;</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">node</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span> 
+    <span class="k">struct</span> <span class="n">node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span> 
+<span class="p">}</span> <span class="n">node_t</span><span class="p">;</span> 
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">list</span> <span class="n">list_t</span><span class="p">;</span> 
+
+<span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">funcP</span><span class="p">)(</span><span class="n">node_t</span> <span class="o">*</span><span class="p">);</span> 
+
+<span class="k">struct</span> <span class="n">list</span> <span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">;</span> 
+    <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">eachNode</span><span class="p">)(</span><span class="n">funcP</span><span class="p">);</span> 
+<span class="p">};</span> 
+
+<span class="kt">void</span> <span class="nf">PrintData</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span> 
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">eachNode</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">,</span> <span class="n">funcP</span> <span class="n">fp</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">node_t</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span> 
+    <span class="k">for</span><span class="p">(</span><span class="n">p</span> <span class="o">=</span> <span class="n">list</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span> <span class="n">p</span><span class="p">;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">){</span>
+        <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="n">p</span><span class="p">);</span> 
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">,</span> <span class="n">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">list</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span> 
+    <span class="kt">void</span> <span class="n">each</span><span class="p">(</span><span class="n">funcP</span> <span class="n">fp</span><span class="p">){</span>
+        <span class="n">eachNode</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="n">fp</span><span class="p">);</span> 
+    <span class="p">}</span>
+    <span class="n">list</span><span class="o">-&gt;</span><span class="n">eachNode</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">each</span><span class="p">;</span> 
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">//a-&gt;b-&gt;c-&gt;d</span>
+    <span class="n">node_t</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="n">c</span> <span class="o">=</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">},</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">},</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">};</span> 
+    <span class="n">list_t</span> <span class="o">*</span><span class="n">list</span> <span class="o">=</span> <span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">list_t</span><span class="p">));</span> 
+    <span class="n">init</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">);</span> 
+    <span class="n">list</span><span class="o">-&gt;</span><span class="n">eachNode</span><span class="p">(</span><span class="n">PrintData</span><span class="p">);</span> 
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> 
+<span class="p">}</span>
+</pre></div>
+        </div>
+        <div id="foot">
+            <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+            <a href="#">Top</a>
+            <a href="javascript:void(0);" onclick="gotonext()">Next</a>
+        </div>
+        <br>
+        <!-- Duoshuo Comment BEGIN -->
+        <div class="ds-thread" data-thread-key="" 
+            data-title="" data-author-key="" data-url=""></div>
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:"hit9github"};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = 'http://static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0] 
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+        <!-- Duoshuo Comment END -->
+        <div style = "text-align:center; ">
+            <p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+        </div>
+    </body>
+</html>
