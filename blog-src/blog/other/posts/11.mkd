@@ -3,6 +3,11 @@ Date:2013-01-10
 
 powerline不仅美化了你的工作区，还能很大程度帮助你工作。
 
+
+**注意** : 目前有一个为tmux,vim,zsh, bash提供统一解决方法的Python脚本:
+
+[https://github.com/Lokaltog/powerline][https://github.com/Lokaltog/powerline]
+
 ### 1. powerline-bash
 
 What is: Powerline for Bash/ZSH
