@@ -44,7 +44,7 @@
 <p>如果有信息显示说明已经安装驱动.否则请到官方wiki去看说明安装驱动.<a href="https://wiki.archlinux.org/index.php/Wireless_Setup">link</a></p>
 <p>我的本子是bcm4313的,使用的是linux默认自带的驱动brcmsmac(开机自动加载)</p>
 <p>开启无线</p>
-<div class="codehilite"><pre><span class="n">ifconfig</span> <span class="n">wlan0</span> <span class="n">up</span> #需要<span class="n">root</span>权限
+<div class="codehilite"><pre><span class="n">ifconfig</span> <span class="n">wlan0</span> <span class="n">up</span> <span class="err">#需要</span><span class="n">root</span><span class="err">权限</span>
 </pre></div>
 
 
@@ -54,7 +54,7 @@
 
 
 <p>如果连接开放网络(像我们哈工大的HIT-WLAN这种,先分配ip再给上网权限的):</p>
-<div class="codehilite"><pre><span class="n">sudo</span> <span class="n">iwconfig</span> <span class="n">wlan0</span> <span class="n">essid</span> <span class="s">&#39;HIT-WLAN&#39;</span>
+<div class="codehilite"><pre><span class="n">sudo</span> <span class="n">iwconfig</span> <span class="n">wlan0</span> <span class="n">essid</span> <span class="err">&#39;</span><span class="n">HIT</span><span class="o">-</span><span class="n">WLAN</span><span class="err">&#39;</span>
 </pre></div>
 
 
@@ -71,12 +71,12 @@
 
 
 <p>然后我们生成一份新的配置文件</p>
-<div class="codehilite"><pre><span class="n">wpa_passphrase</span> <span class="n">ssid</span> &quot;<span class="n">my_secret_passkey</span>&quot; <span class="o">&gt;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">wpa_supplicant</span><span class="p">.</span><span class="n">conf</span>   
+<div class="codehilite"><pre><span class="n">wpa_passphrase</span> <span class="n">ssid</span> <span class="s">&quot;my_secret_passkey&quot;</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">wpa_supplicant</span><span class="p">.</span><span class="n">conf</span>   
 </pre></div>
 
 
 <p>然后我们根据这份配置文件连接ssid无线网</p>
-<div class="codehilite"><pre><span class="n">wpa_supplicant</span> <span class="o">-</span><span class="nb">i</span> <span class="n">wlan0</span> <span class="o">-</span><span class="n">c</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">wpa_supplicant</span><span class="p">.</span><span class="n">conf</span>
+<div class="codehilite"><pre><span class="n">wpa_supplicant</span> <span class="o">-</span><span class="n">i</span> <span class="n">wlan0</span> <span class="o">-</span><span class="n">c</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">wpa_supplicant</span><span class="p">.</span><span class="n">conf</span>
 </pre></div>
 
 

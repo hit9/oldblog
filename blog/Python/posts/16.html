@@ -143,10 +143,10 @@
 <p>其中一个做法就是<code>zip(*[iter(x)]*3)</code>,另一种方法是<code>map(None,*[iter(x)]*3)</code></p>
 <p>为何这个会起作用呢?</p>
 <p>注意,比如我们取y=iter(x),根据第5个规律，<code>[iter(x)]*3</code>就是<code>[y,y,y]</code>.而iter()函数每次被调用都会从x取一个元素。那么对zip函数的传参列表为:</p>
-<div class="codehilite"><pre>参数1  参数2  参数3
-1      2     3             <span class="o">---</span>  第一次取元素
-4      5     6             <span class="o">---</span>  第二次
-7      8     9             <span class="o">---</span>  第三次
+<div class="codehilite"><pre><span class="err">参数</span><span class="mi">1</span>  <span class="err">参数</span><span class="mi">2</span>  <span class="err">参数</span><span class="mi">3</span>
+<span class="mi">1</span>      <span class="mi">2</span>     <span class="mi">3</span>             <span class="o">---</span>  <span class="err">第一次取元素</span>
+<span class="mi">4</span>      <span class="mi">5</span>     <span class="mi">6</span>             <span class="o">---</span>  <span class="err">第二次</span>
+<span class="mi">7</span>      <span class="mi">8</span>     <span class="mi">9</span>             <span class="o">---</span>  <span class="err">第三次</span>
 </pre></div>
 
 

@@ -39,22 +39,22 @@
 <p>起因是我在写wiki的时候，遇到python中的<code>__name__</code>等这种，vimwiki会认为成斜体，造成麻烦。</p>
 <p>目的:把斜体语法由<code>_italic_</code>改为<code>##italic##</code></p>
 <p>修改插件vimwiki目录下的syntax/vimwiki_default.vim中的 </p>
-<div class="codehilite"><pre><span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">vimwiki_rxItalic</span> <span class="p">=</span> <span class="s">&#39;\%(^\|\s\|[[:punct:]]\)\@&lt;=&#39;</span><span class="p">.</span>
-<span class="o">\</span><span class="s">&#39;_&#39;</span><span class="p">.</span>
-<span class="o">\</span><span class="s">&#39;\%([^_`[:space:]][^_`]*[^_`[:space:]]\|[^_`[:space:]]\)&#39;</span><span class="p">.</span>
-<span class="o">\</span><span class="s">&#39;_&#39;</span><span class="p">.</span>
-<span class="o">\</span><span class="s">&#39;\%([[:punct:]]\|\s\|$\)\@=&#39;</span>
-<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">vimwiki_char_italic</span> <span class="p">=</span> <span class="s">&#39;_&#39;</span>
+<div class="codehilite"><pre><span class="n">let</span> <span class="n">g</span><span class="o">:</span><span class="n">vimwiki_rxItalic</span> <span class="o">=</span> <span class="err">&#39;\</span><span class="o">%</span><span class="p">(</span><span class="o">^</span><span class="err">\</span><span class="o">|</span><span class="err">\</span><span class="n">s</span><span class="err">\</span><span class="o">|</span><span class="p">[[</span><span class="o">:</span><span class="n">punct</span><span class="o">:</span><span class="p">]]</span><span class="err">\</span><span class="p">)</span><span class="err">\@</span><span class="o">&lt;=</span><span class="err">&#39;</span><span class="p">.</span>
+<span class="err">\</span><span class="sc">&#39;_&#39;</span><span class="p">.</span>
+<span class="err">\&#39;\</span><span class="o">%</span><span class="p">([</span><span class="o">^</span><span class="n">_</span><span class="err">`</span><span class="p">[</span><span class="o">:</span><span class="n">space</span><span class="o">:</span><span class="p">]][</span><span class="o">^</span><span class="n">_</span><span class="err">`</span><span class="p">]</span><span class="o">*</span><span class="p">[</span><span class="o">^</span><span class="n">_</span><span class="err">`</span><span class="p">[</span><span class="o">:</span><span class="n">space</span><span class="o">:</span><span class="p">]]</span><span class="err">\</span><span class="o">|</span><span class="p">[</span><span class="o">^</span><span class="n">_</span><span class="err">`</span><span class="p">[</span><span class="o">:</span><span class="n">space</span><span class="o">:</span><span class="p">]]</span><span class="err">\</span><span class="p">)</span><span class="err">&#39;</span><span class="p">.</span>
+<span class="err">\</span><span class="sc">&#39;_&#39;</span><span class="p">.</span>
+<span class="err">\&#39;\</span><span class="o">%</span><span class="p">([[</span><span class="o">:</span><span class="n">punct</span><span class="o">:</span><span class="p">]]</span><span class="err">\</span><span class="o">|</span><span class="err">\</span><span class="n">s</span><span class="err">\</span><span class="o">|</span><span class="err">$\</span><span class="p">)</span><span class="err">\@</span><span class="o">=</span><span class="err">&#39;</span>
+<span class="n">let</span> <span class="n">g</span><span class="o">:</span><span class="n">vimwiki_char_italic</span> <span class="o">=</span> <span class="sc">&#39;_&#39;</span>
 </pre></div>
 
 
 <p>修改为:</p>
-<div class="codehilite"><pre><span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">vimwiki_rxItalic</span> <span class="p">=</span> <span class="s">&#39;\%(^\|\s\|[[:punct:]]\)\@&lt;=&#39;</span><span class="p">.</span>
-<span class="o">\</span><span class="s">&#39;##&#39;</span><span class="p">.</span>
-<span class="o">\</span><span class="s">&#39;\%([^_`[:space:]][^_`]*[^_`[:space:]]\|[^_`[:space:]]\)&#39;</span><span class="p">.</span>
-<span class="o">\</span><span class="s">&#39;##&#39;</span><span class="p">.</span>
-<span class="o">\</span><span class="s">&#39;\%([[:punct:]]\|\s\|$\)\@=&#39;</span>
-<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">vimwiki_char_italic</span> <span class="p">=</span> <span class="s">&#39;##&#39;</span>
+<div class="codehilite"><pre><span class="n">let</span> <span class="n">g</span><span class="o">:</span><span class="n">vimwiki_rxItalic</span> <span class="o">=</span> <span class="err">&#39;\</span><span class="o">%</span><span class="p">(</span><span class="o">^</span><span class="err">\</span><span class="o">|</span><span class="err">\</span><span class="n">s</span><span class="err">\</span><span class="o">|</span><span class="p">[[</span><span class="o">:</span><span class="n">punct</span><span class="o">:</span><span class="p">]]</span><span class="err">\</span><span class="p">)</span><span class="err">\@</span><span class="o">&lt;=</span><span class="err">&#39;</span><span class="p">.</span>
+<span class="err">\&#39;##&#39;</span><span class="p">.</span>
+<span class="err">\&#39;\</span><span class="o">%</span><span class="p">([</span><span class="o">^</span><span class="n">_</span><span class="err">`</span><span class="p">[</span><span class="o">:</span><span class="n">space</span><span class="o">:</span><span class="p">]][</span><span class="o">^</span><span class="n">_</span><span class="err">`</span><span class="p">]</span><span class="o">*</span><span class="p">[</span><span class="o">^</span><span class="n">_</span><span class="err">`</span><span class="p">[</span><span class="o">:</span><span class="n">space</span><span class="o">:</span><span class="p">]]</span><span class="err">\</span><span class="o">|</span><span class="p">[</span><span class="o">^</span><span class="n">_</span><span class="err">`</span><span class="p">[</span><span class="o">:</span><span class="n">space</span><span class="o">:</span><span class="p">]]</span><span class="err">\</span><span class="p">)</span><span class="err">&#39;</span><span class="p">.</span>
+<span class="err">\&#39;##&#39;</span><span class="p">.</span>
+<span class="err">\&#39;\</span><span class="o">%</span><span class="p">([[</span><span class="o">:</span><span class="n">punct</span><span class="o">:</span><span class="p">]]</span><span class="err">\</span><span class="o">|</span><span class="err">\</span><span class="n">s</span><span class="err">\</span><span class="o">|</span><span class="err">$\</span><span class="p">)</span><span class="err">\@</span><span class="o">=</span><span class="err">&#39;</span>
+<span class="n">let</span> <span class="n">g</span><span class="o">:</span><span class="n">vimwiki_char_italic</span> <span class="o">=</span> <span class="err">&#39;##&#39;</span>
 </pre></div>
         </div>
         <div id="foot">

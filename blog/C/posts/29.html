@@ -58,7 +58,7 @@
 
 
 <p>把这个指针传递给函数也很简单:</p>
-<div class="codehilite"><pre><span class="kt">int</span> <span class="n">add2to3</span><span class="p">(</span><span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)){</span>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">add2to3</span><span class="p">(</span><span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)){</span>
     <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span> 
 </pre></div>
 
@@ -86,9 +86,9 @@
 
 
 <p>用个<code>typedef</code>就好看多了:</p>
-<div class="codehilite"><pre><span class="k">typedef</span> <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">FuncP</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span> 
+<div class="codehilite"><pre><span class="k">typedef</span> <span class="nf">int</span> <span class="p">(</span><span class="o">*</span><span class="n">FuncP</span><span class="p">)(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span> 
 
-<span class="n">FuncP</span> <span class="n">functionFactory</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
+<span class="n">FuncP</span> <span class="nf">functionFactory</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>
     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Got parameter %d&quot;</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span> 
     <span class="n">FuncP</span> <span class="n">fp</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">add</span><span class="p">;</span> 
     <span class="k">return</span> <span class="n">fp</span><span class="p">;</span> 
@@ -103,22 +103,22 @@
 <span class="k">typedef</span> <span class="k">struct</span> <span class="n">node</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">data</span><span class="p">;</span> 
     <span class="k">struct</span> <span class="n">node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span> 
-<span class="p">}</span> <span class="n">node_t</span><span class="p">;</span> 
+<span class="p">}</span> <span class="kt">node_t</span><span class="p">;</span> 
 
 <span class="c1">//define 4 nodes a-&gt;b-&gt;c-&gt;d</span>
-<span class="n">node_t</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> 
+<span class="kt">node_t</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> 
     <span class="n">c</span> <span class="o">=</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">},</span> 
     <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">},</span> 
     <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">};</span> 
 
-<span class="kt">void</span> <span class="nf">PrintData</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">n</span><span class="p">)</span>
+<span class="kt">void</span> <span class="nf">PrintData</span><span class="p">(</span><span class="kt">node_t</span> <span class="o">*</span><span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span> 
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="nf">eachNode</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="n">node_t</span> <span class="o">*</span><span class="p">))</span>
+<span class="kt">void</span> <span class="nf">eachNode</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="kt">node_t</span> <span class="o">*</span><span class="p">))</span>
 <span class="p">{</span>
-    <span class="n">node_t</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span> 
+    <span class="kt">node_t</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span> 
     <span class="k">for</span><span class="p">(</span><span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">;</span> <span class="n">p</span><span class="p">;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">){</span>
         <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="n">p</span><span class="p">);</span> 
     <span class="p">}</span>
@@ -139,31 +139,31 @@
 <span class="k">typedef</span> <span class="k">struct</span> <span class="n">node</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">data</span><span class="p">;</span> 
     <span class="k">struct</span> <span class="n">node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span> 
-<span class="p">}</span> <span class="n">node_t</span><span class="p">;</span> 
+<span class="p">}</span> <span class="kt">node_t</span><span class="p">;</span> 
 
-<span class="k">typedef</span> <span class="k">struct</span> <span class="n">list</span> <span class="n">list_t</span><span class="p">;</span> 
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">list</span> <span class="kt">list_t</span><span class="p">;</span> 
 
-<span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">funcP</span><span class="p">)(</span><span class="n">node_t</span> <span class="o">*</span><span class="p">);</span> 
+<span class="k">typedef</span> <span class="nf">void</span> <span class="p">(</span><span class="o">*</span><span class="n">funcP</span><span class="p">)(</span><span class="kt">node_t</span> <span class="o">*</span><span class="p">);</span> 
 
 <span class="k">struct</span> <span class="n">list</span> <span class="p">{</span>
-    <span class="n">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">;</span> 
+    <span class="kt">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">;</span> 
     <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">eachNode</span><span class="p">)(</span><span class="n">funcP</span><span class="p">);</span> 
 <span class="p">};</span> 
 
-<span class="kt">void</span> <span class="nf">PrintData</span><span class="p">(</span><span class="n">node_t</span> <span class="o">*</span><span class="n">n</span><span class="p">)</span>
+<span class="kt">void</span> <span class="nf">PrintData</span><span class="p">(</span><span class="kt">node_t</span> <span class="o">*</span><span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">n</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">);</span> 
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="nf">eachNode</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">,</span> <span class="n">funcP</span> <span class="n">fp</span><span class="p">)</span>
+<span class="kt">void</span> <span class="nf">eachNode</span><span class="p">(</span><span class="kt">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">,</span> <span class="n">funcP</span> <span class="n">fp</span><span class="p">)</span>
 <span class="p">{</span>
-    <span class="n">node_t</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span> 
+    <span class="kt">node_t</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span> 
     <span class="k">for</span><span class="p">(</span><span class="n">p</span> <span class="o">=</span> <span class="n">list</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span> <span class="n">p</span><span class="p">;</span> <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">){</span>
         <span class="p">(</span><span class="o">*</span><span class="n">fp</span><span class="p">)(</span><span class="n">p</span><span class="p">);</span> 
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">,</span> <span class="n">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
+<span class="kt">void</span> <span class="nf">init</span><span class="p">(</span><span class="kt">list_t</span> <span class="o">*</span><span class="n">list</span><span class="p">,</span> <span class="kt">node_t</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">list</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span> 
     <span class="kt">void</span> <span class="n">each</span><span class="p">(</span><span class="n">funcP</span> <span class="n">fp</span><span class="p">){</span>
@@ -175,8 +175,8 @@
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="c1">//a-&gt;b-&gt;c-&gt;d</span>
-    <span class="n">node_t</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="n">c</span> <span class="o">=</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">},</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">},</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">};</span> 
-    <span class="n">list_t</span> <span class="o">*</span><span class="n">list</span> <span class="o">=</span> <span class="p">(</span><span class="n">list_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">list_t</span><span class="p">));</span> 
+    <span class="kt">node_t</span> <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="n">c</span> <span class="o">=</span> <span class="p">{</span><span class="mi">3</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">d</span><span class="p">},</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">c</span><span class="p">},</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">};</span> 
+    <span class="kt">list_t</span> <span class="o">*</span><span class="n">list</span> <span class="o">=</span> <span class="p">(</span><span class="kt">list_t</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">list_t</span><span class="p">));</span> 
     <span class="n">init</span><span class="p">(</span><span class="n">list</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">);</span> 
     <span class="n">list</span><span class="o">-&gt;</span><span class="n">eachNode</span><span class="p">(</span><span class="n">PrintData</span><span class="p">);</span> 
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> 

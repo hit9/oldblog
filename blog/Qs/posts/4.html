@@ -38,26 +38,26 @@
             <p>Date:2012-10-26</p>
 <p>约瑟夫问题很老很老的问题啦....</p>
 <p>问题描述:</p>
-<div class="codehilite"><pre>约瑟夫环是一个数学的应用问题：已知<span class="n">n</span>个人（以编号1，2，3<span class="p">...</span><span class="n">n</span>分别表示）围坐在一张圆桌周围。从编号为<span class="n">k</span>的人开始报数，数到<span class="n">m</span>的那个人出列；他的下一个人又从1开始报数，数到<span class="n">m</span>的那个人又出列；依此规律重复下去，直到圆桌周围的人全部出列
+<div class="codehilite"><pre><span class="err">约瑟夫环是一个数学的应用问题：已知</span><span class="n">n</span><span class="err">个人（以编号</span><span class="mi">1</span><span class="err">，</span><span class="mi">2</span><span class="err">，</span><span class="mf">3.</span><span class="p">..</span><span class="n">n</span><span class="err">分别表示）围坐在一张圆桌周围。从编号为</span><span class="n">k</span><span class="err">的人开始报数，数到</span><span class="n">m</span><span class="err">的那个人出列；他的下一个人又从</span><span class="mi">1</span><span class="err">开始报数，数到</span><span class="n">m</span><span class="err">的那个人又出列；依此规律重复下去，直到圆桌周围的人全部出列</span>
 </pre></div>
 
 
 <p>或者这么说:</p>
-<div class="codehilite"><pre>用户输入<span class="n">m</span><span class="p">,</span><span class="n">n</span>值，从1至<span class="n">N</span>开始顺序循环数数，每数到<span class="n">M</span>输出该数值，直至全部输出
+<div class="codehilite"><pre><span class="err">用户输入</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="err">值，从</span><span class="mi">1</span><span class="err">至</span><span class="n">N</span><span class="err">开始顺序循环数数，每数到</span><span class="n">M</span><span class="err">输出该数值，直至全部输出</span>
 </pre></div>
 
 
 <p>下面是模拟的python代码,很好理解:</p>
 <p>描述:</p>
-<div class="codehilite"><pre><span class="n">b</span><span class="p">=[</span>1<span class="p">,</span>1<span class="p">,...,</span>1<span class="p">]</span> <span class="p">(</span><span class="n">init</span> <span class="n">b</span> <span class="n">as</span> <span class="n">a</span> <span class="n">list</span> <span class="n">of</span> <span class="n">n</span> <span class="n">times</span> 1 <span class="n">elems</span><span class="p">)</span>
-<span class="n">a</span><span class="p">=</span>0 # <span class="n">a</span> <span class="n">is</span> <span class="n">counter</span><span class="p">,</span><span class="n">always</span> <span class="n">from</span> 1 <span class="n">to</span> <span class="n">m</span>
-<span class="n">cycle</span> <span class="n">loop</span> <span class="n">b</span> <span class="n">until</span> <span class="n">b</span> <span class="n">has</span> <span class="n">only</span> <span class="n">one</span> 1 <span class="n">elem</span><span class="p">:</span>
+<div class="codehilite"><pre><span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,...,</span><span class="mi">1</span><span class="p">]</span> <span class="p">(</span><span class="n">init</span> <span class="n">b</span> <span class="n">as</span> <span class="n">a</span> <span class="n">list</span> <span class="n">of</span> <span class="n">n</span> <span class="n">times</span> <span class="mi">1</span> <span class="n">elems</span><span class="p">)</span>
+<span class="n">a</span><span class="o">=</span><span class="mi">0</span> <span class="err">#</span> <span class="n">a</span> <span class="n">is</span> <span class="n">counter</span><span class="p">,</span><span class="n">always</span> <span class="n">from</span> <span class="mi">1</span> <span class="n">to</span> <span class="n">m</span>
+<span class="n">cycle</span> <span class="n">loop</span> <span class="n">b</span> <span class="n">until</span> <span class="n">b</span> <span class="n">has</span> <span class="n">only</span> <span class="n">one</span> <span class="mi">1</span> <span class="n">elem</span><span class="o">:</span>
     <span class="n">get</span> <span class="n">index</span> <span class="n">k</span> <span class="n">and</span> <span class="n">value</span> <span class="n">v</span><span class="p">.</span>
-    <span class="k">if</span> <span class="n">v</span> <span class="n">is</span> 1 <span class="p">(</span>1 <span class="k">for</span> <span class="n">alive</span><span class="p">,</span>0 <span class="k">for</span> <span class="n">died</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">v</span> <span class="n">is</span> <span class="mi">1</span> <span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">alive</span><span class="p">,</span><span class="mi">0</span> <span class="k">for</span> <span class="n">died</span><span class="p">)</span><span class="o">:</span>
         <span class="n">counter</span> <span class="n">a</span> <span class="n">plus</span> <span class="n">itself</span> <span class="n">one</span>
-        <span class="k">if</span> <span class="n">a</span><span class="o">==</span><span class="n">m</span><span class="p">:</span>
-            <span class="n">elem</span> <span class="n">on</span> <span class="n">index</span> <span class="n">v</span> <span class="n">died</span> <span class="p">=</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">[</span><span class="n">k</span><span class="p">]=</span>0
-            <span class="n">reset</span> <span class="n">counter</span> <span class="n">a</span> <span class="n">to</span> 0
+        <span class="k">if</span> <span class="n">a</span><span class="o">==</span><span class="n">m</span><span class="o">:</span>
+            <span class="n">elem</span> <span class="n">on</span> <span class="n">index</span> <span class="n">v</span> <span class="n">died</span> <span class="o">=&gt;</span> <span class="n">b</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+            <span class="n">reset</span> <span class="n">counter</span> <span class="n">a</span> <span class="n">to</span> <span class="mi">0</span>
         <span class="n">print</span> <span class="n">once</span> <span class="n">b</span> <span class="n">to</span> <span class="n">look</span> <span class="n">at</span> <span class="n">state</span> <span class="n">this</span> <span class="n">time</span>
 </pre></div>
 

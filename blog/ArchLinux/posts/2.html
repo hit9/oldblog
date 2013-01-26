@@ -40,13 +40,13 @@
 <p>默认<code>C-b</code>是命令前缀键.</p>
 <p>另外 , 控制台模式下,按下数字即切换到第几号窗口.</p>
 <p>我的配置:</p>
-<div class="codehilite"><pre><span class="n">set</span> <span class="o">-</span><span class="n">g</span> <span class="n">prefix</span> <span class="n">C</span><span class="o">-</span><span class="n">a</span>  #把<span class="n">C</span><span class="o">-</span><span class="n">a</span>换成命令前缀快捷键<span class="p">,</span>符合<span class="n">screen</span>习惯
+<div class="codehilite"><pre><span class="n">set</span> <span class="o">-</span><span class="n">g</span> <span class="n">prefix</span> <span class="n">C</span><span class="o">-</span><span class="n">a</span>  <span class="err">#把</span><span class="n">C</span><span class="o">-</span><span class="n">a</span><span class="err">换成命令前缀快捷键</span><span class="p">,</span><span class="err">符合</span><span class="n">screen</span><span class="err">习惯</span>
 
-<span class="n">unbind</span> <span class="n">C</span><span class="o">-</span><span class="n">b</span> # 不再监听<span class="n">C</span><span class="o">-</span><span class="n">b</span>
+<span class="n">unbind</span> <span class="n">C</span><span class="o">-</span><span class="n">b</span> <span class="err">#</span> <span class="err">不再监听</span><span class="n">C</span><span class="o">-</span><span class="n">b</span>
 
-<span class="n">bind</span> <span class="n">C</span><span class="o">-</span><span class="n">a</span> <span class="n">send</span><span class="o">-</span><span class="n">prefix</span> # 监听到<span class="n">C</span><span class="o">-</span><span class="n">a</span>时发送<span class="n">prefix</span>
+<span class="n">bind</span> <span class="n">C</span><span class="o">-</span><span class="n">a</span> <span class="n">send</span><span class="o">-</span><span class="n">prefix</span> <span class="err">#</span> <span class="err">监听到</span><span class="n">C</span><span class="o">-</span><span class="n">a</span><span class="err">时发送</span><span class="n">prefix</span>
 
-<span class="n">bind</span> <span class="n">r</span> <span class="n">source</span><span class="o">-</span><span class="n">file</span> <span class="o">~/</span><span class="p">.</span><span class="n">tmux</span><span class="p">.</span><span class="n">conf</span> <span class="o">\</span><span class="p">;</span> <span class="n">display</span> &quot;<span class="n">Reloaded</span>!&quot; # <span class="n">C</span><span class="o">-</span><span class="n">a</span>后<span class="p">(</span>控制台模式下 <span class="p">)</span>按下<span class="n">r</span>键更新<span class="n">tmux</span>配置
+<span class="n">bind</span> <span class="n">r</span> <span class="n">source</span><span class="o">-</span><span class="n">file</span> <span class="o">~/</span><span class="p">.</span><span class="n">tmux</span><span class="p">.</span><span class="n">conf</span> <span class="err">\</span><span class="p">;</span> <span class="n">display</span> <span class="s">&quot;Reloaded!&quot;</span> <span class="err">#</span> <span class="n">C</span><span class="o">-</span><span class="n">a</span><span class="err">后</span><span class="p">(</span><span class="err">控制台模式下</span> <span class="p">)</span><span class="err">按下</span><span class="n">r</span><span class="err">键更新</span><span class="n">tmux</span><span class="err">配置</span>
 </pre></div>
         </div>
         <div id="foot">

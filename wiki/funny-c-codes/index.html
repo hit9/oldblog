@@ -69,8 +69,8 @@
 
 
 <p>运行结果</p>
-<div class="codehilite"><pre>1<span class="p">.</span><span class="n">c</span><span class="p">:</span> <span class="n">In</span> <span class="k">function</span> ‘<span class="n">main</span>’<span class="p">:</span>
-1<span class="p">.</span><span class="n">c</span><span class="p">:</span>6<span class="p">:</span>6<span class="p">:</span> <span class="n">error</span><span class="p">:</span> <span class="n">lvalue</span> <span class="n">required</span> <span class="n">as</span> <span class="n">increment</span> <span class="n">operand</span>
+<div class="codehilite"><pre><span class="mi">1</span><span class="p">.</span><span class="nx">c</span><span class="o">:</span> <span class="nx">In</span> <span class="kd">function</span> <span class="err">‘</span><span class="nx">main</span><span class="err">’</span><span class="o">:</span>
+<span class="mi">1</span><span class="p">.</span><span class="nx">c</span><span class="o">:</span><span class="mi">6</span><span class="o">:</span><span class="mi">6</span><span class="o">:</span> <span class="nx">error</span><span class="o">:</span> <span class="nx">lvalue</span> <span class="nx">required</span> <span class="nx">as</span> <span class="nx">increment</span> <span class="nx">operand</span>
 </pre></div>
 
 
@@ -148,8 +148,8 @@
 <div class="codehilite"><pre><span class="c">#include &lt;stdio.h&gt;  </span>
 <span class="n">int</span> <span class="n">main</span><span class="p">(</span><span class="n">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">const</span> <span class="nb">char</span> <span class="o">*</span><span class="nb">argv</span><span class="p">[])</span>  
 <span class="p">{</span>  
-    <span class="nb">printf</span><span class="p">(</span> <span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="p">((</span><span class="n">int</span><span class="p">[]){</span>1<span class="p">,</span>2<span class="p">,</span>3<span class="p">,</span>4<span class="p">})[</span>1<span class="p">]</span> <span class="p">);</span>  
-    <span class="k">return</span> 0<span class="p">;</span>  
+    <span class="nb">printf</span><span class="p">(</span> <span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="p">((</span><span class="n">int</span><span class="p">[]){</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">})[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>  
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>  
 <span class="p">}</span>   
 </pre></div>
 
@@ -177,21 +177,21 @@
 
 <p>执行结果是12 8</p>
 <p>因为C中采用对齐的方式存储结构体.</p>
-<div class="codehilite"><pre><span class="n">foo1</span>中是这么存储的<span class="p">:</span>
+<div class="codehilite"><pre><span class="n">foo1</span><span class="err">中是这么存储的</span><span class="o">:</span>
 
-<span class="n">c1</span> <span class="p">(</span>跟<span class="n">int</span> <span class="nb">i</span>对齐<span class="p">,</span>由1扩展为4<span class="p">)</span>
+<span class="n">c1</span> <span class="p">(</span><span class="err">跟</span><span class="kt">int</span> <span class="n">i</span><span class="err">对齐</span><span class="p">,</span><span class="err">由</span><span class="mi">1</span><span class="err">扩展为</span><span class="mi">4</span><span class="p">)</span>
 
-<span class="nb">i</span> <span class="n">sizeof</span>取值得4
+<span class="n">i</span> <span class="k">sizeof</span><span class="err">取值得</span><span class="mi">4</span>
 
-<span class="n">c2</span> <span class="p">(</span>跟<span class="n">int</span> <span class="nb">i</span>对齐<span class="p">,</span>由1扩展为4<span class="p">)</span>
+<span class="n">c2</span> <span class="p">(</span><span class="err">跟</span><span class="kt">int</span> <span class="n">i</span><span class="err">对齐</span><span class="p">,</span><span class="err">由</span><span class="mi">1</span><span class="err">扩展为</span><span class="mi">4</span><span class="p">)</span>
 
 <span class="o">---------------------------------------------------------------</span>
 
-<span class="n">foo2</span>中是这么存储的<span class="p">:</span>
+<span class="n">foo2</span><span class="err">中是这么存储的</span><span class="o">:</span>
 
-<span class="nb">i</span> <span class="n">sizeof</span>取值得4
+<span class="n">i</span> <span class="k">sizeof</span><span class="err">取值得</span><span class="mi">4</span>
 
-<span class="n">c1</span><span class="p">,</span><span class="n">c2</span>连续存储<span class="p">,</span>并由2扩展为4<span class="p">,</span>跟<span class="n">int</span> <span class="nb">i</span>对齐
+<span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="err">连续存储</span><span class="p">,</span><span class="err">并由</span><span class="mi">2</span><span class="err">扩展为</span><span class="mi">4</span><span class="p">,</span><span class="err">跟</span><span class="kt">int</span> <span class="n">i</span><span class="err">对齐</span>
 </pre></div>
 
 
@@ -209,7 +209,7 @@
 <h2 id="8functionvoidfunction">8.function(void)与function()的区别</h2>
 <p>看下面代码的编译结果</p>
 <div class="codehilite"><pre><span class="kt">void</span> <span class="nf">foo1</span><span class="p">(){}</span>
-<span class="kt">void</span> <span class="n">foo2</span><span class="p">(</span><span class="kt">void</span><span class="p">){}</span>
+<span class="kt">void</span> <span class="nf">foo2</span><span class="p">(</span><span class="kt">void</span><span class="p">){}</span>
 <span class="n">main</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="n">foo1</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> 
@@ -219,9 +219,9 @@
 
 
 <p>编译:</p>
-<div class="codehilite"><pre>1<span class="p">.</span><span class="n">c</span><span class="p">:</span> <span class="n">In</span> <span class="k">function</span> ‘<span class="n">main</span>’<span class="p">:</span>
-1<span class="p">.</span><span class="n">c</span><span class="p">:</span>6<span class="p">:</span>2<span class="p">:</span> <span class="n">error</span><span class="p">:</span> <span class="n">too</span> <span class="n">many</span> <span class="n">arguments</span> <span class="n">to</span> <span class="k">function</span> ‘<span class="n">foo2</span>’
-1<span class="p">.</span><span class="n">c</span><span class="p">:</span>2<span class="p">:</span>6<span class="p">:</span> <span class="n">note</span><span class="p">:</span> <span class="n">declared</span> <span class="n">here</span>
+<div class="codehilite"><pre><span class="mi">1</span><span class="p">.</span><span class="nx">c</span><span class="o">:</span> <span class="nx">In</span> <span class="kd">function</span> <span class="err">‘</span><span class="nx">main</span><span class="err">’</span><span class="o">:</span>
+<span class="mi">1</span><span class="p">.</span><span class="nx">c</span><span class="o">:</span><span class="mi">6</span><span class="o">:</span><span class="mi">2</span><span class="o">:</span> <span class="nx">error</span><span class="o">:</span> <span class="nx">too</span> <span class="nx">many</span> <span class="nx">arguments</span> <span class="nx">to</span> <span class="kd">function</span> <span class="err">‘</span><span class="nx">foo2</span><span class="err">’</span>
+<span class="mi">1</span><span class="p">.</span><span class="nx">c</span><span class="o">:</span><span class="mi">2</span><span class="o">:</span><span class="mi">6</span><span class="o">:</span> <span class="nx">note</span><span class="o">:</span> <span class="nx">declared</span> <span class="nx">here</span>
 </pre></div>
 
 
@@ -254,31 +254,31 @@
 
 
 <p>然后编译它:</p>
-<div class="codehilite"><pre><span class="n">cc</span> 1<span class="p">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> 1
+<div class="codehilite"><pre><span class="n">cc</span> <span class="mf">1.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> <span class="mi">1</span>
 </pre></div>
 
 
 <p>会发现在编译的时候可以输入.那么我们输入一段c代码:</p>
-<div class="codehilite"><pre><span class="n">int</span> <span class="n">main</span><span class="p">(){</span>
-    <span class="n">printf</span><span class="p">(</span>&quot;<span class="n">hello</span>&quot;<span class="p">);</span> 
-    <span class="k">return</span> 0<span class="p">;</span> 
+<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">);</span> 
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> 
 <span class="p">}</span>
 </pre></div>
 
 
 <p>按下Ctrl-D结束输入</p>
 <p>测试结果 :</p>
-<div class="codehilite"><pre>$ <span class="n">cc</span> 1<span class="p">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> 1
-<span class="n">int</span> <span class="n">main</span><span class="p">()</span>
+<div class="codehilite"><pre><span class="nx">$</span> <span class="nx">cc</span> <span class="mi">1</span><span class="p">.</span><span class="nx">c</span> <span class="o">-</span><span class="nx">o</span> <span class="mi">1</span>
+<span class="kr">int</span> <span class="nx">main</span><span class="p">()</span>
 <span class="p">{</span>
-    <span class="n">printf</span><span class="p">(</span>&quot;<span class="n">hello</span>&quot;<span class="p">);</span>
-    <span class="k">return</span> 0<span class="p">;</span>
+    <span class="nx">printf</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="n">In</span> <span class="n">file</span> <span class="n">included</span> <span class="n">from</span> 1<span class="p">.</span><span class="n">c</span><span class="p">:</span>1<span class="p">:</span>0<span class="p">:</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">tty</span><span class="p">:</span> <span class="n">In</span> <span class="k">function</span> ‘<span class="n">main</span>’<span class="p">:</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">tty</span><span class="p">:</span>3<span class="p">:</span>5<span class="p">:</span> <span class="n">warning</span><span class="p">:</span> <span class="n">incompatible</span> <span class="n">implicit</span> <span class="n">declaration</span> <span class="n">of</span> <span class="n">built</span><span class="o">-</span><span class="n">in</span> <span class="k">function</span> ‘<span class="n">printf</span>’ <span class="p">[</span><span class="n">enabled</span> <span class="n">by</span> <span class="n">default</span><span class="p">]</span>
-$<span class="o">./</span>1
-<span class="n">hello</span>$
+<span class="nx">In</span> <span class="nx">file</span> <span class="nx">included</span> <span class="nx">from</span> <span class="mi">1</span><span class="p">.</span><span class="nx">c</span><span class="o">:</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="o">:</span>
+<span class="err">/dev/tty: In function ‘main’:</span>
+<span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">tty</span><span class="o">:</span><span class="mi">3</span><span class="o">:</span><span class="mi">5</span><span class="o">:</span> <span class="nx">warning</span><span class="o">:</span> <span class="nx">incompatible</span> <span class="nx">implicit</span> <span class="nx">declaration</span> <span class="nx">of</span> <span class="nx">built</span><span class="o">-</span><span class="k">in</span> <span class="kd">function</span> <span class="err">‘</span><span class="nx">printf</span><span class="err">’</span> <span class="cp">[</span><span class="nx">enabled</span> <span class="k">by</span> <span class="nb">default</span><span class="cp">]</span>
+<span class="nx">$</span><span class="p">.</span><span class="o">/</span><span class="mi">1</span>
+<span class="nx">hello$</span>
 </pre></div>
 
 

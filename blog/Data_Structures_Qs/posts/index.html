@@ -43,9 +43,9 @@ A(x0)=(...((anx0+an-1)x0+...+a1)x0+a0
 Horner规则使多项式求值所需乘法次数最少.写出用Horner规则求值的C程序.
 </code></pre>
 <p>解:code: </p>
-<div class="codehilite"><pre><span class="n">float</span> <span class="n">horner</span><span class="p">(</span><span class="n">float</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="n">int</span> <span class="n">m</span><span class="p">,</span><span class="n">float</span> <span class="n">x</span><span class="p">)</span>
+<div class="codehilite"><pre><span class="kt">float</span> <span class="nf">horner</span><span class="p">(</span><span class="kt">float</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="n">m</span><span class="p">,</span><span class="kt">float</span> <span class="n">x</span><span class="p">)</span>
 <span class="p">{</span>  
-    <span class="k">return</span> <span class="n">m</span>?<span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="o">+</span><span class="n">x</span><span class="o">*</span><span class="n">horner</span><span class="p">(</span><span class="n">a</span><span class="o">+</span>1<span class="p">,</span><span class="n">m</span><span class="o">-</span>1<span class="p">,</span><span class="n">x</span><span class="p">)):</span>0<span class="p">;</span>
+    <span class="k">return</span> <span class="n">m</span><span class="o">?</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="o">+</span><span class="n">x</span><span class="o">*</span><span class="n">horner</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="p">))</span><span class="o">:</span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -54,13 +54,13 @@ Horner规则使多项式求值所需乘法次数最少.写出用Horner规则求�
 <div class="codehilite"><pre><span class="c">#include &lt;stdio.h&gt;</span>
 <span class="n">float</span> <span class="n">horner</span><span class="p">(</span><span class="n">float</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="n">int</span> <span class="n">m</span><span class="p">,</span><span class="n">float</span> <span class="n">x</span><span class="p">)</span>
 <span class="p">{</span>  
-    <span class="k">return</span> <span class="n">m</span>?<span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="o">+</span><span class="n">x</span><span class="o">*</span><span class="n">horner</span><span class="p">(</span><span class="n">a</span><span class="o">+</span>1<span class="p">,</span><span class="n">m</span><span class="o">-</span>1<span class="p">,</span><span class="n">x</span><span class="p">)):</span>0<span class="p">;</span>
+    <span class="k">return</span> <span class="n">m</span>?<span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="o">+</span><span class="n">x</span><span class="o">*</span><span class="n">horner</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="p">)):</span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="n">int</span> <span class="n">main</span><span class="p">(</span><span class="n">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">const</span> <span class="nb">char</span> <span class="o">*</span><span class="nb">argv</span><span class="p">[])</span>
 <span class="p">{</span>
-    <span class="n">float</span> <span class="n">a</span><span class="p">[</span>3<span class="p">]={</span>1<span class="p">,</span>1<span class="p">,</span>1<span class="p">};</span>
-    <span class="nb">printf</span><span class="p">(</span><span class="s">&quot;%f\n&quot;</span><span class="p">,</span><span class="n">horner</span><span class="p">(</span><span class="n">a</span><span class="p">,</span>3<span class="p">,</span>4<span class="p">));</span>
-    <span class="k">return</span> 0<span class="p">;</span>
+    <span class="n">float</span> <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]={</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">};</span>
+    <span class="nb">printf</span><span class="p">(</span><span class="s">&quot;%f\n&quot;</span><span class="p">,</span><span class="n">horner</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">));</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 

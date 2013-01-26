@@ -40,7 +40,7 @@
 <p>这个问题是<a href="/blog/Qs/posts/3.html">m个位置,每个位置上有n个可能值的排列</a>的特殊版本</p>
 <p>特殊版本必然有特殊的解决办法.</p>
 <p>另外必须要提及一个问题(来自<a href="http://segmentfault.com/q/1010000000131575">sf</a>):</p>
-<div class="codehilite"><pre>罗列出<span class="n">qwerty</span>被<span class="p">.</span>分割的所有情况：
+<div class="codehilite"><pre><span class="err">罗列出</span><span class="n">qwerty</span><span class="err">被</span><span class="p">.</span><span class="err">分割的所有情况：</span>
 
 <span class="n">q</span><span class="p">.</span><span class="n">werty</span>
 <span class="n">q</span><span class="p">.</span><span class="n">w</span><span class="p">.</span><span class="n">erty</span>
@@ -81,10 +81,10 @@
 
 
 <p>算法思想:</p>
-<div class="codehilite"><pre>对于<span class="n">n</span>个元素的情形<span class="p">,</span> 共有2^<span class="n">n</span>个可能情况<span class="p">.</span>每个情况对应于一个二进制数<span class="p">.</span>所有的情况的二进制数是0<span class="o">~</span>2^<span class="n">n</span><span class="o">-</span>1
-对于每个比2^<span class="n">n</span>小的数<span class="nb">i</span><span class="p">:</span>
-    打印<span class="nb">i</span>的二进制形式<span class="p">,</span> 怎么打印呢<span class="p">:</span>
-    <span class="n">k</span> <span class="p">=</span> <span class="nb">i</span><span class="p">,</span> <span class="n">k</span>跟1取与操作即可得到<span class="n">k</span>的最后一位<span class="p">,</span> 然后<span class="n">k</span>右移1<span class="p">.</span>直到<span class="n">n</span>个位置全部打印
+<div class="codehilite"><pre><span class="err">对于</span><span class="n">n</span><span class="err">个元素的情形</span><span class="p">,</span> <span class="err">共有</span><span class="mi">2</span><span class="o">^</span><span class="n">n</span><span class="err">个可能情况</span><span class="p">.</span><span class="err">每个情况对应于一个二进制数</span><span class="p">.</span><span class="err">所有的情况的二进制数是</span><span class="mi">0</span><span class="o">~</span><span class="mi">2</span><span class="o">^</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span>
+<span class="err">对于每个比</span><span class="mi">2</span><span class="o">^</span><span class="n">n</span><span class="err">小的数</span><span class="n">i</span><span class="o">:</span>
+    <span class="err">打印</span><span class="n">i</span><span class="err">的二进制形式</span><span class="p">,</span> <span class="err">怎么打印呢</span><span class="o">:</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="err">跟</span><span class="mi">1</span><span class="err">取与操作即可得到</span><span class="n">k</span><span class="err">的最后一位</span><span class="p">,</span> <span class="err">然后</span><span class="n">k</span><span class="err">右移</span><span class="mf">1.</span><span class="err">直到</span><span class="n">n</span><span class="err">个位置全部打印</span>
 </pre></div>
 
 

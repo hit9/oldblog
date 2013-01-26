@@ -37,6 +37,8 @@
         <div itemprop="articleBody">
             <p>Date:2013-01-10</p>
 <p>powerline不仅美化了你的工作区，还能很大程度帮助你工作。</p>
+<p><strong>注意</strong> : 目前有一个为tmux,vim,zsh, bash提供统一解决方法的Python脚本:</p>
+<p>[https://github.com/Lokaltog/powerline][https://github.com/Lokaltog/powerline]</p>
 <h3 id="1-powerline-bash">1. powerline-bash</h3>
 <p>What is: Powerline for Bash/ZSH</p>
 <p>Github repo :<a href="https://github.com/milkbikis/powerline-bash">https://github.com/milkbikis/powerline-bash</a></p>
@@ -52,11 +54,11 @@
 <p>追加以下到你的~/.bashrc,注意修改<path-to>为克隆下来的powerline目录路径</p>
 </li>
 </ol>
-<div class="codehilite"><pre><span class="k">function</span><span class="w"> </span><span class="nf">_update_ps1</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-   <span class="n">export</span> <span class="n">PS1</span><span class="p">=</span>&quot;$<span class="p">(</span><span class="o">&lt;</span><span class="n">path</span><span class="o">-</span><span class="n">to</span><span class="o">&gt;/</span><span class="n">powerline</span><span class="o">-</span><span class="n">bash</span><span class="p">.</span><span class="n">py</span> $?<span class="p">)</span>&quot;
+<div class="codehilite"><pre><span class="kd">function</span> <span class="nx">_update_ps1</span><span class="p">()</span> <span class="p">{</span>
+   <span class="kr">export</span> <span class="nx">PS1</span><span class="o">=</span><span class="s2">&quot;$(&lt;path-to&gt;/powerline-bash.py $?)&quot;</span>
 <span class="p">}</span>
 
-<span class="n">export</span> <span class="n">PROMPT_COMMAND</span><span class="p">=</span>&quot;<span class="n">_update_ps1</span>&quot;
+<span class="kr">export</span> <span class="nx">PROMPT_COMMAND</span><span class="o">=</span><span class="s2">&quot;_update_ps1&quot;</span>
 </pre></div>
 
 
@@ -67,7 +69,7 @@
 <p>然后安装这个字体.Ubuntu下双击字体即可安装.然后进入你的终端，让终端使用这个字体.</p>
 <p>2.tmux中powerline-bash的颜色不那么好看？不那么鲜艳？</p>
 <p>在.tmux.conf中加入</p>
-<div class="codehilite"><pre><span class="n">set</span> <span class="o">-</span><span class="n">g</span> <span class="n">default</span><span class="o">-</span><span class="n">terminal</span> &quot;<span class="n">screen</span><span class="o">-</span>256<span class="n">color</span>&quot;
+<div class="codehilite"><pre><span class="n">set</span> <span class="o">-</span><span class="n">g</span> <span class="k">default</span><span class="o">-</span><span class="n">terminal</span> <span class="s">&quot;screen-256color&quot;</span>
 </pre></div>
 
 
@@ -80,14 +82,14 @@
 <p>安装: </p>
 <p>克隆:(使用bundle安装)</p>
 <div class="codehilite"><pre><span class="n">cd</span> <span class="o">~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">bundle</span>
-<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">Lokaltog</span><span class="o">/</span><span class="n">vim</span><span class="o">-</span><span class="n">powerline</span>
+<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/Lokaltog/vim-powerline</span>
 </pre></div>
 
 
 <p>然后编辑你的vimrc:</p>
-<div class="codehilite"><pre><span class="n">Bundle</span> <span class="s">&#39;vim-powerline&#39;</span>
-<span class="n">set</span> <span class="n">laststatus</span><span class="p">=</span>2
-<span class="n">let</span> <span class="n">g</span><span class="p">:</span><span class="n">Powerline_colorscheme</span><span class="p">=</span><span class="s">&#39;solarized256&#39;</span>
+<div class="codehilite"><pre><span class="n">Bundle</span> <span class="err">&#39;</span><span class="n">vim</span><span class="o">-</span><span class="n">powerline</span><span class="err">&#39;</span>
+<span class="n">set</span> <span class="n">laststatus</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">let</span> <span class="n">g</span><span class="o">:</span><span class="n">Powerline_colorscheme</span><span class="o">=</span><span class="err">&#39;</span><span class="n">solarized256</span><span class="err">&#39;</span>
 </pre></div>
 
 
@@ -101,12 +103,12 @@
 </li>
 </ol>
 <p>确保你在.tmux.conf中启用了256color:</p>
-<div class="codehilite"><pre><span class="n">set</span> <span class="o">-</span><span class="n">g</span> <span class="n">default</span><span class="o">-</span><span class="n">terminal</span> &quot;<span class="n">screen</span><span class="o">-</span>256<span class="n">color</span>&quot;
+<div class="codehilite"><pre><span class="n">set</span> <span class="o">-</span><span class="n">g</span> <span class="k">default</span><span class="o">-</span><span class="n">terminal</span> <span class="s">&quot;screen-256color&quot;</span>
 </pre></div>
 
 
 <p>确保你在.vimrc中启用了终端256color:</p>
-<div class="codehilite"><pre><span class="n">set</span> <span class="n">t_Co</span><span class="p">=</span>256
+<div class="codehilite"><pre><span class="n">set</span> <span class="n">t_Co</span><span class="o">=</span><span class="mi">256</span>
 </pre></div>
 
 
@@ -120,13 +122,13 @@
 <p>克隆: git clone git://github.com/erikw/tmux-powerline.git</p>
 <p>追加这些到~/.tmux.conf</p>
 <div class="codehilite"><pre><span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span> <span class="n">on</span>
-<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">interval</span> 2
+<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">interval</span> <span class="mi">2</span>
 <span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">utf8</span> <span class="n">on</span>
-<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">justify</span> &quot;<span class="n">centre</span>&quot;
-<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">left</span><span class="o">-</span><span class="nb">length</span> 60
-<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">right</span><span class="o">-</span><span class="nb">length</span> 90
-<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">left</span> &quot;#<span class="p">(</span><span class="o">~/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">tmux</span><span class="o">-</span><span class="n">powerline</span><span class="o">/</span><span class="n">powerline</span><span class="p">.</span><span class="n">sh</span> <span class="n">left</span><span class="p">)</span>&quot;
-<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">right</span> &quot;#<span class="p">(</span><span class="o">~/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">tmux</span><span class="o">-</span><span class="n">powerline</span><span class="o">/</span><span class="n">powerline</span><span class="p">.</span><span class="n">sh</span> <span class="n">right</span><span class="p">)</span>&quot;
+<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">justify</span> <span class="s">&quot;centre&quot;</span>
+<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">left</span><span class="o">-</span><span class="n">length</span> <span class="mi">60</span>
+<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">right</span><span class="o">-</span><span class="n">length</span> <span class="mi">90</span>
+<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">left</span> <span class="s">&quot;#(~/path/to/tmux-powerline/powerline.sh left)&quot;</span>
+<span class="n">set</span><span class="o">-</span><span class="n">option</span> <span class="o">-</span><span class="n">g</span> <span class="n">status</span><span class="o">-</span><span class="n">right</span> <span class="s">&quot;#(~/path/to/tmux-powerline/powerline.sh right)&quot;</span>
 </pre></div>
 
 

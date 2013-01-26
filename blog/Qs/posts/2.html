@@ -37,15 +37,15 @@
         <div itemprop="articleBody">
             <p>Date:2012-10-24</p>
 <p>原问题是我在<a href="http://www.careercup.com/question?id=14872723">careercup</a>上提出的:</p>
-<div class="codehilite"><pre><span class="n">suppose</span> <span class="n">a</span> <span class="n">matrix</span> <span class="n">A</span><span class="p">.</span> <span class="nb">find</span> <span class="n">a</span> <span class="n">element</span> <span class="n">x</span> <span class="n">in</span> <span class="n">this</span> <span class="n">matrix</span><span class="p">,</span><span class="n">x</span> <span class="n">is</span> <span class="n">the</span> <span class="n">smallest</span> <span class="n">in</span> <span class="n">his</span> <span class="n">line</span> <span class="n">but</span> <span class="n">the</span> <span class="n">biggest</span> <span class="n">in</span> <span class="n">his</span> <span class="n">column</span><span class="p">.</span> <span class="n">Give</span> <span class="n">codes</span> <span class="n">in</span> <span class="n">C</span>
+<div class="codehilite"><pre><span class="n">suppose</span> <span class="n">a</span> <span class="n">matrix</span> <span class="n">A</span><span class="p">.</span> <span class="n">find</span> <span class="n">a</span> <span class="n">element</span> <span class="n">x</span> <span class="n">in</span> <span class="n">this</span> <span class="n">matrix</span><span class="p">,</span><span class="n">x</span> <span class="n">is</span> <span class="n">the</span> <span class="n">smallest</span> <span class="n">in</span> <span class="n">his</span> <span class="n">line</span> <span class="n">but</span> <span class="n">the</span> <span class="n">biggest</span> <span class="n">in</span> <span class="n">his</span> <span class="n">column</span><span class="p">.</span> <span class="n">Give</span> <span class="n">codes</span> <span class="n">in</span> <span class="n">C</span>
 </pre></div>
 
 
 <p>解决方法也很明显:</p>
-<div class="codehilite"><pre><span class="k">for</span> <span class="n">each</span> <span class="n">line</span><span class="p">:</span>
-    <span class="nb">find</span> <span class="n">the</span> <span class="n">samllest</span> <span class="n">one</span> <span class="n">in</span> <span class="n">this</span> <span class="n">line</span><span class="p">.</span>
+<div class="codehilite"><pre><span class="k">for</span> <span class="n">each</span> <span class="n">line</span><span class="o">:</span>
+    <span class="n">find</span> <span class="n">the</span> <span class="n">samllest</span> <span class="n">one</span> <span class="n">in</span> <span class="n">this</span> <span class="n">line</span><span class="p">.</span>
     <span class="k">if</span> <span class="n">it</span> <span class="n">is</span> <span class="n">also</span> <span class="n">the</span> <span class="n">biggest</span> <span class="n">one</span> <span class="n">in</span> <span class="n">his</span> <span class="n">column</span><span class="p">,</span> <span class="k">return</span> <span class="n">it</span><span class="p">.</span>
-<span class="k">return</span> <span class="o">-</span>1 <span class="k">if</span> <span class="n">not</span> <span class="n">found</span>
+<span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">not</span> <span class="n">found</span>
 </pre></div>
 
 

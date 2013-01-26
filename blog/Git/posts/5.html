@@ -36,36 +36,36 @@
         <p itemprop="copyrightHolder">允许转载, 但转载请注明出处</p>
         <div itemprop="articleBody">
             <p>Date:2013-01-05</p>
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">branch</span> <span class="n">dev</span> # 建立分支<span class="n">dev</span>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">branch</span> <span class="n">dev</span> <span class="err">#</span> <span class="err">建立分支</span><span class="n">dev</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">dev</span> # 建立分支<span class="n">dev</span>并切换过去
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">dev</span> <span class="err">#</span> <span class="err">建立分支</span><span class="n">dev</span><span class="err">并切换过去</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="o">--</span><span class="n">orphan</span> <span class="n">dev</span> #建立分支<span class="n">dev</span><span class="p">,</span>不在任何<span class="n">commit</span>之上建立，建立一个空的分支
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="o">--</span><span class="n">orphan</span> <span class="n">dev</span> <span class="err">#建立分支</span><span class="n">dev</span><span class="p">,</span><span class="err">不在任何</span><span class="n">commit</span><span class="err">之上建立，建立一个空的分支</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="n">master</span> #转入主分支
-<span class="n">git</span> <span class="n">merge</span> <span class="n">dev</span> #合并<span class="n">dev</span>到<span class="n">master</span>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="n">master</span> <span class="err">#转入主分支</span>
+<span class="n">git</span> <span class="n">merge</span> <span class="n">dev</span> <span class="err">#合并</span><span class="n">dev</span><span class="err">到</span><span class="n">master</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">mergetool</span> <span class="o">--</span><span class="n">tool</span><span class="p">=</span><span class="n">vimdiff</span> # 使用<span class="n">vimdiff</span>来手工解决冲突
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">mergetool</span> <span class="o">--</span><span class="n">tool</span><span class="o">=</span><span class="n">vimdiff</span> <span class="err">#</span> <span class="err">使用</span><span class="n">vimdiff</span><span class="err">来手工解决冲突</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">diff</span> # 合并后列出所有冲突
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">diff</span> <span class="err">#</span> <span class="err">合并后列出所有冲突</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">difftool</span> <span class="o">--</span><span class="n">tool</span><span class="p">=</span><span class="n">vimdiff</span> # 合并后在<span class="n">vimdiff</span> 中列出所有冲突
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">difftool</span> <span class="o">--</span><span class="n">tool</span><span class="o">=</span><span class="n">vimdiff</span> <span class="err">#</span> <span class="err">合并后在</span><span class="n">vimdiff</span> <span class="err">中列出所有冲突</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="o">--</span><span class="n">theirs</span> <span class="n">master</span> <span class="n">soemfile</span> #使用其他分支<span class="n">master</span>的<span class="n">soemfile</span>文件 
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="o">--</span><span class="n">theirs</span> <span class="n">master</span> <span class="n">soemfile</span> <span class="err">#使用其他分支</span><span class="n">master</span><span class="err">的</span><span class="n">soemfile</span><span class="err">文件</span> 
 </pre></div>
 
 

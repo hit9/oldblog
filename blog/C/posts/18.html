@@ -68,22 +68,22 @@
 
 
 <p>然后在环境变量中添加环境变量MALLOC_TRACE指明log文件位置: </p>
-<div class="codehilite"><pre>$ <span class="n">export</span> <span class="n">MALLOC_TRACE</span><span class="p">=</span><span class="n">test</span><span class="p">.</span><span class="nb">log</span> 
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">export</span> <span class="n">MALLOC_TRACE</span><span class="o">=</span><span class="n">test</span><span class="p">.</span><span class="n">log</span> 
 </pre></div>
 
 
 <p>然后调试模式下编译test.c </p>
-<div class="codehilite"><pre>$ <span class="n">gcc</span> <span class="n">test</span><span class="p">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> <span class="n">test</span> <span class="o">-</span><span class="n">g</span>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">gcc</span> <span class="n">test</span><span class="p">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> <span class="n">test</span> <span class="o">-</span><span class="n">g</span>
 </pre></div>
 
 
 <p>执行程序,会写入日志文件:</p>
-<div class="codehilite"><pre>$ <span class="o">./</span><span class="n">test</span>
+<div class="codehilite"><pre><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">test</span>
 </pre></div>
 
 
 <p>然后mtrace 分析log文件,并输出到stdout</p>
-<div class="codehilite"><pre>$ <span class="n">mtrace</span> <span class="n">test</span> <span class="n">test</span><span class="p">.</span><span class="nb">log</span>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">mtrace</span> <span class="n">test</span> <span class="n">test</span><span class="p">.</span><span class="n">log</span>
 </pre></div>
 
 
@@ -119,37 +119,37 @@
 
 
 <p>然后编译程序即可!</p>
-<div class="codehilite"><pre>$ <span class="n">gcc</span> <span class="o">-</span><span class="n">DMEMWATCH</span> <span class="o">-</span><span class="n">DMW_STDIO</span> <span class="n">test</span><span class="p">.</span><span class="n">c</span> <span class="n">memwatch</span><span class="p">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> <span class="n">test</span>
+<div class="codehilite"><pre><span class="err">$</span> <span class="n">gcc</span> <span class="o">-</span><span class="n">DMEMWATCH</span> <span class="o">-</span><span class="n">DMW_STDIO</span> <span class="n">test</span><span class="p">.</span><span class="n">c</span> <span class="n">memwatch</span><span class="p">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> <span class="n">test</span>
 </pre></div>
 
 
 <p>执行程序.会生成日志文件memwatch.log:</p>
-<div class="codehilite"><pre>$ <span class="o">./</span><span class="n">test</span>
+<div class="codehilite"><pre><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">test</span>
 </pre></div>
 
 
 <p>查看日志文件即可 !</p>
-<div class="codehilite"><pre><span class="nb">cat</span> <span class="n">memwatch</span><span class="p">.</span><span class="nb">log</span>
+<div class="codehilite"><pre><span class="n">cat</span> <span class="n">memwatch</span><span class="p">.</span><span class="n">log</span>
 </pre></div>
 
 
 <p>输出如下: </p>
-<div class="codehilite"><pre><span class="o">============</span><span class="p">=</span> <span class="n">MEMWATCH</span> 2<span class="p">.</span>71 <span class="n">Copyright</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> 1992<span class="o">-</span>1999 <span class="n">Johan</span> <span class="n">Lindh</span> <span class="o">============</span><span class="p">=</span>
+<div class="codehilite"><pre><span class="o">=============</span> <span class="nx">MEMWATCH</span> <span class="mf">2.71</span> <span class="nx">Copyright</span> <span class="p">(</span><span class="nx">C</span><span class="p">)</span> <span class="mi">1992</span><span class="o">-</span><span class="mi">1999</span> <span class="nx">Johan</span> <span class="nx">Lindh</span> <span class="o">=============</span>
 
-<span class="n">Started</span> <span class="n">at</span> <span class="n">Fri</span> <span class="n">Sep</span> 28 05<span class="p">:</span>15<span class="p">:</span>02 2012
+<span class="nx">Started</span> <span class="nx">at</span> <span class="nx">Fri</span> <span class="nx">Sep</span> <span class="mi">28</span> <span class="mi">05</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="mi">02</span> <span class="mi">2012</span>
 
-<span class="n">Modes</span><span class="p">:</span> <span class="n">__STDC__</span> 64<span class="o">-</span><span class="n">bit</span> <span class="n">mwDWORD</span><span class="o">==</span><span class="p">(</span><span class="n">unsigned</span> <span class="n">long</span><span class="p">)</span>
-<span class="n">mwROUNDALLOC</span><span class="o">==</span>8 <span class="n">sizeof</span><span class="p">(</span><span class="n">mwData</span><span class="p">)</span><span class="o">==</span>32 <span class="n">mwDataSize</span><span class="o">==</span>32
+<span class="nx">Modes</span><span class="p">:</span> <span class="nx">__STDC__</span> <span class="mi">64</span><span class="na">-bit</span> <span class="nx">mwDWORD</span><span class="o">==</span><span class="p">(</span><span class="nx">unsigned</span> <span class="nx">long</span><span class="p">)</span>
+<span class="nx">mwROUNDALLOC</span><span class="o">==</span><span class="mi">8</span> <span class="nx">sizeof</span><span class="p">(</span><span class="nx">mwData</span><span class="p">)</span><span class="o">==</span><span class="mi">32</span> <span class="nx">mwDataSize</span><span class="o">==</span><span class="mi">32</span>
 
-<span class="n">Stopped</span> <span class="n">at</span> <span class="n">Fri</span> <span class="n">Sep</span> 28 05<span class="p">:</span>15<span class="p">:</span>02 2012
+<span class="nx">Stopped</span> <span class="nx">at</span> <span class="nx">Fri</span> <span class="nx">Sep</span> <span class="mi">28</span> <span class="mi">05</span><span class="p">:</span><span class="mi">15</span><span class="p">:</span><span class="mi">02</span> <span class="mi">2012</span>
 
-<span class="n">unfreed</span><span class="p">:</span> <span class="o">&lt;</span>1<span class="o">&gt;</span> 3<span class="p">.</span><span class="n">c</span><span class="p">(</span>6<span class="p">),</span> 10 <span class="n">bytes</span> <span class="n">at</span> 0<span class="n">x9ce31f8</span>    <span class="p">{</span><span class="n">FE</span> <span class="n">FE</span> <span class="n">FE</span> <span class="n">FE</span> <span class="n">FE</span> <span class="n">FE</span> <span class="n">FE</span> <span class="n">FE</span> <span class="n">FE</span> <span class="n">FE</span> <span class="p">..</span> <span class="p">..</span> <span class="p">..</span> <span class="p">..</span> <span class="p">..</span> <span class="p">..</span> <span class="p">..........}</span>
+<span class="nx">unfreed</span><span class="p">:</span> <span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span> <span class="mi">3</span><span class="bp">.</span><span class="nx">c</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span> <span class="mi">10</span> <span class="nb">bytes</span> <span class="nx">at</span> <span class="mh">0x9ce31f8</span>    <span class="p">{</span><span class="nx">FE</span> <span class="nx">FE</span> <span class="nx">FE</span> <span class="nx">FE</span> <span class="nx">FE</span> <span class="nx">FE</span> <span class="nx">FE</span> <span class="nx">FE</span> <span class="nx">FE</span> <span class="nx">FE</span> <span class="nx">..</span> <span class="nx">..</span> <span class="nx">..</span> <span class="nx">..</span> <span class="nx">..</span> <span class="nx">..</span> <span class="nx">..........</span><span class="p">}</span>
 
-<span class="n">Memory</span> <span class="n">usage</span> <span class="n">statistics</span> <span class="p">(</span><span class="k">global</span><span class="p">):</span>
- <span class="n">N</span><span class="p">)</span><span class="n">umber</span> <span class="n">of</span> <span class="n">allocations</span> <span class="n">made</span><span class="p">:</span> 1
- <span class="n">L</span><span class="p">)</span><span class="n">argest</span> <span class="n">memory</span> <span class="n">usage</span>      <span class="p">:</span> 10
- <span class="n">T</span><span class="p">)</span><span class="n">otal</span> <span class="n">of</span> <span class="n">all</span> <span class="n">alloc</span><span class="p">()</span> <span class="n">calls</span><span class="p">:</span> 10
- <span class="n">U</span><span class="p">)</span><span class="n">nfreed</span> <span class="n">bytes</span> <span class="n">totals</span>      <span class="p">:</span> 10
+<span class="nx">Memory</span> <span class="nb">usage</span> <span class="nx">statistics</span> <span class="p">(</span><span class="bp">global</span><span class="p">):</span>
+ <span class="nb">N</span><span class="p">)</span><span class="nx">umber</span> <span class="nx">of</span> <span class="nx">allocations</span> <span class="nx">made</span><span class="p">:</span> <span class="mi">1</span>
+ <span class="nx">L</span><span class="p">)</span><span class="nx">argest</span> <span class="nx">memory</span> <span class="nb">usage</span>      <span class="p">:</span> <span class="mi">10</span>
+ <span class="nb">T</span><span class="p">)</span><span class="nx">otal</span> <span class="nx">of</span> <span class="kc">all</span> <span class="nx">alloc</span><span class="p">()</span> <span class="nx">calls</span><span class="p">:</span> <span class="mi">10</span>
+ <span class="nx">U</span><span class="p">)</span><span class="nx">nfreed</span> <span class="nb">bytes</span> <span class="nx">totals</span>      <span class="p">:</span> <span class="mi">10</span>
 </pre></div>
         </div>
         <div id="foot">

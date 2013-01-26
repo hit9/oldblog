@@ -57,9 +57,9 @@
 <p>建立一个README,
 然后初始化,进行第一次提交。(第一次提交会建立主分支master并切换到master):</p>
 <div class="codehilite"><pre><span class="o">&gt;</span> <span class="n">README</span>
-<span class="n">vim</span> <span class="n">README</span>  # 编辑些东西<span class="o">~</span>
+<span class="n">vim</span> <span class="n">README</span>  <span class="err">#</span> <span class="err">编辑些东西</span><span class="o">~</span>
 <span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
-<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#39;master.first commit&#39;</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="err">&#39;</span><span class="n">master</span><span class="p">.</span><span class="n">first</span> <span class="n">commit</span><span class="err">&#39;</span>
 </pre></div>
 
 
@@ -71,14 +71,14 @@
 <p>编辑 README并做一个commit.如果编辑同一个位置，会引发合并冲突</p>
 <div class="codehilite"><pre><span class="n">vim</span> <span class="n">README</span>
 <span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
-<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#39;dev.first commit&#39;</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="err">&#39;</span><span class="n">dev</span><span class="p">.</span><span class="n">first</span> <span class="n">commit</span><span class="err">&#39;</span>
 </pre></div>
 
 
 <p>再回到master分支,编辑README,并提交.</p>
 <div class="codehilite"><pre><span class="n">vim</span> <span class="n">README</span>
 <span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
-<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#39;master.2nd commit&#39;</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="err">&#39;</span><span class="n">master</span><span class="mf">.2</span><span class="n">nd</span> <span class="n">commit</span><span class="err">&#39;</span>
 </pre></div>
 
 
@@ -93,61 +93,61 @@
 <p>会看到输出:</p>
 <p><img alt="" src="https://raw.github.com/hit9/blog-img-store/master/blog/Git/4_1.png" /></p>
 <p>察看下冲突:(其中HEAD表示最领先的提交)</p>
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">diff</span> <span class="o">--</span><span class="n">diff</span><span class="o">-</span><span class="n">filter</span><span class="p">=</span><span class="n">U</span>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">diff</span> <span class="o">--</span><span class="n">diff</span><span class="o">-</span><span class="n">filter</span><span class="o">=</span><span class="n">U</span>
 </pre></div>
 
 
 <p><img alt="" src="https://raw.github.com/hit9/blog-img-store/master/blog/Git/4_2.png" /></p>
 <p>手工合并冲突</p>
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">mergetool</span> <span class="o">--</span><span class="n">tool</span><span class="p">=</span><span class="n">vimdiff</span>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">mergetool</span> <span class="o">--</span><span class="n">tool</span><span class="o">=</span><span class="n">vimdiff</span>
 </pre></div>
 
 
 <h4 id="sample2">Sample2</h4>
 <p>下载jquery 1.7.2,并重命名为jquery.js</p>
-<div class="codehilite"><pre><span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">code</span><span class="p">.</span><span class="n">jquery</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">jquery</span><span class="o">-</span>1<span class="p">.</span>7<span class="p">.</span>2<span class="p">.</span><span class="n">js</span>
-<span class="n">mv</span> <span class="n">jquery</span><span class="o">-</span>1<span class="p">.</span>7<span class="p">.</span>2<span class="p">.</span><span class="n">js</span> <span class="n">jquery</span><span class="p">.</span><span class="n">js</span>
+<div class="codehilite"><pre><span class="n">wget</span> <span class="n">http</span><span class="o">:</span><span class="c1">//code.jquery.com/jquery-1.7.2.js</span>
+<span class="n">mv</span> <span class="n">jquery</span><span class="o">-</span><span class="mf">1.7.2</span><span class="p">.</span><span class="n">js</span> <span class="n">jquery</span><span class="p">.</span><span class="n">js</span>
 </pre></div>
 
 
 <p>初始化源，进行第一次commit:</p>
 <div class="codehilite"><pre><span class="n">git</span> <span class="n">init</span>
 <span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
-<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#39;master.first commit&#39;</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="err">&#39;</span><span class="n">master</span><span class="p">.</span><span class="n">first</span> <span class="n">commit</span><span class="err">&#39;</span>
 </pre></div>
 
 
 <p>建立dev 分支并切换过去,下载1.7.1版本，并重命名为jquery.js</p>
 <div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">dev</span>
 
-<span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">code</span><span class="p">.</span><span class="n">jquery</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">jquery</span><span class="o">-</span>1<span class="p">.</span>7<span class="p">.</span>1<span class="p">.</span><span class="n">js</span>
+<span class="n">wget</span> <span class="n">http</span><span class="o">:</span><span class="c1">//code.jquery.com/jquery-1.7.1.js</span>
 
-<span class="n">mv</span> <span class="n">jquery</span><span class="o">-</span>1<span class="p">.</span>7<span class="p">.</span>1<span class="p">.</span><span class="n">js</span> <span class="n">jquery</span><span class="p">.</span><span class="n">js</span>
+<span class="n">mv</span> <span class="n">jquery</span><span class="o">-</span><span class="mf">1.7.1</span><span class="p">.</span><span class="n">js</span> <span class="n">jquery</span><span class="p">.</span><span class="n">js</span>
 
-# 做一次提交
+<span class="cp"># 做一次提交</span>
 <span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
 
-<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#39;dev.first commit&#39;</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="err">&#39;</span><span class="n">dev</span><span class="p">.</span><span class="n">first</span> <span class="n">commit</span><span class="err">&#39;</span>
 </pre></div>
 
 
 <p>切换回主分支并下载1.8.1版本并覆盖jquery.js</p>
-<div class="codehilite"><pre><span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">code</span><span class="p">.</span><span class="n">jquery</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">jquery</span><span class="o">-</span>1<span class="p">.</span>8<span class="p">.</span>1<span class="p">.</span><span class="n">js</span>
+<div class="codehilite"><pre><span class="n">wget</span> <span class="n">http</span><span class="o">:</span><span class="c1">//code.jquery.com/jquery-1.8.1.js</span>
 
-<span class="n">mv</span> <span class="n">jquery</span><span class="o">-</span>1<span class="p">.</span>8<span class="p">.</span>1<span class="p">.</span><span class="n">js</span> <span class="n">jquery</span><span class="p">.</span><span class="n">jsa</span>
+<span class="n">mv</span> <span class="n">jquery</span><span class="o">-</span><span class="mf">1.8.1</span><span class="p">.</span><span class="n">js</span> <span class="n">jquery</span><span class="p">.</span><span class="n">jsa</span>
 
 <span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
-<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#39;master.2nd commit&#39;</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="err">&#39;</span><span class="n">master</span><span class="mf">.2</span><span class="n">nd</span> <span class="n">commit</span><span class="err">&#39;</span>
 </pre></div>
 
 
 <p>察看下提交历史:</p>
 <p><img alt="" src="https://raw.github.com/hit9/blog-img-store/master/blog/Git/4_3.png" /></p>
 <p>这次冲突很多。不能编辑！要确定使用哪个版本</p>
-<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="o">--</span><span class="n">theirs</span> <span class="n">jquery</span><span class="p">.</span><span class="n">js</span> # 使用<span class="n">dev</span>分支的<span class="n">jquery</span><span class="p">.</span><span class="n">js</span>
+<div class="codehilite"><pre><span class="n">git</span> <span class="n">checkout</span> <span class="o">--</span><span class="n">theirs</span> <span class="n">jquery</span><span class="p">.</span><span class="n">js</span> <span class="err">#</span> <span class="err">使用</span><span class="n">dev</span><span class="err">分支的</span><span class="n">jquery</span><span class="p">.</span><span class="n">js</span>
 
 <span class="n">git</span> <span class="n">add</span> <span class="n">jquery</span><span class="p">.</span><span class="n">js</span>
-<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#39;Merge dev&#39;</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="err">&#39;</span><span class="n">Merge</span> <span class="n">dev</span><span class="err">&#39;</span>
 </pre></div>
 
 

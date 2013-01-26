@@ -72,16 +72,16 @@
 
 
 <p>编译链接:</p>
-<div class="codehilite"><pre><span class="n">gcc</span> <span class="o">-</span><span class="n">fpic</span> <span class="o">-</span><span class="n">c</span> <span class="o">-</span><span class="n">I</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">python2</span><span class="p">.</span>7<span class="o">/</span> <span class="n">spammodule</span><span class="p">.</span><span class="n">c</span> 
+<div class="codehilite"><pre><span class="n">gcc</span> <span class="o">-</span><span class="n">fpic</span> <span class="o">-</span><span class="n">c</span> <span class="o">-</span><span class="n">I</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">python2</span><span class="mf">.7</span><span class="o">/</span> <span class="n">spammodule</span><span class="p">.</span><span class="n">c</span> 
 
-<span class="n">gcc</span> <span class="o">-</span><span class="n">shared</span> <span class="o">-</span><span class="n">o</span> <span class="n">spam</span><span class="p">.</span><span class="n">so</span>  <span class="n">spammodule</span><span class="p">.</span><span class="n">o</span>   # <span class="n">spam</span><span class="p">.</span><span class="n">so</span>即我们的模块
+<span class="n">gcc</span> <span class="o">-</span><span class="n">shared</span> <span class="o">-</span><span class="n">o</span> <span class="n">spam</span><span class="p">.</span><span class="n">so</span>  <span class="n">spammodule</span><span class="p">.</span><span class="n">o</span>   <span class="err">#</span> <span class="n">spam</span><span class="p">.</span><span class="n">so</span><span class="err">即我们的模块</span>
 </pre></div>
 
 
 <p>然后在该目录下:</p>
 <div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">import</span> <span class="n">spam</span> 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">spam</span><span class="p">.</span><span class="n">add</span><span class="p">(</span>1<span class="p">,</span>2<span class="p">)</span>
-3
+<span class="o">&gt;&gt;&gt;</span> <span class="n">spam</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="mi">3</span>
 </pre></div>
         </div>
         <div id="foot">

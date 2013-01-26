@@ -82,7 +82,7 @@ ADD_EXECUTABLE(hello <span class="cp">${</span><span class="n">DIR_SRCS</span><s
 
 
 <p>可以执行下可执行文件hello:</p>
-<div class="codehilite"><pre><span class="o">./</span><span class="n">hello</span>
+<div class="codehilite"><pre><span class="p">.</span><span class="o">/</span><span class="n">hello</span>
 </pre></div>
 
 
@@ -95,22 +95,22 @@ ADD_EXECUTABLE(hello <span class="cp">${</span><span class="n">DIR_SRCS</span><s
 <h2 id="2binsrcbuild">2.分离各个目录bin,src和build</h2>
 <p>现在我们把生成的可执行文件,源文件,编译中间物的三个目录分开:</p>
 <div class="codehilite"><pre><span class="n">hello</span><span class="o">/</span>
-├── <span class="n">bin</span><span class="o">/</span>
-├── <span class="n">build</span><span class="o">/</span>
-├── <span class="n">CMakeLists</span><span class="p">.</span><span class="n">txt</span>
-└── <span class="n">src</span><span class="o">/</span>
-    ├── <span class="n">CMakeLists</span><span class="p">.</span><span class="n">txt</span>
-    └── <span class="n">hello</span><span class="p">.</span><span class="n">c</span>
+<span class="err">├──</span> <span class="n">bin</span><span class="o">/</span>
+<span class="err">├──</span> <span class="n">build</span><span class="o">/</span>
+<span class="err">├──</span> <span class="n">CMakeLists</span><span class="p">.</span><span class="n">txt</span>
+<span class="err">└──</span> <span class="n">src</span><span class="o">/</span>
+    <span class="err">├──</span> <span class="n">CMakeLists</span><span class="p">.</span><span class="n">txt</span>
+    <span class="err">└──</span> <span class="n">hello</span><span class="p">.</span><span class="n">c</span>
 
-3 <span class="n">directories</span><span class="p">,</span> 4 <span class="n">files</span>
+<span class="mi">3</span> <span class="n">directories</span><span class="p">,</span> <span class="mi">4</span> <span class="n">files</span>
 </pre></div>
 
 
 <p>bin/目录存放编译好的可执行文件,src/目录存放工程源文件,build存放编译的中间产物</p>
 <p>其中hello/CMakeLists.txt为 </p>
-<div class="codehilite"><pre><span class="n">CMAKE_MINIMUM_REQUIRED</span><span class="p">(</span><span class="n">VERSION</span> 2<span class="p">.</span>6<span class="p">)</span>
+<div class="codehilite"><pre><span class="n">CMAKE_MINIMUM_REQUIRED</span><span class="p">(</span><span class="n">VERSION</span> <span class="mf">2.6</span><span class="p">)</span>
 <span class="n">PROJECT</span><span class="p">(</span><span class="n">hello</span><span class="p">)</span>
-<span class="n">ADD_SUBDIRECTORY</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>#添加一个子目录
+<span class="n">ADD_SUBDIRECTORY</span><span class="p">(</span><span class="n">src</span><span class="p">)</span><span class="err">#添加一个子目录</span>
 </pre></div>
 
 
@@ -143,10 +143,10 @@ ADD_EXECUTABLE(hello <span class="cp">${</span><span class="n">DIR_SRCS</span><s
 
 <p>这个命令用于指明头文件的目录.现在的目录结构是:</p>
 <div class="codehilite"><pre><span class="n">hello</span><span class="o">/</span>
-├── <span class="n">bin</span><span class="o">/</span>
-├── <span class="n">build</span><span class="o">/</span>
-└── <span class="n">src</span><span class="o">/</span>
-    └── <span class="n">include</span><span class="o">/</span>
+<span class="err">├──</span> <span class="n">bin</span><span class="o">/</span>
+<span class="err">├──</span> <span class="n">build</span><span class="o">/</span>
+<span class="err">└──</span> <span class="n">src</span><span class="o">/</span>
+    <span class="err">└──</span> <span class="n">include</span><span class="o">/</span>
 </pre></div>
 
 
@@ -164,16 +164,16 @@ ADD_EXECUTABLE(hello <span class="cp">${</span><span class="n">DIR_SRCS</span><s
 
 <p>工程的目录结构是:</p>
 <div class="codehilite"><pre><span class="n">myapp</span><span class="o">/</span>
-├── <span class="n">bin</span><span class="o">/</span>
-├── <span class="n">build</span><span class="o">/</span>
-├── <span class="n">CMakeLists</span><span class="p">.</span><span class="n">txt</span>
-└── <span class="n">src</span><span class="o">/</span>
-    ├── <span class="n">CMakeLists</span><span class="p">.</span><span class="n">t</span>
+<span class="err">├──</span> <span class="n">bin</span><span class="o">/</span>
+<span class="err">├──</span> <span class="n">build</span><span class="o">/</span>
+<span class="err">├──</span> <span class="n">CMakeLists</span><span class="p">.</span><span class="n">txt</span>
+<span class="err">└──</span> <span class="n">src</span><span class="o">/</span>
+    <span class="err">├──</span> <span class="n">CMakeLists</span><span class="p">.</span><span class="n">t</span>
 </pre></div>
 
 
 <p>对应的src/下的CMakeLists.txt需要增加一句: </p>
-<div class="codehilite"><pre><span class="n">LINK_LIBRARIES</span><span class="p">(</span><span class="s">&#39;m&#39;</span><span class="p">)</span>
+<div class="codehilite"><pre><span class="n">LINK_LIBRARIES</span><span class="p">(</span><span class="sc">&#39;m&#39;</span><span class="p">)</span>
 </pre></div>
 
 

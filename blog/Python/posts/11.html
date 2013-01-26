@@ -37,14 +37,14 @@
         <div itemprop="articleBody">
             <p>Date:2012-11-03</p>
 <p>比如包里的静态文件是这样的:</p>
-<div class="codehilite"><pre>├── <span class="n">my_pakage</span><span class="o">/</span>
-│   └── <span class="n">static</span><span class="o">/</span>
-└── <span class="n">setup</span><span class="p">.</span><span class="n">py</span>
+<div class="codehilite"><pre><span class="err">├──</span> <span class="n">my_pakage</span><span class="o">/</span>
+<span class="err">│  </span> <span class="err">└──</span> <span class="k">static</span><span class="o">/</span>
+<span class="err">└──</span> <span class="n">setup</span><span class="p">.</span><span class="n">py</span>
 </pre></div>
 
 
 <p>需要在setup.py的同级目录下建立一个文件<code>MANIFEST.in</code>:</p>
-<div class="codehilite"><pre><span class="n">include</span> <span class="n">my_pakage</span><span class="o">/</span><span class="n">static</span><span class="o">/*</span>
+<div class="codehilite"><pre><span class="n">include</span> <span class="n">my_pakage</span><span class="o">/</span><span class="k">static</span><span class="o">/*</span>
 </pre></div>
 
 

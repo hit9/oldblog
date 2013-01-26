@@ -39,20 +39,20 @@
 <p>其实现在不怎么写php,也不大喜欢php</p>
 <p>打开你的nginx.conf (/etc/nginx/nginx.conf),在server的{}中加入:</p>
 <div class="codehilite"><pre><span class="n">location</span> <span class="o">/</span> <span class="p">{</span>
-        <span class="n">try_files</span> $<span class="n">uri</span> $<span class="n">uri</span><span class="o">/</span> <span class="o">/</span><span class="n">index</span><span class="p">.</span><span class="n">php</span><span class="p">;</span>
+        <span class="n">try_files</span> <span class="err">$</span><span class="n">uri</span> <span class="err">$</span><span class="n">uri</span><span class="o">/</span> <span class="o">/</span><span class="n">index</span><span class="p">.</span><span class="n">php</span><span class="p">;</span>
     <span class="p">}</span>
 </pre></div>
 
 
 <p>如果你的ci在服务器目录下的/path/to/ci/</p>
 <p>这一行这么写</p>
-<div class="codehilite"><pre>        <span class="n">try_files</span> $<span class="n">uri</span> $<span class="n">uri</span><span class="o">/</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">ci</span><span class="o">/</span><span class="n">index</span><span class="p">.</span><span class="n">php</span><span class="p">;</span>
+<div class="codehilite"><pre>        <span class="n">try_files</span> <span class="err">$</span><span class="n">uri</span> <span class="err">$</span><span class="n">uri</span><span class="o">/</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">ci</span><span class="o">/</span><span class="n">index</span><span class="p">.</span><span class="n">php</span><span class="p">;</span>
 </pre></div>
 
 
 <p>重启服务器</p>
 <p>在ci的config.php中,修改为</p>
-<div class="codehilite"><pre>$<span class="n">config</span><span class="p">[</span><span class="s">&#39;index_page&#39;</span><span class="p">]</span> <span class="p">=</span> <span class="s">&#39;&#39;</span><span class="p">;</span>
+<div class="codehilite"><pre><span class="err">$</span><span class="n">config</span><span class="p">[</span><span class="err">&#39;</span><span class="n">index_page</span><span class="err">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="err">&#39;&#39;</span><span class="p">;</span>
 </pre></div>
         </div>
         <div id="foot">

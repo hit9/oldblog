@@ -87,7 +87,7 @@
 <h2 id="3fread">3.fread()</h2>
 <p>从一个流中读数据 </p>
 <div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
-<span class="kt">size_t</span> <span class="n">fread</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">nmemb</span><span class="p">,</span> <span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+<span class="kt">size_t</span> <span class="nf">fread</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">nmemb</span><span class="p">,</span> <span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
 </pre></div>
 
 
@@ -137,7 +137,7 @@
 
 <h2 id="4fwirte">4.fwirte()</h2>
 <p>函数格式:</p>
-<div class="codehilite"><pre><span class="kt">size_t</span> <span class="n">fwrite</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">nmemb</span><span class="p">,</span><span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+<div class="codehilite"><pre><span class="kt">size_t</span> <span class="nf">fwrite</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">nmemb</span><span class="p">,</span><span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
 </pre></div>
 
 
@@ -158,8 +158,8 @@
 
 <h2 id="5fgetcfputc">5.字符读写fgetc(),fputc()</h2>
 <p>函数原型: </p>
-<div class="codehilite"><pre><span class="kt">int</span> <span class="n">fgetc</span><span class="p">(</span><span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
-<span class="kt">int</span> <span class="n">fputc</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">,</span> <span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">fgetc</span><span class="p">(</span><span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">fputc</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">,</span> <span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
 </pre></div>
 
 
@@ -203,8 +203,8 @@
 
 <h2 id="6fputsfgets">6.字符串读写fputs,fgets</h2>
 <p>函数原型: </p>
-<div class="codehilite"><pre><span class="kt">char</span> <span class="o">*</span><span class="n">fgets</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
-<span class="kt">int</span> <span class="n">fputs</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+<div class="codehilite"><pre><span class="kt">char</span> <span class="o">*</span><span class="nf">fgets</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">fputs</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
 </pre></div>
 
 
@@ -258,7 +258,7 @@
 <h2 id="7feof">7.feof()</h2>
 <p>feof()用来判断文件流的结束.</p>
 <p>函数原型: </p>
-<div class="codehilite"><pre><span class="kt">int</span> <span class="n">feof</span><span class="p">(</span><span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
+<div class="codehilite"><pre><span class="kt">int</span> <span class="nf">feof</span><span class="p">(</span><span class="kt">FILE</span> <span class="o">*</span><span class="n">stream</span><span class="p">);</span>
 </pre></div>
 
 

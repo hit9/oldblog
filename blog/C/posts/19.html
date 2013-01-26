@@ -38,28 +38,28 @@
             <p>Date:2012-10-06</p>
 <p>我们要实现的效果是,C语言分析一个给定的字符串,把里面匹配的括号找出来.</p>
 <p><a href="http://stackoverflow.com/questions/1651487/python-parsing-bracketed-blocks">stackoverflow</a>上面有一个比较好的算法描述: </p>
-<div class="codehilite"><pre><span class="n">For</span> <span class="n">each</span> <span class="n">string</span> <span class="n">in</span> <span class="n">the</span> <span class="n">array</span><span class="p">:</span>
-    <span class="n">Find</span> <span class="n">the</span> <span class="n">first</span> <span class="s">&#39;{&#39;</span><span class="p">.</span> <span class="n">If</span> <span class="n">there</span> <span class="n">is</span> <span class="n">none</span><span class="p">,</span> <span class="n">leave</span> <span class="n">that</span> <span class="n">string</span> <span class="n">alone</span><span class="p">.</span>
-    <span class="n">Init</span> <span class="n">a</span> <span class="n">counter</span> <span class="n">to</span> 0<span class="p">.</span>
-    <span class="n">For</span> <span class="n">each</span> <span class="n">character</span> <span class="n">in</span> <span class="n">the</span> <span class="n">string</span><span class="p">:</span> 
-        <span class="n">If</span> <span class="n">you</span> <span class="n">see</span> <span class="n">a</span> <span class="s">&#39;{&#39;</span><span class="p">,</span> <span class="n">increment</span> <span class="n">the</span> <span class="n">counter</span><span class="p">.</span>
-        <span class="n">If</span> <span class="n">you</span> <span class="n">see</span> <span class="n">a</span> <span class="s">&#39;}&#39;</span><span class="p">,</span> <span class="n">decrement</span> <span class="n">the</span> <span class="n">counter</span><span class="p">.</span>
-        <span class="n">If</span> <span class="n">the</span> <span class="n">counter</span> <span class="n">reaches</span> 0<span class="p">,</span> <span class="k">break</span><span class="p">.</span>
-    <span class="n">Here</span><span class="p">,</span> <span class="k">if</span> <span class="n">your</span> <span class="n">counter</span> <span class="n">is</span> <span class="n">not</span> 0<span class="p">,</span> <span class="n">you</span> <span class="n">have</span> <span class="n">invalid</span> <span class="n">input</span> <span class="p">(</span><span class="n">unbalanced</span> <span class="n">brackets</span><span class="p">)</span>
-    <span class="n">If</span> <span class="n">it</span> <span class="n">is</span><span class="p">,</span> <span class="n">then</span> <span class="n">take</span> <span class="n">the</span> <span class="n">string</span> <span class="n">from</span> <span class="n">the</span> <span class="n">first</span> <span class="s">&#39;{&#39;</span> <span class="n">up</span> <span class="n">to</span> <span class="n">the</span> <span class="s">&#39;}&#39;</span> <span class="n">that</span> <span class="n">put</span> <span class="n">the</span>
-     <span class="n">counter</span> <span class="n">at</span> 0<span class="p">,</span> <span class="n">and</span> <span class="n">that</span> <span class="n">is</span> <span class="n">a</span> <span class="n">new</span> <span class="n">element</span> <span class="n">in</span> <span class="n">your</span> <span class="n">array</span><span class="p">.</span>
+<div class="codehilite"><pre><span class="n">For</span> <span class="n">each</span> <span class="n">string</span> <span class="n">in</span> <span class="n">the</span> <span class="n">array</span><span class="o">:</span>
+    <span class="n">Find</span> <span class="n">the</span> <span class="n">first</span> <span class="sc">&#39;{&#39;</span><span class="p">.</span> <span class="n">If</span> <span class="n">there</span> <span class="n">is</span> <span class="n">none</span><span class="p">,</span> <span class="n">leave</span> <span class="n">that</span> <span class="n">string</span> <span class="n">alone</span><span class="p">.</span>
+    <span class="n">Init</span> <span class="n">a</span> <span class="n">counter</span> <span class="n">to</span> <span class="mf">0.</span>
+    <span class="n">For</span> <span class="n">each</span> <span class="n">character</span> <span class="n">in</span> <span class="n">the</span> <span class="n">string</span><span class="o">:</span> 
+        <span class="n">If</span> <span class="n">you</span> <span class="n">see</span> <span class="n">a</span> <span class="sc">&#39;{&#39;</span><span class="p">,</span> <span class="n">increment</span> <span class="n">the</span> <span class="n">counter</span><span class="p">.</span>
+        <span class="n">If</span> <span class="n">you</span> <span class="n">see</span> <span class="n">a</span> <span class="sc">&#39;}&#39;</span><span class="p">,</span> <span class="n">decrement</span> <span class="n">the</span> <span class="n">counter</span><span class="p">.</span>
+        <span class="n">If</span> <span class="n">the</span> <span class="n">counter</span> <span class="n">reaches</span> <span class="mi">0</span><span class="p">,</span> <span class="k">break</span><span class="p">.</span>
+    <span class="n">Here</span><span class="p">,</span> <span class="k">if</span> <span class="n">your</span> <span class="n">counter</span> <span class="n">is</span> <span class="n">not</span> <span class="mi">0</span><span class="p">,</span> <span class="n">you</span> <span class="n">have</span> <span class="n">invalid</span> <span class="n">input</span> <span class="p">(</span><span class="n">unbalanced</span> <span class="n">brackets</span><span class="p">)</span>
+    <span class="n">If</span> <span class="n">it</span> <span class="n">is</span><span class="p">,</span> <span class="n">then</span> <span class="n">take</span> <span class="n">the</span> <span class="n">string</span> <span class="n">from</span> <span class="n">the</span> <span class="n">first</span> <span class="sc">&#39;{&#39;</span> <span class="n">up</span> <span class="n">to</span> <span class="n">the</span> <span class="sc">&#39;}&#39;</span> <span class="n">that</span> <span class="n">put</span> <span class="n">the</span>
+     <span class="n">counter</span> <span class="n">at</span> <span class="mi">0</span><span class="p">,</span> <span class="n">and</span> <span class="n">that</span> <span class="n">is</span> <span class="n">a</span> <span class="n">new</span> <span class="n">element</span> <span class="n">in</span> <span class="n">your</span> <span class="n">array</span><span class="p">.</span>
 </pre></div>
 
 
 <p>我的思路大致相仿:</p>
-<div class="codehilite"><pre>对于单个的一个字符串来说<span class="p">,</span>从左边向右扫描<span class="p">.</span>对于扫描到的每个<span class="s">&#39;(&#39;</span><span class="p">(</span>记录为<span class="n">p</span><span class="p">):</span>
-    初始化计数器为0<span class="p">.</span>
-    对于从<span class="n">p</span>之后的字符进行扫描<span class="p">:</span>
-        如果遇到<span class="s">&#39;(&#39;</span><span class="p">,</span>计数器加一<span class="p">.</span>
-        如果遇到<span class="s">&#39;)&#39;</span><span class="p">,</span>计数器减一<span class="p">.</span>
-        如果计数器达到0<span class="p">,</span>退出循环<span class="p">(</span>记录这个字符为<span class="n">q</span><span class="p">).</span>
-    如果循环结束都没有使计数器达到0<span class="p">,</span>则小括号匹配不成对<span class="p">,</span>退出程序<span class="p">.</span>
-    从<span class="n">p</span>到<span class="n">q</span>即一段合适的字符串<span class="p">,</span>打印后进入下一个循环<span class="p">.(</span>继续向右扫<span class="s">&#39;(&#39;</span><span class="p">)</span>
+<div class="codehilite"><pre><span class="err">对于单个的一个字符串来说</span><span class="p">,</span><span class="err">从左边向右扫描</span><span class="p">.</span><span class="err">对于扫描到的每个</span><span class="sc">&#39;(&#39;</span><span class="p">(</span><span class="err">记录为</span><span class="n">p</span><span class="p">)</span><span class="o">:</span>
+    <span class="err">初始化计数器为</span><span class="mf">0.</span>
+    <span class="err">对于从</span><span class="n">p</span><span class="err">之后的字符进行扫描</span><span class="o">:</span>
+        <span class="err">如果遇到</span><span class="sc">&#39;(&#39;</span><span class="p">,</span><span class="err">计数器加一</span><span class="p">.</span>
+        <span class="err">如果遇到</span><span class="sc">&#39;)&#39;</span><span class="p">,</span><span class="err">计数器减一</span><span class="p">.</span>
+        <span class="err">如果计数器达到</span><span class="mi">0</span><span class="p">,</span><span class="err">退出循环</span><span class="p">(</span><span class="err">记录这个字符为</span><span class="n">q</span><span class="p">).</span>
+    <span class="err">如果循环结束都没有使计数器达到</span><span class="mi">0</span><span class="p">,</span><span class="err">则小括号匹配不成对</span><span class="p">,</span><span class="err">退出程序</span><span class="p">.</span>
+    <span class="err">从</span><span class="n">p</span><span class="err">到</span><span class="n">q</span><span class="err">即一段合适的字符串</span><span class="p">,</span><span class="err">打印后进入下一个循环</span><span class="p">.(</span><span class="err">继续向右扫</span><span class="sc">&#39;(&#39;</span><span class="p">)</span>
 </pre></div>
 
 
