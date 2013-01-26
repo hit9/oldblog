@@ -1,0 +1,49 @@
+%title virtualenv wrapper cheat sheet
+Date:2013-01-26 
+
+Install virtualenvwarpper,
+
+```
+ pip install virtualenvwrapper
+```
+
+And add this line to your bashrc or zshrc
+
+```
+source $(which virtualenvwrapper.sh)
+```
+
+new an env:
+
+```
+mkvirtualenv [envname]
+```
+
+switch to some env:
+
+```
+workon [envname]
+```
+
+Goback to system python env:
+
+```
+deactivate
+```
+show env you are working on:
+
+```
+showvirtualenv 
+```
+
+remove some env:
+
+```
+rmvirtualenv [envname]
+```
+
+ls the sitepages in this env:
+
+```
+lssitepackages 
+```
