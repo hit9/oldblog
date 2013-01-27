@@ -5,6 +5,9 @@
 
 那就去Github上[watch这个博客](https://github.com/hit9/hit9.github.com)吧
 
+
+[MyLovel](/love.html) via [img2txt](https://github.com/hit9/img2txt)
+
 ```
 Beautiful is better than ugly.
 Explicit is better than implicit.
