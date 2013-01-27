@@ -8,6 +8,8 @@
 
 [MyLovel](/love.html) via [img2txt](https://github.com/hit9/img2txt)
 
+[My dotfiles](https://github.com/hit9/dotfiles)
+
 ```
 Beautiful is better than ugly.
 Explicit is better than implicit.

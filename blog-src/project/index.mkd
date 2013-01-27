@@ -8,6 +8,8 @@
 
 1. [mkdwiki](../wiki/mkdwiki/index.html) (mkdwiki是一个python语言编写的基于目录的用来组织wiki的小工具,特色在于Github风格的有界代码高亮和模板支持,本站基于mkdwiki.It is old! See mkdwiki2)
 
+1. [img2txt](https://github.com/hit9/img2txt) (Image to Ascii text tool.eg.[/love.html](./love.html))
+
 1. [php-mysql-orm ](../wiki/php-mysql-orm) (NO-SQL way for php/mysql project.)
 
 1. [litephp](../wiki/litephp) (应用于php-mysql开发模式的简单mvc框架.集成了连贯操作的数据库操作类,输入格式检查类和模板引擎.)
