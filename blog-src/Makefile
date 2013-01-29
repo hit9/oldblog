@@ -9,4 +9,4 @@ dir:
 	python dir_htmls.py
 
 push:all
-	cd ..;git add .;git commit -m 'st';	git status;git push;
+	cd ..;git add .;git commit -m 'Just no commit message';	git status;git push;
