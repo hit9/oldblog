@@ -1,3 +1,4 @@
+# vim:set noet: 
 all:
 	mkdwiki . -o ../
 	
@@ -8,7 +9,4 @@ dir:
 	python dir_htmls.py
 
 push:all
-	git add ../* 
-	git commit -m 'st' 
-	git status
-	git push
+	cd ..;git add .;git commit -m 'st';	git status;git push;
