@@ -1,0 +1,6 @@
+%title test github gist code
+Date:2013-01-30
+
+我已经激动的受不了了，曾经我想过很久的highlight everywhere.现在Github在这篇博客中给出了这个功能！
+
+<script src="http://gist.github.com/2059.js"></script>
