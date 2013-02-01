@@ -1,10 +1,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <title>Git</title>
+        <title>做一个环保的Github用户</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="stylesheet" href="../../static/style.css" type="text/css" media="screen" charset="utf-8">
-        <link rel="stylesheet" href="../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
         <script type="text/javascript">
             function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
         </script>
@@ -29,21 +29,34 @@
                 <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
             </div>
         </div>
-        <h1 itemprop="headline name">Git</h1>
+        <h1 itemprop="headline name">做一个环保的Github用户</h1>
         <!--fork me on github button-->
-        <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+        <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
         <!--end of github fork button-->
         <p itemprop="copyrightHolder">允许转载, 但转载请注明出处</p>
         <div itemprop="articleBody">
-            <ol>
-<li><a href="posts/7.html">做一个环保的Github用户</a></li>
-<li><a href="posts/6.html">test github gist code</a></li>
-<li><a href="posts/5.html">git分支与合并操作</a></li>
-<li><a href="posts/4.html">Git合并与冲突</a></li>
-<li><a href="./posts/3.html">使用Github做图床-Geek又靠谱</a></li>
-<li><a href="posts/2.html">github(或gitcafe)添加ssh密钥后显示无权限登录ssh</a></li>
-<li><a href="posts/index.html">git push询问用户名和密码变成使用ssh认证</a></li>
-</ol>
+            <p>Date:2013-02-01</p>
+<div class="toc">
+<ul>
+<li><a href="#github-dropbox">Github != Dropbox</a></li>
+<li><a href="#issue-bbs">Issue != BBS</a></li>
+<li><a href="#issue">你真的要新建一个Issue吗</a></li>
+<li><a href="#submodule">使用submodule而不是复制</a></li>
+<li><a href="#fork">善用fork</a></li>
+</ul>
+</div>
+<h3 id="github-dropbox">Github != Dropbox</h3>
+<p>请不要把Github当作网盘来用!甚至有往上面存电影的! 多么脑残的行为。</p>
+<p>Github为什么会被一个插件的js拖垮,因为github不是静态文件服务器，它保存了你文件的每个历史版本!每次http请求会让github检出相应版本.</p>
+<h3 id="issue-bbs">Issue != BBS</h3>
+<p>前两天Github被12306订票插件拖垮的时候, 在订票插件的issue里面出现了大量的中国水军。大部分是"前排"，"围观"之类的水话。<strong>issue是用来提出问题和解决问题的地方，不是论坛!</strong> </p>
+<h3 id="issue">你真的要新建一个Issue吗</h3>
+<p>请在新建一个新的issue前做一个搜索! Repo的作者对重复性的issue很是讨厌。</p>
+<h3 id="submodule">使用submodule而不是复制</h3>
+<p>如果你的项目中使用到了别人的repo,请使用submodule,而不是把人家的代码复制到你的项目中。那是很愚蠢的！</p>
+<h3 id="fork">善用fork</h3>
+<p>如果你只是想mark一个repo, 你应该使用star而不是fork.虽然把项目fork到你的账户下更容易找到，但这样会诞生一个新的repo, 而且你确定你会去维护它么？一切不以改进该项目为目的的fork都是在耍流氓!</p>
+<p>Github是鲜有的美好的互联网服务，它免费，包容，与时俱进，内容丰富又易于使用，请大家珍惜宝贵的Github服务，做一个环保的Github用户。</p>
         </div>
         <div id="foot">
             <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
