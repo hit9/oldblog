@@ -1,0 +1,8 @@
+%title tig-很棒的小巧的git查看工具
+Date:2013-02-03
+
+项目主页 ：http://jonas.nitro.dk/tig/
+
+截图: ![](http://ww1.sinaimg.cn/bmiddle/620b3a1fjw1e1ezgqh9w2j.jpg)
+
+ubuntu下在软件中心里有的

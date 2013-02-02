@@ -1,3 +1,4 @@
+1. [tig-很棒的小巧的git查看工具](posts/8.html)
 1. [做一个环保的Github用户](posts/7.html)
 1. [test github gist code](posts/6.html)
 1. [git分支与合并操作](posts/5.html)
