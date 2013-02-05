@@ -13,3 +13,4 @@
 1. [other](./other/index.html)
 1. [Qs](./Qs/index.html)
 1. [Ubuntu](Ubuntu/index.html)
+1. [coffeescript](coffeescript/index.html)

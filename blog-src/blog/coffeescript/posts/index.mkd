@@ -1,0 +1,33 @@
+%title 開始學習coffee-準備環境
+Date:2013-02-05
+
+因爲我感覺~Javascript太重要了，它的應用場景真是廣泛！
+
+而coffeescript的語法特點又接近Python和Ruby, 所以我決定使用coffee. 其實以前還想學習erlang,怎麼說呢，IT這行，就是這樣，兩三天就要學習一門新的知識，變換非常快。
+
+## 準備環境
+
+### 安裝nodejs
+
+到 http://nodejs.org/ 官方下載源碼。
+
+然後解壓之
+
+cd 進去，sudo make && make install即可。
+
+現在最新的nodejs已經集成了npm
+
+### 安裝coffee
+
+安裝命令行的 coffee :`sudo npm install -g http://github.com/jashkenas/coffee-script/tarball/master`
+
+安裝後你的系統就可以使用coffee命令了。
+
+`-c` 選項是編譯成js
+`coffee 1.coffee`會解釋執行1.coffee
+
+### vim支持coffee
+
+只要在bundle 中加上https://github.com/kchmck/vim-coffee-script 插件
+
+
