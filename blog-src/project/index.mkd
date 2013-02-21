@@ -2,6 +2,8 @@
 
 我的开源项目:
 
+1. [GhResume](http://hit9.org/GhResume) (Your Github resume on gh-pages)
+
 1. [virgo](http://virgo.readthedocs.org/) (Simple & Easy to use ORM for Python-MySQL)
 
 1. [mkdwiki2](https://github.com/hit9/mkdwiki2) (Write wiki in Github Favorite Markdown. )
@@ -17,9 +19,3 @@
 1. [C-list](../wiki/C-list) (单链表的C语言封装)
 
 1. [C-dict](https://github.com/hit9/C-dict) (哈希表的C语言封装)
-
-承接以下付费项目:
-
-1. wordpress的chrome推送插件 案例:[值得买](http://www.zdmai.cn/2106.html)
-2. PHP小型网站开发(具体需要详细商议)
-3. 单页导航网站 案例(开源的) [软件博客导航](http://www.hit9.net/daohang)
