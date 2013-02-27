@@ -1,14 +1,18 @@
 %title Hit9 - Follow my heart
+
 这是Hit9在Github上用[mkdwiki](wiki/mkdwiki)搭建的博客.
 
 为什么不能订阅这个博客?
 
 那就去Github上[watch这个博客](https://github.com/hit9/hit9.github.com)吧
 
-
 [MyLove](/love.html) via [img2txt](https://github.com/hit9/img2txt)
 
 [My dotfiles](https://github.com/hit9/dotfiles)
+
+我的简历: [https://github.com/hit9/resume.pdf](https://github.com/hit9/resume.pdf)
+
+我的Github简历: [http://hit9.org/GhResume](http://hit9.org/GhResume)
 
 ```
 Beautiful is better than ugly.
