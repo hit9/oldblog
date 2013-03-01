@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>我们可以用Github做什么</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" href="../../../static/style.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="../../../static/github-code-style.css" type="text/css" media="screen" charset="utf-8">
+        <script type="text/javascript">
+            function pagenum(){return parseInt(pagename())}function pagename(){var a=window.location.href;return a.slice(a.lastIndexOf("/")+1,a.lastIndexOf("."))}function gotopre(){var a=pagename();if(a=="index"){alert("No Pre Page");return false}var d=parseInt(a);var c=(d==2)?"index.html":d-1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Pre Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()}function gotonext(){var a=pagename();var c=(a=="index")?"2.html":parseInt(a)+1+".html";var b=new XMLHttpRequest();b.onreadystatechange=function(){if(b.readyState==4&&b.status==404){alert("No Next Page");return false}if(b.readyState==4&&b.status==200){location.href=c}};b.open("GET",c,true);b.send()};
+        </script>
+    </head>
+    <body itemscope itemtype="http://schema.org/BlogPosting">
+        <div id="top">
+            <div id="top1">
+                <a href="/index.html">Hit9</a>
+                <a href="/blog/index.html">Blog</a>
+                <a href="/wiki/index.html">Wiki</a>
+                <a href="/project/index.html">Project</a>
+                <a href="/links.html">Links</a>
+                <a href="/dir_html.html">Archives</a>
+                <a href="/About.html" rel="author publisher" itemprop="author" itemscope="" itemtype="http://schema.org/Person" >About</a>
+                <a href="https://github.com/hit9/resume.pdf">Resumé</a>
+            </div>
+            <div id="top2">
+                Page:
+                <a href="index.html">First</a>
+                <a href="../index.html">UP</a>
+                <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+                <a href="javascript:void(0);" onclick="gotonext()">Next</a>
+                <a href="javascript:void(0);" onclick="history.go(-1);">Back</a>
+            </div>
+        </div>
+        <h1 itemprop="headline name">我们可以用Github做什么</h1>
+        <!--fork me on github button-->
+        <a href="https://github.com/hit9"><img style="position: absolute; top: 0; right: 0; border: 0;z-index:12" src="../../../static/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+        <!--end of github fork button-->
+        <p itemprop="copyrightHolder" style="color:#999">允许转载, 但转载请注明出处</p>
+        <div itemprop="articleBody">
+            <p>Date:2013-03-01</p>
+<p>Github提供的服务可以帮助我们做很多有趣，实用的事情，是一个免费，精细的管理工具。</p>
+<h2 id="1">1. 网盘</h2>
+<p>你真的想把github当作网盘用吗？为什么不用Dropbox呢？！ hit9反对这样使用Github,这是对github珍贵资源的浪费。</p>
+<h2 id="2">2. 图床</h2>
+<p>为什么不用imgur呢？这与拿github做网盘没区别.(注：我以前也使用，现在不再往那个源传图了)</p>
+<h2 id="3-project">3. 为自己的project建立主页</h2>
+<p>在你的repo中建立一个名字为gh-pages的分支，这个分支下的文件即可经http访问.也就是这个分支下的东西被放在了静态资源服务器(Github的pages还支持jekyll框架)</p>
+<p>这样就可以把你的project的主页或doc放在互联网上了。而且这个主页或者doc还在git的控制下，非常方便。</p>
+<h2 id="4">4. 管理你的配置文件</h2>
+<p>比如Hit9,我使用vim,git,tmux .. 这样我就有自己的一套配置文件:vimrc,gitconfig, tmux.conf.. </p>
+<p>一个容易想到的管理办法是用网盘管理，不过这算是石器时代的管理方法了。</p>
+<p>使用git要好的多，你可以检出历史版本，可以为每个成熟的阶段打tag,可以建立分支模型，在github上别人还可以fork你的配置文件取为己用..</p>
+<p>一个可行的管理办法是:把配置文件全部放在repo的目录下，然后通过建立指向该配置文件的软链接的方式使配置文件生效。至于用到的第三方工具，何不用submodule? </p>
+<p>我的配置文件: <a href="https://github.com/hit9/dotfiles">https://github.com/hit9/dotfiles</a></p>
+<h2 id="5-submodulevim">5. 使用submodule管理你的vim插件</h2>
+<p>还在使用网盘来托管你的vim插件？那么你的vim配置大多是杂乱的，而且管理的文件量也是巨大的。</p>
+<p>这只是管理办法之一，如果你使用类vundle的插件来管理vim插件，那么使用submodule来管理很棒.</p>
+<p>教程见:http://liluo.org/blog/2012/05/using-git-submodule-and-vim-pathogen-for-vim-configuraction-management/</p>
+<h2 id="6-github">6. 用github来托管博客</h2>
+<p>这还是github pages的功能。建立一个名字为 your-username.github.com的 repo，然后这个源下的默认分支下的文件可以http访问到(支持jekyll)。也就是你可以把静态博客挂在那里。本博客就是一例子。</p>
+<h2 id="7">7. 管理你的简历</h2>
+<p>这是偶最近在用的~  </p>
+<p>临近毕业找工作，你需要一个简历对吗。对于码农来说，你的简历用标记语言来写最好不过了(markdown,rst ...)</p>
+<p>注意哦，github的markup可以对很多标记语言做渲染，直接把你的resume.rst(resume.md等)建立一个repo放进去即可。</p>
+<p>想要生成pdf 格式的简历？<a href="https://github.com/walle/gimli">gimli</a> 就是一个使用 <a href="https://github.com/github/markup">github/markup</a>进行渲染的把标记语言文件生成pdf的工具，还支持css哦。</p>
+<p>我的简历: <a href="https://github.com/hit9/resume.pdf">resume.pdf</a></p>
+<p>用github来托管的好处是什么？第一可以直接在github上渲染。第二，每次投一家公司，就对那个简历打个tag，方便管理。</p>
+<h2 id="8-github-wiki">8. github wiki</h2>
+<p>Github的wiki是使用的<a href="https://github.com/github/gollum">gollum</a>.</p>
+<p>使用它你就可以把你的项目的wiki使用markdown来写，使用git来管理，使用gollum来渲染了.</p>
+<h2 id="9-readthedocs">9. readthedocs</h2>
+<p>其实这不是github出品的，而是一个github app.</p>
+<p>你可以使用<a href="https://readthedocs.org/">readthedocs</a>来把文档挂在网上。</p>
+<p>它会去读取repo下的docs/目录下的文件(rst)，并使用sphinx来编译文档.</p>
+<h2 id="10-travis">10. travis</h2>
+<p>同readthedocs, 这也不是github出品</p>
+<p><a href="http://travis-ci.org/">travis</a> 是一个云编译平台。每次你把本地的commit来push到github,它都会从github克隆你的repo, 然后按照一份配置文件来编译(或测试).相当于对你的项目的实时监控咯</p>
+<h2 id="11-github-issue">11. 使用github issue来做评论系统</h2>
+<p>这或许是比较偏门的使用方法，不过对于挂在github pages上的html来说，把评论放在这个repo的issue里面再好不过了。</p>
+<p>当然，你可以使用这个系统来做博客的评论系统</p>
+<p>具体见博文: http://bradleyfew.com/github-powered-comments/</p>
+<h2 id="12-github">12. 拿github来做你的简历</h2>
+<p>github提供了很棒的API(v3), 你可以轻松的根据你的github贡献来做一份简历。</p>
+<p>例子: <a href="http://resume.github.com/?hit9">resume.github.com</a></p>
+<p><a href="http://hit9.org/GhResume/?hit9">GhResume</a></p>
+        </div>
+        <div id="foot">
+            <a href="javascript:void(0);" onclick="gotopre();">Pre</a>
+            <a href="#">Top</a>
+            <a href="javascript:void(0);" onclick="gotonext()">Next</a>
+        </div>
+        <br>
+        <!-- Duoshuo Comment BEGIN -->
+        <div class="ds-thread" data-thread-key="" 
+            data-title="" data-author-key="" data-url=""></div>
+        <script type="text/javascript">
+            var duoshuoQuery = {short_name:"hit9github"};
+            (function() {
+                var ds = document.createElement('script');
+                ds.type = 'text/javascript';ds.async = true;
+                ds.src = 'http://static.duoshuo.com/embed.js';
+                ds.charset = 'UTF-8';
+                (document.getElementsByTagName('head')[0] 
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+            })();
+        </script>
+        <!-- Duoshuo Comment END -->
+        <div style = "text-align:center; ">
+            <p>Support:<a href = "/wiki/mkdwiki">mkdwiki</a></p>
+        </div>
+    </body>
+</html>
