@@ -12,13 +12,13 @@
     <body itemscope itemtype="http://schema.org/BlogPosting">
         <div id="top">
             <div id="top1">
-                <a href="/index.html">Hit9</a>
-                <a href="/blog/index.html">Blog</a>
-                <a href="/wiki/index.html">Wiki</a>
-                <a href="/project/index.html">Project</a>
-                <a href="/links.html">Links</a>
-                <a href="/dir_html.html">Archives</a>
-                <a href="/About.html" rel="author publisher" itemprop="author" itemscope="" itemtype="http://schema.org/Person" >About</a>
+                <a href="/oldblog/index.html">Hit9</a>
+                <a href="/oldblog/blog/index.html">Blog</a>
+                <a href="/oldblog/wiki/index.html">Wiki</a>
+                <a href="/oldblog/project/index.html">Project</a>
+                <a href="/oldblog/links.html">Links</a>
+                <a href="/oldblog/dir_html.html">Archives</a>
+                <a href="/oldblog/About.html" rel="author publisher" itemprop="author" itemscope="" itemtype="http://schema.org/Person" >About</a>
                 <a href="https://github.com/hit9/resume.pdf">Resumé</a>
             </div>
             <div id="top2">
@@ -52,15 +52,15 @@ Horner规则使多项式求值所需乘法次数最少.写出用Horner规则求�
 
 
 <p>测试:</p>
-<div class="codehilite"><pre><span class="c">#include &lt;stdio.h&gt;</span>
-<span class="n">float</span> <span class="n">horner</span><span class="p">(</span><span class="n">float</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="n">int</span> <span class="n">m</span><span class="p">,</span><span class="n">float</span> <span class="n">x</span><span class="p">)</span>
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="kt">float</span> <span class="nf">horner</span><span class="p">(</span><span class="kt">float</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="n">m</span><span class="p">,</span><span class="kt">float</span> <span class="n">x</span><span class="p">)</span>
 <span class="p">{</span>  
-    <span class="k">return</span> <span class="n">m</span>?<span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="o">+</span><span class="n">x</span><span class="o">*</span><span class="n">horner</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="p">)):</span><span class="mi">0</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">m</span><span class="o">?</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="o">+</span><span class="n">x</span><span class="o">*</span><span class="n">horner</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">x</span><span class="p">))</span><span class="o">:</span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
-<span class="n">int</span> <span class="n">main</span><span class="p">(</span><span class="n">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">const</span> <span class="nb">char</span> <span class="o">*</span><span class="nb">argv</span><span class="p">[])</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
 <span class="p">{</span>
-    <span class="n">float</span> <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]={</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">};</span>
-    <span class="nb">printf</span><span class="p">(</span><span class="s">&quot;%f\n&quot;</span><span class="p">,</span><span class="n">horner</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">));</span>
+    <span class="kt">float</span> <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">};</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">horner</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">));</span>
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>

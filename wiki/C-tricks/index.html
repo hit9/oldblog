@@ -12,13 +12,13 @@
     <body itemscope itemtype="http://schema.org/BlogPosting">
         <div id="top">
             <div id="top1">
-                <a href="/index.html">Hit9</a>
-                <a href="/blog/index.html">Blog</a>
-                <a href="/wiki/index.html">Wiki</a>
-                <a href="/project/index.html">Project</a>
-                <a href="/links.html">Links</a>
-                <a href="/dir_html.html">Archives</a>
-                <a href="/About.html" rel="author publisher" itemprop="author" itemscope="" itemtype="http://schema.org/Person" >About</a>
+                <a href="/oldblog/index.html">Hit9</a>
+                <a href="/oldblog/blog/index.html">Blog</a>
+                <a href="/oldblog/wiki/index.html">Wiki</a>
+                <a href="/oldblog/project/index.html">Project</a>
+                <a href="/oldblog/links.html">Links</a>
+                <a href="/oldblog/dir_html.html">Archives</a>
+                <a href="/oldblog/About.html" rel="author publisher" itemprop="author" itemscope="" itemtype="http://schema.org/Person" >About</a>
                 <a href="https://github.com/hit9/resume.pdf">Resumé</a>
             </div>
             <div id="top2">
@@ -150,10 +150,10 @@
 <p>这里打印结果是0.i并没有自增.这说明sizeof不是个函数.</p>
 <p>sizeof不是一个函数,而是一个操作符,求i++的类型的size，这是一件可以在程序运行前（编译时）就确定的事情，所以，sizeof(i++)直接就被4给取代了，在运行时也就不会有了i++这个表达式</p>
 <h2 id="6">6. 数组类型强制转换</h2>
-<div class="codehilite"><pre><span class="c">#include &lt;stdio.h&gt;  </span>
-<span class="n">int</span> <span class="n">main</span><span class="p">(</span><span class="n">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">const</span> <span class="nb">char</span> <span class="o">*</span><span class="nb">argv</span><span class="p">[])</span>  
+<div class="codehilite"><pre><span class="cp">#include &lt;stdio.h&gt;  </span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>  
 <span class="p">{</span>  
-    <span class="nb">printf</span><span class="p">(</span> <span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="p">((</span><span class="n">int</span><span class="p">[]){</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">})[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>  
+    <span class="n">printf</span><span class="p">(</span> <span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="p">((</span><span class="kt">int</span><span class="p">[]){</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">})[</span><span class="mi">1</span><span class="p">]</span> <span class="p">);</span>  
     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>  
 <span class="p">}</span>   
 </pre></div>

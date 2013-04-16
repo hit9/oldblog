@@ -12,13 +12,13 @@
     <body itemscope itemtype="http://schema.org/BlogPosting">
         <div id="top">
             <div id="top1">
-                <a href="/index.html">Hit9</a>
-                <a href="/blog/index.html">Blog</a>
-                <a href="/wiki/index.html">Wiki</a>
-                <a href="/project/index.html">Project</a>
-                <a href="/links.html">Links</a>
-                <a href="/dir_html.html">Archives</a>
-                <a href="/About.html" rel="author publisher" itemprop="author" itemscope="" itemtype="http://schema.org/Person" >About</a>
+                <a href="/oldblog/index.html">Hit9</a>
+                <a href="/oldblog/blog/index.html">Blog</a>
+                <a href="/oldblog/wiki/index.html">Wiki</a>
+                <a href="/oldblog/project/index.html">Project</a>
+                <a href="/oldblog/links.html">Links</a>
+                <a href="/oldblog/dir_html.html">Archives</a>
+                <a href="/oldblog/About.html" rel="author publisher" itemprop="author" itemscope="" itemtype="http://schema.org/Person" >About</a>
                 <a href="https://github.com/hit9/resume.pdf">Resumé</a>
             </div>
             <div id="top2">
@@ -450,12 +450,12 @@
 
 
 <p>去掉两端的字符</p>
-<div class="codehilite"><pre><span class="c">#coding=utf8</span>
-<span class="n">str1</span><span class="p">=</span><span class="s">&#39; abcd &#39;</span>
-<span class="n">str2</span><span class="p">=</span><span class="s">&#39;helloh&#39;</span>
-<span class="nb">print</span> <span class="n">str1</span><span class="p">.</span><span class="n">strip</span><span class="p">()</span> <span class="c"># 去掉两端的多余空格</span>
-<span class="nb">print</span> <span class="n">str2</span><span class="p">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&#39;h&#39;</span><span class="p">)</span> <span class="c"># &#39;ello&#39;</span>
-<span class="nb">print</span> <span class="n">str1</span><span class="p">,</span><span class="n">str2</span> <span class="c"># 再打印一下str1和str2,看来没变.字符串是只读的,说明strip()是做了一份复制再处理的</span>
+<div class="codehilite"><pre><span class="cp">#coding=utf8</span>
+<span class="n">str1</span><span class="o">=</span><span class="err">&#39;</span> <span class="n">abcd</span> <span class="err">&#39;</span>
+<span class="n">str2</span><span class="o">=</span><span class="err">&#39;</span><span class="n">helloh</span><span class="err">&#39;</span>
+<span class="n">print</span> <span class="n">str1</span><span class="p">.</span><span class="n">strip</span><span class="p">()</span> <span class="err">#</span> <span class="err">去掉两端的多余空格</span>
+<span class="n">print</span> <span class="n">str2</span><span class="p">.</span><span class="n">strip</span><span class="p">(</span><span class="sc">&#39;h&#39;</span><span class="p">)</span> <span class="err">#</span> <span class="err">&#39;</span><span class="n">ello</span><span class="err">&#39;</span>
+<span class="n">print</span> <span class="n">str1</span><span class="p">,</span><span class="n">str2</span> <span class="err">#</span> <span class="err">再打印一下</span><span class="n">str1</span><span class="err">和</span><span class="n">str2</span><span class="p">,</span><span class="err">看来没变</span><span class="p">.</span><span class="err">字符串是只读的</span><span class="p">,</span><span class="err">说明</span><span class="n">strip</span><span class="p">()</span><span class="err">是做了一份复制再处理的</span>
 </pre></div>
 
 
